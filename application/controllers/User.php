@@ -100,7 +100,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function user_logout(){
  
   			$this->session->sess_destroy();
-  			redirect('user/login_view', 'refresh');
+  			redirect('user/index', 'refresh');
 		}
 	}
 	
