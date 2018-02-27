@@ -32,18 +32,26 @@
                     </thead>
                     <tbody>
                     
+                    <?php 
+                      if(!empty($events)){
+                      foreach ($events as $event) { ?> 
                         <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
+                          <td><?php echo $event['celebrantName']; ?></td>
+                          <td><?php echo $event['clientName']; ?></td>
+                          <td><?php echo $event['eventType']; ?></td>
+                          <td><?php echo $event['packageType']; ?></td>
+                          <td><?php echo $event['eventDate']; ?></td>
+                          <td><?php echo $event['eventTime']; ?></td>
+                          <td><?php echo $event['eventLocation']; ?></td>
                           <td>
                             <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
                           </td>
                         </tr>
+                    <?php }
+                      }else{
+                        echo "0 results";
+                      }
+                         ?>    
        
                     </tbody>
                 </table>

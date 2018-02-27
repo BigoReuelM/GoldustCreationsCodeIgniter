@@ -41,7 +41,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function finishedEvents(){
+			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$status = "finished";
+			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -53,12 +56,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/header.php");
 				
 			}
-			$this->load->view("templates/finishedEvents.php");
+			$this->load->view("templates/finishedEvents.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
 		public function canceledEvents(){
+			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$status = "cancelled";
+			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -70,7 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/header.php");
 				
 			}
-			$this->load->view("templates/canceledEvents.php");
+			$this->load->view("templates/canceledEvents.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
