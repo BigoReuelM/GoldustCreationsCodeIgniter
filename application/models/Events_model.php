@@ -10,14 +10,15 @@
 			
 			$this->db->select('*');
 			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
 			if ($role === 'handler') {
 				$this->db->where('employeeID', $employeeID);
 			}
-			$this->db->where('eventStatus', $status)
+			$this->db->where('eventStatus', $status);
 
 			$query=$this->db->get();
 
-			return $query->row_array();
+			return $query->result_array();
 		}
 	}
 

@@ -18,7 +18,96 @@
     <section class="content container-fluid">
       <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#add-event">Add Event</button>
 
-        <!-- add event modal -->
+
+      <!-- Data table of ongoing events -->
+        <div class="box">
+            <div class="box-body">
+                <div  class="table table-responsive">
+                  <table id ="example1" class="table table-bordered table-condensed table-hover text-center">
+                    <thead>
+                      <tr>
+                        <th>Event Name</th>
+                        <th>Client Name</th>
+                        <th>Event Type</th>
+                        <th>Package Type</th>
+                        <th>Event Date</th>
+                        <th>Event Time</th>
+                        <th>Event Location</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php 
+                      if(!empty($events)){
+                      foreach ($events as $event) { ?> 
+                        <tr>
+                          <td><?php echo $event['celebrantName']; ?></td>
+                          <td><?php echo $event['clientName']; ?></td>
+                          <td><?php echo $event['eventType']; ?></td>
+                          <td><?php echo $event['packageType']; ?></td>
+                          <td><?php echo $event['eventDate']; ?></td>
+                          <td><?php echo $event['eventTime']; ?></td>
+                          <td><?php echo $event['eventLocation']; ?></td>
+                          <td>
+                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
+                            <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
+                          </td>
+                        </tr>
+                    <?php }
+                      }else{
+                        echo "0 results";
+                      }
+                         ?>    
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        <!-- /.col -->
+        <div class="modal modal-danger fade" id="modal-danger">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Alert!!!</h4> 
+              </div>
+              <div class="modal-body">
+                <p>Finish This Event?&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modal-success" data-dismiss="modal">Yes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+        <div class="modal modal-success fade" id="modal-success">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Success</h4>
+              </div>
+              <div class="modal-body">
+                <p>Event Successfully Finished&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+
+                <!-- add event modal -->
         <div id="add-event" class="modal fade" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -109,35 +198,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <!--
-                            <tr>
-                              <td>
-                                <form>
-                                  <div class="form-group checkbox">
-                                    <label><input type="checkbox" id="" value="gowns">Gowns</label>
-                                  </div>
-                                </form>
-                              </td>
-                              <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                              <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                            </tr>
-                            -->
+                          
           
                                 <tr>
                                   <td><form><span class="form-group checkbox"><label><input type="checkbox" value="<?php $row["serviceName"]; ?>"></label></span></form></td>
                                   <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
                                   <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
                                 </tr>
-                            
-                            <!--
-                            <td>
-                              <form>
-                                <div class="form-group checkbox">
-                                  <label><input type="checkbox" name="" value="makeup">Makeup</label>
-                                </div>
-                              </form>
-                            </td> 
-                            --> 
+        
                           </tbody>
                         </table>
                       </div>
@@ -158,87 +226,6 @@
             </div>
           </div>
         </div>
-      
-        <div class="box">
-            <div class="box-body">
-                <div  class="table table-responsive">
-                  <table id ="example1" class="table table-bordered table-condensed table-hover text-center">
-                    <thead>
-                      <tr>
-                        <th>Event Name</th>
-                        <th>Client Name</th>
-                        <th>Event Type</th>
-                        <th>Package Type</th>
-                        <th>Event Date</th>
-                        <th>Event Time</th>
-                        <th>Event Location</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                        <tr>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                            <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
-                          </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-        <!-- /.col -->
-        <div class="modal modal-danger fade" id="modal-danger">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Alert!!!</h4> 
-              </div>
-              <div class="modal-body">
-                <p>Finish This Event?&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modal-success" data-dismiss="modal">Yes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        <div class="modal modal-success fade" id="modal-success">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Success</h4>
-              </div>
-              <div class="modal-body">
-                <p>Event Successfully Finished&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
 
     </section>
     <!-- /.content -->

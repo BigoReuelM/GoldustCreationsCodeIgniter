@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		{
 			parent::__construct();
 			$this->load->helper('url');
+			$this->load->model('events_model');
 			$this->load->library('session');
 		}
 
@@ -21,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$status = "on-going";
-			$data=$this->events_model->getEvents($empID, $empRole, $status);
+			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
