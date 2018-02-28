@@ -6,7 +6,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
 <head>
   <title>Handler | Home</title>
-  <?php include("../head.php") ?>
+  
 </head>
 <style type="text/css">
 #box1 {
@@ -35,7 +35,7 @@ desired effect
 -->
 <body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
-  <?php include("../header.php") ?>
+  
 
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -49,11 +49,11 @@ desired effect
       <!-- Main content -->
       <section class="content container-fluid">
         <?php
-          require('../db.php');
+          //require('../db.php');
 
-          $query1 = "SELECT celebrantName, eventDate, eventTime, eventLocation, eventType, motif FROM events WHERE eventStatus LIKE 'on%going';";
+          //$query1 = "SELECT celebrantName, eventDate, eventTime, eventLocation, eventType, motif FROM events WHERE eventStatus LIKE 'on%going';";
 
-          $result1 = $con->query($query1);
+          //$result1 = $con->query($query1);
           /*
           if($result1->num_rows > 0){
             echo '<div class="box">
@@ -107,20 +107,21 @@ desired effect
                       </tr>
                     </thead>
                     <tbody>
-                    <?php if($result1->num_rows > 0){ 
-                      while ($row = $result1->fetch_assoc()) { ?> 
+                    <?php 
+                      //if($result1->num_rows > 0){ 
+                      //while ($row = $result1->fetch_assoc()) { ?> 
                         <tr>
-                          <td><?php echo $row["celebrantName"]; ?></td>
-                          <td><?php echo $row["eventDate"]; ?></td>
-                          <td><?php echo $row["eventTime"]; ?></td>
-                          <td><?php echo $row["eventLocation"]; ?></td>
-                          <td><?php echo $row["eventType"]; ?></td>
-                          <td><?php echo $row["motif"]; ?></td>
+                          <td><?php echo $query["celebrantName"]; ?></td>
+                          <td><?php echo $query["eventDate"]; ?></td>
+                          <td><?php echo $query["eventTime"]; ?></td>
+                          <td><?php echo $query["eventLocation"]; ?></td>
+                          <td><?php echo $query["eventType"]; ?></td>
+                          <td><?php echo $query["motif"]; ?></td>
                         </tr>
-                    <?php }
-                          }else{
-                            echo '0 results';
-                          } ?>    
+                    <?php //}
+                          //}else{
+                            //echo '0 results';
+                          //} ?>    
                     </tbody>
                 </table>
               </div>
@@ -128,7 +129,7 @@ desired effect
           </div>
       </section>
 
-  <?php include("../footer.php") ?>
+ 
 
 
   <!-- Add the sidebar's background. This div must be placed

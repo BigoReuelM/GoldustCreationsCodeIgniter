@@ -26,5 +26,15 @@
 			$query=$this->db->get();
 			return $query->row_array();
 		}
+
+		public function view_home_ongoing_events(){
+			$eID = $this->session->userdata('employeeID');
+			$this->db->select('celebrantName', 'eventDate',' eventTime', 'eventLocation', 'eventType', 'motif');
+			$this->db->from('events');
+			$this->db->where('eventStatus','on%going');
+
+			$query = $this->db->get();
+			return $query->row_array();
+		}
 	} 
 ?>
