@@ -91,8 +91,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}else{
-				$this->load->view("templates/eventNav.php");
 				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");
+				
 				
 			}
 			$this->load->view("templates/eventDetails.php");
@@ -109,8 +110,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}else{
-				$this->load->view("templates/eventNav.php");
+				
 				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");
 				
 			}
 			$this->load->view("templates/eventEntourage.php");
@@ -127,8 +129,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}else{
-				$this->load->view("templates/eventNav.php");
+				
 				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");
 				
 			}
 			$this->load->view("templates/eventDecors.php");
@@ -145,8 +148,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}else{
-				$this->load->view("templates/eventNav.php");
+				
 				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");
 				
 			}
 			$this->load->view("templates/paymentAndExpences.php");
