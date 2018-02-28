@@ -23,22 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function transactions(){
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
-			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminTransacMonitor.php");
-			$this->load->view("templates/footer.php");
-		}
-
-		public function services(){
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
-			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminServices.php");
-			$this->load->view("templates/footer.php");
-		}
-
 		public function adminHandler(){
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
@@ -60,6 +44,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/adminAdmin.php");
+			$this->load->view("templates/footer.php");
+		}
+
+		public function services(){
+			$this->load->view("templates/head.php");
+			$this->load->view("templates/adminHeader.php");
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/adminServices.php");
 			$this->load->view("templates/footer.php");
 		}
 

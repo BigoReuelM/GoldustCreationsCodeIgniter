@@ -25,7 +25,7 @@ $photo = $this->session->userdata('photo');
                 <li><a href="<?php echo base_url('events/canceledEvents') ?>">Canceled Events</a></li>
               </ul>
             </li>
-            <li class="active"><a href="<?php echo base_url('handler/services') ?>">Services</a></li>
+            <li class="active"><a href="<?php echo base_url('transactions/transactions') ?>">Services</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">

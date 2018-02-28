@@ -46,7 +46,7 @@
 
         </li>
         <li>
-          <a href="<?php echo base_url('admin/transactions') ?>"><i class="glyphicon glyphicon-briefcase"></i> <span>Transactions</span></a>
+          <a href="<?php echo base_url('transactions/transactions') ?>"><i class="glyphicon glyphicon-briefcase"></i> <span>Transactions</span></a>
         </li>
         <li class="treeview">
           <a href="#">

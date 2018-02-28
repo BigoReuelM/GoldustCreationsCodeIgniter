@@ -126,22 +126,36 @@
                       <table id ="rentalTable" class="table table-bordered table-condensed">
                         <thead>
                           <tr>
-                            <th>Service Name</th>
                             <th>Celebrant Name</th>
                             <th>Client Name</th>
                             <th>Contact Number</th>
-                            <th>Event Status</th>
+                            <th>Ammount</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                
-                            <tr>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                            </tr>
+                          <?php 
+                            if(!empty($transactions)){
+
+                            foreach ($transactions as $transac) { 
+                              
+                          ?> 
+                              
+                              <tr>
+                                <td><?php echo $transac['clientName']; ?></td>
+                                <td><?php echo $transac['clientName']; ?></td>
+                                <td><?php echo $transac['contactNo']; ?></td>
+                                <td><?php echo $transac['totalAmount']; ?></td>
+                                <td>
+                                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
+                                  <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                                </td>
+                              </tr>
+                          <?php }
+                            }else{
+                              echo "0 results";
+                            }
+                          ?>
                       
                         </tbody>
                     </table>
