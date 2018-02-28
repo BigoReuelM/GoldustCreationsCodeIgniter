@@ -1,3 +1,13 @@
+<style type="text/css">
+  button.button1 {
+    float: right;
+    margin-top: 10px;
+  }
+#entourageTable {
+  column-width: 10px;
+}
+</style>
+<body>
 <?php
   $employeeRole = $this->session->userdata('role');
   if ($employeeRole === 'handler') {
@@ -50,7 +60,11 @@
           </div>
 
           <div class="box">
-            <button type="button" class="btn btn-block btn-primary btn-lg">Add New Entourage</button>
+            <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
+            <!-- Modal for add Entourage -->
+
+            <!-- End -->
+
             <div class="box-header">
               <h3 class="box-title">List of Entourage</h3>
               
@@ -71,31 +85,27 @@
                   <th>Muscle</th>
                   <th>Pants Length</th>
                   <th>Baston</th>
-                  <th>Design Photo</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>0002</td>
-                    <td>Emm-Reu Nuptial</td>
-                    <td>Client Name</td>
-                    <td>Wedding</td>
-                    <td>Full Package</td>
-                    <td>December 18, 2017 at 1 PM</td>
-                    <td>Bakakeng</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>12</td>
-                    <td>
-                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                      <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
-                    </td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+
                   </tr>
                 </tbody>
               </table>
+              <button type="button" class="button1">Save</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -151,6 +161,7 @@
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
+</body>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
