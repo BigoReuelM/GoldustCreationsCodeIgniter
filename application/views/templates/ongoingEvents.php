@@ -108,7 +108,7 @@
         <!-- /.modal -->
 
                 <!-- add event modal -->
-        <div id="add-event" class="modal fade" role="dialog">
+        <div id="add-event" class="modal fade bd-example-modal-lg" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -116,6 +116,8 @@
                 <h4 class="modal-title">Add Event</h4>
               </div>
               <div class="modal-body">
+                <div class="row">
+                <div class="col-md-4">
                 <form method="post">
                   <div class="row">
                     <div class="col-lg-12">
@@ -182,9 +184,11 @@
                       </div>
                     </div>
                   </div>
+                </div>
                   
                   <!-- Services -->
-       
+                  <div class="col-lg-6">
+        
                   <div class="box">
                     <div class="box-body">
                       <div class="table table-responsive">
@@ -210,8 +214,12 @@
                         </table>
                       </div>
                     </div>
-                  </div> 
+                  </div>
+                  </div>
+        
+                  <!-- end of services table -->
                 </form>
+                </div>
                 <div class="modal-footer">
                   <div class="row">
                     <div class="col-lg-2">
@@ -274,3 +282,14 @@
     $('input:checkbox').prop('checked', false);
   }
 </script>
+<style>
+  @media screen and (min-with: 768px){
+    #add-event .modal-dialog {
+      with:900px;
+    }
+  }
+
+  #add-event .modal-dialog {
+    width:75%;
+  }
+</style>
