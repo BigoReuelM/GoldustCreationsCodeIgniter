@@ -19,37 +19,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php");
 			$this->load->view("login.php");
 		}
-		//CHECK IF CREDENTIALS EXIST, IF NOT? REGISTER NEW USER
-		/*
-		public function register_user(){
- 
-		    $user=array(
-		    'user_name'=>$this->input->post('user_name'),
-		    'user_email'=>$this->input->post('user_email'),
-		    'user_password'=>md5($this->input->post('user_password')),
-		    'user_age'=>$this->input->post('user_age'),
-		    'user_mobile'=>$this->input->post('user_mobile')
-		    );
-		        
-		    print_r($user);
- 
-			$email_check=$this->user_model->email_check($user['user_email']);
-			 
-			if($email_check){
-			  $this->user_model->register_user($user);
-			  $this->session->set_flashdata('success_msg', 'Registered successfully.Now login to your account.');
-			  redirect('user/login_view');
-			 
-			}
-			else{
-			 
-			  $this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-			  redirect('user');
-			 
-			 
-			}
-		 
-		}*/
 		
 		//method for user to login to his/her account
 		function login_user(){
