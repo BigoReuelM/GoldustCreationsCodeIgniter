@@ -1,12 +1,4 @@
-<style type="text/css">
-  button.button1 {
-    float: right;
-    margin-top: 10px;
-  }
-#entourageTable {
-  column-width: 10px;
-}
-</style>
+
 <body>
 <?php
   $employeeRole = $this->session->userdata('role');
@@ -23,92 +15,99 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      <div class="box">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-lg-9">
+              <h3 class="box-title">Attire Designs</h3>    
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-lg" >Add Attire Designs</button>  
+            </div>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="designTable" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Design ID</th>
+              <th>Name</th>
+              <th>Quantiry</th>
+              <th>Image</th>
+              <th>Action</th>
+            </tr>+
+            </thead>
+            <tbody>
+              <tr>
+                <td>0002</td>
+                <td>Emm-Reu Nuptial</td>
+                <td>Client Name</td>
+                <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
+                <td>
+                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
+                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+            <!-- /.box-body -->
+      </div>
 
       <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Attire Designs</h3>
-              <button type="button" class="btn btn-block btn-primary btn-lg" >Add Attire Designs</button>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="designTable" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Design ID</th>
-                  <th>Name</th>
-                  <th>Quantiry</th>
-                  <th>Image</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>0002</td>
-                    <td>Emm-Reu Nuptial</td>
-                    <td>Client Name</td>
-                    <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
-                    <td>
-                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
+        
 
-          <div class="box">
-            <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
-            <!-- Modal for add Entourage -->
-
-            <!-- End -->
-
-            <div class="box-header">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-lg-9">
               <h3 class="box-title">List of Entourage</h3>
-              
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="entourageTable" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Shoulder</th>
-                  <th>Chest</th>
-                  <th>Stomach</th>
-                  <th>Waist</th>
-                  <th>Arm Length</th>
-                  <th>Arm Hole</th>
-                  <th>Muscle</th>
-                  <th>Pants Length</th>
-                  <th>Baston</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-
-                  </tr>
-                </tbody>
-              </table>
-              <button type="button" class="button1">Save</button>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
             </div>
-            <!-- /.box-body -->
           </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="entourageTable" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Shoulder</th>
+              <th>Chest</th>
+              <th>Stomach</th>
+              <th>Waist</th>
+              <th>Arm Length</th>
+              <th>Arm Hole</th>
+              <th>Muscle</th>
+              <th>Pants Length</th>
+              <th>Baston</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
+
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" class="button1">Save</button>
+        </div>
+        <!-- /.box-body -->
+      </div>
 
           <!-- modal body -->
           <div class="modal modal-default fade" id="modal-photo">
