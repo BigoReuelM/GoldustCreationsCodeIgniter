@@ -29,14 +29,11 @@
 
 		public function view_home_ongoing_rentals(){
 			$eID = $this->session->userdata('employeeID');
-			/*$this->db->select('s.serviceName' 'Service Name', 'e.celebrantName' 'Celebrant Name', 'c.clientName' 'Client Name', 'c.contactNumber' 'Contact Number');
-			$this->db->from('events');
-			$this->db->where('eventStatus','on%going');*/
 			$query= $this->db->query("SELECT 
-			    s.serviceName 'Service Name',
-			    e.celebrantName 'Celebrant Name',
-			    c.clientName 'Client Name',
-			    c.contactNumber 'Contact Number'
+			    s.serviceName 'serviceName',
+			    e.celebrantName 'celebrantName',
+			    c.clientName 'clientName',
+			    c.contactNumber 'contactNumber'
 			FROM
 			    services s
 			        NATURAL JOIN
@@ -50,7 +47,7 @@
 			WHERE
 			    s.serviceName LIKE '%rental%'
 			        AND e.eventStatus LIKE 'on%going'
-			        AND t.employeeID = $eID;"); // ayusin ko tu
+			        AND t.employeeID = '{$eID}';"); // ayusin ko tu
 
 			//$query = $this->db->get();
 			//return $query->row_array();

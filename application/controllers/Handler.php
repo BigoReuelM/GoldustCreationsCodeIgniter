@@ -34,7 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/header.php");
 
 			$this->load->model('handler_model');
-			$data['data']=$this->handler_model->view_home_ongoing_rentals();
+			$data['tdata'] = $this->handler_model->view_home_ongoing_rentals();
 			$this->load->view('handlerPages/homeongoingRentals', $data);
 
 			$this->load->view("templates/footer.php");
