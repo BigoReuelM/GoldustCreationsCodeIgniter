@@ -14,26 +14,44 @@
 
       <!-- Main content -->
       <section class="content container-fluid">
+        <div class="content">
         <div class="box">
+          <div class="box-header">
+              <div >
+                 <h3 class="box-title">Ongoing Rentals Table</h3>
+              </div>               
+          </div>
             <div class="box-body">
                 <div  class="table table-responsive">
-                  <table id ="onggrentals" class="table table-bordered table-condensed table-hover text-center">
+                  <table id="ongoingRentals" class="table table-bordered table-condensed">
                     <thead>
                       <tr>
                         <th>Service Name</th>
                         <th>Celebrant Name</th>
                         <th>Client Name</th>
                         <th>Contact Number</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody> 
                         <tr>
-                          <?php 
+                          <?php
+                          if (!empty($tdata)) {
+
                           foreach($tdata as $d) {
-                              echo "<td>" . $d->serviceName . "</td>";
-                              echo "<td>" . $d->celebrantName . "</td>";
-                              echo "<td>" . $d->clientName . "</td>";
-                              echo "<td>" . $d->contactNumber . "</td>";
+                          ?>
+                          <td><?php echo $d['serviceName']; ?></td>
+                          <td><?php echo $d['clientName']; ?></td>
+                          <td><?php echo $d['clientName']; ?></td>
+                          <td><?php echo $d['contactNumber']; ?></td>
+                          <td>
+                                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
+                                  <div class="col-md-3 col-sm-4"><a href="#') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                          </td>
+                          <?php
+                          }
+                          }else{
+                            echo "0 result";
                           } 
                           ?>
                         </tr> 
@@ -42,6 +60,7 @@
               </div>
             </div>
           </div>
+        </div>
       </section>
 
 
@@ -71,14 +90,6 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#onggrentals').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    $('#ongoingRentals').DataTable();
   })
 </script>

@@ -27,7 +27,8 @@
 
 <?php
   if ($employeeRole === 'handler') {
-    echo'<body class="hold-transition skin-blue layout-top-nav"><div class="wrapper">';
+    echo'<body class="hold-transition skin-blue layout-top-nav">
+    <div class="wrapper">';
    }else{
     echo "<body class='hold-transition skin-blue sidebar-mini'>
     <div class='wrapper'>";

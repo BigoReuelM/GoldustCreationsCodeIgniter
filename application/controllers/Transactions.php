@@ -37,7 +37,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/transactions.php", $data);
 			$this->load->view("templates/footer.php");
 		}
+		
+		public function ongoing_rentals(){
+			$empRole = $this->session->userdata('role');
+			$this->load->view("templates/head.php");
+			$this->load->view("templates/header.php");
+			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
+			$this->load->view('templates/ongoingRentals', $data);
 
+			$this->load->view("templates/footer.php");
+		}
 		
 
 	}

@@ -13,7 +13,7 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+
       <div class="content">
         <div class="row">
         <div class="col-md-6">
@@ -161,9 +161,3 @@
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
-</body>
-</html>

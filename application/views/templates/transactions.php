@@ -32,9 +32,10 @@
                       <table id ="rentalTable" class="table table-bordered table-condensed">
                         <thead>
                           <tr>
+                            <th>Sevice ID</th>
                             <th>Celebrant Name</th>
                             <th>Contact Number</th>
-                            <th>Balance</th>
+                            <th>Total Amount</th>
                             <th>Action</th>
                           </tr>
                         </thead>
@@ -47,19 +48,21 @@
                           ?> 
                               
                               <tr>
+                                <td><?php echo $transac['transactionID']; ?></td>
                                 <td><?php echo $transac['clientName']; ?></td>
                                 <td><?php echo $transac['contactNo']; ?></td>
-                                <td><?php echo $transac['amount']; ?></td>
+                                <td><?php echo $transac['totalAmount']; ?></td>
                                 <td>
                                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                                  <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                                  <div class="col-md-3 col-sm-4"><a href="#') ?>"><i class="fa fa-fw fa-info"></i></a></div>
                                 </td>
-                              </tr>
+                              
                           <?php }
                             }else{
                               echo "0 results";
                             }
                           ?>
+                          </tr>
                       
                         </tbody>
                     </table>
@@ -251,6 +254,7 @@
   $(function () {
     $('#rentalTable').DataTable()
     $('#serviceTable').DataTable()
+    $('#svc-tbl').DataTable()
   })
   function reset_chkbx(){
     $('input:checkbox').prop('checked', false);
