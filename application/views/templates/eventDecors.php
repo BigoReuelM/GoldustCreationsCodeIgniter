@@ -6,8 +6,12 @@
 #entourageTable {
   column-width: 10px;
 }
+img {
+  height: auto;
+  width: 150px;
+}
 </style>
-<body>
+
 <?php
   $employeeRole = $this->session->userdata('role');
   if ($employeeRole === 'handler') {
@@ -22,12 +26,12 @@
     </section>
 
     <!-- Main content -->
-    <div class="box">
+        <section class="content container-fluid">
+          <div class="box">
             <button type="button" class="btn btn-block btn-primary btn-lg" >Print Event Details</button>
             <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
-                <div class="box-header">
+            <div class="box-header">
               <h3 class="box-title">List of Entourage</h3>
-              
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -35,7 +39,7 @@
                 <thead>
                 <tr>
                   <th>Equipment ID</th>
-                  <th>Evemt ID</th>
+                  <th>Event ID</th>
                   <th>Equipment Name</th>
                   <th>Quantity</th>
                   <th>Photo</th>
@@ -43,28 +47,42 @@
                 </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                    <td></td>
-                    <td>
-                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
-                    </td>
-                  </tr>
+                    <?php
+                      if(!empty($eventdecors)){
+                        foreach ($eventdecors as $ed) { ?>
+                        <tr>
+                          <!-- Equipment ID -->
+                          <td><?php echo $ed['decorID']; ?></td>
+                          <!-- Event ID -->
+                          <td><?php echo $ed['eventID']; ?></td>
+                          <!-- Equipment Name -->
+                          <td><?php echo $ed['decorName']; ?></td>
+                          <!-- Quantity -->
+                          <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></td>
+                          <!-- Photo -->
+                          <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
+                          <!-- Action -->
+                          <td>
+                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                          </td>
+                        </tr>
+                    <?php      
+                        }
+                      }
+                    ?>
                 </tbody>
               </table>
             </div>
             <!-- /.box-body -->
           </div>
+        </section>  
   <!-- /.content-wrapper -->
 
   <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-</body>
+
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

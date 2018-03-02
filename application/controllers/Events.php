@@ -121,6 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDecors(){
+			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -135,7 +136,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}
-			$this->load->view("templates/eventDecors.php");
+			$data['eventdecors'] = $this->events_model->getDecors($empID);
+			$this->load->view("templates/eventDecors.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
