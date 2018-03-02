@@ -20,6 +20,10 @@
 
 			return $query->result_array();
 		}
+		public function getServices(){
+			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
+			return $query->result_array();
+		}
 	}
 
  ?>

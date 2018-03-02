@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$status = "on-going";
 			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
+			$data['services']=$this->events_model->getServices();
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -156,6 +157,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/paymentAndExpences.php");
 			$this->load->view("templates/footer.php");
 		}
+
+		public function showServices(){
+
+		} 
 
 	}
 

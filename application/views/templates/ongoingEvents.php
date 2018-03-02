@@ -117,7 +117,7 @@
               </div>
               <div class="modal-body">
                 <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                 <form method="post">
                   <div class="row">
                     <div class="col-lg-12">
@@ -128,24 +128,60 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="form-group">
                         <label>Client Name</label>
                         <input type="text" name="client-name" class="form-control">
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
                       <div class="form-group">
                         <label>Contact Number</label>
                         <input type="text" name="contact-number" class="form-control">
                       </div>
                     </div>
+                    
                   </div>
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                       <div class="form-group">
                         <label>Celebrant</label>
                         <input type="text" name="celebrant" class="form-control">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                          <label>Event Location</label>
+                          <input type="text" name="event-loc" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Event Date</label>
+                        <input type="date" name="event-date" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Event Time</label>
+                        <input type="time" name="event-time" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>Package Availed</label>
+                        <span class="radio"><label><input type="radio" name="event-time" value="full-Package">Full Package</label></span>
+                        <soan class="radio"><label><input type="radio" name="event-time" value="semi-Package">Semi Package</label></soan>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -154,36 +190,8 @@
                         <input type="color" name="motiff" class="form-control">
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Event Date</label>
-                        <input type="date" name="event-date" class="form-control">
-                      </div>
                     </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Event Time</label>
-                        <input type="time" name="event-time" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Package Availed</label>
-                        <span class="radio"><label><input type="radio" name="event-time" value="full-Package">Full Package</label></span>
-                        <soan class="radio"><label><input type="radio" name="event-time" value="semi-Package">Semi Package</label></soan>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label>Event Location</label>
-                        <input type="text" name="event-loc" class="form-control">
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
                   
                   <!-- Services -->
@@ -202,13 +210,24 @@
                             </tr>
                           </thead>
                           <tbody>
-                          
-          
+                            <?php
+                            echo count($services);
+                            if (!empty($services)) {
+                               foreach ($services as $service) {
+                              
+                            ?>
                                 <tr>
-                                  <td><form><span class="form-group checkbox"><label><input type="checkbox" value="<?php $row["serviceName"]; ?>"></label></span></form></td>
+                                  <td><form><span class="form-group checkbox"><label><input type="checkbox" value=""></label><?php echo $service['serviceName'] ?></span></form
+                                  ></td>
                                   <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
                                   <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
                                 </tr>
+                            <?php
+                              }
+                             }else {
+                               echo "0 data";
+                             }  
+                             ?>
         
                           </tbody>
                         </table>
