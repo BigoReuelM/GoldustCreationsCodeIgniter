@@ -44,7 +44,7 @@
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
                             <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                            <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
+                            <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
                           </td>
                         </tr>
                     <?php }
