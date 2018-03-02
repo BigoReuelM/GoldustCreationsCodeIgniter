@@ -16,7 +16,13 @@
     <!-- Main content -->
 
     <section class="content container-fluid">
-      <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#add-event">Add Event</button>
+      <?php
+        $employeeRole = $this->session->userdata('role');
+        if ($employeeRole === 'handler') {
+          echo'<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#add-event">Add Event</button>';
+         }
+      ?>
+      
 
 
       <!-- Data table of ongoing events -->
@@ -253,6 +259,7 @@
             </div>
           </div>
         </div>
+      </div>
 
     </section>
     <!-- /.content -->
@@ -309,6 +316,6 @@
   }
 
   #add-event .modal-dialog {
-    width:75%;
+    width:90%;
   }
 </style>

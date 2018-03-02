@@ -14,12 +14,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			parent::__construct();
 			$this->load->helper('url');
 			$this->load->model('transactions_model');
+			$this->load->model('events_model');
 			$this->load->library('session');
 		}
 
 		public function transactions(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['services']=$this->events_model->getServices();
 			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
 
 
