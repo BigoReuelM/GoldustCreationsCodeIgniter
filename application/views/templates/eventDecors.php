@@ -1,16 +1,4 @@
-<style type="text/css">
-  button.button1 {
-    float: right;
-    margin-top: 10px;
-  }
-#entourageTable {
-  column-width: 10px;
-}
-img {
-  height: auto;
-  width: 150px;
-}
-</style>
+
 
 <?php
   $employeeRole = $this->session->userdata('role');
@@ -26,7 +14,8 @@ img {
     </section>
 
     <!-- Main content -->
-        <section class="content container-fluid">
+    <section class="content container-fluid">
+      <div class="content">
        <div class="box">
         <div class="box-header">
           <div class="row">
@@ -80,6 +69,7 @@ img {
             </div>
             <!-- /.box-body -->
           </div>
+        </div>
         </section>  
   <!-- /.content-wrapper -->
 

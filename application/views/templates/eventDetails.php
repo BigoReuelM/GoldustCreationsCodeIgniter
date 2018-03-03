@@ -127,7 +127,6 @@
         </div>
         
     </section>
-  </div>
   <!-- /.content-wrapper -->
 
   <!-- Add the sidebar's background. This div must be placed
