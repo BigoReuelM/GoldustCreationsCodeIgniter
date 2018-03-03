@@ -56,18 +56,7 @@
           </div>
           </div>
         </div>
-      
-     </section>
-    <!-- /.content -->
-  </div> 
-  <!-- /.content-wrapper -->
-
-  <!-- Add the sidebar's background. This div must be placed
-  immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-<script>
+      <script>
 
 function Calendar(id, size, labelSettings, colors) {
   this.id = id;
@@ -965,6 +954,17 @@ body > p {
     width: 100%; 
     -webkit-box-flex: 1; -ms-flex: 1; flex: 1; overflow-y: auto !important; padding: 0; margin: 0; color: rgba(21, 21, 21, 0.94); } .list > li { width: 100%; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: normal; -ms-flex-direction: row; flex-direction: row; border-bottom: 1px solid rgba(21, 21, 21, 0.12); } .list > li:hover { box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21); } .list > li > div { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-flex: 2; -ms-flex: 2; flex: 2; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -ms-flex-line-pack: center; align-content: center; padding: 10px; border-right: 1px solid rgba(21, 21, 21, 0.12); } .time { font-size: 14px; } .m { font-size: 14px; text-transform: uppercase; padding-left: 5px; } .list > li > p { -webkit-box-flex: 4; -ms-flex: 4; flex: 4; margin: 10px; display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: start; -ms-flex-pack: start; justify-content: flex-start; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -ms-flex-line-pack: center; align-content: center; font-size: 18px; word-wrap: break-word; word-break: break-word; }
 </style>
+     </section>
+    <!-- /.content -->
+  </div> 
+  <!-- /.content-wrapper -->
+
+  <!-- Add the sidebar's background. This div must be placed
+  immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
