@@ -30,6 +30,11 @@
   color: #222;
   border-color: #222;
 }
+#button {
+  margin-left: 20px;
+  height: 40px;
+  width: 70px;
+}
  </style>
 <body>
   <!-- Content Wrapper. Contains page content -->
@@ -142,6 +147,8 @@
 
 
     </div>
+    <button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
+    <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>
 
     </section>
     <!-- /.content -->

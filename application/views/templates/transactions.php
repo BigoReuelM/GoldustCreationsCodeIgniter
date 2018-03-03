@@ -1,3 +1,28 @@
+<style type="text/css">
+  #row1 {
+    padding: 2 2 2 2;
+  }
+    #imp {
+    font-size: 30px;
+    }
+
+    #imp1 {
+      font-size: 25px;
+    }
+    #stats {
+      color:red;
+      font-style: italic;
+    }
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 250px;
+    }
+    th, td {
+    padding:10px;
+    text-align: left;
+}
+</style>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -53,8 +78,106 @@
                                 <td><?php echo $transac['contactNo']; ?></td>
                                 <td><?php echo $transac['totalAmount']; ?></td>
                                 <td>
-                                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                                  <div class="col-md-3 col-sm-4"><a href="#') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                                  <div class="col-md-3 col-sm-4">
+                                    <a >
+                                    <i class="fa fa-fw fa-check"></i>
+                                    </a>
+                                  </div>
+                                  <div class="col-md-3 col-sm-4" >
+                                    <a href="#') ?>">
+                                      <!-- Modal for viewing details o transactions -->
+                                        <div class="modal fade" id="transactdetails" role="dialog">
+                                          <div class="modal-dialog">
+                                          
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Transaction Details</h4>
+                                              </div>
+                                              <div class="modal-body">
+                                                <form>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                          <div class="form-group" id="row1">
+                                                              <label><span id="imp1">Name:Touma Kazusa</span></label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                              <div class="form-group" id="row1">
+                                                                  <label>Date Rented:  2015-07-01</label>
+                                                              </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                              <div class="form-group" id="row1">
+                                                                  <label>Contact Number: 0901010101</label>
+                                                              </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                              <div class="form-group" id="row1">
+                                                                  <label>ID Type: Government ID</label>
+                                                              </div>
+                                                      </div>
+                                                  </div>
+                                                  <br>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                      <div class="box-body">
+                                                        <div  class="table table-responsive">
+                                                          <table id ="rentalTable" class="table table-bordered table-condensed">
+                                                            <div class="col-md-9">
+                                                              <p class="box-title">Service Transactions Table</p>
+                                                            </div>
+                                                            <tbody>
+                                                              <tr>
+                                                                <td>Rental of Gowns</td>
+                                                                <td>Rental of Accessories</td>
+                                                                <td>Flower Entourage</td>
+                                                              </tr>
+                                                          </table>
+                                                          </div>
+                                                      </div>
+                                                      </div>
+                                                    </div>
+
+                                                  <br>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                              <div class="form-group" id="row1">
+                                                                  <label>Transaction State: <span id="stats">Finished</span></label>
+                                                              </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                          <label><span id="imp">TOTAL AMOUNT: 12100 </span></label>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row" id="row1">
+                                                      <div class="col-lg-7" id="row1">
+                                                          <label><span id="imp">BALANCE: 0 </span></label>
+                                                      </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Add Payment</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Add Expenses</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                        </div>
+                                      <!-- End of Modal -->
+                                    <i class="fa fa-fw fa-info" data-toggle="modal" data-target="#transactdetails"> </i></a>
+                                  </div>
                                 </td>
                               
                           <?php }
