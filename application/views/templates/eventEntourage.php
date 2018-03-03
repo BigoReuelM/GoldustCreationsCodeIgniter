@@ -1,5 +1,3 @@
-
-<body>
 <?php
   $employeeRole = $this->session->userdata('role');
   if ($employeeRole === 'handler') {

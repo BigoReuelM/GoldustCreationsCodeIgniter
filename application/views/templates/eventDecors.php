@@ -27,12 +27,17 @@ img {
 
     <!-- Main content -->
         <section class="content container-fluid">
-          <div class="box">
-            <button type="button" class="btn btn-block btn-primary btn-lg" >Print Event Details</button>
-            <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
-            <div class="box-header">
-              <h3 class="box-title">List of Entourage</h3>
+       <div class="box">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-lg-9">
+              <h3 class="box-title">List Of Decors</h3>    
             </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Decors</button>  
+            </div>
+          </div>
+        </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="decorsTable" class="table table-bordered table-striped">
