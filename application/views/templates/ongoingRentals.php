@@ -27,34 +27,34 @@
                     <thead>
                       <tr>
                         <th>Service Name</th>
-                        <th>Celebrant Name</th>
                         <th>Client Name</th>
                         <th>Contact Number</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody> 
-                        <tr>
+                        
                           <?php
                           if (!empty($tdata)) {
 
                           foreach($tdata as $d) {
                           ?>
+                          <tr>
                           <td><?php echo $d['serviceName']; ?></td>
-                          <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
                           <td>
                                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
                                   <div class="col-md-3 col-sm-4"><a href="#') ?>"><i class="fa fa-fw fa-info"></i></a></div>
                           </td>
+                          </tr>
                           <?php
                           }
                           }else{
                             echo "0 result";
                           } 
                           ?>
-                        </tr> 
+                         
                     </tbody>
                 </table>
               </div>

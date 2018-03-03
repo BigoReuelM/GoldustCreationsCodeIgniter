@@ -45,7 +45,10 @@
                     <tbody>
                     <?php 
                       if(!empty($events)){
-                      foreach ($events as $event) { ?> 
+                      foreach ($events as $event) {
+                      $empID = $event['eventID'];
+                     ?>
+                      
                         <tr>
                           <td><?php echo $event['celebrantName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>

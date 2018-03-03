@@ -35,6 +35,30 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		public function getPayments($currentEventID){
+
+			$eID = $currentEventID;
+
+			$this->db->select('*');
+			$this->db->from('payments');
+			$this->db->join('events', 'events.eventID = payments.eventID');
+			$this->db->where('events.eventID', $eID);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getExpenses($currentEventID){
+
+			$eID = $currentEventID;
+
+			$this->db->select('*');
+			$this->db->from('expenses');
+			$this->db->join('events', 'events.eventID = expenses.eventID');
+			$this->db->where('events.eventID', $eID);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
  ?>

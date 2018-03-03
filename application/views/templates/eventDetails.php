@@ -4,6 +4,10 @@
   if ($employeeRole === 'handler') {
     echo'<div class="content-wrapper">';
    }
+
+   $_SESSION["currentEventID"] = $id;
+
+   echo $id;
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">

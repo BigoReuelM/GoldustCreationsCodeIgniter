@@ -3,6 +3,7 @@
   if ($employeeRole === 'handler') {
     echo'<div class="content-wrapper">';
    }
+   echo $_SESSION["currentEventID"];
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -19,7 +20,7 @@
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h1 class="box-title">Payments:</h3>
+              <h1 class="box-title">Payments Table:</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -37,13 +38,24 @@
                   </tr>
                 </thead>
                 <tbody> 
+                  <?php
+                    if(!empty($payments)){
+                      foreach ($payments as $payment) {
+                        
+                  ?>
                   <tr>
-                    <td>001</td>
-                    <td>20, 000</td>
-                    <td>50, 000</td>
-                    <td>December 20, 2017</td>
-                    <td>1:00 PM</td>
+                    <td><?php echo $payment['paymentID']; ?></td>
+                    <td><?php echo $payment['amount']; ?></td>
+                    <td><?php echo $payment['totalAmount'] - $payment['amount']; ?></td>
+                    <td><?php echo $payment['date']; ?></td>
+                    <td><?php echo $payment['time']; ?></td>
                   </tr>
+                  <?php
+                      }
+                    }else {
+                      echo "0 data";
+                    } 
+                  ?>
                 </tbody>
               </table>
             </div>
@@ -68,7 +80,7 @@
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h1 class="box-title">Expenses:</h3>
+              <h1 class="box-title">Expenses Table:</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -94,13 +106,25 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+                    if (!empty($expenses)) {
+                       foreach ($expenses as $expense) {
+            
+                  ?>
                   <tr>
-                    <td>001</td>
-                    <td>20, 000</td>
-                    <td>Flowers</td>
-                    <td>December 20, 2017</td>
-                    <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
+                    <td><?php  echo $expense['expensesID']; ?></td>
+                    <td><?php  echo $expense['expensesAmount']; ?></td>
+                    <td><?php  echo $expense['expensesName']; ?></td>
+                    <td><?php  echo $expense['expensesDate']; ?></td>
+                    <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
                   </tr>
+                  <?php
+                      }
+                    }else{
+                      echo "0 data";
+                    }
+
+                  ?>
                 </tbody>
               </table>
             </div>

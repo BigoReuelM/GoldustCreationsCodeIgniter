@@ -82,18 +82,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDetails(){
-
+			$id['id'] = $this->uri->segment(3);
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php",$id);
 				
 			}else{
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php",$id);
 				
 				
 			}
@@ -143,6 +143,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function paymentAndExpences(){
 			$empRole = $this->session->userdata('role');
+			$currentEvent = $this->session->userdata('currentEventID');
+			$data['payments']=$this->events_model->getPayments($currentEvent);
+
+			$data['expenses']=$this->events_model->getExpenses($currentEvent);
+			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -156,13 +161,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}
-			$this->load->view("templates/paymentAndExpences.php");
+			$this->load->view("templates/paymentAndExpences.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
-		public function showServices(){
 
-		} 
 
 	}
 
