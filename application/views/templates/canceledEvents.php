@@ -35,7 +35,7 @@
                       if(!empty($events)){
                       foreach ($events as $event) { ?> 
                         <tr>
-                          <td><?php echo $event['celebrantName']; ?></td>
+                          <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
                           <td><?php echo $event['packageType']; ?></td>

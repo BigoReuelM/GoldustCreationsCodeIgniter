@@ -1,10 +1,11 @@
-
-
 <?php
   $employeeRole = $this->session->userdata('role');
   if ($employeeRole === 'handler') {
     echo'<div class="content-wrapper">';
    }
+   $id = $this->session->userdata('currentEventID');
+
+   echo $id;
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
