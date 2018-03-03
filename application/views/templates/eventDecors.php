@@ -3,9 +3,8 @@
   if ($employeeRole === 'handler') {
     echo'<div class="content-wrapper">';
    }
-   $id = $this->session->userdata('currentEventID');
-
-   echo $id;
+   $eventId = $this->session->userdata('currentEventID');
+   
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -55,7 +54,7 @@
                           <!-- Quantity -->
                           <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></td>
                           <!-- Photo -->
-                          <td><?php echo '<img src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
+                          <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
                           <!-- Action -->
                           <td>
                             <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
