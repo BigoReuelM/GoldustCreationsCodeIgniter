@@ -103,6 +103,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function eventEntourage(){
 			$empRole = $this->session->userdata('role');
+			$currentEvent = $this->session->userdata('currentEventID');
+			$data['designs']=$this->events_model->getDesigns($currentEvent);
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -116,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php");
 				
 			}
-			$this->load->view("templates/eventEntourage.php");
+			$this->load->view("templates/eventEntourage.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 

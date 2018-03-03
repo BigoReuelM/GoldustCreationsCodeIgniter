@@ -36,6 +36,16 @@
 			return $query->result_array();
 		}
 
+		public function getDesigns($currentEventID){
+			$this->db->select('*');
+			$this->db->from('eventdesigns');
+			$this->db->join('designs', 'eventdesigns.designID = designs.designID');
+			$this->db->join('events', 'eventdesigns.eventID = events.eventID');
+			$this->db->where('events.eventID', $currentEventID);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function getPayments($currentEventID){
 
 			$eID = $currentEventID;

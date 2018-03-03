@@ -36,19 +36,30 @@
               <th>Quantiry</th>
               <th>Image</th>
               <th>Action</th>
-            </tr>+
+            </tr>
             </thead>
             <tbody>
+              <?php
+                if (!empty($designs)) {
+                   foreach ($desings as $design) {
+                     
+              ?>
               <tr>
-                <td>0002</td>
-                <td>Emm-Reu Nuptial</td>
-                <td>Client Name</td>
+                <td><?php echo $design['designID'] ?></td>
+                <td><?php echo $design['designName'] ?></td>
+                <td><?php echo $design['quantiry'] ?></td>
                 <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
                 <td>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
                 </td>
               </tr>
+              <?php 
+                   }
+                 }else {
+                  echo "0 details";
+                 }
+              ?>
             </tbody>
           </table>
         </div>
@@ -64,7 +75,7 @@
               <h3 class="box-title">List of Entourage</h3>
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Entourage</button>
+              <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
             </div>
           </div>
         </div>
@@ -75,32 +86,21 @@
             <tr>
               <th>Name</th>
               <th>Role</th>
-              <th>Shoulder</th>
-              <th>Chest</th>
-              <th>Stomach</th>
-              <th>Waist</th>
-              <th>Arm Length</th>
-              <th>Arm Hole</th>
-              <th>Muscle</th>
-              <th>Pants Length</th>
-              <th>Baston</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
             </thead>
             <tbody>
               <tr>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-
+                
+                <td>yeha</td>
+                <td>yeha</td>
+                <td>yeha</td>
+                <td>
+                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
+                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                </td>
+            
               </tr>
             </tbody>
           </table>
@@ -151,6 +151,75 @@
             </div>
           <!-- /.modal-dialog -->
           </div>
+
+          <div class="modal modal-default fade" id="editEntourage">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Allert!!!!!</h4> 
+                </div>
+                <div class="modal-body">
+                  <div class="box">
+      
+                    <div class="box-body">
+                      <table id="entourageTableEdit" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Role</th>
+                          <th>Shoulder</th>
+                          <th>Chest</th>
+                          <th>Stomach</th>
+                          <th>Waist</th>
+                          <th>Arm Length</th>
+                          <th>Arm Hole</th>
+                          <th>Muscle</th>
+                          <th>Pants Length</th>
+                          <th>Baston</th>
+                          <th>Design Photo</th>
+                          <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                            if (!empty($designs)) {
+                               foreach ($desings as $design) {
+                                 
+                          ?>
+                          <tr>
+                            <td><?php echo $design['designID'] ?></td>
+                            <td><?php echo $design['designName'] ?></td>
+                            <td><?php echo $design['quantiry'] ?></td>
+                            <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
+                            <td>
+                              <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
+                              <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                            </td>
+                          </tr>
+                          <?php 
+                               }
+                             }else {
+                              echo "0 details";
+                             }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
+                        <!-- /.box-body -->
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+          <!-- /.modal-dialog -->
+          </div>
+
     </section>
     <!-- /.content -->
   </div>
@@ -187,5 +256,18 @@
     })
     $('#entourageTable').DataTable({
     })
+    $('#entourageTableEdit').DataTable({
+    })
   })
 </script>
+<style>
+  @media screen and (min-with: 768px){
+    #editEntourage .modal-dialog {
+      with:900px;
+    }
+  }
+
+  #editEntourage .modal-dialog {
+    width:90%;
+  }
+</style>
