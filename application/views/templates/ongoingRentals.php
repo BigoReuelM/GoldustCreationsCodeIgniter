@@ -14,16 +14,51 @@
 
       <!-- Main content -->
       <section class="content container-fluid">
-        <div class="content">
-        <div class="box">
-          <div class="box-header">
-              <div >
-                 <h3 class="box-title">Ongoing Rentals Table</h3>
-              </div>               
+        <form method="post" id="rental">
+          <div id="view-rental" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">RENTALS</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <label>Date Rented</label>
+                    <span class="form-group">
+                      <input type="text" id="dateRented" class="form-control">
+                    </span>
+
+                    <span class="form-group">
+                      <label>Item Name</label>
+                      <input type="text" id="itemName" class="form-control">
+                    </span>
+
+                    <span class="form-group">
+                      <label>Quantity</label>
+                      <input type="text" id="quantity" class="form-control">
+                    </span>
+
+                    <span class="form-group">
+                      <label>Photo</label>
+                      <input type="image" src="#" alt="Design" id="photo" class="form-control">
+                    </span>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-            <div class="box-body">
+        </form>
+        <div class="content">
+          <div class="row">
+          <div class="col-md-6"> 
+            <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Rentals</h3>
+                </div>
+              <div class="box-body">
                 <div  class="table table-responsive">
-                  <table id="ongoingRentals" class="table table-bordered table-condensed">
+                  <table id="Rentals" class="table table-bordered table-condensed">
                     <thead>
                       <tr>
                         <th>Service Name</th>
@@ -44,8 +79,7 @@
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
                           <td>
-                                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                                  <div class="col-md-3 col-sm-4"><a href="#') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
                           </td>
                           </tr>
                           <?php
@@ -61,6 +95,43 @@
             </div>
           </div>
         </div>
+
+         <div class="col-md-6">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">Event Rentals</h3>
+                </div>
+                <div class="box-body">
+                    <div  class="table table-responsive">
+                      <table id ="Events" class="table table-bordered tab le-condensed">
+                        <thead>
+                          <tr>
+                            <th>Event Name</th>
+                            <th>Client Name</th>
+                            <th>Contact Number</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <!--<?php 
+                            if($result1->num_rows > 0){ 
+                              while ($row = $result1->fetch_assoc()) { ?> 
+                                <tr>
+                                  <td><?php echo $row["Service Name"]; ?></td>
+                                  <td><?php echo $row["Celebrant Name"]; ?></td>
+                                  <td><?php echo $row["Client Name"]; ?></td>
+                                  <td><?php echo $row["Contact Number"]; ?></td>
+                                </tr>
+                            <?php }
+                              }else{
+                                echo '0 results';
+                              } ?> -->
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </div>
       </section>
 
 
@@ -90,6 +161,7 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#ongoingRentals').DataTable();
+    $('#Rentals').DataTable();
+    $('#Events').DataTable();
   })
 </script>

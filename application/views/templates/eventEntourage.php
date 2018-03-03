@@ -122,6 +122,8 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                   <a href="<?php echo base_url('items/gowns') ?>"><button type="button" class="btn btn-primary">Change</button></a>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Remove</button>
+                </div>
                 </div>
               </div>
               <!-- /.modal-content -->
@@ -135,10 +137,10 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Allert!!!!!</h4> 
+                  <h4 class="modal-title">Alert!</h4> 
                 </div>
                 <div class="modal-body">
-                  <p>Remove this Design from the list!?????</p>
+                  <p>Remove this person from the list?</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
