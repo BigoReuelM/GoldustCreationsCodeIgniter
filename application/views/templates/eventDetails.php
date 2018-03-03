@@ -86,90 +86,102 @@ echo $id;
       </div>
     </div>
   </div>
+  
   <div class="row">
     <div class="col-lg-6">
-      <div class="table-responsive">
-        <table id="" class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Services</th>
-              <th>Quantity</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <trices>
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-tittle">Services</h3>
+        </div>
+        <div class="box-body">
+          <table id="serviceTable" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Services</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <form>
+                    <div class="form-group checkbox">
+                      <label><input type="checkbox" id="" value="gowns">Gowns</label>
+                    </div>
+                  </form>
+                </td>
+                <td>12</td>
+                <td>35000</td>
+              </tr>
               <td>
                 <form>
                   <div class="form-group checkbox">
-                    <label><input type="checkbox" id="" value="gowns">Gowns</label>
+                    <label><input type="checkbox" id="" value="makeup">Makeup</label>
+                  </div>
+                </form>
+              </td> 
+              <td>7</td>
+              <td>10000</td> 
+            </tbody>
+            <tfoot>
+              <tr>
+                <td><button type="button" class="btn btn-primary">Add Services</button></td>
+              </tr>
+            </tfoot>
+          </table>  
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Staff</h3>
+        </div>
+        <table id="staffTable" class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Contact Number</th>
+              <th>Availability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <form>
+                  <div class="form-group checkbox">
+                    <label><input type="checkbox" id="" value="gowns">Nemo Kamo</label>
                   </div>
                 </form>
               </td>
-              <td>12</td>
-              <td>35000</td>
+              <td>Makeup Artist</td>
+              <td>09876541234</td>
+              <td>Available</td>
             </tr>
             <td>
               <form>
                 <div class="form-group checkbox">
-                  <label><input type="checkbox" id="" value="makeup">Makeup</label>
+                  <label><input type="checkbox" id="" value="makeup">Kame Wave</label>
                 </div>
               </form>
             </td> 
-            <td>7</td>
-            <td>10000</td> 
+            <td>Costume Designer</td>
+            <td>09291387121</td>
+            <td>Available</td>
           </tbody>
           <tfoot>
             <tr>
-              <td><button type="button" class="btn btn-primary">Add Services</button></td>
+              <td><button type="button" class="btn btn-primary">Add Staff</button></td>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
-    <div class="table-responsive">
-      <table id="" class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Contact Number</th>
-            <th>Availability</th>
-          </tr>
-        </thead>
-        <tbody>
-          <trices>
-            <td>
-              <form>
-                <div class="form-group checkbox">
-                  <label><input type="checkbox" id="" value="gowns">Nemo Kamo</label>
-                </div>
-              </form>
-            </td>
-            <td>Makeup Artist</td>
-            <td>09876541234</td>
-            <td>Available</td>
-          </tr>
-          <td>
-            <form>
-              <div class="form-group checkbox">
-                <label><input type="checkbox" id="" value="makeup">Kame Wave</label>
-              </div>
-            </form>
-          </td> 
-          <td>Costume Designer</td>
-          <td>09291387121</td>
-          <td>Available</td>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td><button type="button" class="btn btn-primary">Add Staff</button></td>
-          </tr>
-        </tfoot>
-      </table>      
-    </div>
   </div>
-</div>  
+</div> 
+</section>
 <!-- /.content-wrapper -->
 
   <!-- Add the sidebar's background. This div must be placed
@@ -196,8 +208,8 @@ echo $id;
   <!-- page script -->
   <script>
     $(function () {
-      $('#example1').DataTable()
-      $('#example2').DataTable({
+      $('#serviceTable').DataTable()
+      $('#staffTable').DataTable({
         'paging'      : true,
         'lengthChange': false,
         'searching'   : false,
