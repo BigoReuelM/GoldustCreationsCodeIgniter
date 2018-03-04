@@ -1,8 +1,5 @@
 <?php
-  $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'handler') {
-    echo'<div class="content-wrapper">';
-   }
+
    echo $_SESSION["currentEventID"];
 ?>
     <!-- Content Header (Page header) -->
@@ -20,11 +17,11 @@
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h1 class="box-title">Payments Table:</h3>
+              <h3 class="box-title">Payments Table:</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="jumbotron row">
+              <div>
                 <h3>Balance: </h3> <h1>Php 50, 000</h1>
               </div>
               <table class="table table-bordered">
@@ -58,7 +55,7 @@
                   ?>
                 </tbody>
               </table>
-            </div>
+            
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
@@ -70,21 +67,21 @@
               </ul>
             </div>
 
-            <div class="jumbotron">
+            <div class="">
               <h3>Total Amount: Php 150, 000</h3>
               <h3>Total Amount Paid: Php 100, 000</h3>
             </div>
           </div>
-
+          </div>
         </div>
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h1 class="box-title">Expenses Table:</h3>
+              <h3 class="box-title">Expenses Table:</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="jumbotron row">
+              <div class="row">
                 <div class="col-md-6">                 
                   <h3>Total Expenses:</h3>
                   <h1>Php 30, 000</h1>  
@@ -127,7 +124,7 @@
                   ?>
                 </tbody>
               </table>
-            </div>
+            
             <!-- /.box-body -->
             <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
@@ -138,13 +135,14 @@
                 <li><a href="#">&raquo;</a></li>
               </ul>
             </div>
-              <div class="jumbotron row">
+              <div>
                 <h3>Over Budget: Php 50, 000</h3>
                 <h3>Total Budget: Php 100, 000</h3>
               </div>
           </div>
         </div>
       </div>
+
     </div>
     </section>
     <!-- /.content -->

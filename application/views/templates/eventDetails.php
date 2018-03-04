@@ -1,9 +1,6 @@
 
 <?php
-$employeeRole = $this->session->userdata('role');
-if ($employeeRole === 'handler') {
-  echo'<div class="content-wrapper">';
-}
+
 if (!$this->session->has_userdata('currentEventID')) {
   echo "wala laman";
 }else{

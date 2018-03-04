@@ -1,9 +1,5 @@
-<?php
-  $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'handler') {
-    echo'<div class="content-wrapper">';
-   }
-?>
+
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>

@@ -1,9 +1,4 @@
-<?php
-  $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'admin') {
-    echo'<div class="content-wrapper">';
-   }
-?>
+<div class="content-wrapper">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
