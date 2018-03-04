@@ -42,6 +42,20 @@
 
 			return $query->result_array();
 		}
+
+		public function getdecors(){
+			$this->db->select('*');
+			$this->db->from('decors');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getDesigns(){
+			$this->db->select('*');
+			$this->db->from('designs');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
 ?>
