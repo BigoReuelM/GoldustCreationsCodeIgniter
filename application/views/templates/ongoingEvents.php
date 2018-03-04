@@ -64,10 +64,10 @@
                             
                             <div class="col-md-3 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
-                                <input id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
                                   
                                     <i class="fa fa-fw fa-info"></i>
-                                  
+                                </button>  
         
                               </form>
                             </div>
