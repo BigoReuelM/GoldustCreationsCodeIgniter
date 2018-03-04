@@ -61,14 +61,29 @@
                           <td>
 
                             <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                            
+                            <!--
+                              Bellow is the code for displaying the event details page.
+
+                              A form is used to be able to pass the current value of the 
+                              button clicked to the server. 
+
+                              Only when the value is posted to the server can it be accesed
+                              by php. We can now store the current ID to the session.
+
+                              events/setEventID is called in order to store the current id to the session.
+                                  *setEventID is a function located at the Event controller.
+
+                              Value of button with id eventInfo is set by using the value attribute..
+                              everytime a table row is printed.. the value of employe id in that row will
+                              be set as the value of the value atribute..
+
+    
+                            -->
                             <div class="col-md-3 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
                                 <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
-                                  
-                                    <i class="fa fa-fw fa-info"></i>
+                                  <i class="fa fa-fw fa-info"></i>
                                 </button>  
-        
                               </form>
                             </div>
 

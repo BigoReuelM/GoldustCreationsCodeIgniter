@@ -175,6 +175,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			This function will only set the current event ID value..
 			it will then call the evenDetails function to display the event details page
 		*/
+			
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
 			$this->session->set_userdata('currentEventID', $currentEventID);

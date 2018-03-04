@@ -20,13 +20,14 @@ if (!$this->session->has_userdata('currentEventID')) {
      <h1>
        Event Details
      </h1>
+     </section>
    </div>
    <div class="col-lg-2">
      <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
    </div>
  </div>
 
-</section>
+
 
 <!-- Main content -->
 <section class="content container-fluid">

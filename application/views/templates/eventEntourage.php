@@ -39,13 +39,13 @@
             <tbody>
               <?php
                 if (!empty($designs)) {
-                   foreach ($desings as $design) {
+                   foreach ($designs as $design) {
                      
               ?>
               <tr>
                 <td><?php echo $design['designID'] ?></td>
                 <td><?php echo $design['designName'] ?></td>
-                <td><?php echo $design['quantiry'] ?></td>
+                <td><?php echo $design['quantity'] ?></td>
                 <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
                 <td>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
