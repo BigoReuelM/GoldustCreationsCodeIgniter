@@ -73,7 +73,9 @@ $photo = $this->session->userdata('photo');
               <!-- Menu Toggle Button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img src="<?php echo base_url();?>/public/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+
+                <img class="user-image" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
+                
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">
                   <?php echo($employeeName)?>
@@ -82,7 +84,7 @@ $photo = $this->session->userdata('photo');
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
                 <li class="user-header">
-                  <img src=""class="img-circle" alt="User Image">
+                  <img class="img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
 
                   <p>
                     <?php echo($employeeName)?> - Event Handler
@@ -91,14 +93,11 @@ $photo = $this->session->userdata('photo');
                 <!-- Menu Body -->
                 <li class="user-body">
                   <div class="row">
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Followers</a>
+                    <div class="col-xs-6 text-center">
+                      <a href="#">Events handled</a>
                     </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Sales</a>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <a href="#">Friends</a>
+                    <div class="col-xs-6 text-center">
+                      <a href="#">Transactions</a>
                     </div>
                   </div>
                   <!-- /.row -->
