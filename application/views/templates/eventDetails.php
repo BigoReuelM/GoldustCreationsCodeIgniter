@@ -4,10 +4,13 @@ $employeeRole = $this->session->userdata('role');
 if ($employeeRole === 'handler') {
   echo'<div class="content-wrapper">';
 }
-
-$_SESSION["currentEventID"] = $id;
-
-echo $id;
+if (!$this->session->has_userdata('currentEventID')) {
+  echo "wala laman";
+}else{
+  $id = $this->session->userdata('currentEventID');
+  echo $id;
+}
+//echo $id;
 ?>
 <!-- Content Header (Page header) -->
 
@@ -138,7 +141,8 @@ echo $id;
         <div class="box-header">
           <h3 class="box-title">Staff</h3>
         </div>
-        <table id="staffTable" class="table table-striped table-bordered">
+        <div class="box-body">
+        <table id="staffTable" class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>Name</th>
@@ -177,6 +181,7 @@ echo $id;
             </tr>
           </tfoot>
         </table>
+        </div>
       </div>
     </div>
   </div>
@@ -209,13 +214,6 @@ echo $id;
   <script>
     $(function () {
       $('#serviceTable').DataTable()
-      $('#staffTable').DataTable({
-        'paging'      : true,
-        'lengthChange': false,
-        'searching'   : false,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : false
-      })
+      $('#staffTable').DataTable()
     })
   </script>

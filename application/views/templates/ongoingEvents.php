@@ -50,7 +50,7 @@
                       $empID = $event['eventID'];
                      ?>
                       
-                        <tr id=<?php echo $event['eventID'] ?>>
+                        <tr>
                           <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
@@ -59,8 +59,19 @@
                           <td><?php echo $event['eventTime']; ?></td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
+
                             <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                            <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>" onclick="getEventId(this.parentNode.id)"><i class="fa fa-fw fa-info"></i></a></div>
+                            
+                            <div class="col-md-3 col-sm-4">
+                              <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
+                                <input id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                  
+                                    <i class="fa fa-fw fa-info"></i>
+                                  
+        
+                              </form>
+                            </div>
+
                           </td>
                         </tr>
                     <?php }
@@ -312,9 +323,6 @@
     $('input:checkbox').prop('checked', false);
   }
 
-  function getEventId($clck_evt_id) {
-    $_SESSION["currentEventID"] = $clck_evt_id;
-  }
 </script>
 
 <style>

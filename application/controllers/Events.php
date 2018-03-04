@@ -82,18 +82,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDetails(){
-			$id['id'] = $this->uri->segment(3);
+			
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php",$id);
+				$this->load->view("templates/eventNav.php");
 				
 			}else{
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php",$id);
+				$this->load->view("templates/eventNav.php");
 				
 				
 			}
@@ -168,6 +168,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
+		/*
+			Code for setting current event ID
+			This code will only be executed when the info button of events is clicked
+
+			This function will only set the current event ID value..
+			it will then call the evenDetails function to display the event details page
+		*/
+		public function setEventID(){
+			$currentEventID = $this->input->post('eventInfo');
+			$this->session->set_userdata('currentEventID', $currentEventID);
+
+			$this->eventDetails();
+		}
 
 	}
 
