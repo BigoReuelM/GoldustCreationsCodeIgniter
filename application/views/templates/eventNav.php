@@ -14,7 +14,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Name of Events</a>
+            <?php
+            //foreach ($eventName as $name) {
+              $name = $eventName->eventName; 
+              echo '<a class="navbar-brand" href="#">' . $name . '</a>';
+            //}
+              
+            ?>
+            
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

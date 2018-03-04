@@ -71,6 +71,11 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		public function getEventName($id){
+			$query = $this->db->query("SELECT eventName FROM events where eventID = $id");
+			return $query->row();
+		}
 	}
 
  ?>

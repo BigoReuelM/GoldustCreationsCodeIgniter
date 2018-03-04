@@ -82,18 +82,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDetails(){
-			
+			$id = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($id);
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}else{
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 				
 			}
@@ -102,6 +103,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventEntourage(){
+			$id = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($id);
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['designs']=$this->events_model->getDesigns($currentEvent);
@@ -110,12 +113,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}else{
 				
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}
 			$this->load->view("templates/eventEntourage.php", $data);
@@ -123,6 +126,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDecors(){
+			$id = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($id);
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -130,12 +135,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}else{
 				
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}
 			$data['eventdecors'] = $this->events_model->getDecors($empID);
@@ -144,6 +149,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function paymentAndExpences(){
+			$id = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($id);
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
@@ -155,12 +162,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}else{
 				
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");
+				$this->load->view("templates/eventNav.php", $data);
 				
 			}
 			$this->load->view("templates/paymentAndExpences.php", $data);
@@ -175,7 +182,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			This function will only set the current event ID value..
 			it will then call the evenDetails function to display the event details page
 		*/
-			
+
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
 			$this->session->set_userdata('currentEventID', $currentEventID);
