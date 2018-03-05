@@ -34,7 +34,9 @@
                     
                     <?php 
                       if(!empty($events)){
-                      foreach ($events as $event) { ?> 
+                      foreach ($events as $event) { 
+                        $empID = $event['eventID'];
+                        ?> 
                         <tr>
                           <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
@@ -44,7 +46,13 @@
                           <td><?php echo $event['eventTime']; ?></td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
-                            <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('events/eventDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                            <div class="col-md-3 col-sm-4">
+                              <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
+                                <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                  <i class="fa fa-fw fa-info"></i>
+                                </button>  
+                              </form>
+                            </div>
                           </td>
                         </tr>
                     <?php }
