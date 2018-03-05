@@ -7,7 +7,7 @@ $photo = $this->session->userdata('photo');
 <header class="main-header">
     <nav class="navbar navbar-static-top">
         <div class="navbar-header">
-          <a href="#" class="navbar-brand"><b>Goldust Creations</b></a>
+          <a href="<?php echo base_url('handler/index') ?>" class="navbar-brand"><b>Goldust Creations</b></a>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>
           </button>
