@@ -1,9 +1,4 @@
-<?php
-  $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'admin') {
-    echo'<div class="content-wrapper">';
-   }
-?>
+<div class="content-wrapper">
       <nav class="navbar navbar-default">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
@@ -14,7 +9,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Name of Events</a>
+            <?php
+            //foreach ($eventName as $name) {
+              $name = $eventName->eventName; 
+              echo '<a class="navbar-brand" href="#">' . $name . '</a>';
+            //}
+              
+            ?>
+            
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

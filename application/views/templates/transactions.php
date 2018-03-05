@@ -104,7 +104,7 @@ input[type=submit] {
                       <table id ="rentalTable" class="table table-bordered table-condensed">
                         <thead>
                           <tr>
-                            <th>Sevice ID</th>
+                            <th>Service ID</th>
                             <th>Celebrant Name</th>
                             <th>Contact Number</th>
                             <th>Total Amount</th>
@@ -259,148 +259,140 @@ input[type=submit] {
             </div>
         </div>
 
-          <div id="addServiceTransaction" class="modal fade bd-example-modal-lg" role="dialog">
+        <!-- add service transaction -->
+        <div id="addServiceTransaction" class="modal fade bd-example-modal-lg" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Event</h4>
+                <h4 class="modal-title">Add Transaction</h4>
               </div>
               <div class="modal-body">
-                <div class="row">
-                <div class="col-md-6">
-                <form method="post">
+                <form>
                   <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label>Event Name</label>
-                        <input type="text" name="event-name" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-6">
                       <div class="form-group">
                         <label>Client Name</label>
                         <input type="text" name="client-name" class="form-control">
                       </div>
                     </div>
-                    
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-3">
                       <div class="form-group">
                         <label>Contact Number</label>
-                        <input type="text" name="contact-number" class="form-control">
+                        <input type="text" name="contactNum" class="form-control">
                       </div>
                     </div>
-                    
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" class="form-control">
+                      </div>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
-                        <label>Celebrant</label>
-                        <input type="text" name="celebrant" class="form-control">
+                        <label>Home Address</label>
+                        <input type="text" name="hAddress" class="form-control">
                       </div>
                     </div>
-                    
                   </div>
                   <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                          <label>Event Location</label>
-                          <input type="text" name="event-loc" class="form-control">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label>Rental Charge</label>
+                        <input type="text" name="rentChrge" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label>Advance</label>
+                        <input type="text" name="advnce" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label>Balance</label>
+                        <input type="text" name="balance" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label>ID Type</label>
+                        <input type="text" name="idType" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label>School<i>(For Students)</i></label>
+                        <input type="text" name="school" class="form-control">
+                      </div>                 
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label>Year & Section<i>(For Students)</i></label>
+                        <input type="text" name="yrSec" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- borrowed items --> 
+                  <div class="col-lg-12">
+                    <div class="box">
+                      <div class="box-header">
+                        <h4>Borrowed Items</h4>
+                      </div>
+                      <div class="box-body">
+                        <div class="table table-responsive">
+                          <table id="borrowedItms" class="table table-bordered table-condensed table-hover text-center">
+                            <thead>
+                              <tr>
+                                <th>Item Name</th>
+                                <th>Color</th>
+                                <th>Image</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!--<label>Decors</label>-->
+                              <?php
+                                foreach ($decors as $dec) { ?> 
+                                  <tr>
+                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $dec['decorName']?></span></form></td>
+                                    <td><?php echo $dec['color'] ?></td>
+                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($dec['decorImage']) . '"/>' ?></td>
+                                  </tr>
+                              <?php  }
+                              ?>
+                              <!--<label>Designs</label>-->
+                              <?php
+                                foreach ($designs as $des) { ?>
+                                  <tr>
+                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $des['designName']?></span></form></td>
+                                    <td><?php echo $des['color'] ?></td>
+                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($des['designImage']) . '"/>' ?></td>
+                                  </tr>
+                              <?php  }
+                              ?>
+                            </tbody>
+                          </table>  
                         </div>
                       </div>
                     </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>Event Date</label>
-                        <input type="date" name="event-date" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>Event Time</label>
-                        <input type="time" name="event-time" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>Package Availed</label>
-                        <span class="radio"><label><input type="radio" name="event-time" value="full-Package">Full Package</label></span>
-                        <soan class="radio"><label><input type="radio" name="event-time" value="semi-Package">Semi Package</label></soan>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div>
-                        <label>Motiff</label>
-                        <input type="color" name="motiff" class="form-control">
-                      </div>
-                    </div>
-                    </div>
-                  
-                </div>
-                  
-                  <!-- Services -->
-                  <div class="col-lg-6">
-        
-                  <div class="box">
-                    <div class="box-body">
-                      <div class="table table-responsive">
-                        <table id="svc-tbl" class="table table-hover table-bordered table-condensed table-hover text-center">
-                          <h4>Services</h4>
-                          <thead>
-                            <tr>
-                              <th>Services</th>
-                              <th>Quantity</th>
-                              <th>Amount</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php
-                            echo count($services);
-                            if (!empty($services)) {
-                               foreach ($services as $service) {
-                              
-                            ?>
-                                <tr>
-                                  <td><form><span class="form-group checkbox"><label><input type="checkbox" value=""></label><?php echo $service['serviceName'] ?></span></form
-                                  ></td>
-                                  <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                                  <td><input class="form-control" type="text" name="" style="border: none;" placeholder="Insert text here"></td>
-                                </tr>
-                            <?php
-                              }
-                             }else {
-                               echo "0 data";
-                             }  
-                             ?>
-        
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
                   </div>
 
-        
-                  <!-- end of services table -->
-                </form>
-                </div>
-                <div class="modal-footer">
-                  <div class="row">
-                    <div class="col-lg-2">
-                      <button type="submit" class="btn btn-success" action="submitForm.php">Save</button>
-                    </div>
-                    <div class="col-lg-2">
-                      <button type="reset" class="btn btn-danger" onclick="reset_chkbx()">Reset</button>
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div class="col-lg-2">
+                        <button type="submit" class="btn btn-success" action="submitForm.php">Save</button>
+                      </div>
+                      <div class="col-lg-2">
+                        <button type="reset" class="btn btn-danger" onclick="reset_chkbx()">Reset</button>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -442,6 +434,7 @@ input[type=submit] {
     $('#rentalTable').DataTable()
     $('#serviceTable').DataTable()
     $('#svc-tbl').DataTable()
+    $('#borrowedItms').DataTable()
   })
   function reset_chkbx(){
     $('input:checkbox').prop('checked', false);

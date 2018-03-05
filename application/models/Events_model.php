@@ -37,12 +37,14 @@
 		}
 
 		public function getDesigns($currentEventID){
+			/*
 			$this->db->select('*');
 			$this->db->from('eventdesigns');
 			$this->db->join('designs', 'eventdesigns.designID = designs.designID');
 			$this->db->join('events', 'eventdesigns.eventID = events.eventID');
 			$this->db->where('events.eventID', $currentEventID);
-			$query = $this->db->get();
+			*/
+			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs NATURAL JOIN events where events.eventID = $currentEventID" );
 			return $query->result_array();
 		}
 
@@ -68,6 +70,11 @@
 			$this->db->where('events.eventID', $eID);
 			$query = $this->db->get();
 			return $query->result_array();
+		}
+
+		public function getEventName($id){
+			$query = $this->db->query("SELECT eventName FROM events where eventID = $id");
+			return $query->row();
 		}
 	}
 
