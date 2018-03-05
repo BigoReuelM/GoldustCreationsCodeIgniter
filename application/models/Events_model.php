@@ -83,11 +83,23 @@
 			$evID = $currentEventID;
 
 			$this->db->select('*');
-			$this->db->from('entourage');
-			$this->db->where('eventID', $evID);
+			$this->db->from('entouragedetails');
+			$this->db->join('entourage', 'entouragedetails.entourageID = entourage.entourageID');
+			$this->db->join('designs', 'designs.designID = entouragedetails.designID');
+			//$this->db->where('entourage.eventID', $evID);
+
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		/*public function getEntAttirePhoto($entID){
+			$this->db->select('designImage');
+			$this->db->from('designs');
+			$this->db->join('entouragedetails', 'designs.designID = entouragedetails.designID');
+			$this->db->where('entourageID', $entID);
+			$query = $this->db->get();
+			return $query->row();
+		}*/
 	}
 
  ?>

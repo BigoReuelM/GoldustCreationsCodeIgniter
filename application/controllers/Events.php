@@ -189,6 +189,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->eventDetails();
 		}
+		/*
+		public function setEntourageID(){
+			$currentEntId = $this->input->post('entInfo');
+			$this->session->set_userdata('currentEntId', $currentEntId);
+			$this->eventEntourage();
+		}*/
 
 	}
 

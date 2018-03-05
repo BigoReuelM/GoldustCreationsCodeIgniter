@@ -22,7 +22,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="designTable" class="table table-bordered table-striped">
+          <table id="designTable" class="table table-bordered table-striped text-center">
             <thead>
             <tr>
               <th>Design ID</th>
@@ -42,7 +42,7 @@
                 <td><?php echo $design['designID'] ?></td>
                 <td><?php echo $design['designName'] ?></td>
                 <td><?php echo $design['quantity'] ?></td>
-                <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
+                <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
@@ -107,9 +107,8 @@
 
           
           </div>
-
-          
-
+        
+          <!-- edit entourage -->
           <div class="modal modal-default fade" id="editEntourage">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -122,7 +121,7 @@
                   <div class="box">
       
                     <div class="box-body">
-                      <table id="entourageTableEdit" class="table table-bordered table-striped">
+                      <table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
                         <thead>
                         <tr>
                           <th>Name</th>
@@ -143,7 +142,8 @@
                         <tbody>
                           <?php
                             if (!empty($designs)) {
-                               foreach ($entourageDet as $det) {     
+                               foreach ($entourageDet as $det) {
+                               $entId = $det['entourageID'];     
                           ?>
                           <tr>
                             <td><?php echo $det['entourageName'] ?></td>
@@ -157,9 +157,15 @@
                             <td><?php echo $det['muscle'] ?></td>
                             <td><?php echo $det['pantsLength'] ?></td>
                             <td><?php echo $det['baston'] ?></td>
-                            <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
+                            <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/>' ?></td>
                             <td>
-                              <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
+                              <!--
+                              <div class="col-md-3 col-sm-4">
+                                <form role="form" method="post" action="<?php //echo base_url('events/setEntourageID') ?>">
+                                  <button class="btn-link" id="entInfo" name="entInfo" type="submit" value="<?php //echo($entId) ?>"><i class="fa fa-fw fa-exchange"></i></button>
+                                </form>
+                              </div>-->
+
                               <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
                             </td>
                           </tr>
@@ -195,7 +201,8 @@
                   <h4 class="modal-title">Design Name Here</h4> 
                 </div>
                 <div class="modal-body">
-                  <img src="sly2.jpg" alt="photo">
+                  <!--<img class="eventDecorsImg" src="" alt="photo">
+                  <?echo $attirePhoto ?>-->
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>

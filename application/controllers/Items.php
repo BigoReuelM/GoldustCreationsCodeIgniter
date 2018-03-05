@@ -83,5 +83,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function getEntourageAttire($currentEntId){
+			$this->load->model('events_model');
+			$data['attirePhoto'] = $this->events_model->getEntAttirePhoto($currentEntId);
+			$this->load->view("templates/eventEntourage.php", $data);
+		}
+
 	} 
 ?>
