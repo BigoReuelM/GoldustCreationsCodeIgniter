@@ -70,12 +70,19 @@ input[type=submit] {
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Services
-      </h1>
+      <div class="box-header">
+                <div class="row">
+                  <div class="col-md-9">
+                     <h3>Services</h3>
+                  </div>
+                  <div class="col-md-3">
+                    <button href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adserv" >Add Service</button>  
+                  </div>
+                </div>
+                
+             </div>
     </section>
     <section class="content container-fluid">
-      <a href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adserv" >Add Service </a>
       <!-- Modal for Add Services -->
       <div class="modal fade" id="adserv" role="dialog" >
     <div class="modal-dialog">

@@ -42,13 +42,20 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Gowns Selection
-      </h1>
+      <div class="box-header">
+                <div class="row">
+                  <div class="col-md-9">
+                     <h3>Gowns Selection</h3>
+                  </div>
+                  <div class="col-md-3">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addgowns">Add Gowns</button>  
+                  </div>
+                </div>
+                
+             </div>
     </section>
     <!-- Main content -->
     <section class="content container-fluid">
-    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addgowns">Add Gowns</button>
 
     <!-- Modal for add gown -->
 <div id="addgowns" class="modal fade" role="dialog">
