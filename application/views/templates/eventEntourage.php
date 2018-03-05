@@ -27,7 +27,7 @@
             <tr>
               <th>Design ID</th>
               <th>Name</th>
-              <th>Quantiry</th>
+              <th>Quantity</th>
               <th>Image</th>
               <th>Action</th>
             </tr>
@@ -75,7 +75,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="entourageTable" class="table table-bordered table-striped">
+          <table id="entourageTable" class="table table-bordered table-striped text-center">
             <thead>
             <tr>
               <th>Name</th>
@@ -85,17 +85,19 @@
             </tr>
             </thead>
             <tbody>
-              <tr>
-                
-                <td>yeha</td>
-                <td>yeha</td>
-                <td>yeha</td>
-                <td>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
-                </td>
-            
-              </tr>
+              <?php 
+                foreach ($entourageDet as $details) { ?>
+                  <tr>
+                    <td><?php echo $details['entourageName'] ?></td>
+                    <td><?php echo $details['role'] ?></td>
+                    <td>status</td>
+                    <td>
+                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
+                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                    </td>
+                  </tr>
+              <?php  }
+              ?>
             </tbody>
           </table>
           <button type="button" class="button1">Save</button>
@@ -103,50 +105,10 @@
         <!-- /.box-body -->
       </div>
 
-          <!-- modal body -->
-          <div class="modal modal-default fade" id="modal-photo">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Design Name Here</h4> 
-                </div>
-                <div class="modal-body">
-                  <img src="sly2.jpg" alt="photo">
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <a href="<?php echo base_url('items/gowns') ?>"><button type="button" class="btn btn-primary">Change</button></a>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Remove</button>
-                </div>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-          <!-- /.modal-dialog -->
+          
           </div>
 
-          <div class="modal modal-danger fade" id="modal-danger">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Alert!</h4> 
-                </div>
-                <div class="modal-body">
-                  <p>Remove this person from the list?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Remove</button>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-          <!-- /.modal-dialog -->
-          </div>
+          
 
           <div class="modal modal-default fade" id="editEntourage">
             <div class="modal-dialog">
@@ -154,7 +116,7 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Allert!!!!!</h4> 
+                  <h4 class="modal-title">Edit Entourage</h4> 
                 </div>
                 <div class="modal-body">
                   <div class="box">
@@ -181,13 +143,20 @@
                         <tbody>
                           <?php
                             if (!empty($designs)) {
-                               foreach ($desings as $design) {
-                                 
+                               foreach ($entourageDet as $det) {     
                           ?>
                           <tr>
-                            <td><?php echo $design['designID'] ?></td>
-                            <td><?php echo $design['designName'] ?></td>
-                            <td><?php echo $design['quantiry'] ?></td>
+                            <td><?php echo $det['entourageName'] ?></td>
+                            <td><?php echo $det['role'] ?></td>
+                            <td><?php echo $det['shoulder'] ?></td>
+                            <td><?php echo $det['chest'] ?></td>
+                            <td><?php echo $det['stomach'] ?></td>
+                            <td><?php echo $det['waist'] ?></td>
+                            <td><?php echo $det['armLength'] ?></td>
+                            <td><?php echo $det['armHole'] ?></td>
+                            <td><?php echo $det['muscle'] ?></td>
+                            <td><?php echo $det['pantsLength'] ?></td>
+                            <td><?php echo $det['baston'] ?></td>
                             <td><a href="#" data-toggle="modal" data-target="#modal-photo">View</a></td>
                             <td>
                               <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
@@ -216,6 +185,49 @@
           <!-- /.modal-dialog -->
           </div>
 
+          <!-- modal body -->
+          <div class="modal modal-default fade" id="modal-photo">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Design Name Here</h4> 
+                </div>
+                <div class="modal-body">
+                  <img src="sly2.jpg" alt="photo">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <a href="<?php echo base_url('items/gowns') ?>"><button type="button" class="btn btn-primary">Change</button></a>
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Remove</button>
+                </div>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+          <!-- /.modal-dialog -->
+
+          <div class="modal fade" id="modal-danger">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Alert!</h4> 
+                </div>
+                <div class="modal-body">
+                  <p>Remove this person from the list?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
+                </div>
+              </div>
+              <!-- /.modal-content -->
+            </div>
+          <!-- /.modal-dialog -->
+          </div>
     </section>
     <!-- /.content -->
   </div>

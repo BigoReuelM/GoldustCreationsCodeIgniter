@@ -78,6 +78,16 @@
 			$query = $this->db->query("SELECT eventName FROM events where eventID = $id");
 			return $query->row();
 		}
+
+		public function getEntourageDetails($currentEventID){
+			$evID = $currentEventID;
+
+			$this->db->select('*');
+			$this->db->from('entourage');
+			$this->db->where('eventID', $evID);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
  ?>

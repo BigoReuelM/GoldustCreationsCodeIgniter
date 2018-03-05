@@ -4,7 +4,7 @@
     echo'<div class="content-wrapper">';
    }
    $eventId = $this->session->userdata('currentEventID');
-   echo $eventId;
+   //echo $eventId;
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">

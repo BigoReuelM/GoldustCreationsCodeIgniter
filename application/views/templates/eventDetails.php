@@ -5,7 +5,7 @@ if (!$this->session->has_userdata('currentEventID')) {
   echo "wala laman";
 }else{
   $id = $this->session->userdata('currentEventID');
-  echo $id;
+  //echo $id;
 }
 //echo $id;
 ?>
