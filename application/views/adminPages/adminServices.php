@@ -1,4 +1,71 @@
+<style type="text/css">
+  input[type=text], select, textarea {
+    width: 250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
 
+label {
+    padding: 6px 6px 6px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    margin-right: 50px;
+    width: 25%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 50px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#con1 {
+  width:100%;
+}
+
+#tab1 {
+  border:1px solid #ccc;
+  background-color: #E6E6E6;
+}
+</style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -20,26 +87,27 @@
           <h4 class="modal-title">Add Service</h4>
         </div>
         <div class="modal-body">
-          <form>
-              <div class="row" id="row1">
-                  <div class="col-lg-7" id="row1">
-                      <div class="form-group" id="row1">
-                          <label>Name:</label>
-                          <input type="text" id="staff-name" class="form-control">
-                      </div>
+          <div class="container" id="con1">
+              <form action="/action_page.php">
+                <div class="row">
+                  <div class="col-25">
+                    <label for="fname">Type</label>
                   </div>
-              </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-7" id="row1">
-                          <div class="form-group" id="row1">
-                              <label>Description:</label>
-              <!-- combobox intended here.... -->
-                              <input type="text" id="staff-role" class="form-control">
-                          </div>
+                  <div class="col-75">
+                    <input type="text" id="fname" name="firstname" placeholder="Type">
                   </div>
-              </div>
-            </form>
+                </div>
+                <div class="row">
+                  <div class="col-25">
+                    <label for="fname">Description</label>
+                  </div>
+                  <div class="col-75">
+                    <input type="text" id="fname" name="firstname" placeholder="Description">
+                  </div>
+                </div>
+              </form>
           </div>
+        </div>
       <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -102,25 +170,26 @@
                         <h4 class="modal-title">Edit Service</h4>
                       </div>
                       <div class="modal-body">
-                        <form>
-                            <div class="row" id="row1">
-                                <div class="col-lg-7" id="row1">
-                                    <div class="form-group" id="row1">
-                                        <label>Type:</label>
-                                        <input type="text" id="staff-name" class="form-control">
-                                    </div>
+                        <div class="container" id="con1">
+                            <form action="/action_page.php">
+                              <div class="row">
+                                <div class="col-25">
+                                  <label for="fname">Type</label>
                                 </div>
-                            </div>
-                            <div class="row" id="row1">
-                                <div class="col-lg-7" id="row1">
-                                        <div class="form-group" id="row1">
-                                            <label>Description:</label>
-                            <!-- combobox intended here.... -->
-                                            <input type="text" id="staff-role" class="form-control">
-                                        </div>
+                              <div class="col-75">
+                                <input type="text" id="fname" name="firstname" placeholder="Type">
+                              </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-25">
+                                  <label for="fname">Description</label>
                                 </div>
-                            </div>
-                          </form>
+                              <div class="col-75">
+                                <input type="text" id="fname" name="firstname" placeholder="Description">
+                              </div>
+                              </div>
+                            </form>
+                        </div>
                       </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>

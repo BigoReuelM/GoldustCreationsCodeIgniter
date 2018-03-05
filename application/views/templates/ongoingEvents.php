@@ -1,7 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
   $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'handler') {
+  if ($employeeRole === 'admin') {
     echo'<div class="content-wrapper">';
    }
   $eventId = $this->session->userdata('currentEventID'); 

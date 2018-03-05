@@ -1,5 +1,89 @@
 <style type="text/css">
+  * {
+    box-sizing: border-box;
+}
+#name{
+   width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+#GovID {
+    width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+input[type=text], select, textarea {
+    width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
 
+label {
+    padding: 6px 6px 6px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    margin-right: 50px;
+    width: 25%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 50px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#con1 {
+  width:100%;
+}
+
+#tab1 {
+  border:1px solid #ccc;
+  background-color: #E6E6E6;
+}
 </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -24,81 +108,76 @@
           <h4 class="modal-title">Create Employee</h4>
         </div>
         <div class="modal-body">
-          <form>
-              <div class="row" id="row1">
-                  <div class="col-lg-7" id="row1">
-                      <div class="form-group" id="row1">
-                          <label>Employee ID</label>
-                          <input type="text" id="staff-name" class="form-control">
-                      </div>
-                  </div>
+          <!-- Add Employee -->
+          <div class="container" id="con1">
+            <form action="/action_page.php">
+              <div class="row">
+                <div class="col-25">
+                  <label for="fname">Employee ID</label>
+                </div>
+                <div class="col-75">
+                  <div id="GovID" > ****** </div>
+                </div>
               </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-7" id="row1">
-                          <div class="form-group" id="row1">
-                              <label>Employee Name</label>
-              <!-- combobox intended here.... -->
-                              <input type="text" id="staff-role" class="form-control">
-                          </div>
-                  </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Employee Name</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="lname" name="lastname" placeholder="Employee Name">
+                </div>
               </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" id="row1">
-                          <div class="form-group" id="row1">
-                              <label>Contact Number</label>
-              <!-- combobox intended here.... -->
-                              <input type="text" id="staff-role" class="form-control">
-                          </div>
-                  </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Contact Number</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="lname" name="lastname" placeholder="Contact Number">
+                </div>
               </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" id="row1">
-                          <div class="form-group" id="row1">
-                              <label>Address</label>
-              <!-- combobox intended here.... -->
-                              <input type="text" id="staff-role" class="form-control">
-                          </div>
-                  </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Email</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="lname" name="lastname" placeholder="Email">
+                </div>
               </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" id="row1">
-                          <div class="form-group" id="row1">
-                              <label>Email</label>
-              <!-- combobox intended here.... -->
-                              <input type="text" id="staff-role" class="form-control">
-                          </div>
-                  </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Address</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="lname" name="lastname" placeholder="Address">
+                </div>
               </div>
-              <br>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" class="form-group" id="row1">
-                      <label>Role</label>
-                      <select name="services" class="form-control" id="sel-servc" value="Choose">
-                        <option value="make-up">Make-up Artist</option>
-                        <option value="attire-rental">Florist</option>
-                        <option value="photography">Photographer</option>
-                        <option value="video-coverage">Videographer</option>
-                        <option value="video-coverage">Gown Handler</option>
-                      </select>
-                    </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="country">Role</label>
+                </div>
+                <div class="col-75">
+                  <select id="role" name="role">
+                    <option value="Make-up Artist">Make-up Artist</option>
+                    <option value="Florist">Florist</option>
+                    <option value="Photographer">Photographer</option>
+                    <option value="Videographer">Videographer</option>
+                    <option value="Gown Handler">Gown Handler</option>
+                  </select>
+                </div>
               </div>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" class="form-group" id="row1">
-                      <label>Standing</label>
-                      <select name="services" class="form-control" id="sel-servc" value="Choose">
-                        <option value="make-up">On-Call</option>
-                        <option value="attire-rental">Stay-In</option>
-                      </select>
-                    </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="country">Standing</label>
+                </div>
+                <div class="col-75">
+                  <select id="standing" name="standing">
+                    <option value="Stay-In">Stay-In</option>
+                    <option value="On-Call">On-Call</option>
+                  </select>
+                </div>
               </div>
-              <br>
-              <div class="row" id="row1">
-                  <div class="col-lg-5" id="row1">      
-                      <button onclick="myFunction()"> Upload Photo </button>
-                  </div>
-              </div>
-              <br>
-          </form>
+            </form>
+          </div>
 
         </div>
         <div class="modal-footer">
@@ -175,114 +254,91 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Jayson Caliway</h4>
+                      <h4 class="modal-title">Cristoforo Eryn</h4>
                     </div>
                     <div class="modal-body">
-                      <form>
-                          <div class="row" id="row1">
-                              <div class="col-lg-7" id="row1">
-                                  <div class="form-group" id="row1">
-                                      <p  class="label2">Employee ID: <span class="label1" >0001</span></a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="row" id="row1">
-                              <div class="col-lg-7" id="row1">
-                                      <div class="form-group" id="row1">
-                                          <p  class="label2">Contact Number: <span class="label1" >09123456789</span></p>
-                          <!-- combobox intended here.... -->
-                                      </div>
-                              </div>
-                          </div>
-                          <div class="row" id="row1">
-                              <div class="col-lg-5" id="row1">
-                                      <div class="form-group" id="row1">
-                                          <p class="label2">Address:<span class="label1" > Bakakeng </span></p>
-                          <!-- combobox intended here.... -->
-                                      </div>
-                              </div>
-                          </div>
-                          <div class="row" id="row1">
-                              <div class="col-lg-5" id="row1">
-                                      <div class="form-group" id="row1">
-                                          <p  class="label2">E-mail:<span class="label1" >Jaysonaliway@yahoo.com </span> </a>
-                          <!-- combobox intended here.... -->
-                                      </div>
-                              </div>
-                          </div>
-                          <div class="row" id="row1">
-                              <div class="col-lg-5" id="row1">
-                                      <div class="form-group" id="row1">
-                                          <p  class="label2"> Role:<span class="label1" >Handler </span></p>
-                          <!-- combobox intended here.... -->
-                                      </div>
-                              </div>
-                          </div>
-                          <div class="row" id="row1">
-                              <div class="col-lg-5" id="row1">
-                                      <div class="form-group" id="row1">
-                                          <p  class="label2">Standing: <span class="label1" >Regular</span></p>
-                          <!-- combobox intended here.... -->
-                                      </div>
-                              </div>
-                          </div>
-                          <br>
-                          <table id="customers">
-                              <tr>
-                                <th>ID</th>
-                                <th>Customer Name</th>
-                                <th>Events/Rental Name</th>
-                                <th>Date</th>
-
-                              </tr>
-                              <tr>
-                                <td>001</td>
-                                <td>Emmarie Cayabyab</td>
-                                <td>Emm-Reu Nuptial</td>
-                                <td>December 18, 2017</td>
-                              </tr>
-                              <tr>
-                                <td>009</td>
-                                <td>Christina Berglund</td>
-                                <td>Debut</td>
-                                <td>January 23, 2018</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                              </tr>
-                            </table>
-        
-                          <br>
-                          </p>
-                    </div>
-                    </form>
+                      <!-- Modal for View Employee Detail -->
+                      <div class="container" id="con1">
+                                                    <form action="/action_page.php">
+                                                        <div class="row">
+                                                            <div class="col-25">
+                                                              <label for="fname">Employee ID</label>
+                                                            </div>
+                                                            <div class="col-75">
+                                                              <div id="name" > 0001 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-25">
+                                                            <label for="lname">Contact Number</label>
+                                                          </div>
+                                                          <div class="col-75">
+                                                            <div id="name" > 09128623549</div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-25">
+                                                            <label for="lname">Address</label>
+                                                          </div>
+                                                          <div class="col-75">
+                                                            <div id="name" > #1 ABC Street Baguio City </div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-25">
+                                                            <label for="lname">Role</label>
+                                                          </div>
+                                                          <div class="col-75">
+                                                            <div id="name" >Handler</div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-25">
+                                                            <label for="lname">Standing</label>
+                                                          </div>
+                                                          <div class="col-75">
+                                                            <div id="name" > Regular</div>
+                                                          </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-25">
+                                                                <label> Handled Events</label>
+                                                            </div>
+                                                            <div>          
+                                                                <table class="table table-bordered" id="tab1">
+                                                                  <thead>
+                                                                    <tr>
+                                                                      <th id="tab1">ID</th>
+                                                                      <th id="tab1">Customer Name</th>
+                                                                      <th id="tab1">Events/Rental Name</th>
+                                                                      <th id="tab1">Date</th>
+                                                                    </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                    <tr>
+                                                                      <td id="tab1">0000001</td>
+                                                                      <td id="tab1">Touma Kazusa</td>
+                                                                      <td id="tab1">Nagato-Nagato Nuptial</td>
+                                                                      <td id="tab1">2017-04-08</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td id="tab1">0000002</td>
+                                                                      <td id="tab1">Rin Tohsaka</td>
+                                                                      <td id="tab1">Emiya Shorou Birthday</td>
+                                                                      <td id="tab1">2019-09-02</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                      <td id="tab1"></td>
+                                                                      <td id="tab1"></td>
+                                                                      <td id="tab1"></td>
+                                                                      <td id="tab1"></td>
+                                                                    </tr>
+                                                                  </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                  </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass" data-dismiss="modal">Reset Password</button>
                       <!-- Reset Password Modal -->

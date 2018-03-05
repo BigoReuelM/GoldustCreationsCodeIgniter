@@ -1,6 +1,6 @@
 <?php
   $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'handler') {
+  if ($employeeRole === 'admin') {
     echo'<div class="content-wrapper">';
    }
 ?>
