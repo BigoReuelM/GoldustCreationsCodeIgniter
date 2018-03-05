@@ -87,12 +87,10 @@ if (!$this->session->has_userdata('currentEventID')) {
       </div>
     </div>
   </div>
-  
-  <div class="row">
     <div class="col-lg-6">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-tittle">Services</h3>
+          <h3 class="box-title">Services</h3>
         </div>
         <div class="box-body">
           <table id="serviceTable" class="table table-striped table-bordered">
