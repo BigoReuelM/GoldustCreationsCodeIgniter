@@ -40,13 +40,20 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Decors Selection
-      </h1>
+      <div class="box-header">
+                <div class="row">
+                  <div class="col-md-9">
+                     <h3>Decors Selection</h3>
+                  </div>
+                  <div class="col-md-3">
+                    <button  class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adddecors">Add Decors </button>  
+                  </div>
+                </div>
+                
+             </div>
     </section>
     <!-- Main content -->
     <section class="content container-fluid">
-     <a href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adddecors">Add Decors</a>
      <!-- Modal for add gown -->
       <div id="adddecors" class="modal fade" role="dialog">
         <div class="modal-dialog">
