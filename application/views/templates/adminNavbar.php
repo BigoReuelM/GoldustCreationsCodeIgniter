@@ -28,7 +28,7 @@
             <i class="glyphicon glyphicon-briefcase"></i> 
             <span>Event</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-angle-right pull-rigth"></i>
             </span>
           </a>
           <ul class="treeview-menu">
@@ -65,7 +65,7 @@
             <i class="glyphicon glyphicon-briefcase"></i> 
             <span>Decors And Design</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <i class="fa fa-angle-right pull-rigth"></i>
             </span>
           </a>
           <ul class="treeview-menu">
