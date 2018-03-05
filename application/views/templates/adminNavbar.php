@@ -46,27 +46,16 @@
 
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/transactions') ?>"><i class="glyphicon glyphicon-briefcase"></i> <span>Transactions</span></a>
+          <a href="<?php echo base_url('transactions/transactions') ?>">
+            <i class="glyphicon glyphicon-briefcase"></i> 
+            <span>Transactions</span>
+          </a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="<?php echo base_url('admin/adminAdmin') ?>">
             <i class="glyphicon glyphicon-briefcase"></i> 
             <span>Employees</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="<?php echo base_url('admin/adminHandler') ?>">Handler</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('admin/adminStaff') ?>">Staff</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('admin/adminAdmin') ?>">Admin</a>
-            </li>
-          </ul>
         </li>
         <li>
           <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-briefcase"></i> <span>Services</span></a>

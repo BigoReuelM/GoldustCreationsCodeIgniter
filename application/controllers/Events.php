@@ -123,10 +123,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function eventDecors(){
-			$id = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($id);
+			$eventid = $this->session->userdata('currentEventID');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['eventName'] =$this->events_model->getEventName($eventid);
+			$data['eventDecors'] =$this->events_model->getDecors($eventid);
+			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -140,7 +142,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php", $data);
 				
 			}
-			$data['eventdecors'] = $this->events_model->getDecors($empID);
+			$data['eventdecors'] = $this->events_model->getDecors($eventid);
 			$this->load->view("templates/eventDecors.php", $data);
 			$this->load->view("templates/footer.php");
 		}

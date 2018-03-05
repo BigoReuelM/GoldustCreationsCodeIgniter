@@ -25,13 +25,15 @@
 			return $query->result_array();
 		}
 
-		public function getDecors($employeeID){
-			$eID = $this->session->userdata('employeeID');
+		public function getDecors($eventID){
+			//$eID = $this->session->userdata('employeeID');
+			//$evntID = $this->session->userdata('currentEventID');
 			$this->db->select('*');
 			$this->db->from('eventdecors');
 			$this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
-			$this->db->join('events', 'eventdecors.eventID = events.eventID');
-			$this->db->where('employeeID', $employeeID);
+			//$this->db->join('events', 'eventdecors.eventID = events.eventID');
+			//$this->db->where('employeeID', $employeeID);
+			$this->db->where('eventID', $eventID);
 			$query = $this->db->get();
 			return $query->result_array();
 		}
