@@ -1,12 +1,12 @@
 <!-- Content Wrapper. Contains page content -->
 <?php
-  $employeeRole = $this->session->userdata('role');
-  if ($employeeRole === 'admin') {
-    echo'<div class="content-wrapper">';
-   }
-  $eventId = $this->session->userdata('currentEventID'); 
+  //$employeeRole = $this->session->userdata('role');
+  //if ($employeeRole === 'admin') {
+    //echo'<div class="content-wrapper">';
+   //}
+  //$eventId = $this->session->userdata('currentEventID'); 
 ?>
-  
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
