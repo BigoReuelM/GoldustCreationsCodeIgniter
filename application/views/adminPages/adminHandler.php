@@ -157,11 +157,9 @@ input[type=submit] {
                 </div>
                 <div class="col-75">
                   <select id="role" name="role">
-                    <option value="Make-up Artist">Make-up Artist</option>
-                    <option value="Florist">Florist</option>
-                    <option value="Photographer">Photographer</option>
-                    <option value="Videographer">Videographer</option>
-                    <option value="Gown Handler">Gown Handler</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Handler">Handler</option>
                   </select>
                 </div>
               </div>

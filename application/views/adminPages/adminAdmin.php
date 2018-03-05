@@ -97,7 +97,7 @@ input[type=submit] {
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <a href="addAdmin.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addAdmin">Add Employee</a>
+
 <!-- Modal -->
   <div class="modal fade" id="addAdmin" role="dialog">
     <div class="modal-dialog">
@@ -157,11 +157,9 @@ input[type=submit] {
                 </div>
                 <div class="col-75">
                   <select id="role" name="role">
-                    <option value="Make-up Artist">Make-up Artist</option>
-                    <option value="Florist">Florist</option>
-                    <option value="Photographer">Photographer</option>
-                    <option value="Videographer">Videographer</option>
-                    <option value="Gown Handler">Gown Handler</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Staff">Staff</option>
+                    <option value="Handler">Handler</option>
                   </select>
                 </div>
               </div>
@@ -220,9 +218,23 @@ input[type=submit] {
   </div>
 
     <!-- end of modal -->
-      <div class="box">
-            <div class="box-header">
-            </div>
+    <section class="content container-fluid">
+      <div classs="content">
+        <div class="row">
+        <div class="col-md-12"> 
+            <div class="box">
+              <div class="box-header">
+                <div class="row">
+                  <div class="col-md-9">
+                     <h3 class="box-title">Employee Table</h3>
+                  </div>
+                  <div class="col-md-3">
+                    <button href="addAdmin.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addAdmin">Add Employee</button>  
+                  </div>
+                </div>
+                
+             </div>
+
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -233,15 +245,29 @@ input[type=submit] {
                   <th>Address</th>
                   <th>Email</th>
                   <th>Contact Number</th>
+                  <th>Role</th>
                 </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>5000</td>
-                    <td>MArz Tindaan</td>
-                    <td>Km4 La Trinidad</td>
-                    <td>marz@yahoo.com</td>
-                    <td>09912349956</td>
+                    <td>0003</td>
+                    <td>Alexsandra Nordin</td>
+                    <td>#123 DEF St., Baguio CIty</td>
+                    <td>nordin@yahoo.com</td>
+                    <td>09993456789</td>
+                    <td>Handler</td>
+                    <td>
+                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
+                      <div class="col-md-3 col-sm-4"><a href="eventDetails.php" data-toggle="modal" data-target="#info"><i class="fa fa-fw fa-info"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>0001</td>
+                    <td>Cristoforo Eryn</td>
+                    <td>#1 ABC Street Baguio City</td>
+                    <td>eryn@yahoo.com</td>
+                    <td>09128623549</td>
+                    <td>Handler</td>
                     <td>
                       <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
                       <div class="col-md-3 col-sm-4"><a href="eventDetails.php" data-toggle="modal" data-target="#info"><i class="fa fa-fw fa-info"></i></a></div>
