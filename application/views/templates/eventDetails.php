@@ -153,20 +153,20 @@ if (!$this->session->has_userdata('currentEventID')) {
     <div class="col-lg-6">
       <div class="form-group">
         <label>Event Name</label>
-        <input type="text" id="event-name" class="form-control">
+        <input type="text" id="form1" class="form-control">
       </div>
       <div class="form-group">
         <label>Contact Number</label>
-        <input type="text" id="contact-number" class="form-control">
+        <input type="text" id="form1" class="form-control">
       </div>
 
       <div class="form-group">
         <label>Client Name</label>
-        <input type="text" id="client-name" class="form-control">
+        <input type="text" id="form1" class="form-control">
       </div>
       <div class="form-group">
         <label>Celebrant</label>
-        <input type="text" id="celebrant" class="form-control">
+        <input type="text" id="form1" class="form-control">
       </div>
     </div>
     <div class="col-lg-6">
@@ -174,17 +174,17 @@ if (!$this->session->has_userdata('currentEventID')) {
 
         <div class="form-group">
           <label>Event Date</label>
-          <input type="date" id="event-date" class="form-control">
+          <input type="date" id="form1" class="form-control">
         </div>
 
         <div class="form-group">
           <label>Event Time</label>
-          <input type="time" id="event-time" class="form-control">
+          <input type="time" id="form1" class="form-control">
         </div>
 
         <div class="form-group">
           <label>Event Location</label>
-          <input type="text" id="event-time" class="form-control">
+          <input type="text" id="form1" class="form-control">
         </div>
         <label>Package Availed</label>
         <label style="margin-left: 53%">Motiff</label>
