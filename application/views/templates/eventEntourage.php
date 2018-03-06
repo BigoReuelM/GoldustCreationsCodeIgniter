@@ -42,7 +42,7 @@
                 <td><?php echo $design['designID'] ?></td>
                 <td><?php echo $design['designName'] ?></td>
                 <td><?php echo $design['quantity'] ?></td>
-                <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/>' ?></td>
+                <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
@@ -157,7 +157,7 @@
                             <td><?php echo $det['muscle'] ?></td>
                             <td><?php echo $det['pantsLength'] ?></td>
                             <td><?php echo $det['baston'] ?></td>
-                            <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/>' ?></td>
+                            <td><?php echo '<a data-target="#modal-photo" data-toggle="modal"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/></a>' ?></td>
                             <td>
                               <!--
                               <div class="col-md-3 col-sm-4">

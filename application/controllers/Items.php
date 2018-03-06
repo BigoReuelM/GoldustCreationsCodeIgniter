@@ -33,6 +33,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function decors(){
+			$this->load->model('items_model');
+			$data['allDecors'] = $this->items_model->getAllDecors();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {

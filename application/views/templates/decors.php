@@ -89,72 +89,16 @@
       <!-- End of modal -->
 
       <div class="container" id="con">
-      <div class="row text-center text-lg-left">
-
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
+        <div class="row text-center text-lg-left">
+          <div class="col-lg-3 col-md-4 col-xs-6" id="img">
+            <?php
+            foreach ($allDecors as $dec) {
+              echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>';
+            }
+            ?>
+          </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-      </div>
-
-
-    </div>    
+      </div>    
     <button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
     <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>
     </section>
