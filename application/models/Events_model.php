@@ -20,6 +20,7 @@
 
 			return $query->result_array();
 		}
+
 		public function getServices(){
 			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
 			return $query->result_array();
@@ -90,6 +91,20 @@
 
 			$query = $this->db->get();
 			return $query->result_array();
+		}
+
+		public function totalExpenses($eID){
+			$query = $this->db->query("SELECT sum(expensesAmount) as total
+				from expenses
+				where eventID = $eID");
+			return $query->row();
+		}
+
+		public function totalAmount($eID){
+			$query = $this->db->query("SELECT totalAmount
+				from events
+				where eventID = $eID");
+			return $query->row();
 		}
 
 		/*public function getEntAttirePhoto($entID){

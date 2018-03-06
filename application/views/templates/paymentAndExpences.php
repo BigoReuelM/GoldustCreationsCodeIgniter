@@ -1,6 +1,5 @@
 <?php
 
-   echo $_SESSION["currentEventID"];
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,7 +16,14 @@
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Payments Table:</h3>
+              <div class="row">
+                <div class="col-lg-5">
+                  <h3 class="box-title">Payments Table:</h3>
+                </div>
+                <div class="col-lg-7">
+                  <button type="button" class="btn btn-block btn-primary btn-lg" >Add Payments</button>
+                </div>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -68,7 +74,11 @@
             </div>
 
             <div class="">
-              <h3>Total Amount: Php 150, 000</h3>
+              <?php
+                $tAmount = $totalAmount->totalAmount; 
+                echo '<h3>Total Amount: Php ' . $tAmount . '</h3>'
+               ?>
+              
               <h3>Total Amount Paid: Php 100, 000</h3>
             </div>
           </div>
@@ -77,14 +87,24 @@
         <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">Expenses Table:</h3>
+              <div class="row">
+                <div class="col-lg-5">
+                  <h3 class="box-title">Expenses Table:</h3>
+                </div>
+                <div class="col-lg-7">
+                  <button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>
+                </div>
+              </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div class="row">
                 <div class="col-md-6">                 
                   <h3>Total Expenses:</h3>
-                  <h1>Php 30, 000</h1>  
+                  <?php 
+                    $totalExpenses = $totalExpenses->total;
+                    echo '<h1>Php' . $totalExpenses . '</h1>';  
+                  ?>
                 </div>
                 <div class="col-md-6">
                   <h3>Remaining Budget:</h3>
@@ -136,8 +156,11 @@
               </ul>
             </div>
               <div>
-                <h3>Over Budget: Php 50, 000</h3>
-                <h3>Total Budget: Php 100, 000</h3>
+                <?php
+
+                  echo '<h3>Over Budget: Php 50, 000</h3>';
+                  echo '<h3>Total Budget: Php 100, 000</h3>';
+                 ?>
               </div>
           </div>
         </div>

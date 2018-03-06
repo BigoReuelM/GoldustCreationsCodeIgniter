@@ -156,6 +156,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
 
 			$data['expenses']=$this->events_model->getExpenses($currentEvent);
+			$data['totalExpenses']=$this->events_model->totalExpenses($currentEvent);
+			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);
 			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
