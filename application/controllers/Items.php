@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/decors.php");
+			$this->load->view("templates/decors.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
