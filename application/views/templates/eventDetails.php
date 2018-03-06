@@ -369,6 +369,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                 </div>
                 <!-- End of Add staff modal -->
                 </div>
+                <div class="row">
                 <div class="col-xs-6 col-lg-4" id="right">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
                   </button>
@@ -424,7 +425,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           </div>
                         </div>
-                        
+                       </div> 
                       </div>
                     </div
                   <!-- End modal for on-call Staff -->
