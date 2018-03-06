@@ -59,6 +59,7 @@ input[type=submit] {
 
 #con1 {
   width:100%;
+   background-color: white;
 }
 
 #tab1 {

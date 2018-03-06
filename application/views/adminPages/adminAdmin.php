@@ -78,6 +78,7 @@ input[type=submit] {
 
 #con1 {
   width:100%;
+   background-color: white;
 }
 
 #tab1 {
@@ -160,17 +161,6 @@ input[type=submit] {
                     <option value="Admin">Admin</option>
                     <option value="Staff">Staff</option>
                     <option value="Handler">Handler</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-25">
-                  <label for="country">Standing</label>
-                </div>
-                <div class="col-75">
-                  <select id="standing" name="standing">
-                    <option value="Stay-In">Stay-In</option>
-                    <option value="On-Call">On-Call</option>
                   </select>
                 </div>
               </div>
