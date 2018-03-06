@@ -1,3 +1,7 @@
+<?php 
+
+  $empRole = $this->session->userdata('role');
+ ?>
 <style type="text/css">
   * {
     box-sizing: border-box;
@@ -94,7 +98,13 @@ input[type=submit] {
                      <h3 class="box-title">Service Transactions Table</h3>
                   </div>
                   <div class="col-md-3">
-                    <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServiceTransaction">Add Transaction</button>  
+                    <?php 
+                      if ($empRole === "admin") {
+                        echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServiceTransaction">Add Transaction</button>  ';
+                      }
+
+                     ?>
+                    
                   </div>
                 </div>
                 
