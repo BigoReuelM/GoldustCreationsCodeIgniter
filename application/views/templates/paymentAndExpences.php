@@ -181,7 +181,7 @@ input[type=submit] {
                  ?>
                 
               </div>
-              <table class="table table-bordered">
+              <table id="paymentTable" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Payment ID</th>
@@ -265,7 +265,7 @@ input[type=submit] {
                 </div>
               </div>
               
-              <table class="table table-bordered">
+              <table id="expenseTable" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Expenses ID</th>
@@ -373,4 +373,13 @@ function date() {
     x.setAttribute("value", "2014-02-09");
     document.body.appendChild(x);
 }
+</script>
+
+<script>
+  $(function () {
+    $('#expenseTable').DataTable({
+    })
+    $('#paymentTable').DataTable({
+    })
+  })
 </script>
