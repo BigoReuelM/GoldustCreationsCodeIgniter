@@ -1,6 +1,6 @@
 <style type="text/css">
-  body{
-  padding:20px 20px;
+#button1 {
+  width: 180px;
 }
 
 .results tr[visible='false'],
@@ -133,7 +133,7 @@ if (!$this->session->has_userdata('currentEventID')) {
      </section>
    </div>
    <div class="col-lg-2">
-     <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+     <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
    </div>
  </div>
 
