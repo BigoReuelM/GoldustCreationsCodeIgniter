@@ -1,5 +1,19 @@
 <?php
+  $tAmount = $totalAmount->totalAmount; 
+  $totalExpenses = $totalExpenses->total;
+  $totalAmountPaid = $totalPayments->total;
+  $totalBudget = $tAmount * .30;
+  $eventBalance = $balance->balance;
 
+  $remainingBudget = $totalBudget - $totalExpenses;
+  if ($remainingBudget < 0) {
+    $remainingBudget = "0000";
+  }
+  
+  $overBudget = $totalExpenses - $totalBudget;
+  if($overBudget < 0){
+    $overBudget = "00000";
+  }
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -28,7 +42,10 @@
             <!-- /.box-header -->
             <div class="box-body">
               <div>
-                <h3>Balance: </h3> <h1>Php 50, 000</h1>
+                <?php 
+                  echo '<h3>Balance: </h3> <h1>Php ' . $eventBalance . '</h1>';
+                 ?>
+                
               </div>
               <table class="table table-bordered">
                 <thead>
@@ -75,11 +92,10 @@
 
             <div class="">
               <?php
-                $tAmount = $totalAmount->totalAmount; 
-                echo '<h3>Total Amount: Php ' . $tAmount . '</h3>'
+                echo '<h3>Total Amount: Php ' . $tAmount . '</h3>';
+                echo '<h3>Total Amount Paid: Php' . $totalAmountPaid . '</h3>';
                ?>
               
-              <h3>Total Amount Paid: Php 100, 000</h3>
             </div>
           </div>
           </div>
@@ -102,13 +118,16 @@
                 <div class="col-md-6">                 
                   <h3>Total Expenses:</h3>
                   <?php 
-                    $totalExpenses = $totalExpenses->total;
+                    
                     echo '<h1>Php' . $totalExpenses . '</h1>';  
                   ?>
                 </div>
                 <div class="col-md-6">
                   <h3>Remaining Budget:</h3>
-                  <h1>Php 30, 000</h1>
+                  <?php 
+                    
+                    echo '<h1>Php ' . $remainingBudget . '</h1>';
+                  ?>
                 </div>
               </div>
               
@@ -157,9 +176,9 @@
             </div>
               <div>
                 <?php
-
-                  echo '<h3>Over Budget: Php 50, 000</h3>';
-                  echo '<h3>Total Budget: Php 100, 000</h3>';
+                  
+                  echo '<h3>Over Budget: Php ' . $overBudget . '</h3>';
+                  echo '<h3>Total Budget: ' . $totalBudget . '</h3>';
                  ?>
               </div>
           </div>

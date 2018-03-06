@@ -154,10 +154,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
-
+			$data['totalPayments']=$this->events_model->totalAmountPaid($currentEvent);
 			$data['expenses']=$this->events_model->getExpenses($currentEvent);
 			$data['totalExpenses']=$this->events_model->totalExpenses($currentEvent);
 			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);
+			$data['balance']=$this->events_model->balance($currentEvent);
 			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {

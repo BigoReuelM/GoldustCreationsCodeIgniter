@@ -101,9 +101,21 @@
 		}
 
 		public function totalAmount($eID){
-			$query = $this->db->query("SELECT totalAmount
+			$query = $this->db->query("SELECT totalAmount 
 				from events
 				where eventID = $eID");
+			return $query->row();
+		}
+
+		public function totalAmountPaid($eID){
+			$query = $this->db->query("SELECT sum(amount) as total
+				from payments
+				where eventID = $eID");
+			return $query->row();	
+		}
+
+		public function balance($eID){
+			$query = $this->db->query("SELECT TOTAL.totalAmount-sum(amount) AS balance FROM (select events.eventID, payments.amount, events.totalAmount from events join payments USING(eventID))AS TOTAL WHERE eventID=$eID;");
 			return $query->row();
 		}
 
