@@ -1,4 +1,5 @@
 <?php
+  $empRole = $this->session->userdata('role');
   $tAmount = $totalAmount->totalAmount; 
   $totalExpenses = $totalExpenses->total;
   $totalAmountPaid = $totalPayments->total;
@@ -112,7 +113,11 @@ input[type=submit] {
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+                  <?php 
+                    if ($empRole === "admin") {
+                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
+                    }
+                  ?>
                   <!-- Add Payment Modal -->
                   <div class="modal fade" id="addpayment" role="dialog">
                     <div class="modal-dialog">
@@ -186,7 +191,6 @@ input[type=submit] {
                   <tr>
                     <th>Payment ID</th>
                     <th>Amount</th>
-                    <th>Balance</th>
                     <th>Date</th>
                     <th>Time</th>
                   </tr>
@@ -200,7 +204,6 @@ input[type=submit] {
                   <tr>
                     <td><?php echo $payment['paymentID']; ?></td>
                     <td><?php echo $payment['amount']; ?></td>
-                    <td><?php echo $payment['totalAmount'] - $payment['amount']; ?></td>
                     <td><?php echo $payment['date']; ?></td>
                     <td><?php echo $payment['time']; ?></td>
                   </tr>
@@ -242,7 +245,11 @@ input[type=submit] {
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>
+                  <?php  
+                    if ($empRole === "admin") {
+                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>';
+                    }
+                  ?>
                 </div>
               </div>
             </div>
