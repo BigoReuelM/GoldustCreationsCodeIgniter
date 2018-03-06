@@ -88,17 +88,21 @@
       </div>   
       <!-- End of modal -->
 
+      <!-- gallery -->
       <div class="container" id="con">
-        <div class="row text-center text-lg-left">
-          <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-            <?php
-            foreach ($allDecors as $dec) {
-              echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>';
-            }
-            ?>
-          </div>
+        <div class="row">
+          <?php
+            foreach ($allDecors as $dec) { ?>
+                <div class="col-lg-3">
+                  <div class="thumbnail">
+                  <?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
+                  </div>
+                </div>
+          <?php }
+              ?>
         </div>
-      </div>    
+      </div> 
+
     <button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
     <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>
     </section>
