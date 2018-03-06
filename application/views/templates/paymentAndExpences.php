@@ -1,6 +1,83 @@
 <?php
 
 ?>
+<style type="text/css">
+#name{
+   width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+  input[type=text], select, textarea {
+    width: 250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+
+label {
+    padding: 6px 6px 6px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    margin-right: 50px;
+    width: 25%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 50px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#con1 {
+  width:100%;
+   background-color: white;
+}
+
+#tab1 {
+  border:1px solid #ccc;
+  background-color: #E6E6E6
+}
+</style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -21,7 +98,64 @@
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" >Add Payments</button>
+                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+                  <!-- Add Payment Modal -->
+                  <div class="modal fade" id="addpayment" role="dialog">
+                    <div class="modal-dialog">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Add Payment</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container" id="con1">
+                              <form action="/action_page.php">
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Client Name</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <div id="name" > Azuma Kazuma </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Event Name</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <div id="name" > Azuma Anniversary </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-25">
+                                    <label for="fname">Date</label>
+                                  </div>
+                                  <div class="col-75">
+                                    <input type="date" id="fname" name="firstname" placeholder="Description">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-25">
+                                    <label for="fname">Date</label>
+                                  </div>
+                                  <div class="col-75">
+                                    <input type="time" id="fname" name="firstname" placeholder="Description">
+                                  </div>
+                                </div>
+                              </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <!-- End of add payment modal -->
                 </div>
               </div>
             </div>
@@ -206,3 +340,11 @@
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
+<script>
+function date() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "date");
+    x.setAttribute("value", "2014-02-09");
+    document.body.appendChild(x);
+}
+</script>

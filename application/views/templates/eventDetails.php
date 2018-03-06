@@ -17,15 +17,6 @@
   color:#ccc;
 }
 
-#rigth {
-  float:right;
-  margin-left: 100%;
-  z-index: 10;  
-position: absolute;  
-right: 0;  
-top: 0;
-overflow: auto;
-}
 
 * {
     box-sizing: border-box;
@@ -118,6 +109,7 @@ input[type=submit] {
 #tab1 {
   border:1px solid #ccc;
   background-color: #E6E6E6;
+}
 </style>
 
 <?php
