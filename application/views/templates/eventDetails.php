@@ -17,15 +17,6 @@
   color:#ccc;
 }
 
-#rigth {
-  float:right;
-  margin-left: 100%;
-  z-index: 10;  
-position: absolute;  
-right: 0;  
-top: 0;
-overflow: auto;
-}
 
 * {
     box-sizing: border-box;
@@ -118,6 +109,7 @@ input[type=submit] {
 #tab1 {
   border:1px solid #ccc;
   background-color: #E6E6E6;
+}
 </style>
 
 <?php
@@ -377,6 +369,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                 </div>
                 <!-- End of Add staff modal -->
                 </div>
+                <div class="row">
                 <div class="col-xs-6 col-lg-4" id="right">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
                   </button>
@@ -432,7 +425,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                           </div>
                         </div>
-                        
+                       </div> 
                       </div>
                     </div
                   <!-- End modal for on-call Staff -->
