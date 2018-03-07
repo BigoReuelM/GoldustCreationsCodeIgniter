@@ -1,4 +1,5 @@
 <?php
+  $empRole = $this->session->userdata('role');
   $tAmount = $totalAmount->totalAmount; 
   $totalExpenses = $totalExpenses->total;
   $totalAmountPaid = $totalPayments->total;
@@ -117,7 +118,11 @@ input[type=submit] {
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+                  <?php 
+                    if ($empRole === "admin") {
+                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
+                    }
+                  ?>
                   <!-- Add Payment Modal -->
                   <div class="modal fade" id="addpayment" role="dialog">
                     <div class="modal-dialog">
@@ -194,12 +199,11 @@ input[type=submit] {
                  ?>
                 
               </div>
-              <table class="table table-bordered">
+              <table id="paymentTable" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Payment ID</th>
                     <th>Amount</th>
-                    <th>Balance</th>
                     <th>Date</th>
                     <th>Time</th>
                   </tr>
@@ -213,7 +217,6 @@ input[type=submit] {
                   <tr>
                     <td><?php echo $payment['paymentID']; ?></td>
                     <td><?php echo $payment['amount']; ?></td>
-                    <td><?php echo $payment['totalAmount'] - $payment['amount']; ?></td>
                     <td><?php echo $payment['date']; ?></td>
                     <td><?php echo $payment['time']; ?></td>
                   </tr>
@@ -225,17 +228,6 @@ input[type=submit] {
                   ?>
                 </tbody>
               </table>
-            
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul>
-            </div>
 
             <div class="">
               <?php
@@ -255,6 +247,7 @@ input[type=submit] {
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
+<<<<<<< HEAD
                   <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
                   <!-- Modal for add expenses -->
                   <div class="modal fade" id="addexpenses" role="dialog">
@@ -333,6 +326,13 @@ input[type=submit] {
                     </div>
                   </div>
                   <!-- end modal for add expenses -->
+=======
+                  <?php  
+                    if ($empRole === "admin") {
+                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>';
+                    }
+                  ?>
+>>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1
                 </div>
               </div>
             </div>
@@ -355,7 +355,7 @@ input[type=submit] {
                 </div>
               </div>
               
-              <table class="table table-bordered">
+              <table id="expenseTable" class="table table-bordered">
                 <thead>
                   <tr>
                     <th>Expenses ID</th>
@@ -389,15 +389,6 @@ input[type=submit] {
               </table>
             
             <!-- /.box-body -->
-            <div class="box-footer clearfix">
-              <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul>
-            </div>
               <div>
                 <?php
                   
@@ -447,8 +438,13 @@ input[type=submit] {
 <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Slimscroll -->
+<script src="<?php echo base_url();?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript">
     + function($) {
     'use strict';
@@ -489,3 +485,27 @@ input[type=submit] {
 
 }(jQuery);
   </script>
+=======
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
+<script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+function date() {
+    var x = document.createElement("INPUT");
+    x.setAttribute("type", "date");
+    x.setAttribute("value", "2014-02-09");
+    document.body.appendChild(x);
+}
+</script>
+
+<script>
+  $(function () {
+    $('#expenseTable').DataTable({
+    })
+    $('#paymentTable').DataTable({
+    })
+  })
+</script>
+>>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1

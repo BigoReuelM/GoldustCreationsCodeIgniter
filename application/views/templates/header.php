@@ -32,6 +32,7 @@ $photo = $this->session->userdata('photo');
                 <li><a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a></li>
               </ul>
             </li>
+            <li class="active"><a href="<?php echo base_url('items/gowns') ?>">Gallery</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
             <div class="form-group">
