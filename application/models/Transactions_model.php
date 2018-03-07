@@ -10,12 +10,39 @@
 
 			if ($role === 'admin') {
 				$query=$this->db->query(
-					"Select * from clients join transactions using(clientID)"
+					"SELECT *  
+					from transactions
+					where transactionstatus like 'on-going'"
 				);
 			}else{
 				$query=$this->db->query(
-					"Select * from clients join transactions using(clientID)
-					where $empID = employeeID"
+					"SELECT * 
+					from clients 
+					join transactions using(clientID)
+					where $empID = employeeID and transactionstatus like 'on-going'"
+				);
+
+			}
+
+			return $query->result_array();
+
+		}
+
+		public function getTransactionDetails($empID, $role){
+			if ($role === 'admin') {
+				$query=$this->db->query(
+					"SELECT * 
+					from clients 
+					join transactions using(clientID)
+					where transactionstatus like 'on-going'"
+				);
+			}else{
+				$query=$this->db->query(
+					"SELECT * 
+					from clients
+					natural join transactions
+					natural join transactiondetails
+					where $empID = employeeID and transactionstatus like 'on-going'"
 				);
 
 			}
@@ -56,6 +83,8 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+
 	}
 
 ?>

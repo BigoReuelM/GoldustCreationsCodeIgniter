@@ -19,7 +19,7 @@
 <style type="text/css">
 #name{
    width:250%;
-    padding: 12px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
@@ -92,6 +92,11 @@ input[type=submit] {
   border:1px solid #ccc;
   background-color: #E6E6E6
 }
+
+#head1 {
+  font-size: 18px;
+  font-weight: bold;
+}
 </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -152,16 +157,24 @@ input[type=submit] {
                                     <label for="fname">Date</label>
                                   </div>
                                   <div class="col-75">
-                                    <input type="date" id="fname" name="firstname" placeholder="Description">
+                                    <input type="date" id="name" name="firstname" placeholder="Description">
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-25">
-                                    <label for="fname">Date</label>
+                                    <label for="fname">Time</label>
                                   </div>
                                   <div class="col-75">
-                                    <input type="time" id="fname" name="firstname" placeholder="Description">
+                                    <input type="time" id="name" name="firstname" placeholder="Description">
                                   </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Amount</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <input type="text" id="name" name="firstname" placeholder="Amount">
+                                    </div>
                                 </div>
                               </form>
                           </div>
@@ -234,11 +247,84 @@ input[type=submit] {
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <?php  
-                    if ($empRole === "admin") {
-                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>';
-                    }
-                  ?>
+                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+                  <!-- Modal for add expenses -->
+                  <div class="modal fade" id="addexpenses" role="dialog">
+                    <div class="modal-dialog">
+                    
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Add Payment</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container" id="con1">
+                              <form action="/action_page.php">
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Client Name</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <div id="name" > Azuma Kazuma </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Event Name</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <div id="name" > Azuma Anniversary </div>
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Expense Name</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <input type="text" id="name" name="firstname" placeholder="Amount">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-25">
+                                    <label for="fname">Date</label>
+                                  </div>
+                                  <div class="col-75">
+                                    <input type="date" id="name" name="firstname" placeholder="Description">
+                                  </div>
+                                </div>
+                                <div class="row">
+                                   <div class="col-25">
+                                      <label for="fname">Expense Amount</label>
+                                    </div>
+                                    <div class="col-75">
+                                      <input type="text" id="name" name="firstname" placeholder="Amount">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-25">
+                                    <p id="head1">Select files</p>
+                                      <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                                        <div class="form-inline">
+                                          <div class="form-group">
+                                            <input type="file" name="files[]" id="js-upload-files" multiple>
+                                          </div>
+                                        </div>
+                                      </form>
+                                  </div>
+                                </div>
+                              </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <!-- end modal for add expenses -->
                 </div>
               </div>
             </div>
@@ -350,6 +436,48 @@ input[type=submit] {
 <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
+<<<<<<< HEAD
+<script type="text/javascript">
+    + function($) {
+    'use strict';
+
+    // UPLOAD CLASS DEFINITION
+    // ======================
+
+    var dropZone = document.getElementById('drop-zone');
+    var uploadForm = document.getElementById('js-upload-form');
+
+    var startUpload = function(files) {
+        console.log(files)
+    }
+
+    uploadForm.addEventListener('submit', function(e) {
+        var uploadFiles = document.getElementById('js-upload-files').files;
+        e.preventDefault()
+
+        startUpload(uploadFiles)
+    })
+
+    dropZone.ondrop = function(e) {
+        e.preventDefault();
+        this.className = 'upload-drop-zone';
+
+        startUpload(e.dataTransfer.files)
+    }
+
+    dropZone.ondragover = function() {
+        this.className = 'upload-drop-zone drop';
+        return false;
+    }
+
+    dropZone.ondragleave = function() {
+        this.className = 'upload-drop-zone';
+        return false;
+    }
+
+}(jQuery);
+  </script>
+=======
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -372,3 +500,4 @@ function date() {
     })
   })
 </script>
+>>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1

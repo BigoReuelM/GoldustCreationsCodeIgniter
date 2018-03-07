@@ -22,7 +22,7 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-      <div class="content">
+      
        <div class="box">
         <div class="box-header">
           <div class="row">
@@ -86,8 +86,9 @@
             </div>
             <!-- /.box-body -->
           </div>
-        </div>
+        
         </section>  
+      </div>
   <!-- /.content-wrapper -->
 
   <!-- modals... -->
@@ -119,14 +120,12 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
 <!-- DataTables -->
