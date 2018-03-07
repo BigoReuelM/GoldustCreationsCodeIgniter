@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$data['services']=$this->events_model->getServices();
 			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
+			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
 			$data['decors'] = $this->transactions_model->getDecors();
 			$data['designs'] = $this->transactions_model->getDesigns();
 

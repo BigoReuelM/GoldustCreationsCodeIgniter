@@ -244,7 +244,6 @@
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-</body>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

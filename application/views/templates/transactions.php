@@ -59,6 +59,7 @@
                           ?> 
                               
                               <tr>
+
                                 <td><?php echo $transac['transactionID']; ?></td>
                                 <td><?php echo $transac['clientName']; ?></td>
                                 <td><?php echo $transac['contactNo']; ?></td>
@@ -70,8 +71,9 @@
                                     </a>
                                   </div>
                                   <div class="col-md-3 col-sm-4" >
-                                    
-                                    <i class="fa fa-fw fa-info" data-toggle="modal" data-target="#transactdetails"> </i></a>
+                                    <a data-id="<?php echo $transac['transactionID']; ?>" class="open-transactionDetails"> 
+                                    <i class="fa fa-fw fa-info" ></i></a>
+                                    <!--data-toggle="modal" data-target="#transactdetails"-->
                                   </div>
                                 </td>
                               
@@ -101,7 +103,9 @@
               </div>
               <div class="modal-body">
                 <div class="" id="con1">
-                    <form action="/action_page.php">
+                    <form>
+                      <div class="box">
+                        <input type="text" name="transactionId" id="transactionId" value=""/>
                         <div class="row">
                             <div class="col-lg-5">
                               <label for="fname">Name</label>
@@ -158,6 +162,7 @@
                             <input type="text" class="form-control" placeholder="0" disabled>
                           </div>
                         </div>
+                      </div>
                         <div class="row">
                             <div class="col-lg-5">
                                 <label> Service Availed </label>
@@ -396,7 +401,11 @@
     width:75%;
   }
 </style>
-
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+<script>
+  $(function(){
+    $(".open-transactionDetails").click(function(){
+       $('#transactionId').val($(this).data('id'));
+      $("#transactdetails").modal("show");
+    });
+  });
+</script>
