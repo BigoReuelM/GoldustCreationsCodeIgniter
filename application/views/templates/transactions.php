@@ -71,6 +71,7 @@
                                     </a>
                                   </div>
                                   <div class="col-md-3 col-sm-4" >
+
                                     <a data-id="<?php echo $transac['transactionID']; ?>" class="open-transactionDetails"> 
                                     <i class="fa fa-fw fa-info" ></i></a>
                                     <!--data-toggle="modal" data-target="#transactdetails"-->
@@ -100,26 +101,41 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Transaction Details</h4>
+
               </div>
               <div class="modal-body">
                 <div class="" id="con1">
                     <form>
                       <div class="box">
+
                         <input type="text" name="transactionId" id="transactionId" value=""/>
+                        <?php 
+                          if(!empty($transactions)){
+
+                          $data = $this->session->userdata('tID');
+                          echo $data;
+                          foreach ($transactions as $transac) { 
+                             if ($transac['transactionID' === $data]) {
+                      
+                        ?>
                         <div class="row">
                             <div class="col-lg-5">
                               <label for="fname">Name</label>
                             </div>
                             <div class="col-lg-7">
-                              <input type="text" class="form-control" placeholder="Touma Kazuma" disabled>
+                              <?php 
+                                echo '<input type="text" class="form-control" placeholder="' . $transac['clientName'] . '"; disabled>'
+                               ?>
                             </div>
                         </div>
                         <div class="row">
                           <div class="col-lg-5">
-                            <label for="lname">Date Rented</label>
+                            <label for="lname">Date Availed</label>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="form-control" placeholder="This Date" disabled>
+                            <?php
+                              echo '<input type="text" class="form-control" placeholder="' . $transac['dateAvail'] . '" disabled>';
+                            ?>
                           </div>
                         </div>
                         <div class="row">
@@ -127,7 +143,9 @@
                             <label for="lname">Contact Number</label>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="form-control" placeholder="09260878700" disabled>
+                            <?php
+                              echo '<input type="text" class="form-control" placeholder="' . $transac['contactNo'] . '" disabled>';
+                            ?>
                           </div>
                         </div>
                         <div class="row">
@@ -135,7 +153,9 @@
                             <label for="lname">ID Type</label>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="form-control" placeholder="School ID" disabled>
+                            <?php 
+                              echo '<input type="text" class="form-control" placeholder="' . $transac['IDType'] . '" disabled>';
+                            ?>
                           </div>
                         </div>
                         <div class="row">
@@ -143,7 +163,9 @@
                             <label for="lname">Transaction State</label>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="form-control" placeholder="Finished" disabled>
+                            <?php 
+                              echo '<input type="text" class="form-control" placeholder="' . $transac['transactionstatus'] . '" disabled>';
+                            ?>
                           </div>
                         </div>
                         <div class="row">
@@ -151,7 +173,9 @@
                             <label for="lname">Total Amount</label>
                           </div>
                           <div class="col-lg-7">
-                            <input type="text" class="form-control" placeholder="12,000" disabled>
+                            <?php 
+                              echo '<input type="text" class="form-control" placeholder="' . $transac['totalAmount'] . '" disabled>';
+                            ?>
                           </div>
                         </div>
                         <div class="row">
@@ -163,6 +187,12 @@
                           </div>
                         </div>
                       </div>
+                      <?php }
+                          }
+                            }else{
+                              echo "0 results";
+                            }
+                          ?>
                         <div class="row">
                             <div class="col-lg-5">
                                 <label> Service Availed </label>
@@ -223,6 +253,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label>Client Name</label>
+                        
                         <input type="text" name="client-name" class="form-control">
                       </div>
                     </div>
@@ -287,6 +318,8 @@
                       </div>
                     </div>
                   </div>
+
+              
 
                   <!-- borrowed items --> 
                   <div class="col-lg-12">
@@ -403,9 +436,17 @@
 </style>
 <script>
   $(function(){
-    $(".open-transactionDetails").click(function(){
-       $('#transactionId').val($(this).data('id'));
+    $(".open-transactionDetails").on('click', function(){
+      var tID = $(this).data('id');
+      $('#transactionId').val(tID);
+      $.ajax({
+        url: "<?php echo base_url(); ?>transactions/setTransactionID",
+        type: "POST",
+        data: {"tID" : tID},
+
+      })
       $("#transactdetails").modal("show");
+
     });
   });
 </script>

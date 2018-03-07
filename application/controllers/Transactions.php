@@ -50,6 +50,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->load->view("templates/footer.php");
 		}
+
+		public function setTransactionID(){
+			//$this->session->set_serdata('tID');
+			$currentTransactionID = $this->input->post('tID');
+			$this->session->set_userdata('tID', $currentTransactionID);
+		}
 		
 
 	}
