@@ -247,7 +247,6 @@ input[type=submit] {
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
-<<<<<<< HEAD
                   <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
                   <!-- Modal for add expenses -->
                   <div class="modal fade" id="addexpenses" role="dialog">
@@ -326,13 +325,6 @@ input[type=submit] {
                     </div>
                   </div>
                   <!-- end modal for add expenses -->
-=======
-                  <?php  
-                    if ($empRole === "admin") {
-                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" >Add Expenses</button>';
-                    }
-                  ?>
->>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1
                 </div>
               </div>
             </div>
