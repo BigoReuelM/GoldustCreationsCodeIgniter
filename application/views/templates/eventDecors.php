@@ -5,6 +5,13 @@
    }
    $eventId = $this->session->userdata('currentEventID');
    //echo $eventId;
+    
+    if(!$this->session->has_userdata('currentDecorID')){
+      echo "awan";
+    }else{
+      $decorID = $this->session->userdata('currentDecorID');
+      echo $decorID;
+    }
 ?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -33,22 +40,24 @@
                 <thead>
                 <tr>
                   <th>Equipment ID</th>
-                  <th>Event ID</th>
+                  <!--<th>Event ID</th>-->
                   <th>Equipment Name</th>
                   <th>Quantity</th>
                   <th>Photo</th>
                   <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="decTblBody">
                     <?php
                       if(!empty($eventdecors)){
-                        foreach ($eventdecors as $ed) { ?>
-                        <tr>
+                        foreach ($eventdecors as $ed) { 
+                          $decID = $ed['decorID'];
+                          ?>
+                        <tr id="<?php echo $decID ?>">
                           <!-- Equipment ID -->
                           <td><?php echo $ed['decorID']; ?></td>
                           <!-- Event ID -->
-                          <td><?php echo $ed['eventID']; ?></td>
+                          <!--<td><?php //echo $ed['eventID']; ?></td>-->
                           <!-- Equipment Name -->
                           <td><?php echo $ed['decorName']; ?></td>
                           <!-- Quantity -->
@@ -57,7 +66,15 @@
                           <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
                           <!-- Action -->
                           <td>
-                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                            <!--<div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#rmvDecor"><i class="fa fa-fw fa-remove"></i></a></div>-->
+
+                            <div class="col-md-3 col-sm-4">
+                              <form role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
+                                <button class="btn-link" id="<?php echo($decID) ?>" name="decorID" type="submit" value="<?php echo($decID) ?>" onclick="rmv()"> 
+                                  <i class="fa fa-fw fa-remove"></i>
+                                </button>  
+                              </form>
+                            </div>
                           </td>
                         </tr>
                     <?php      
@@ -72,6 +89,25 @@
         </div>
         </section>  
   <!-- /.content-wrapper -->
+
+  <!-- modals... -->
+  <!-- remove decor modal -->
+  <div role="dialog" class="modal fade" id="rmvDecor">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+          <p>Remove decor from this event?</p>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-danger">Remove</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Add the sidebar's background. This div must be placed
   immediately after the control sidebar -->
@@ -110,4 +146,14 @@
     $('#decorsTable').DataTable({
     })
   })
+
+  function rmv(){
+    // get index of table row
+    //var i = id.parentNode.rowIndex;
+    //var i = document.getElementById($decTblBody).indexOf($decId);
+    //document.getElementById(decTblBody).deleteRow(i);
+    var tbl = document.getElementById(decTblBody);
+    var i = "<?php echo $decorID?>";
+    tbl.remove(i);
+  }
 </script>

@@ -81,6 +81,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function eventDetails(){
 			$id = $this->session->userdata('currentEventID');
 			$data['eventName'] =$this->events_model->getEventName($id);
+			// get ALL available services for modal (add service)
+			$data['servcs'] = $this->events_model->getServices();
+			// get services availed for an event ONLY
+			$data['avlServcs'] = $this->events_model->servcTransac($id);
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -125,6 +129,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function eventDecors(){
 			$eventid = $this->session->userdata('currentEventID');
+			$decorid = $this->session->userdata('currentDecorID');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$data['eventName'] =$this->events_model->getEventName($eventid);
@@ -192,6 +197,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->eventDetails();
 		}
+
+		public function setCurrentDecorID(){
+			$currentDecorID = $this->input->post('decorID');
+			$this->session->set_userdata('currentDecorID', $currentDecorID);
+			$this->eventDecors();
+		}
+
 		/*
 		public function setEntourageID(){
 			$currentEntId = $this->input->post('entInfo');

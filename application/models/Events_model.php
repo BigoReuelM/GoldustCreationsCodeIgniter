@@ -119,6 +119,16 @@
 			return $query->row();
 		}
 
+		public function servcTransac($eID){
+			$this->db->select('*');
+			$this->db->from('services');
+			$this->db->join('eventservices', 'services.serviceID = eventservices.serviceID');
+			$this->db->join('transactiondetails', 'transactiondetails.serviceID = eventservices.serviceID');
+			$this->db->where('status like "active"');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		/*public function getEntAttirePhoto($entID){
 			$this->db->select('designImage');
 			$this->db->from('designs');

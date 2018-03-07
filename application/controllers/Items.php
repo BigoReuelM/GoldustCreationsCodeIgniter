@@ -90,6 +90,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['attirePhoto'] = $this->events_model->getEntAttirePhoto($currentEntId);
 			$this->load->view("templates/eventEntourage.php", $data);
 		}
-
 	} 
 ?>

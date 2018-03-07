@@ -3,8 +3,7 @@
 	* 
 	*/
 	class Items_model extends CI_model
-	{
-		
+	{		
 		public function getAllDecors(){
 			$this->db->select('*');
 			$this->db->from('decors');
