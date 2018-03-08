@@ -17,6 +17,10 @@
   color:#ccc;
 }
 
+#in1 {
+  width: 130px;
+}
+
 
 * {
     box-sizing: border-box;
@@ -110,6 +114,7 @@ input[type=submit] {
   border:1px solid #ccc;
   background-color: #E6E6E6;
 }
+
 </style>
 
 <?php
@@ -224,21 +229,18 @@ if (!$this->session->has_userdata('currentEventID')) {
                 <!-- service name -->
                 <td><?php echo $svc['serviceName'] ?></td>
                 <!-- quantity... query later... -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty" id="in1"></td>
                 <!-- amount... query later...  -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount" id="in1"></td>
               </tr>
               <?php }
                 }
               ?>
             </tbody>
-            <tfoot>
-              <tr>
-                <!-- add service button -->
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServc">Add Services</button></td>
-              </tr>
-            </tfoot>
-          </table>  
+          </table>
+          <div class= "col-lg-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
+          </div>
         </div>
       </div>
     </div>
@@ -281,13 +283,12 @@ if (!$this->session->has_userdata('currentEventID')) {
             <td>09291387121</td>
             <td>Available</td>
           </tbody>
-          <tfoot>
-            <tr>
-              <td>
-              <div class="col-xs-12 col-md-8">
+        </table>
+        <div class="row">
+              <div class="col-lg-6">
                 <button type="button" class="btn btn-primary">Remove Staff</button>
               </div>
-                <div class="col-xs-12 col-md-8">
+                <div class="col-lg-2">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
                 <!-- Add staff Modal -->
                 <div class="modal fade" id="addstaff" role="dialog">
@@ -300,7 +301,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                         <h4 class="modal-title">Add Staff</h4>
                       </div>
                       <div class="modal-body">
-                        <div class="form-group pull-right">
+                        <div class="col-lg-4">
                             <input type="text" class="search form-control" placeholder="What you looking for?">
                         </div>
                         <span class="counter pull-right"></span>
@@ -369,8 +370,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                 </div>
                 <!-- End of Add staff modal -->
                 </div>
-                <div class="row">
-                <div class="col-xs-6 col-lg-4" id="right">
+                <div class="col-lg-2">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
                   </button>
                   <!-- Modal for add on-call Staff -->
@@ -430,10 +430,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                     </div
                   <!-- End modal for on-call Staff -->
                 </div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+                </div>
         </div>
       </div>
     </div>
