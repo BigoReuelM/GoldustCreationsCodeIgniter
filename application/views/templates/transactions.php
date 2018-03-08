@@ -1,11 +1,6 @@
 <?php 
   
-  if (isset($_POST['tID'])) {
-    $id = $_POST['tID'];
-    $this->session->set_userdata('tID', $id);
-  }
   $empRole = $this->session->userdata('role');
-  $tid = $this->session->userdata('tID');
  ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -14,7 +9,6 @@
     <section class="content-header">
      <h1>
         Service Transactions
-        <?php echo $tid; ?>
       </h1>
     </section>
 
@@ -61,6 +55,7 @@
                             if(!empty($transactions)){
 
                             foreach ($transactions as $transac) { 
+                            $tranID = $transac['transactionID'];
                               
                           ?> 
                               
@@ -77,10 +72,13 @@
                                     </a>
                                   </div>
                                   <div class="col-md-3 col-sm-4" >
-
-                                    <a data-id="<?php echo $transac['transactionID']; ?>" class="open-transactionDetails"> 
-                                    <i class="fa fa-fw fa-info" ></i></a>
+                                    <form role="form" action="#" method="post">
+                                      <!--data-id="<?php echo $transac['transactionID']; ?>"--> 
+                                    <a name="tInfo" class="open-transactionDetails" type="submit" value="<?php echo $tranID ?>"> 
+                                      <i class="fa fa-fw fa-info" ></i>
+                                    </a>
                                     <!--data-toggle="modal" data-target="#transactdetails"-->
+                                    </form>
                                   </div>
                                 </td>
                               
@@ -115,6 +113,19 @@
                       <div class="box">
 
                         <input type="text" name="transactionId" id="transactionId" value=""/>
+                        <?php 
+  
+                          if (isset($_POST['tInfo'])) {
+                            $id = $this->input->post('tInfo');
+                            echo "shit" . $id;
+                            //$this->session->set_userdata('tID', $id);
+                          }else{
+                            echo '<p>Shit this motherfucker</p>';
+                          }
+                          //$empRole = $this->session->userdata('role');
+                          //$tid = $this->session->userdata('tID');
+                        ?>
+
                         
                         <?php 
                           if(!empty($transactions)){
@@ -443,27 +454,24 @@
 </style>
 
 <script>
-  //$(document).ready(function(){
+  $(document).ready(function(){
     $(".open-transactionDetails").on('click', function(){
-      var tID = $(this).data('id');
+      var tID = this.getAttribute('value');
       $('#transactionId').val(tID);
+       
+      
       $.ajax({
         //url: "<?php echo base_url(); ?>transactions/setTransactionID",
-        type: "POST",
-        data: {tID : tID},
+        type: 'post',
+        data: {tID : this.getAttribute('value')},
         success: function() {
-          //location.reload()
+          console.log(tID);
         }
 
-      }).done(function(){
-        loadModal();  
-      }); 
-
-    });
-
-  //})
-  function loadModal(){
-    $("#transactdetails").modal("show");
-  }
+      })
+      $("#transactdetails").modal("show");  
+    })
+  })
+  
 </script>
 
