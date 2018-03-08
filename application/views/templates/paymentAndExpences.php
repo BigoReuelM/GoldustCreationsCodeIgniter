@@ -247,7 +247,11 @@ input[type=submit] {
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+                  <?php 
+                    if ($empRole === "admin") {
+                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>';
+                    }
+                  ?>
                   <!-- Modal for add expenses -->
                   <div class="modal fade" id="addexpenses" role="dialog">
                     <div class="modal-dialog">
@@ -436,7 +440,7 @@ input[type=submit] {
 <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
-<<<<<<< HEAD
+
 <script type="text/javascript">
     + function($) {
     'use strict';
@@ -475,10 +479,9 @@ input[type=submit] {
         return false;
     }
 
-}(jQuery);
-  </script>
-=======
-<!-- AdminLTE for demo purposes -->
+}
+</script>
+
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -500,4 +503,3 @@ function date() {
     })
   })
 </script>
->>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1
