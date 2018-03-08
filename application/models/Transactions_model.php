@@ -84,6 +84,24 @@
 			return $query->result_array();
 		}
 
+		public function viewEventRentals(){
+			$emID = $this->session->userdata('employeeID');
+			$evID = $this->session->userdate('eventID');
+			$query = $this->db->query("SELECT *
+					FROM
+						event e
+							NATURAL JOIN
+						clients c
+							NATURAL JOIN
+						entourage en
+					WHERE
+						e.eventID = $evID
+						AND e.employeeID = $emID
+						AND e.eventStatus LIKE 'on%going'"
+			);
+			return $query->result_array();
+		}
+
 
 	}
 

@@ -113,19 +113,23 @@
                           </tr>
                         </thead>
                         <tbody>
-                            <!--<?php 
-                            if($result1->num_rows > 0){ 
-                              while ($row = $result1->fetch_assoc()) { ?> 
+                            <?php 
+                            if(!empty($evredata)){ 
+                              while ($evredata = $ed) { ?> 
                                 <tr>
-                                  <td><?php echo $row["Service Name"]; ?></td>
-                                  <td><?php echo $row["Celebrant Name"]; ?></td>
-                                  <td><?php echo $row["Client Name"]; ?></td>
-                                  <td><?php echo $row["Contact Number"]; ?></td>
+                                  <td><?php echo $ed['serviceName']; ?></td>
+                                  <td><?php echo $ed['clientName']; ?></td>
+                                  <td><?php echo $ed['contactNumber']; ?></td>
+                                  <td>
+                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
+                                  </td>
                                 </tr>
-                            <?php }
-                              }else{
-                                echo '0 results';
-                              } ?> -->
+                                <?php
+                                  }
+                                  }else{
+                                   echo "0 result";
+                                  } 
+                                ?>
                         </tbody>
                     </table>
                   </div>
