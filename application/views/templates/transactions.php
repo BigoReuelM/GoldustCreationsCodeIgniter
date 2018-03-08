@@ -1,6 +1,11 @@
 <?php 
-
+  
+  if (isset($_POST['tID'])) {
+    $id = $_POST['tID'];
+    $this->session->set_userdata('tID', $id);
+  }
   $empRole = $this->session->userdata('role');
+  $tid = $this->session->userdata('tID');
  ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -9,6 +14,7 @@
     <section class="content-header">
      <h1>
         Service Transactions
+        <?php echo $tid; ?>
       </h1>
     </section>
 
@@ -109,6 +115,7 @@
                       <div class="box">
 
                         <input type="text" name="transactionId" id="transactionId" value=""/>
+                        
                         <?php 
                           if(!empty($transactions)){
 
@@ -434,19 +441,29 @@
     width:75%;
   }
 </style>
+
 <script>
-  $(function(){
+  //$(document).ready(function(){
     $(".open-transactionDetails").on('click', function(){
       var tID = $(this).data('id');
       $('#transactionId').val(tID);
       $.ajax({
-        url: "<?php echo base_url(); ?>transactions/setTransactionID",
+        //url: "<?php echo base_url(); ?>transactions/setTransactionID",
         type: "POST",
-        data: {"tID" : tID},
+        data: {tID : tID},
+        success: function() {
+          //location.reload()
+        }
 
-      })
-      $("#transactdetails").modal("show");
+      }).done(function(){
+        loadModal();  
+      }); 
 
     });
-  });
+
+  //})
+  function loadModal(){
+    $("#transactdetails").modal("show");
+  }
 </script>
+

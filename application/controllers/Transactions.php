@@ -55,6 +55,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			//$this->session->set_serdata('tID');
 			$currentTransactionID = $this->input->post('tID');
 			$this->session->set_userdata('tID', $currentTransactionID);
+			
 		}
 		
 
