@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-<<<<<<< HEAD
+
 		public function ongoing_rentals_events(){
 			$eRole = $this->session->userdata('role');
 			$this->load->view("template/head.php");
@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view('templates/ongoingRentals', $data);
 			$this->load->view("templates/footer.php");
 		}
-=======
+
 		public function setTransactionID(){
 			//$this->session->set_serdata('tID');
 			$currentTransactionID = $this->input->post('tID');
@@ -68,7 +68,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		}
 		
->>>>>>> 7732155118892c6768d9d50173103889489cd020
-
 	}
  ?>
