@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$data['services']=$this->events_model->getServices();
 			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
+			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
 			$data['decors'] = $this->transactions_model->getDecors();
 			$data['designs'] = $this->transactions_model->getDesigns();
 
@@ -49,7 +50,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->load->view("templates/footer.php");
 		}
-		
 
+
+		public function ongoing_rentals_events(){
+			$eRole = $this->session->userdata('role');
+			$this->load->view("template/head.php");
+			$this->load->view("template/header.php");
+			$data['evredata'] = $this->transactions_model->viewEventRentals();
+			$this->load->view('templates/ongoingRentals', $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function setTransactionID(){
+			//$this->session->set_serdata('tID');
+			$currentTransactionID = $this->input->post('tID');
+			$this->session->set_userdata('tID', $currentTransactionID);
+			
+		}
+		
 	}
  ?>

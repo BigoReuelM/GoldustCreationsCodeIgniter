@@ -141,7 +141,7 @@
                         </thead>
                         <tbody>
                           <?php
-                            if (!empty($designs)) {
+                            if (!empty($entourageDet)) {
                                foreach ($entourageDet as $det) {
                                $entId = $det['entourageID'];     
                           ?>
@@ -159,20 +159,17 @@
                             <td><?php echo $det['baston'] ?></td>
                             <td><?php echo '<a data-target="#modal-photo" data-toggle="modal"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/></a>' ?></td>
                             <td>
+                              <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
                               <!--
                               <div class="col-md-3 col-sm-4">
                                 <form role="form" method="post" action="<?php //echo base_url('events/setEntourageID') ?>">
                                   <button class="btn-link" id="entInfo" name="entInfo" type="submit" value="<?php //echo($entId) ?>"><i class="fa fa-fw fa-exchange"></i></button>
                                 </form>
                               </div>-->
-
-                              <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
                             </td>
                           </tr>
                           <?php 
                                }
-                             }else {
-                              echo "0 details";
                              }
                           ?>
                         </tbody>
@@ -244,7 +241,6 @@
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-</body>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

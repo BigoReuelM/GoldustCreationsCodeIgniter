@@ -200,6 +200,7 @@ if (!$this->session->has_userdata('currentEventID')) {
       </div>
     </div>
   </div>
+  <!-- services -->
     <div class="col-lg-6">
       <div class="box">
         <div class="box-header">
@@ -215,30 +216,26 @@ if (!$this->session->has_userdata('currentEventID')) {
               </tr>
             </thead>
             <tbody>
+              <?php
+                if (!empty($servcs) || !empty($avlServcs)) {
+                  $mergeArray = array_merge($servcs, $avlServcs);
+                  foreach ($mergeArray as $svc) { ?>
               <tr>
-                <td>
-                  <form>
-                    <div class="form-group checkbox">
-                      <label><input type="checkbox" id="" value="gowns">Gowns</label>
-                    </div>
-                  </form>
-                </td>
-                <td>12</td>
-                <td>35000</td>
+                <!-- service name -->
+                <td><?php echo $svc['serviceName'] ?></td>
+                <!-- quantity... query later... -->
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty"></td>
+                <!-- amount... query later...  -->
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount"></td>
               </tr>
-              <td>
-                <form>
-                  <div class="form-group checkbox">
-                    <label><input type="checkbox" id="" value="makeup">Makeup</label>
-                  </div>
-                </form>
-              </td> 
-              <td>7</td>
-              <td>10000</td> 
+              <?php }
+                }
+              ?>
             </tbody>
             <tfoot>
               <tr>
-                <td><button type="button" class="btn btn-primary">Add Services</button></td>
+                <!-- add service button -->
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServc">Add Services</button></td>
               </tr>
             </tfoot>
           </table>  
@@ -445,6 +442,55 @@ if (!$this->session->has_userdata('currentEventID')) {
 </section>
 <!-- /.content-wrapper -->
 
+<!-- modals... -->
+<!-- add service modal -->
+<div class="modal fade" role="dialog" id="addServc">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Service/s</h4>
+      </div>
+      <div class="modal-body">
+          <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <form>
+                <?php
+                  if (!empty($servcs)) {
+                    foreach ($servcs as $svc) { ?>
+                      <tr>
+                        <td><div class="checkbox"><label><input type="checkbox" name=""><?php echo $svc['serviceName'] ?></label></div></td>
+                        <td><?php echo $svc['description'] ?></td>
+                      </tr>
+                <?php }
+                  }
+                ?>
+              </form>
+            </tbody>
+          </table>  
+      </div>
+      <div class="modal-footer">
+        <tfoot>
+          <div class="row">
+            <div class="col-lg-6">
+              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+            </div>
+            <div class="col-lg-6">
+              <button class="btn btn-default" action="" type="submit">Add</button>
+            </div>
+          </div>
+        </tfoot>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
@@ -471,7 +517,12 @@ if (!$this->session->has_userdata('currentEventID')) {
     $(function () {
       $('#serviceTable').DataTable()
       $('#staffTable').DataTable()
+      $('#modalServcTbl').DataTable()
     })
+
+    function reset_chkbx() {
+      $('input:checkbox').prop('checked', false);
+    }
   </script>
   <script type="text/javascript">
     $(document).ready(function() {
@@ -501,3 +552,15 @@ if (!$this->session->has_userdata('currentEventID')) {
       });
 });
   </script>
+
+<style>
+  @media screen and (min-with: 768px){
+    #add-event .modal-dialog {
+      with:900px;
+    }
+  }
+
+  #add-event .modal-dialog {
+    width:90%;
+  }
+</style>
