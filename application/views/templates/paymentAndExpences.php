@@ -436,13 +436,10 @@ input[type=submit] {
 <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript">
     + function($) {
     'use strict';
 
-    // UPLOAD CLASS DEFINITION
-    // ======================
 
     var dropZone = document.getElementById('drop-zone');
     var uploadForm = document.getElementById('js-upload-form');
@@ -477,7 +474,6 @@ input[type=submit] {
 
 }(jQuery);
   </script>
-=======
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
@@ -500,4 +496,3 @@ function date() {
     })
   })
 </script>
->>>>>>> 4f659b3d2a0c4112eb1139d179c1ef37bfa6a1b1

@@ -287,6 +287,9 @@ if (!$this->session->has_userdata('currentEventID')) {
           <tfoot>
             <tr>
               <td>
+              <div class="col-xs-12 col-md-8">
+                <button type="button" class="btn btn-primary">Remove Staff</button>
+              </div>
                 <div class="col-xs-12 col-md-8">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
                 <!-- Add staff Modal -->

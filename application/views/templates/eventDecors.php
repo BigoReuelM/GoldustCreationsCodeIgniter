@@ -1,3 +1,4 @@
+
 <?php
   $employeeRole = $this->session->userdata('role');
   if ($employeeRole === 'handler') {
@@ -6,6 +7,94 @@
    $eventId = $this->session->userdata('currentEventID');
    //echo $eventId;
 ?>
+<style type="text/css">
+  * {
+    box-sizing: border-box;
+}
+#name{
+   width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+#GovID {
+    width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+input[type=text], select, textarea {
+    width:250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+
+label {
+    padding: 6px 6px 6px 0;
+    display: inline-block;
+}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    margin-right: 50px;
+    width: 25%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 50px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#con1 {
+  width:100%;
+   background-color: white;
+}
+
+#tab1 {
+  border:1px solid #ccc;
+  background-color: #E6E6E6;
+}
+</style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -23,7 +112,7 @@
               <h3 class="box-title">List Of Decors</h3>    
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" >Add New Decors</button>  
+              <button type="button" class="btn btn-block btn-primary btn-lg">Add New Decors </button>
             </div>
           </div>
         </div>
@@ -57,7 +146,8 @@
                           <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
                           <!-- Action -->
                           <td>
-                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+                            <div class="col-md-3 col-sm-4"><a ><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#modal-danger"></i></a></div>
+
                           </td>
                         </tr>
                     <?php      

@@ -176,7 +176,7 @@ input[type=submit] {
                         </div>
                       </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#deact" >Activate</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#deact" >Deactivate</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                       </div>
