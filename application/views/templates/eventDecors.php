@@ -180,19 +180,18 @@ input[type=submit] {
                             
                             <!-- remove decor button -->
                             <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
-                            <!--<div class="col-md-3 col-sm-4">
-                              <form role="form" method="post" action="<?php //echo base_url('events/setCurrentDecorID') ?>">
-                                <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID" type="submit" value="<?php //echo($decID) ?>"><i class="fa fa-remove"></i> Remove
+                            <div class="col-md-3 col-sm-4">
+                              <form role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
+                                <!-- add onsubmit="return false" to prevent page from reloading -->
+                                <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove
                                 </button>  
                               </form>
-                            </div>-->
-                            <div class="col-md-3 col-sm-4">
-                              <!-- last form submit here -->
-                              
-                                <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID"><i class="fa fa-remove"></i> Remove
-                                </button> 
-                              
                             </div>
+                            <!--<div class="col-md-3 col-sm-4">
+                                
+                                <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID"><i class="fa fa-remove"></i> Remove</button> 
+                              
+                            </div>-->
                             <!-- change decor button -->
                             <div class="col-md-3 col-sm-4"><button class="btn btn-link" data-toggle="modal" data-target="#changedecor"><i class="fa fa-fw fa-edit"></i> Change</button></div>
                           </td>
@@ -284,9 +283,8 @@ input[type=submit] {
                 <p>Remove decor from this event?</p>
               </div>
               <div class="modal-footer">
-                <form id ="decorform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                  <button type="submit" class="btn btn-danger" id="rmvbtn" name="decorID" value="<?php echo($decID) ?>" onclick="getBtnId()"><i class="fa fa-remove"></i> Remove
-                  </button>
+                <form id ="decorform" role="form" method="post" action="<?php echo base_url('events/deleteDecor') ?>">
+                  <button type="submit" class="btn btn-danger" id="rmvbtn" name="decorID" value="test"><i class="fa fa-remove"></i> Remove</button>
                 </form>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
@@ -338,7 +336,7 @@ input[type=submit] {
 
   // trial function
   function (){
-    //open modal first... 
+    // open modal first... 
     //$('#rmvdecor').modal('show');
     // submit this form to set decor id session variable ...
     var form = document.getElementById("decorform");
@@ -349,9 +347,10 @@ input[type=submit] {
     // remove ... create a query that will remove the data itself in the database
   };
 
-  /*function getBtnId(){
-    document.getElementById("rmvbtn").value = document.getElementById("decorID").value;
-  }*/
+  function changeBtnVal(val){
+    document.getElementById("rmvbtn").value = val;
+    //alert("btn value" + document.getElementById("rmvbtn").value);
+  }
 </script>
 
 <style>

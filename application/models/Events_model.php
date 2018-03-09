@@ -129,6 +129,13 @@
 			return $query->result_array();
 		}
 
+		public function deleteEvntDecor($decId, $eId){
+			$this->db->where('decorID', $decId);
+			$this->db->where('eventID', $eId);
+			$this->db->delete('eventdecors');
+
+		}
+
 		/*public function getEntAttirePhoto($entID){
 			$this->db->select('designImage');
 			$this->db->from('designs');
