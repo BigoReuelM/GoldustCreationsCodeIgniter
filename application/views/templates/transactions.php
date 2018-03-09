@@ -43,8 +43,8 @@
                       <table id ="rentalTable" class="table table-bordered table-condensed">
                         <thead>
                           <tr>
-                            <th>Service ID</th>
-                            <th>Celebrant Name</th>
+                            <th>Transaction ID</th>
+                            <th>Client Name</th>
                             <th>Contact Number</th>
                             <th>Total Amount</th>
                             <th>Action</th>

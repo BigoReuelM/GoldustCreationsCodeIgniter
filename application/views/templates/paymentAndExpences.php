@@ -102,8 +102,32 @@ input[type=submit] {
     <section class="content-header">
       <h1>
         Payments And Expenses
+        <?php 
+          echo $this->session->userdata('clientID');
+          echo $this->session->userdata('amount');
+         ?>
       </h1>
     </section>
+
+    <?php
+    $success_msg= $this->session->flashdata('success_msg');
+    $error_msg= $this->session->flashdata('error_msg');
+
+    if ($success_msg) {
+  ?>
+      <div class="alert alert-success">
+        <?php echo $success_msg; ?>
+      </div>
+    <?php  
+    }
+    if ($error_msg) {
+      ?>
+      <div class="alert alert-danger">
+        <?php echo $error_msg; ?>
+      </div>
+      <?php 
+    }
+  ?>
 
     <!-- Main content -->
     <section class="content container-fluid">
@@ -123,71 +147,6 @@ input[type=submit] {
                       echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
                     }
                   ?>
-                  <!-- Add Payment Modal -->
-                  <div class="modal fade" id="addpayment" role="dialog">
-                    <div class="modal-dialog">
-                    
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Add Payment</h4>
-                        </div>
-                        <div class="modal-body">
-                          <div class="container" id="con1">
-                              <form action="/action_page.php">
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Client Name</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <div id="name" > Azuma Kazuma </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Event Name</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <div id="name" > Azuma Anniversary </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="fname">Date</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="date" id="name" name="firstname" placeholder="Description">
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="fname">Time</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="time" id="name" name="firstname" placeholder="Description">
-                                  </div>
-                                </div>
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Amount</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <input type="text" id="name" name="firstname" placeholder="Amount">
-                                    </div>
-                                </div>
-                              </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-                  <!-- End of add payment modal -->
                 </div>
               </div>
             </div>
@@ -248,83 +207,7 @@ input[type=submit] {
                 </div>
                 <div class="col-lg-7">
                   <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
-                  <!-- Modal for add expenses -->
-                  <div class="modal fade" id="addexpenses" role="dialog">
-                    <div class="modal-dialog">
-                    
-                      <!-- Modal content-->
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Add Payment</h4>
-                        </div>
-                        <div class="modal-body">
-                          <div class="container" id="con1">
-                              <form action="/action_page.php">
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Client Name</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <div id="name" > Azuma Kazuma </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Event Name</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <div id="name" > Azuma Anniversary </div>
-                                    </div>
-                                </div>
-                                 <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Expense Name</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <input type="text" id="name" name="firstname" placeholder="Amount">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="fname">Date</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="date" id="name" name="firstname" placeholder="Description">
-                                  </div>
-                                </div>
-                                <div class="row">
-                                   <div class="col-25">
-                                      <label for="fname">Expense Amount</label>
-                                    </div>
-                                    <div class="col-75">
-                                      <input type="text" id="name" name="firstname" placeholder="Amount">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <p id="head1">Select files</p>
-                                      <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                                        <div class="form-inline">
-                                          <div class="form-group">
-                                            <input type="file" name="files[]" id="js-upload-files" multiple>
-                                          </div>
-                                        </div>
-                                      </form>
-                                  </div>
-                                </div>
-                              </form>
-                          </div>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      
-                    </div>
-                  </div>
-                  <!-- end modal for add expenses -->
+                  
                 </div>
               </div>
             </div>
@@ -396,6 +279,152 @@ input[type=submit] {
     </section>
     <!-- /.content -->
   </div>
+<!-- Add Payment Modal -->
+<div class="modal fade" id="addpayment" role="dialog">
+  <div class="modal-dialog">  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Payment</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container" id="con1">
+              
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Client Name</label>
+                </div>
+                <div class="col-75">
+                  <div id="name" > Azuma Kazuma </div>
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Event Name</label>
+                </div>
+                <div class="col-75">
+                  <div id="name" > Azuma Anniversary </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Date</label>
+              </div>
+              <div class="col-75">
+                <input type="date" name="date" placeholder="Description">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Time</label>
+              </div>
+              <div class="col-75">
+                <input type="time" name="time" placeholder="Description">
+              </div>
+            </div>
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Amount</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" name="amount" placeholder="Amount">
+               
+                </div>
+            </div>
+          </div>
+        </div>      
+        <div class="modal-footer">
+          <button id="addPayment" type="submit" name="addPayment" class="btn btn-default">Add</button>
+          <!--
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        -->
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+<!-- End of add payment modal -->
+<!-- Modal for add expenses -->
+<div class="modal fade" id="addexpenses" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Payment</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container" id="con1">
+            <form action="/action_page.php">
+              <div class="row">
+                 <div class="col-25">
+                    <label for="fname">Client Name</label>
+                  </div>
+                  <div class="col-75">
+                    <div id="name" > Azuma Kazuma </div>
+                  </div>
+              </div>
+              <div class="row">
+                 <div class="col-25">
+                    <label for="fname">Event Name</label>
+                  </div>
+                  <div class="col-75">
+                    <div id="name" > Azuma Anniversary </div>
+                  </div>
+              </div>
+               <div class="row">
+                 <div class="col-25">
+                    <label for="fname">Expense Name</label>
+                  </div>
+                  <div class="col-75">
+                    <input type="text" id="name" name="firstname" placeholder="Amount" class="form-control">
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="fname">Date</label>
+                </div>
+                <div class="col-75">
+                  <input type="date" id="name" name="firstname" placeholder="Description" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                 <div class="col-25">
+                    <label for="fname">Expense Amount</label>
+                  </div>
+                  <div class="col-75">
+                    <input type="text" id="name" name="firstname" placeholder="Amount" class="form-control">
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <p id="head1">Select files</p>
+                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                      <div class="form-inline">
+                        <div class="form-group">
+                          <input type="file" name="files[]" id="js-upload-files" multiple>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- end modal for add expenses -->
   <!-- /.content-wrapper -->
 
   <!-- Add the sidebar's background. This div must be placed
@@ -437,6 +466,7 @@ input[type=submit] {
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
+  /**
     + function($) {
     'use strict';
 
@@ -472,7 +502,7 @@ input[type=submit] {
         return false;
     }
 
-}(jQuery);
+}**/
   </script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>

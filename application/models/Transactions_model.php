@@ -11,7 +11,8 @@
 			if ($role === 'admin') {
 				$query=$this->db->query(
 					"SELECT *  
-					from transactions
+					from clients 
+					join transactions using(clientID)
 					where transactionstatus like 'on-going'"
 				);
 			}else{

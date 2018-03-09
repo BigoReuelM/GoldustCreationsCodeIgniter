@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('events_model');
 			$this->load->library('session');
+			$this->load->helper('form');
 		}
 
 		public function ongoingEvents(){
@@ -195,9 +196,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
+			$currentClientID = $this->input->post('clientID');
 			$this->session->set_userdata('currentEventID', $currentEventID);
+			$this->session->set_userdata('clientID', $currentClientID);
 
 			$this->eventDetails();
+		}
+
+		public function addPayment(){
+			
+			$date = $this->input->post('date');
+			$time = $this->input->post('time');
+			$amount = $this->input->post('amount');
+			$currentEventID = $this->session->userdata('currentEventID');
+
+			$empID = $this->session->userdata('employeeID');
+			$clientID = $this->session->userdata('clientID');
+			$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+			
+
+			$this->paymentAndExpences();
+
 		}
 
 		public function setCurrentDecorID(){
