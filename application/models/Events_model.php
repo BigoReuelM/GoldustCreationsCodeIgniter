@@ -129,7 +129,12 @@
 			return $query->result_array();
 		}
 
-		public function addEventPayment($cID, $eID, $ceID, $date, $time, $amount){
+	public function deleteEvntDecor($decId, $eId){
+			$this->db->where('decorID', $decId);
+			$this->db->where('eventID', $eId);
+			$this->db->delete('eventdecors');
+
+		}	public function addEventPayment($cID, $eID, $ceID, $date, $time, $amount){
 			$data = array(
 				'clientID' => $cID,
 				'eventID' => $ceID,
