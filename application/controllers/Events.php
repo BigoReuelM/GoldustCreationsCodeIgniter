@@ -134,6 +134,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$data['eventName'] =$this->events_model->getEventName($eventid);
 			$data['eventDecors'] =$this->events_model->getDecors($eventid);
+			$this->load->model('items_model');
+			$data['allDecors'] = $this->items_model->getAllDecors();
 			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
