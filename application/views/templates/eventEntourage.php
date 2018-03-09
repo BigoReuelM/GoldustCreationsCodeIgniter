@@ -65,10 +65,266 @@
 
         <div class="box-header">
           <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-6">
               <h3 class="box-title">List of Entourage</h3>
             </div>
             <div class="col-lg-3">
+              <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
+
+              <!-- Modal for adding of entourage -->
+              <div class="modal fade" id="addEntourage" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="col-lg-6">
+                          <h4 class="modal-title">Add Entourage</h4>
+                        </div>
+                        <div class="col-lg-6" id="butt1">
+                          <a type="button" class="btn btn-block btn-primary btn-lg">Add</a>
+                        </div>
+                      </div>
+                    <div class="modal-body">
+                  <div class="box">
+      
+                    <div class="box-body">
+                      
+                    
+                      <table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Role</th>
+                          <th>Shoulder</th>
+                          <th>Chest</th>
+                          <th>Stomach</th>
+                          <th>Waist</th>
+                          <th>Arm Length</th>
+                          <th>Arm Hole</th>
+                          <th>Muscle</th>
+                          <th>Pants Length</th>
+                          <th>Baston</th>
+                          <th>Design Photo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                            <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Name">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Role">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Shoulder">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Chest">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Stomach">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Waist">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Hole">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Muscle">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Pants Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Baston">
+                                  </div>
+                            </td>
+                            <td>
+                              <form action="" method="post" enctype="multipart/form-data" id="js-upload-form" id="lname">
+              <div class="form-inline" id="lname">
+                <div class="form-group">
+                  <input type="file" name="files[]" id="js-upload-files" multiple id="lname">
+                </div>
+              </div>
+            </form>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Name">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Role">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Shoulder">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Chest">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Stomach">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Waist">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Hole">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Muscle">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Pants Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Baston">
+                                  </div>
+                            </td>
+                            <td>
+                              <form action="" method="post" enctype="multipart/form-data" id="js-upload-form" id="lname">
+              <div class="form-inline" id="lname">
+                <div class="form-group">
+                  <input type="file" name="files[]" id="js-upload-files" multiple id="lname">
+                </div>
+              </div>
+            </form>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                            <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Name">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Role">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Shoulder">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Chest">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Stomach">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Waist">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Arm Hole">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Muscle">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Pants Length">
+                                  </div>
+                            </td>
+                            <td>
+                              <div>
+                                    <input type="text" id="lname" name="lastname" placeholder="Baston">
+                                  </div>
+                            </td>
+                            <td>
+                              <form action="" method="post" enctype="multipart/form-data" id="js-upload-form" id="lname">
+              <div class="form-inline" id="lname">
+                <div class="form-group">
+                  <input type="file" name="files[]" id="js-upload-files" multiple id="lname">
+                </div>
+              </div>
+            </form>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                        <!-- /.box-body -->
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+        
+              </div>
+            </div>
+            </div>
+              <!-- End of modal -->
+              <div class="col-lg-3">
               <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
             </div>
           </div>
@@ -280,5 +536,23 @@
 
   #editEntourage .modal-dialog {
     width:90%;
+  }
+    @media screen and (min-with: 768px){
+    #addEntourage .modal-dialog {
+      with:950px;
+    }
+  }
+
+  #addEntourage .modal-dialog {
+    width:95%;
+  }
+
+  #lname {
+    width: 70px;
+  }
+
+  #butt1 {
+    float:right;
+    width:250px;
   }
 </style>

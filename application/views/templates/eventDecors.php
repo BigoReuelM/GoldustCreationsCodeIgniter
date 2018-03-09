@@ -118,7 +118,28 @@ input[type=submit] {
               <h3 class="box-title">List Of Decors</h3>    
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addnewdecor">Add New Decors </button>
+              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Decors </button>
+              <!-- Add new decors -->
+              <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+  
+              <!-- End -->
             </div>
           </div>
         </div>
@@ -138,6 +159,7 @@ input[type=submit] {
                 <tbody>
                     <?php
                       if(!empty($eventdecors)){
+                        
                         foreach ($eventdecors as $ed) { 
                           $decID = $ed['decorID'];
                         ?>
@@ -149,11 +171,13 @@ input[type=submit] {
                           <!-- Equipment Name -->
                           <td><?php echo $ed['decorName']; ?></td>
                           <!-- Quantity -->
+                          
                           <td><div class="col-lg-3"><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></div></td>
                           <!-- Photo -->
                           <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
                           <!-- Action -->
                           <td>
+                            
                             <!-- remove decor button -->
                             <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
                             <!--<div class="col-md-3 col-sm-4">
