@@ -221,7 +221,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
 			
 
-			$this->paymentAndExpences();
+			redirect('events/paymentAndExpences');
 
 		}
 

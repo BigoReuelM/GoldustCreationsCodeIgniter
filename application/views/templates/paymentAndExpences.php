@@ -102,10 +102,6 @@ input[type=submit] {
     <section class="content-header">
       <h1>
         Payments And Expenses
-        <?php 
-          echo $this->session->userdata('clientID');
-          echo $this->session->userdata('amount');
-         ?>
       </h1>
     </section>
 
