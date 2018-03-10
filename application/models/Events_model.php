@@ -135,6 +135,8 @@
 		}
 
 		public function deleteEvntDecor($decId, $eId){
+			$this->db->where('decorID', $decId);
+			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
 			}	
 
