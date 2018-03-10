@@ -73,11 +73,11 @@
                                   </div>
                                   <div class="col-md-3 col-sm-4" >
                                     <form role="form" action="#" method="post">
-                                      <!--data-id="<?php echo $transac['transactionID']; ?>"--> 
+                                      <!--data-id="<?php echo $transac['transactionID']; ?>"
                                     <a name="tInfo" class="open-transactionDetails" type="submit" value="<?php echo $tranID ?>"> 
                                       <i class="fa fa-fw fa-info" ></i>
                                     </a>
-                                    <!--data-toggle="modal" data-target="#transactdetails"-->
+                                    data-toggle="modal" data-target="#transactdetails"-->
                                     </form>
                                   </div>
                                 </td>
@@ -97,10 +97,11 @@
             </div>
         </div>
         <!-- Modal for viewing details o transactions -->
+        <!--
         <div class="modal fade bd-example-modal-lg" id="transactdetails" role="dialog">
           <div class="modal-dialog">
           
-            <!-- Modal content-->
+            
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -256,9 +257,10 @@
             
           </div>
         </div>
+      -->
       <!-- End of Modal -->
         <!-- add service transaction modal-->
-        <div id="addServiceTransaction" class="modal fade bd-example-modal-lg" role="dialog">
+        <div class="modal fade bd-example-modal-lg" id="addServiceTransaction" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">

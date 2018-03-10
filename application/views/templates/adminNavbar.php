@@ -52,7 +52,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('admin/adminAdmin') ?>">
+          <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">
             <i class="glyphicon glyphicon-briefcase"></i> 
             <span>Employees</span>
           </a>

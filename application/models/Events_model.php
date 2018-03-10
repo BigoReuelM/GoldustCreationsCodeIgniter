@@ -135,6 +135,8 @@
 		}
 
 		public function deleteEvntDecor($decId, $eId){
+			$this->db->where('decorID', $decId);
+			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
 			}	
 
@@ -153,6 +155,22 @@
 			$this->db->insert("INSERT INTO payments(clientID, eventID, employeeID, date, time, amount) values ($cID,$ceID,$eID,$date,$time,$amount);");	
 			*/
 		}
+
+		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
+			$data = array(
+				'eventID' => $ceID,
+				'employeeID' => $empID,
+				'expensesName' => $expName,
+				'expensesAmount' => $amount,
+				'expensesDate' => $date,
+				'receiptNum' => $num,
+				'receiptImage' => $image
+			);
+
+			$this->db->insert('expenses', $data);
+		}
+
+		//public function addEventExpenses()
 	
 		/*public function getEntAttirePhoto($entID){
 			$this->db->select('designImage');
