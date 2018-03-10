@@ -133,7 +133,6 @@
 			$this->db->where('decorID', $decId);
 			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
-
 		}
 
 		/*public function getEntAttirePhoto($entID){

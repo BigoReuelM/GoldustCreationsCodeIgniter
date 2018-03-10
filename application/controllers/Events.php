@@ -184,12 +184,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function deleteDecor(){
+		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
 			$eId = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEvntDecor($decId, $eId);
 			$this->eventDecors();
-		}
+		}*/ // nasa setCurrentDecorID() din tu
 
 		/*
 			Code for setting current event ID
@@ -209,11 +209,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function setCurrentDecorID(){
 			$currentDecorID = $this->input->post('decorID');
 			$this->session->set_userdata('currentDecorID', $currentDecorID);
-			$this->eventDecors();
-
+			
 			$decId = $this->session->userdata('currentDecorID');
 			$eId = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEvntDecor($decId, $eId);
+
+			$this->eventDecors();			
 		}
 
 		/*

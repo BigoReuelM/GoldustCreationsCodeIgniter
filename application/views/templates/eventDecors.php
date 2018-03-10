@@ -6,12 +6,12 @@
    $eventId = $this->session->userdata('currentEventID');
    //echo $eventId;
 
-  if(!$this->session->has_userdata('currentDecorID')){
+  /*if(!$this->session->has_userdata('currentDecorID')){
       echo "awan";
   }else{
     $decorID = $this->session->userdata('currentDecorID');
     echo $decorID;
-  }
+  }*/
 ?>
 <style type="text/css">
   * {
@@ -148,9 +148,9 @@ input[type=submit] {
               <table id="decorsTable" class="table table-bordered table-striped text-center">
                 <thead>
                 <tr>
-                  <th>Equipment ID</th>
-                  <th>Event ID</th>
-                  <th>Equipment Name</th>
+                  <!--<th>Decor ID</th>
+                  <th>Event ID</th>-->
+                  <th>Decor Name</th>
                   <th>Quantity</th>
                   <th>Photo</th>
                   <th>Action</th>
@@ -164,34 +164,24 @@ input[type=submit] {
                           $decID = $ed['decorID'];
                         ?>
                         <tr>
-                          <!-- Equipment ID -->
+                          <!-- 
                           <td><?php echo $ed['decorID']; ?></td>
-                          <!-- Event ID -->
-                          <td><?php echo $ed['eventID']; ?></td>
-                          <!-- Equipment Name -->
+                          <td><?php echo $ed['eventID']; ?></td> 
+                          -->
                           <td><?php echo $ed['decorName']; ?></td>
-                          <!-- Quantity -->
-                          
                           <td><div class="col-lg-3"><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></div></td>
-                          <!-- Photo -->
                           <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
-                          <!-- Action -->
-                          <td>
-                            
+                          <td>                            
                             <!-- remove decor button -->
                             <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
                             <div class="col-md-3 col-sm-4">
-                              <form role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                                <!-- add onsubmit="return false" to prevent page from reloading -->
+                              <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
+                                <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
                                 <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove
-                                </button>  
-                              </form>
-                            </div>
-                            <!--<div class="col-md-3 col-sm-4">
-                                
-                                <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID"><i class="fa fa-remove"></i> Remove</button> 
+                                </button> 
+                              </form>  
                               
-                            </div>-->
+                            </div>
                             <!-- change decor button -->
                             <div class="col-md-3 col-sm-4"><button class="btn btn-link" data-toggle="modal" data-target="#changedecor"><i class="fa fa-fw fa-edit"></i> Change</button></div>
                           </td>
@@ -271,7 +261,7 @@ input[type=submit] {
           </div>
         </div>
 
-        <!-- remove decor modal -->
+        <!-- remove decor modal 
         <div class="modal fade" id="rmvdecor" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -283,14 +273,14 @@ input[type=submit] {
                 <p>Remove decor from this event?</p>
               </div>
               <div class="modal-footer">
-                <form id ="decorform" role="form" method="post" action="<?php echo base_url('events/deleteDecor') ?>">
-                  <button type="submit" class="btn btn-danger" id="rmvbtn" name="decorID" value="test"><i class="fa fa-remove"></i> Remove</button>
+                <form id ="dltdecorform" role="form" method="post" action="<?php //echo base_url('events/deleteDecor') ?>">
+                  <button type="submit" class="btn btn-danger" id="rmvbtn" name="decorID"><i class="fa fa-remove"></i> Remove</button>
                 </form>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
     </section>  
   <!-- /.content-wrapper -->
 
@@ -334,27 +324,42 @@ input[type=submit] {
     })
   })
 
-  // trial function
+  $('#modal-dialog').on('show', function() {
+      var link = $(this).data('link'),
+          confirmBtn = $(this).find('.confirm');
+  })
+
+
+  $('#btnYes').click(function() {
+    
+      // handle form processing here
+      
+      alert('submit form');
+      $('form').submit();
+    
+  });
+
+  // submit decor id form
   function (){
     // open modal first... 
     //$('#rmvdecor').modal('show');
     // submit this form to set decor id session variable ...
-    var form = document.getElementById("decorform");
-    // button id 'v' ... form id '^'
-    document.getElementById("rmvbtn").addEventListener("click", function(){
+    var form = document.getElementById("dltdecorform");
+    // button id v ... form id ^
+    document.getElementById("decorID").addEventListener("click", function(){
     form.submit();
     });
     // remove ... create a query that will remove the data itself in the database
   };
-
-  function changeBtnVal(val){
+  
+  /*function changeBtnVal(val){
     document.getElementById("rmvbtn").value = val;
     //alert("btn value" + document.getElementById("rmvbtn").value);
-  }
+  }*/
 </script>
 
 <style>
-  @media screen and (min-with: 768px){
+  @media screen and (min-width: 768px){
     #changedecor .modal-dialog {
       width:900px;
     }
