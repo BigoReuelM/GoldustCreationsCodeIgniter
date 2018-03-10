@@ -315,7 +315,6 @@
                   </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 </div>
@@ -342,7 +341,9 @@
             </thead>
             <tbody>
               <?php 
-                foreach ($entourageDet as $details) { ?>
+                foreach ($entourageDet as $details) {
+                    $entID = $details['entourageID'];
+                 ?>
                   <tr>
                     <td><?php echo $details['entourageName'] ?></td>
                     <td><?php echo $details['role'] ?></td>
@@ -351,14 +352,14 @@
                       <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
 
                       <div class="col-md-3 col-sm-4"><form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                      <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo $details['entourageID'] ?>"><i class="fa fa-remove"></i></button></form></div>
+                      <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"><i class="fa fa-remove"></i></button></form></div>
                     </td>
                   </tr>
               <?php  }
               ?>
             </tbody>
           </table>
-          <button type="button" class="button1">Save</button>
+          <!--<button type="button" class="button1">Save</button>-->
         </div>
         <!-- /.box-body -->
       </div>
@@ -488,7 +489,7 @@
                 </div>
               </div>
               <!-- /.modal-content -->
-            </div>-->
+            </div>
           <!-- /.modal-dialog -->
           </div>
     </section>

@@ -203,7 +203,7 @@ if (!$this->session->has_userdata('currentEventID')) {
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <input type="color" id="motiff" class="form-control">
+              <input type="text" id="form1" class="form-control">
             </div>
           </div>
         </div>

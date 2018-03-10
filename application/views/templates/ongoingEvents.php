@@ -149,14 +149,14 @@
         <div id="add-event" class="modal fade bd-example-modal-lg" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
+              <form action="">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add Event</h4>
               </div>
               <div class="modal-body">
                 <div class="row">
-                <div class="col-md-6">
-                <form method="post">
+                  <div class="col-md-6">
                   <div class="row">
                     <div class="col-lg-12">
                       <div class="form-group">
@@ -230,12 +230,11 @@
                     </div>
                     </div>
                   
-                </div>
+                  </div>
                   
                   <!-- Services -->
                   <div class="col-lg-6">
-        
-                  <div class="box">
+                    <div class="box">
                     <div class="box-body">
                       <div class="table table-responsive">
                         <table id="svc-tbl" class="table table-hover table-bordered table-condensed table-hover text-center">
@@ -271,12 +270,9 @@
                         </table>
                       </div>
                     </div>
+                    </div>
                   </div>
                   </div>
-        
-                  <!-- end of services table -->
-                </form>
-                </div>
                 <div class="modal-footer">
                   <div class="row">
                     <div class="col-lg-2">
@@ -288,7 +284,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
