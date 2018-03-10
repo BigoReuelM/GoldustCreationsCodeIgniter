@@ -187,6 +187,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function appointments(){
+			$empRole = $this->session->userdata('role');
+			
+			
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/eventNav.php");
+				
+			}else{
+				
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");
+				
+			}
+			$this->load->view("templates/appointments.php");
+			$this->load->view("templates/footer.php");
+		}
+
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
 			$eId = $this->session->userdata('currentEventID');
