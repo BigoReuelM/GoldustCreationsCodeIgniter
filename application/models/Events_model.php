@@ -80,6 +80,11 @@
 			return $query->row();
 		}
 
+		public function getClientName($cid){
+			$query = $this->db->query("SELECT clientName FROM clients where clientID = $cid");
+			return $query->row();
+		}
+
 		public function getEntourageDetails($currentEventID){
 			$evID = $currentEventID;
 
@@ -130,11 +135,25 @@
 		}
 
 		public function deleteEvntDecor($decId, $eId){
-			$this->db->where('decorID', $decId);
-			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
-		}
+			}	
 
+		public function addEventPayment($cID, $eID, $ceID, $date, $time, $amount){
+			$data = array(
+				'clientID' => $cID,
+				'eventID' => $ceID,
+				'employeeID' => $eID,
+				'date' => $date,
+				'time' => $time,
+				'amount' => $amount
+			 );
+
+			$this->db->insert('payments', $data);
+			/*
+			$this->db->insert("INSERT INTO payments(clientID, eventID, employeeID, date, time, amount) values ($cID,$ceID,$eID,$date,$time,$amount);");	
+			*/
+		}
+	
 		/*public function getEntAttirePhoto($entID){
 			$this->db->select('designImage');
 			$this->db->from('designs');

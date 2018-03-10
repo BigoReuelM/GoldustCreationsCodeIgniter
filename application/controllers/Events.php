@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('events_model');
 			$this->load->library('session');
+			$this->load->helper('form');
 		}
 
 		public function ongoingEvents(){
@@ -156,16 +157,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function paymentAndExpences(){
-			$id = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($id);
-			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($currentEvent);
+			$empRole = $this->session->userdata('role');
+			$cid = $this->session->userdata('clientID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
 			$data['totalPayments']=$this->events_model->totalAmountPaid($currentEvent);
 			$data['expenses']=$this->events_model->getExpenses($currentEvent);
 			$data['totalExpenses']=$this->events_model->totalExpenses($currentEvent);
 			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);
 			$data['balance']=$this->events_model->balance($currentEvent);
+			$data['clientName']=$this->events_model->getClientName($cid);
+			
 			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -201,9 +204,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
+			$currentClientID = $this->input->post('clientID');
 			$this->session->set_userdata('currentEventID', $currentEventID);
+			$this->session->set_userdata('clientID', $currentClientID);
 
 			$this->eventDetails();
+		}
+
+		public function addPayment(){
+			
+			$date = $this->input->post('date');
+			$time = $this->input->post('time');
+			$amount = $this->input->post('amount');
+			$currentEventID = $this->session->userdata('currentEventID');
+
+			$empID = $this->session->userdata('employeeID');
+			$clientID = $this->session->userdata('clientID');
+			$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+			
+
+			redirect('events/paymentAndExpences');
+
 		}
 
 		public function setCurrentDecorID(){
