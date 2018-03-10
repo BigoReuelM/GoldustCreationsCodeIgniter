@@ -80,6 +80,11 @@
 			return $query->row();
 		}
 
+		public function getClientName($cid){
+			$query = $this->db->query("SELECT clientName FROM clients where clientID = $cid");
+			return $query->row();
+		}
+
 		public function getEntourageDetails($currentEventID){
 			$evID = $currentEventID;
 

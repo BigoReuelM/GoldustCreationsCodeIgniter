@@ -294,7 +294,7 @@ input[type=submit] {
                   <label for="fname">Client Name</label>
                 </div>
                 <div class="col-75">
-                  <div id="name" > Azuma Kazuma </div>
+                  <div id="name" > <?php echo $clientName->clientName; ?> </div>
                 </div>
             </div>
             <div class="row">
@@ -302,7 +302,7 @@ input[type=submit] {
                   <label for="fname">Event Name</label>
                 </div>
                 <div class="col-75">
-                  <div id="name" > Azuma Anniversary </div>
+                  <div id="name" > <?php echo $eventName->eventName; ?> </div>
                 </div>
             </div>
             <div class="row">
