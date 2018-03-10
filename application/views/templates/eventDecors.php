@@ -171,8 +171,8 @@ input[type=submit] {
                       ?>
                       <tr>
                           <!-- 
-                          <td><?php echo $ed['decorID']; ?></td>
-                          <td><?php echo $ed['eventID']; ?></td> 
+                          <td><?php //echo $ed['decorID']; ?></td>
+                          <td><?php //echo $ed['eventID']; ?></td> 
                         -->
                         <td><?php echo $ed['decorName']; ?></td>
                         <td><div class="col-lg-3"><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></div></td>
@@ -221,7 +221,7 @@ input[type=submit] {
           </div>
         </div>
         <!-- change decor modal -->
-        <div class="modal fade" id="changedecor" role="dialog">
+        <!--<div class="modal fade" id="changedecor" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -240,6 +240,7 @@ input[type=submit] {
                       </tr>
                     </thead>
                     <tbody>
+                      <form role="form" method="post" action="">
                       <?php
                       foreach ($allDecors as $dec) { ?>
                       <tr>
@@ -254,8 +255,9 @@ input[type=submit] {
                           <?php echo '<img class = "modalImg img-rounded" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
                         </td>
                       </tr>
-                      <?php  }
+                      <?php  }*/
                       ?>
+                      </form>
                     </tbody>
                   </table>
                 </div>
@@ -265,7 +267,7 @@ input[type=submit] {
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- remove decor modal 
         <div class="modal fade" id="rmvdecor" role="dialog">

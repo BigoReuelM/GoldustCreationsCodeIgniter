@@ -291,6 +291,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->eventEntourage();
 		}
+
+		public function changeDecor(){
+			$eId = $this->session->userdata('currentEventID');
+			$decId = $this->session->userdata('currentDecorID');
+
+			$this->decors();
+		}
 	}
 
 ?>

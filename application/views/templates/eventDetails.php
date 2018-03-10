@@ -81,6 +81,7 @@ input[type=submit] {
     float: left;
     width: 25%;
     margin-top: 6px;
+    margin-right: 20px;
 }
 
 .col-75 {
@@ -113,6 +114,10 @@ input[type=submit] {
 #tab1 {
   border:1px solid #ccc;
   background-color: #E6E6E6;
+}
+
+#butt2 {
+  margin-top: 20px;
 }
 
 </style>
@@ -198,7 +203,7 @@ if (!$this->session->has_userdata('currentEventID')) {
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <input type="color" id="motiff" class="form-control">
+              <input type="text" id="form1" class="form-control">
             </div>
           </div>
         </div>
@@ -238,7 +243,15 @@ if (!$this->session->has_userdata('currentEventID')) {
               ?>
             </tbody>
           </table>
-          <div class= "col-lg-4">
+          <div class="row">
+              <div class="col-25">
+                <label for="lname">Total Amount</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="lname" name="lastname" placeholder="Total Amount">
+              </div>
+          </div>
+           <div class= "col-lg-4">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
           </div>
         </div>
