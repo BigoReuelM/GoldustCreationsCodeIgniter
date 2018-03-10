@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Entourage
+        Appointments
       </h1>
     </section>
 
@@ -13,7 +13,7 @@
         <div class="box-header">
           <div class="row">
             <div class="col-lg-9">
-              <h3 class="box-title">Attire Designs</h3>    
+              <h3 class="box-title">List of Appointments</h3>    
             </div>
             <div class="col-lg-3">
               <button type="button" class="btn btn-block btn-primary btn-lg" >Add Appointments</button>  
@@ -25,11 +25,11 @@
           <table id="designTable" class="table table-bordered table-striped text-center">
             <thead>
             <tr>
-              <th>Design ID</th>
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Image</th>
-              <th>Action</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Agenda</th>
+              <th>Event Name</th>
+              <th>Handler</th>
             </tr>
             </thead>
             <tbody>
@@ -39,8 +39,7 @@
                 <td></td>
                 <td></td>
                 <td>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+    
                 </td>
               </tr>
             </tbody>
