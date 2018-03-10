@@ -272,7 +272,7 @@
                     </div>
                     </div>
                   </div>
-                  </div>
+                </div>
                 <div class="modal-footer">
                   <div class="row">
                     <div class="col-lg-2">
