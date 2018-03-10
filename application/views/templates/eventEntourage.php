@@ -315,7 +315,6 @@
                   </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 </div>
@@ -342,21 +341,25 @@
             </thead>
             <tbody>
               <?php 
-                foreach ($entourageDet as $details) { ?>
+                foreach ($entourageDet as $details) {
+                    $entID = $details['entourageID'];
+                 ?>
                   <tr>
                     <td><?php echo $details['entourageName'] ?></td>
                     <td><?php echo $details['role'] ?></td>
-                    <td>status</td>
+                    <td><?php echo $details['status'] ?></td>
                     <td>
                       <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                      <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+
+                      <div class="col-md-3 col-sm-4"><form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
+                      <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"><i class="fa fa-remove"></i></button></form></div>
                     </td>
                   </tr>
               <?php  }
               ?>
             </tbody>
           </table>
-          <button type="button" class="button1">Save</button>
+          <!--<button type="button" class="button1">Save</button>-->
         </div>
         <!-- /.box-body -->
       </div>
@@ -416,9 +419,7 @@
                             <td><?php echo '<a data-target="#modal-photo" data-toggle="modal"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/></a>' ?></td>
                             <td>
                               <div class="col-md-3 col-sm-4">
-                                <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                                <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>">
-                                <i class="fa fa-remove"></i>Remove</form></div>
+                                </div>
                               <!--
                               <div class="col-md-3 col-sm-4">
                                 <form role="form" method="post" action="<?php //echo base_url('events/setEntourageID') ?>">
@@ -471,7 +472,7 @@
             </div>
           <!-- /.modal-dialog -->
 
-         <!-- <div class="modal fade" id="modal-danger">
+         <!--<div class="modal fade" id="rmvent" >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -486,7 +487,7 @@
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
                 </div>
-              </div>-->
+              </div>
               <!-- /.modal-content -->
             </div>
           <!-- /.modal-dialog -->

@@ -40,6 +40,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/transactions.php", $data);
 			$this->load->view("templates/footer.php");
 		}
+		public function transactionDetails(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$data['services']=$this->events_model->getServices();
+			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
+			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
+			$data['decors'] = $this->transactions_model->getDecors();
+			$data['designs'] = $this->transactions_model->getDesigns();
+
+
+			$this->load->view("templates/head.php");
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+
+				$this->load->view("templates/header.php");
+			}
+			$this->load->view("templates/transactionDetails.php", $data);
+			$this->load->view("templates/footer.php");
+		}
 		
 		public function ongoing_rentals(){
 			$empRole = $this->session->userdata('role');

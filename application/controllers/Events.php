@@ -187,6 +187,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function appointments(){
+			$currentEvent = $this->session->userdata('currentEventID');
+			$data['eventName'] =$this->events_model->getEventName($currentEvent);
+			$empRole = $this->session->userdata('role');
+			
+			
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/eventNav.php", $data);
+				
+			}else{
+				
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php", $data);
+				
+			}
+			$this->load->view("templates/appointments.php");
+			$this->load->view("templates/footer.php");
+		}
+
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
 			$eId = $this->session->userdata('currentEventID');
@@ -259,9 +282,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		public function removeEntourage(){
-			$entID = $this->session->userdata('currentEntId');
-			$eID = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEntourage($entID, $eID);
+			$currentEntID = $this->input->post('entourageID');
+			$this->session->set_userdata('currentEntID', $currentEntID);
+
+			$entID = $this->session->userdata('currentEntID');
+			$evID = $this->session->userdata('currentEventID');
+			$this->events_model->deleteEntourage($entID, $evID);
+
+			$this->eventEntourage();
 		}
 
 		public function changeDecor(){

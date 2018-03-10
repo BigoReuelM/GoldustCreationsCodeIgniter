@@ -188,6 +188,8 @@
 		}*/
 
 		public function deleteEntourage($entID, $eID){
+			$this->db->where('entourageID', $entID);
+			$this->db->where('eventID', $eID);
 			$this->db->delete('entourage');
 		}
 	}
