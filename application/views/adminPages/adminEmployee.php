@@ -135,8 +135,8 @@ input[type=submit] {
                   <td><?php echo $a['contactNumber'] ?></td>
                   <td><?php echo $a['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                    <div class="col-md-3 col-sm-4"><a href="eventDetails.php" data-toggle="modal" data-target="#info"><i class="fa fa-fw fa-info"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                   
                   </td>
                 </tr>
                 <?php 
@@ -180,8 +180,7 @@ input[type=submit] {
                   <td><?php echo $h['contactNumber'] ?></td>
                   <td><?php echo $h['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                    <div class="col-md-3 col-sm-4"><a href="eventDetails.php" data-toggle="modal" data-target="#info"><i class="fa fa-fw fa-info"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
                   </td>
                 </tr>
                 <?php 
@@ -225,8 +224,7 @@ input[type=submit] {
                   <td><?php echo $s['contactNumber'] ?></td>
                   <td><?php echo $s['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                    <div class="col-md-3 col-sm-4"><a href="eventDetails.php" data-toggle="modal" data-target="#info"><i class="fa fa-fw fa-info"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
                   </td>
                 </tr>
                 <?php 
@@ -510,106 +508,8 @@ input[type=submit] {
     <!-- end of edit employee profile Modal -->
   </div>
 </div>
-<div class="modal fade" id="info" role="dialog">
-  <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Jayson Caliway</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container" id="con1">
-          <form action="/action_page.php">
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Employee ID</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > 0001 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Contact Number</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > 09128623549</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Address</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > #1 ABC Street Baguio City </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Role</label>
-              </div>
-              <div class="col-75">
-                <div id="name" >Handler</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Standing</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > Regular</div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label> Handled Events</label>
-              </div>
-              <div>          
-                <table class="table table-bordered" id="tab1">
-                  <thead>
-                    <tr>
-                      <th id="tab1">ID</th>
-                      <th id="tab1">Customer Name</th>
-                      <th id="tab1">Events/Rental Name</th>
-                      <th id="tab1">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td id="tab1">0000001</td>
-                      <td id="tab1">Touma Kazusa</td>
-                      <td id="tab1">Nagato-Nagato Nuptial</td>
-                      <td id="tab1">2017-04-08</td>
-                    </tr>
-                    <tr>
-                      <td id="tab1">0000002</td>
-                      <td id="tab1">Rin Tohsaka</td>
-                      <td id="tab1">Emiya Shorou Birthday</td>
-                      <td id="tab1">2019-09-02</td>
-                    </tr>
-                    <tr>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass">Reset Password</button>
-        </div>
-      </div>
         <!-- end of modal -->
-    </div>
-  </div>
-</div>
   <!-- ./wrapper -->
 
 <div class="modal fade" id="reset" role="dialog">

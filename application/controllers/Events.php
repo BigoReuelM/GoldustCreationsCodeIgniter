@@ -286,8 +286,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->session->set_userdata('currentEntID', $currentEntID);
 
 			$entID = $this->session->userdata('currentEntID');
-			$eID = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEntourage($entID, $eID);
+			$evID = $this->session->userdata('currentEventID');
+			$this->events_model->deleteEntourage($entID, $evID);
 
 			$this->eventEntourage();
 		}

@@ -349,9 +349,9 @@
                     <td><?php echo $details['status'] ?></td>
                     <td>
                       <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                      
+
                       <div class="col-md-3 col-sm-4"><form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                      <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo $details['entourageID'] ?>"><i class="fa fa-remove"></i></form></div>
+                      <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo $details['entourageID'] ?>"><i class="fa fa-remove"></i></button></form></div>
                     </td>
                   </tr>
               <?php  }
@@ -471,7 +471,7 @@
             </div>
           <!-- /.modal-dialog -->
 
-         <!-- <div class="modal fade" id="modal-danger">
+         <!--<div class="modal fade" id="rmvent" >
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -486,9 +486,9 @@
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
                 </div>
-              </div>-->
+              </div>
               <!-- /.modal-content -->
-            </div>
+            </div>-->
           <!-- /.modal-dialog -->
           </div>
     </section>

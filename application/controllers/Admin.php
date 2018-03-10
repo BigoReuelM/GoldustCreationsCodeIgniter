@@ -23,6 +23,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function employeeDetails(){
+			$this->load->view("templates/head.php");
+			$this->load->view("templates/adminHeader.php");
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/employeeDetails.php");
+			$this->load->view("templates/footer.php");
+		}
+
+
 		public function adminEmployeeManagement(){
 			$data['admin'] = $this->admin_model->getAdminEmployees();
 			$data['handler'] = $this->admin_model->getHandlerEmployees();
