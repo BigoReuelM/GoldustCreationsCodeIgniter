@@ -227,6 +227,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function addExpenses(){
+			$date = $this->input->post('date');
+			$amount = $this->input->post('expenseAmount');
+			$name = $this->input->post('expenseName');
+			$image = $this->input->post('expenseImage');
+			$rNum = $this->input->post('receiptNumber');
+			$currentEventID = $this->session->userdata('currentEventID');
+			$empID = $this->session->userdata('employeeID');
+			$this->events_model->addEventExpenses($empID, $currentEventID, $name, $date, $amount, $rNum, $image);
+
+			redirect('events/paymentAndExpences');
+		}
+
 		public function setCurrentDecorID(){
 			$currentDecorID = $this->input->post('decorID');
 			$this->session->set_userdata('currentDecorID', $currentDecorID);

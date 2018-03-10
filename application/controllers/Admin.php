@@ -23,27 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function adminHandler(){
+		public function adminEmployeeManagement(){
+			$data['admin'] = $this->admin_model->getAdminEmployees();
+			$data['handler'] = $this->admin_model->getHandlerEmployees();
+			$data['staff'] = $this->admin_model->getStaffEmployees();
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminHandler.php");
-			$this->load->view("templates/footer.php");
-		}
-
-		public function adminStaff(){
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
-			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminStaff.php");
-			$this->load->view("templates/footer.php");
-		}
-
-		public function adminAdmin(){
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
-			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminAdmin.php");
+			$this->load->view("adminPages/adminEmployee.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
