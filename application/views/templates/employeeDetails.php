@@ -86,6 +86,10 @@ input[type=submit] {
   border:1px solid #ccc;
   background-color: #E6E6E6;
 }
+
+#opt1 {
+  width: 50px;
+}
 </style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -111,7 +115,7 @@ input[type=submit] {
                 <label for="fname">Employee ID</label>
               </div>
               <div class="col-75">
-                <div id="name" > 0001 </div>
+                <input type="text" id="lname" name="lastname" placeholder="0001">
               </div>
             </div>
             <div class="row">
@@ -119,7 +123,7 @@ input[type=submit] {
                 <label for="lname">Contact Number</label>
               </div>
               <div class="col-75">
-                <div id="name" > 09128623549</div>
+                <input type="text" id="lname" name="lastname" placeholder="09128623549">
               </div>
             </div>
             <div class="row">
@@ -127,7 +131,7 @@ input[type=submit] {
                 <label for="lname">Address</label>
               </div>
               <div class="col-75">
-                <div id="name" > #1 ABC Street Baguio City </div>
+                <input type="text" id="lname" name="lastname" placeholder="#1 ABC Street Baguio City">
               </div>
             </div>
             <div class="row">
@@ -135,7 +139,7 @@ input[type=submit] {
                 <label for="lname">Role</label>
               </div>
               <div class="col-75">
-                <div id="name" >Handler</div>
+                <input type="text" id="lname" name="lastname" placeholder="Handler">
               </div>
             </div>
             <div class="row">
@@ -143,14 +147,23 @@ input[type=submit] {
                 <label for="lname">Standing</label>
               </div>
               <div class="col-75">
-                <div id="name" > Regular</div>
+                <input type="text" id="lname" name="lastname" placeholder="Regular">
               </div>
             </div>
             <div class="row">
+                <div class="col-25">
+                    <label for="lname">Status</label>
+                </div>
+                <div class="col-75" id="opt1">
+                    <select>
+                      <option value="volvo">Active</option>
+                      <option value="saab">Inactive</option>
+                    </select>
+                </div>
+            </div>
               <div class="col-25">
                 <label> Handled Events</label>
-              </div>
-              <div>          
+              </div>          
                 <table class="table table-bordered" id="tab1">
                   <thead>
                     <tr>
@@ -181,11 +194,11 @@ input[type=submit] {
                     </tr>
                   </tbody>
                 </table>
+                 <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">Back </a></button>
+          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
               </div>
             </div>
           </form>
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">Back </a></button>
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
         </div>
         </div>
       </div>

@@ -151,7 +151,7 @@ input[type=submit] {
                               <label for="fname">Name</label>
                             </div>
                             <div class="col-75">
-                              <div id="name" > 0001 </div>
+                              <input type="text" id="lname" name="lastname" placeholder="0001">
                             </div>
                         </div>
                         <div class="row">
@@ -159,7 +159,7 @@ input[type=submit] {
                             <label for="lname">Date Availed</label>
                           </div>
                           <div class="col-75">
-                            <div id="name" > 0001 </div>
+                            <input type="text" id="lname" name="lastname" placeholder="">
                           </div>
                         </div>
                         <div class="row">
@@ -167,7 +167,7 @@ input[type=submit] {
                             <label for="lname">Contact Number</label>
                           </div>
                           <div class="col-75">
-                            <div id="name" > 0001 </div>
+                            <input type="text" id="lname" name="lastname" placeholder="">
                           </div>
                         </div>
                         <div class="row">
@@ -175,7 +175,7 @@ input[type=submit] {
                             <label for="lname">ID Type</label>
                           </div>
                           <div class="col-75">
-                            <div id="name" > 0001 </div>
+                            <input type="text" id="lname" name="lastname" placeholder="">
                           </div>
                         </div>
                         <div class="row">
@@ -183,7 +183,7 @@ input[type=submit] {
                             <label for="lname">Transaction State</label>
                           </div>
                           <div class="col-75">
-                            <div id="name" > 0001 </div>
+                            <input type="text" id="lname" name="lastname" placeholder="">
                           </div>
                         </div>
                         <div class="row">
@@ -191,7 +191,7 @@ input[type=submit] {
                             <label for="lname">Total Amount</label>
                           </div>
                           <div class="col-75">
-                            <div id="name" > 0001 </div>
+                            <input type="text" id="lname" name="lastname" placeholder="">
                           </div>
                         </div>
                         <div class="row">
@@ -199,7 +199,7 @@ input[type=submit] {
                             <label for="lname">Balance</label>
                           </div>
                           <div class="col-75">
-                            <input type="text" class="form-control" placeholder="0" disabled>
+                            <input type="text" class="form-control" placeholder="">
                           </div>
                         </div>
                       </div>
