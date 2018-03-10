@@ -487,9 +487,9 @@
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
                 </div>
-              </div>-->
+              </div>
               <!-- /.modal-content -->
-            </div>-->
+            </div>
           <!-- /.modal-dialog -->
           </div>
     </section>
