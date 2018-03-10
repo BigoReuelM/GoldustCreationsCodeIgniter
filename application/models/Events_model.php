@@ -162,6 +162,10 @@
 			$query = $this->db->get();
 			return $query->row();
 		}*/
+
+		public function deleteEntourage($entID, $eID){
+			$this->db->delete('entourage');
+		}
 	}
 
  ?>

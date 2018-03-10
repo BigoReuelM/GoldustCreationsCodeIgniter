@@ -245,6 +245,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventEntourage();
 		}*/
 
+		public function removeEntourage(){
+			$entID = $this->session->userdata('currentEntId');
+			$eID = $this->session->userdata('currentEventID');
+			$this->events_model->deleteEntourage($entID, $eID);
+		}
 	}
 
 ?>
