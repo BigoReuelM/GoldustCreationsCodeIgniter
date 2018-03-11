@@ -60,7 +60,7 @@
 		public function getNewEvents($employeeID, $role, $status)
 		{
 			
-			$this->db->COUNT('eventID');
+			$this->db->SELECT('*');
 			$this->db->from('events');
 			$this->db->join('clients','events.clientID = clients.clientID');
 			if ($role === 'handler') {
