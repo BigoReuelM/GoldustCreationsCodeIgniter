@@ -230,9 +230,17 @@
 		}
 
 		public function changeDecor($eId, $decId, $newdecId){
-			$query = $this->db->query("UPDATE eventdecors SET decorID = {$newdecId} WHERE eventID = {$eId} and decorID = {$decId}");
-			$this->db->get();
-			return $query->result_array();
+			// add $newdecId later....
+			//$query = $this->db->query("UPDATE eventdecors SET decorID = {$newdecId} WHERE eventID = {$eId} and decorID = {$decId}");
+			$data = array(
+				'decorID' => $newdecId
+			);
+
+			$this->db->where('eventID', $eId);
+			$this->db->where('decorID', $decId);
+			$this->db->update('eventdecors', $data);
+			//$this->db->get();
+			//return $query->result_array();
 		}
 
 		public function addClient($cname, $contact){

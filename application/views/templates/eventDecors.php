@@ -111,21 +111,21 @@ input[type=submit] {
 <!-- Main content -->
 <section class="content container-fluid">
   <div class="content">
-   <div class="box">
+  <div class="box">
     <div class="box-header">
       <div class="row">
-        <div class="col-lg-9">
+        <div class="col-lg-6">
           <h3 class="box-title">List Of Decors</h3>    
         </div>
 
-        <div class="row">
-          <div class="col-lg-3">
-            <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Save </button>
-
-
-            <div class="row">
-              <div class="col-lg-12">
+            
+              <div class="col-lg-3">
                 <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Decors </button>
+              </div> 
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Save </button>
+              </div> 
+              
                 <!-- Add new decors -->
                 <div class="modal fade" id="myModal" role="dialog">
                   <div class="modal-dialog">
@@ -146,9 +146,9 @@ input[type=submit] {
                 </div>
 
                 <!-- End -->
-              </div>
-            </div>
-          </div>
+      </div>
+    </div>
+          
           <!-- /.box-header -->
           <div class="box-body">
             <table id="decorsTable" class="table table-bordered table-striped text-center">
@@ -183,13 +183,16 @@ input[type=submit] {
                           <div class="col-md-3 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
                               <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
-                              <button data-toggle="modal" data-target="#rmvdecor" class="btn btn-link" id="decorID" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove
-                              </button> 
+                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>  
 
                           </div>
                           <!-- change decor button -->
-                          <div class="col-md-3 col-sm-4"><button class="btn btn-link" data-toggle="modal" data-target="#changedecor"><i class="fa fa-fw fa-edit"></i> Change</button></div>
+                          <div class="col-md-3 col-sm-4">
+                          <form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
+                            <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
+                          </form>
+                          </div>
                         </td>
                       </tr>
                       <?php      
@@ -200,8 +203,9 @@ input[type=submit] {
               </table>
             </div>
             <!-- /.box-body -->
-          </div>
-        </div>
+    </div>
+  </div>
+
         <!-- modals -->
         <!-- add new decor modal -->
         <div class="modal fade" id="addnewdecor" role="dialog">
@@ -242,17 +246,17 @@ input[type=submit] {
                     <tbody>
                       <form role="form" method="post" action="">
                       <?php
-                      foreach ($allDecors as $dec) { ?>
+                      /*foreach ($allDecors as $dec) { ?>
                       <tr>
                         <td>
                           <form role="form" method="post" action="">
                             <button class="btn btn-default" id="" name="" type="submit" value="">Select</button>
                           </form>
                         </td>
-                        <td><?php echo $dec['decorName'] ?></td>
-                        <td><?php echo $dec['color'] ?></td>
+                        <td><?php //echo $dec['decorName'] ?></td>
+                        <td><?php //echo $dec['color'] ?></td>
                         <td>
-                          <?php echo '<img class = "modalImg img-rounded" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
+                          <?php //echo '<img class = "modalImg img-rounded" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
                         </td>
                       </tr>
                       <?php  }*/
