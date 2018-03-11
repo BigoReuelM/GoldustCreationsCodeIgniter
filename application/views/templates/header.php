@@ -20,6 +20,7 @@ $photo = $this->session->userdata('photo');
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php echo base_url('events/newEvents') ?>">New Events</a></li>
                 <li><a href="<?php echo base_url('events/ongoingEvents') ?>">Ongoing Events</a></li>
                 <li><a href="<?php echo base_url('events/finishedEvents') ?>">Finished Events</a></li>
                 <li><a href="<?php echo base_url('events/canceledEvents') ?>">Canceled Events</a></li>

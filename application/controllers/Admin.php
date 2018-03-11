@@ -27,7 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeDetails.php");
+			$this->load->view("adminPages/employeeDetails.php");
 			$this->load->view("templates/footer.php");
 		}
 

@@ -30,7 +30,7 @@
         <div class="box">
             <div class="box-body">
                 <div  class="table table-responsive">
-                  <table id ="example1" class="table table-bordered table-condensed table-hover text-center">
+                  <table id ="eventTable" class="table table-bordered table-condensed table-hover text-center">
                     <thead>
                       <tr>
                         <th>Event Name</th>
@@ -60,8 +60,6 @@
                           <td><?php echo $event['eventTime']; ?></td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
-
-                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
                             <!--
                               Bellow is the code for displaying the event details page.
 
@@ -80,14 +78,14 @@
 
     
                             -->
-                            <div class="col-md-3 col-sm-4">
-                              <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
-                                <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
-                                <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
-                                  <i class="fa fa-fw fa-info"></i>
-                                </button>  
-                              </form>
-                            </div>
+
+                            <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
+                              <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
+                              <a id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                View Info <i class="fa fa-fw fa-info"></i>
+                              </a>  
+                            </form>
+
 
                           </td>
                         </tr>
@@ -101,50 +99,6 @@
               </div>
             </div>
           </div>
-
-        <!-- /.col -->
-        <div class="modal modal-danger fade" id="modal-danger">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Alert!!!</h4> 
-              </div>
-              <div class="modal-body">
-                <p>Finish This Event?&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline" data-toggle="modal" data-target="#modal-success" data-dismiss="modal">Yes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-
-        <div class="modal modal-success fade" id="modal-success">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Success</h4>
-              </div>
-              <div class="modal-body">
-                <p>Event Successfully Finished&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-
                 <!-- add event modal -->
         <div id="add-event" class="modal fade bd-example-modal-lg" role="dialog">
           <div class="modal-dialog">
@@ -193,13 +147,21 @@
                     
                   </div>
                   <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                          <label>Event Location</label>
-                          <input type="text" name="event-loc" class="form-control">
-                        </div>
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label>Event Location</label>
+                        <input type="text" name="event-loc" class="form-control">
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label>Event Type</label>
+                        <input type="text" name="event-type" class="form-control">
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group">
@@ -319,16 +281,10 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
+
     $('#svc-tbl').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    $('#eventTable').DataTable()
+
   })
 
   function reset_chkbx() {

@@ -20,17 +20,17 @@
 <!-- dito -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>10</h3>
+                <h3><?php echo $new ?></h3>
                 <p>New Events</p>
                 <div class="icon">
                   <i class="ion ion-calendar"></i>
                 </div>
-                <a href="#" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url('events/newEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           <div class="small-box bg-red">
             <div class="inner">
-
+              <h3><?php echo $ongoing ?></h3>
               <p>Ongoing Events</p>
               <div class="icon">
                 <i class="ion ion-android-calendar"></i>
