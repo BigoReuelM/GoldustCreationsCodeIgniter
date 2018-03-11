@@ -205,16 +205,16 @@
             </thead>
             <tbody>
               <?php
-                if (!empty($servcs) || !empty($avlServcs)) {
-                  $mergeArray = array_merge($servcs, $avlServcs);
-                  foreach ($mergeArray as $svc) { ?>
+                if (!empty($avlServcs)) {
+                 // $mergeArray = array_merge($servcs, $avlServcs);
+                  foreach ($avlServcs as $avlSvc) { ?>
               <tr>
                 <!-- service name -->
-                <td><?php echo $svc['serviceName'] ?></td>
+                <td><?php echo $avlSvc['serviceName'] ?></td>
                 <!-- quantity... query later... -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty" id="in1"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty" value="<?php echo $avlSvc['quantity'] ?>"></td>
                 <!-- amount... query later...  -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount" id="in1"></td>
+                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount" value="<?php  echo $avlSvc['amount']?>"></td>
               </tr>
               <?php }
                 }
@@ -222,7 +222,10 @@
             </tbody>
           </table>
           <div class="row">
-              <div class= "col-lg-12">
+            <div class= "col-lg-6">
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" >Update Services</button> 
+              </div>
+              <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
               </div>
           </div>
@@ -248,11 +251,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>name</td>
-                <td>Makeup Artist</td>
-                <td>09876541234</td>
+              <?php  
+                  if (!empty($eventStaff) || !empty($oncallStaff)) {
+                    $mergedStaffArray = array_merge($eventStaff, $oncallStaff);
+                    foreach ($mergedStaffArray as $staff) {  
+                      
+                ?>
+              <tr>               
+                <td><?php echo $staff['name']; ?></td>
+                <td><?php echo $staff['role']; ?></td>
+                <td><?php echo $staff['num']; ?></td>
               </tr>
+              <?php 
+                  }
+                }
+              ?>
             </tbody>
           </table>
           <div class="row">

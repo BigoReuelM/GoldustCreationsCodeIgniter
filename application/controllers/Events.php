@@ -110,7 +110,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['avlServcs'] = $this->events_model->servcTransac($id);
 			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 			$data['handlers'] = $this->events_model->getHandlers();
-			$data['currentHandler'] = $this->events_model->getCurrentHandler($id); 
+			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
+			$data['eventStaff'] = $this->events_model->getStaff($id);
+			$data['oncallStaff'] = $this->events_model->getOncallStaff($id);
+			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {

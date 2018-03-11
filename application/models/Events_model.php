@@ -194,10 +194,9 @@
 
 		public function servcTransac($eID){
 			$this->db->select('*');
-			$this->db->from('services');
-			$this->db->join('eventservices', 'services.serviceID = eventservices.serviceID');
-			$this->db->join('transactiondetails', 'transactiondetails.serviceID = eventservices.serviceID');
-			$this->db->where('status like "active"');
+			$this->db->from('eventservices');
+			$this->db->join('services', 'eventservices.serviceID = services.serviceID');
+			$this->db->where('eventID', $eID);
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -220,6 +219,26 @@
 			");
 			return $query->row();
 		}
+
+		public function getStaff($ceid){
+			$query = $this->db->query("
+				SELECT employeeName as name, employeeRole as role, contactNumber as num
+				FROM employees
+				NATURAL JOIN eventstaff
+				where eventID = $ceid    
+			");
+			return $query->result_array();
+		}
+
+		public function getOncallStaff($ceid){
+			$query = $this->db->query("
+				SELECT employeeName as name, employeeRole as role, contactNumber as num
+				FROM oncallstaff
+				where eventID = $ceid    
+			");
+			return $query->result_array();
+		}
+
 
 
 /*
