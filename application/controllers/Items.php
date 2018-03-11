@@ -16,6 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function gowns(){
+			$this->load->model('items_model');
+			$data['allGowns'] = $this->items_model->getAllGowns();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -28,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/gowns.php");
+			$this->load->view("templates/gowns.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -105,6 +107,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function costumes(){
+			$this->load->model('items_model');
+			$data['allCostumes'] = $this->items_model->getAllCostumes();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -117,11 +121,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/costumes.php");
+			$this->load->view("templates/costumes.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
 		public function suits(){
+			$this->load->model('items_model');
+			$data['allSuits'] = $this->items_model->getAllSuits();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -134,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/suits.php");
+			$this->load->view("templates/suits.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
