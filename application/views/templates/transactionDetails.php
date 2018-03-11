@@ -308,6 +308,12 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="col-sm-2 control-label">Agenda</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
+              </div>
+            </div>
+            <div class="form-group">
               <label>Date:</label>
 
               <div class="input-group date">
@@ -330,12 +336,6 @@
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Agenda</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
-              </div>
-            </div>
           </form>
         </div>
       </div>
@@ -354,69 +354,50 @@
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addExpenses') ?>">
+      <form role="form" method="post" action="<?php echo base_url('events/addExpenses') ?>" class="form-horizontal">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Expenses</h4>
         </div>
         <div class="modal-body">
-          <div class="container" id="con1">
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Client Name</label>
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Client Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Expenses Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter Expenses Name...">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Amount</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter Amount">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Receipt No.</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter Receipt No....">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Date:</label>
+
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
-                <div class="col-75">
-                  <div id="name" > Azuma Kazuma </div>
-             </div>
-            </div>           <div class="row">
-              <div class="col-25">
-                <label for="fname">Event Name</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > Azuma Anniversary </div>
+                <input type="text" class="form-control pull-right" id="datepicker">
               </div>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Name</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="expenseName" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Date</label>
-              </div>
-              <div class="col-75">
-                <input type="date" name="date" placeholder="Description" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Amount</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="expenseAmount" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Reciept No.</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="receiptNumber" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <p id="head1">Select files</p>
-                <div class="form-inline">
-                  <div class="form-group">
-                    <input type="file" name="expenseImage" id="js-upload-files" multiple>
-                  </div>
-                </div>
-              </div>
+            <div class="form-group">
+              <label for="exampleInputFile">Select Receipt Image</label>
+              <input type="file" name="expenseImage" id="js-upload-files" multiple>
             </div>
           </div>
         </div>
@@ -435,55 +416,48 @@
   <div class="modal-dialog">  
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>">
+      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>" class="form-horizontal">
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Payment</h4>
         </div>
         <div class="modal-body">
-          <div class="container" id="con1">
-              
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Client Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" >  </div>
-                </div>
-            </div>
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Event Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" >  </div>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Date</label>
-              </div>
-              <div class="col-75">
-                <input type="date" name="date" placeholder="Description">
+          <div class="box-body"">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Client Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
               </div>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Time</label>
-             </div>
-              <div class="col-75">
-                <input type="time" name="time" placeholder="Description">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Amount</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Enter Amount">
               </div>
             </div>
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Amount</label>
+            <div class="form-group">
+              <label>Date:</label>
+
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
                 </div>
-                <div class="col-75">
-                  <input type="text" name="amount" placeholder="Amount">
-               
+                <input type="text" class="form-control pull-right" id="datepicker">
+              </div>
+            </div>
+            <div class="bootstrap-timepicker">
+              <div class="form-group">
+                <label>Time Picker:</label>
+
+                <div class="input-group">
+                  <input type="text" class="form-control timepicker">
+
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
                 </div>
+              </div>
             </div>
           </div>
         </div>      
@@ -605,4 +579,44 @@
       showInputs: false
     })
   })
+</script>
+
+<script type="text/javascript">
+  
+    + function($) {
+    'use strict';
+
+
+    var dropZone = document.getElementById('drop-zone');
+    var uploadForm = document.getElementById('js-upload-form');
+
+    var startUpload = function(files) {
+        console.log(files)
+    }
+
+    uploadForm.addEventListener('submit', function(e) {
+        var uploadFiles = document.getElementById('js-upload-files').files;
+        e.preventDefault()
+
+        startUpload(uploadFiles)
+    })
+
+    dropZone.ondrop = function(e) {
+        e.preventDefault();
+        this.className = 'upload-drop-zone';
+
+        startUpload(e.dataTransfer.files)
+    }
+
+    dropZone.ondragover = function() {
+        this.className = 'upload-drop-zone drop';
+        return false;
+    }
+
+    dropZone.ondragleave = function() {
+        this.className = 'upload-drop-zone';
+        return false;
+    }
+
+}
 </script>
