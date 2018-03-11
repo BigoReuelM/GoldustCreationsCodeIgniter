@@ -33,6 +33,9 @@
           </a>
           <ul class="treeview-menu">
             <li>
+              <a href="<?php echo base_url('events/newEvents') ?>"><i class=""></i>New Events</a>
+            </li>
+            <li>
               <a href="<?php echo base_url('events/ongoingEvents') ?>"><i class=""></i>Ongoing Events</a>
             </li>
             <li>

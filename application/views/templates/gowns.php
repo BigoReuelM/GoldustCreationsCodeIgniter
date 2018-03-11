@@ -91,76 +91,33 @@
 </div>   
  <!-- End of modal -->
  
-      <div class="container" id="con">
-      <div class="row text-center text-lg-left">
-
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
+    <div class="container" id="con">
+        <div class="row">
+          <form id="" role="form" method="post" action="">
+          <?php
+            if(!empty($allGowns)){
+            foreach ($allGowns as $gow) { 
+              $gowID = $gow['designID'] ?>             
+                  <div class="col-lg-3">
+                    <div class="thumbnail">
+                      <?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $gow['designImage'] ) . '"/>'; ?>
+                    </div>
+                  </div>                
+          <?php }
+              } else {
+                echo 'No gowns';
+              }
+              ?>
+              <!-- submit button should be here... -->          
+          </form>    
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6" id="img">
-          <a href="#" class="d-block mb-4 h-100" id="con1">
-            <img class="img-fluid img-thumbnail" src="http://placehold.it/400x300" alt="">
-          </a>
-        </div>
-      </div>
-
-
+      <div class="row">
+        <!-- submit id of the new ... id -->
+        <button type="submit" class="btn btn-md btn-primary" id="donebtn" name="donebtn">Done</button>
+                    
+        <button type="submit" class="btn btn-md btn-primary" id="backbtn">Back</button>
+      </div>  
     </div>
-
-    <button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
-    <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>
 
     </section>
     <!-- /.content -->

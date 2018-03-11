@@ -14,11 +14,70 @@
 			if ($role === 'handler') {
 				$this->db->where('employeeID', $employeeID);
 			}
-			$this->db->where('eventStatus', $status);
+			$this->db->where('events.eventStatus', $status);
 
 			$query=$this->db->get();
 
 			return $query->result_array();
+		}
+
+
+		public function getEventCount($employeeID, $role, $status)
+		{
+
+			$this->db->select('*');
+			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
+			if ($role === 'handler') {
+				$this->db->where('employeeID', $employeeID);
+			}
+			$this->db->where('events.eventStatus', $status);
+
+			$query=$this->db->count_all_results();
+
+			return $query;
+
+		}
+
+		public function getNewEventsCount($employeeID, $role, $status)
+		{
+			$this->db->SELECT('eventID');
+			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
+			if ($role === 'handler') {
+				$this->db->where('employeeID', $employeeID);
+			}
+			$this->db->where('events.eventStatus', $status);
+			if ($role === 'admin') {
+				$this->db->where('employeeID', null);
+			}
+
+			$query=$this->db->count_all_results();
+
+			return $query;
+		}
+
+		public function getNewEvents($employeeID, $role, $status)
+		{
+			
+			$this->db->SELECT('*');
+			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
+			if ($role === 'handler') {
+				$this->db->where('employeeID', $employeeID);
+			}
+			$this->db->where('events.eventStatus', $status);
+			if ($role === 'admin') {
+				$this->db->where('employeeID', null);
+			}
+
+			$query=$this->db->get();
+
+			return $query->result_array();
+		}
+
+		public function getEventDetails(){
+			
 		}
 
 		public function getServices(){
@@ -171,9 +230,47 @@
 		}
 
 		public function changeDecor($eId, $decId, $newdecId){
-			$query = $this->db->query("UPDATE eventdecors SET decorID = {$newdecId} WHERE eventID = {$eId} and decorID = {$decId}");
-			$this->db->get();
-			return $query->result_array();
+			// add $newdecId later....
+			//$query = $this->db->query("UPDATE eventdecors SET decorID = {$newdecId} WHERE eventID = {$eId} and decorID = {$decId}");
+			$data = array(
+				'decorID' => $newdecId
+			);
+
+			$this->db->where('eventID', $eId);
+			$this->db->where('decorID', $decId);
+			$this->db->update('eventdecors', $data);
+			//$this->db->get();
+			//return $query->result_array();
+		}
+
+		public function addClient($cname, $contact){
+			$data = array(
+				'clientName' => $cname,
+				'contactNumber' => $contact
+			);
+
+			$this->db->insert('clients', $data);
+			return $this->db->insert_id();
+		}
+
+		public function addEvent($clientID, $ename, $celebrantName, $elocation, $edate, $etime, $emotif, $packageType, $etype){
+			$eventStatus = "new";
+			$data = array(
+				'eventName' => $ename,
+				'celebrantName' => $celebrantName,
+				'eventLocation' => $elocation,
+				'eventDate' => $edate,
+				'eventTime' => $etime,
+				'motif' => $emotif,
+				'packageType' => $packageType,
+				'clientID' => $clientID,
+				'eventType' => $etype
+			);
+
+			$this->db->insert('events', $data);
+
+			return $this->db->insert_id();
+
 		}
 
 		//public function addEventExpenses()

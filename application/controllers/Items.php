@@ -16,6 +16,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function gowns(){
+			$this->load->model('items_model');
+			$data['allGowns'] = $this->items_model->getAllGowns();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -28,7 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/gowns.php");
+			$this->load->view("templates/gowns.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -51,7 +53,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		// nasa events controller din tu
+		public function eventDecors(){
+			$eventid = $this->session->userdata('currentEventID');
+			$decorid = $this->session->userdata('currentDecorID');
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$data['eventName'] =$this->events_model->getEventName($eventid);
+			$data['eventDecors'] =$this->events_model->getDecors($eventid);
+			$this->load->model('items_model');
+			$data['allDecors'] = $this->items_model->getAllDecors();
+			
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/eventNav.php", $data);
+				
+			}else{
+				
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php", $data);
+				
+			}
+			$data['eventdecors'] = $this->events_model->getDecors($eventid);
+			$this->load->view("templates/eventDecors.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function changeDecorSetVals(){		
+			// id of the current decor id.. yung papalitan
+			$currentDecorID = $this->input->post('decorID');
+			$this->session->set_userdata('currentDecorID', $currentDecorID);
+
+			
+
+			//$this->load->model('events_model');
+			//$this->events_model->changeDecor($eId, $decId, $newdecID);
+			$this->decors();
+		}
+
+		// nasa events din controller tu
+		public function changeDecor(){
+			// id nung decor na ipapalit 
+			$newdecID = $this->input->post('newdecId');
+			$eId = $this->session->userdata('currentEventID');
+			$decId = $this->session->userdata('currentDecorID');
+
+			$this->load->model('events_model');
+			$this->events_model->changeDecor($eId, $decId, $newdecID);
+			redirect('events/eventDecors');
+		}
+
 		public function costumes(){
+			$this->load->model('items_model');
+			$data['allCostumes'] = $this->items_model->getAllCostumes();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -64,11 +121,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/costumes.php");
+			$this->load->view("templates/costumes.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
 		public function suits(){
+			$this->load->model('items_model');
+			$data['allSuits'] = $this->items_model->getAllSuits();
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
@@ -81,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/itemSelectionNav.php");
 				
 			}
-			$this->load->view("templates/suits.php");
+			$this->load->view("templates/suits.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
