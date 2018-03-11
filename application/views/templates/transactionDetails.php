@@ -141,8 +141,72 @@ input[type=submit] {
              <h2>Taylor Swift</h2>
            </div>
            <div class="col-md-3">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addoncallstaff" id ="button3">Add Appointment
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addappoint" id ="button3">Add Appointment
             </button>
+            <!--Add Appointment -->
+            <div class="modal fade" id="addappoint" role="dialog">
+              <div class="modal-dialog">
+              <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Appointment</h4>
+          </div>
+          <div class="modal-body">
+            <div class="container" id="con1">
+          <form action="/action_page.php">
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Client Name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="fname" name="lastname" placeholder="Employee Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Employee Name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="fname" name="lastname" placeholder="Contact Number">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Date</label>
+              </div>
+              <div class="col-75">
+                <input type="date" id="fname" name="lastname" placeholder="Email">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Time</label>
+              </div>
+              <div class="col-75">
+                <input type="time" id="fname" name="lastname" placeholder="Address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Agenda</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="fname" name="lastname" placeholder="Address">
+              </div>
+            </div>
+          </form>
+        </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+       <!-- End -->
           </div>
         </div>  
       </section>
@@ -234,9 +298,159 @@ input[type=submit] {
                       </table>
                     </div>
                     <button type="button" class="btn btn-default">Back</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Add Expenses</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addexpense">Add Expenses</button>
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addpayment">Add Payments</button>
                   </div>
+
+<!-- Modal for adding expense -->
+<div class="modal fade" id="addexpense" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post" action="<?php echo base_url('events/addExpenses') ?>">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Expenses</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container" id="con1">
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Client Name</label>
+                </div>
+                <div class="col-75">
+                  <div id="name" > Azuma Kazuma </div>
+             </div>
+            </div>           <div class="row">
+              <div class="col-25">
+                <label for="fname">Event Name</label>
+              </div>
+              <div class="col-75">
+                <div id="name" > Azuma Anniversary </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Expense Name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" name="expenseName" placeholder="Amount" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Date</label>
+              </div>
+              <div class="col-75">
+                <input type="date" name="date" placeholder="Description" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Expense Amount</label>
+              </div>
+              <div class="col-75">
+                <input type="text" name="expenseAmount" placeholder="Amount" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Reciept No.</label>
+              </div>
+              <div class="col-75">
+                <input type="text" name="receiptNumber" placeholder="Amount" class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <p id="head1">Select files</p>
+                <div class="form-inline">
+                  <div class="form-group">
+                    <input type="file" name="expenseImage" id="js-upload-files" multiple>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="addExpenses" type="submit" name="addExpenses" class="btn btn-default">Add</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+                <!-- end of modal -->
+                <!-- Modal for adding of payments -->
+<div class="modal fade" id="addpayment" role="dialog">
+  <div class="modal-dialog">  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Payment</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container" id="con1">
+              
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Client Name</label>
+                </div>
+                <div class="col-75">
+                  <div id="name" >  </div>
+                </div>
+            </div>
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Event Name</label>
+                </div>
+                <div class="col-75">
+                  <div id="name" >  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Date</label>
+              </div>
+              <div class="col-75">
+                <input type="date" name="date" placeholder="Description">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">Time</label>
+             </div>
+              <div class="col-75">
+                <input type="time" name="time" placeholder="Description">
+              </div>
+            </div>
+            <div class="row">
+               <div class="col-25">
+                  <label for="fname">Amount</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" name="amount" placeholder="Amount">
+               
+                </div>
+            </div>
+          </div>
+        </div>      
+        <div class="modal-footer">
+          <button id="addPayment" type="submit" name="addPayment" class="btn btn-default">Add</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+    
+  </div>
+</div>
+<!-- End of add payment modal -->
+
                 </div>
                 <div class="col-lg-6">
                     <div class="box">
