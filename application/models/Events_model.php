@@ -342,7 +342,7 @@
 			);
 			$this->db->insert('entourage', $data);
 		} 
-			}
+	}
 
 
  ?>
