@@ -1,127 +1,3 @@
-<style type="text/css">
-#button1 {
-  width: 180px;
-}
-
-.results tr[visible='false'],
-.no-result{
-  display:none;
-}
-
-.results tr[visible='true']{
-  display:table-row;
-}
-
-.counter{
-  padding:8px; 
-  color:#ccc;
-}
-
-#in1 {
-  width: 130px;
-}
-
-
-* {
-    box-sizing: border-box;
-}
-
-#form1 {
-  width:100%;
-  padding: 8px;
-  background-color:white;
-}
-#name{
-   width:250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
-#GovID {
-    width:250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
-input[type=text], select, textarea {
-    width:250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
-
-label {
-    padding: 6px 6px 6px 0;
-    display: inline-block;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
-
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-    margin-right: 20px;
-}
-
-.col-75 {
-    float: left;
-    margin-right: 50px;
-    width: 25%;
-    margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 50px) {
-    .col-25, .col-75, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-    }
-}
-
-#con1 {
-  width:100%;
-  background-color: white;
-}
-
-#tab1 {
-  border:1px solid #ccc;
-  background-color: #E6E6E6;
-}
-
-#butt2 {
-  margin-top: 20px;
-}
-
-</style>
-
 <?php
 
 if (!$this->session->has_userdata('currentEventID')) {
@@ -134,85 +10,188 @@ if (!$this->session->has_userdata('currentEventID')) {
 ?>
 <!-- Content Header (Page header) -->
 
-<div class="row">
-  <div class="col-lg-4">
-    <section class="content-header">
-     <h1>
-       Event Details
-     </h1>
-     </section>
-   </div>
-   <div class="col-lg-2">
-     <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
-   </div>
- </div>
-
-
 
 <!-- Main content -->
 <section class="content container-fluid">
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
-        <label>Event Name</label>
-        <input type="text" id="form1" class="form-control">
+  <section class="content-header">
+    <div class="row">
+      <div class="col-lg-4">       
+          <h1>
+            Event Details
+          </h1>        
       </div>
-      <div class="form-group">
-        <label>Contact Number</label>
-        <input type="text" id="form1" class="form-control">
-      </div>
-
-      <div class="form-group">
-        <label>Client Name</label>
-        <input type="text" id="form1" class="form-control">
-      </div>
-      <div class="form-group">
-        <label>Celebrant</label>
-        <input type="text" id="form1" class="form-control">
+      <div class="col-lg-2">
+        <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="form-group">
-
-        <div class="form-group">
-          <label>Event Date</label>
-          <input type="date" id="form1" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Event Time</label>
-          <input type="time" id="form1" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Event Location</label>
-          <input type="text" id="form1" class="form-control">
-        </div>
-        <label>Package Availed</label>
-        <label style="margin-left: 53%">Motiff</label>
-        <div class="row">
-          <div class="col-lg-4">
+  </section>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="box box-primary">
+        <div class="box-body">
+          <form role="form" method="post" action="">
+            <div class="col-lg-6">
             <div class="form-group">
-              <span class="radio"><label><input type="radio" id="event-time" value="full-Package">Full Package</label></span>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <span class="radio"><label><input type="radio" id="event-time" value="semi-Package">Semi Package</label></span>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
+              <label>Event Name</label>
               <input type="text" id="form1" class="form-control">
             </div>
+            <div class="form-group">
+              <label>Contact Number</label>
+              <input type="text" id="form1" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Client Name</label>
+              <input type="text" id="form1" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Celebrant</label>
+              <input type="text" id="form1" class="form-control">
+            </div>
+            </div>
+            <div class="col-lg-6">
+            <div class="form-group">
+
+              <div class="form-group">
+                <label>Event Date</label>
+                <input type="date" id="form1" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label>Event Time</label>
+                <input type="time" id="form1" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label>Event Location</label>
+                <input type="text" id="form1" class="form-control">
+              </div>
+              <label>Package Availed</label>
+              <label style="margin-left: 53%">Motiff</label>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <span class="radio"><label><input type="radio" id="event-time" value="full-Package">Full Package</label></span>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <span class="radio"><label><input type="radio" id="event-time" value="semi-Package">Semi Package</label></span>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <input type="text" id="form1" class="form-control">
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-4">
+      <div class="box box-primary">
+        <div class="box-header">
+          <h3>Select Event Handler</h3>
+        </div>
+        <div class="box-body box-profile">
+          <form role="form" method="post" >
+            <div class="form-group">
+              <label>Select</label>
+              <select class="form-control">
+                <option>option 1</option>
+                <option>option 2</option>
+                <option>option 3</option>
+                <option>option 4</option>
+                <option>option 5</option>
+              </select>
+            
+              <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+
+              <h3 class="profile-username text-center">Nina Mcintire</h3>
+
+              <p class="text-muted text-center">Event Handler</p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Events</b> <a class="pull-right">1,322</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Transactions</b> <a class="pull-right">543</a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>     
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="box box-primary">
+      
+        <div class="box-header">
+          <h3>Total Due For Services:</h3>
+        </div>
+
+        <div class="box-body">
+          <div class="row">
+            <div class="form-group">
+              <label class="col-lg-2 control-label">Amount</label>
+
+              <div class="col-lg-10">
+                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="col-lg-6">
+      <div class="box box-primary">
+      
+        <div class="box-header">
+          <h3>Total Amount Due:</h3>
+        </div>
+
+        <div class="box-body">
+          <div class="row">
+            <form action="">
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Amount</label>
+
+                <div class="col-lg-10">
+                  <input type="text" class="form-control" placeholder="Enter Total Amount....">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-8">
+                  Click Update Amount Button when sure..
+                </label>
+                <div class="col-lg-4">
+                  <button type="submit" class="btn btn-block btn-primary">Update Amount</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
-  <!-- services -->
+
+  <div class="row">
+    <!--service column-->
     <div class="col-lg-6">
-      <div class="box">
+      <div class="box box-primary">
         <div class="box-header">
           <h3 class="box-title">Services</h3>
         </div>
@@ -244,214 +223,85 @@ if (!$this->session->has_userdata('currentEventID')) {
             </tbody>
           </table>
           <div class="row">
-              <div class="col-25">
-                <label for="lname">Total Amount</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Total Amount">
+              <div class= "col-lg-12">
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
               </div>
           </div>
-           <div class= "col-lg-4">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
-          </div>
+            
         </div>
       </div>
     </div>
+    <!--end of service col-->
+
+    <!--start of stff col-->
     <div class="col-lg-6">
-      <div class="box">
+      <div class="box box-primary">
         <div class="box-header">
           <h3 class="box-title">Staff</h3>
         </div>
         <div class="box-body">
-        <table id="staffTable" class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Role</th>
-              <th>Contact Number</th>
-              <th>Availability</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
+          <table id="staffTable" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Contact Number</th>
+                <th>Availability</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <form>
+                    <div class="form-group checkbox">
+                      <label><input type="checkbox" id="" value="gowns">Nemo Kamo</label>
+                    </div>
+                  </form>
+                </td>
+                <td>Makeup Artist</td>
+                <td>09876541234</td>
+                <td>Available</td>
+              </tr>
               <td>
                 <form>
                   <div class="form-group checkbox">
-                    <label><input type="checkbox" id="" value="gowns">Nemo Kamo</label>
+                    <label><input type="checkbox" id="" value="makeup">Kame Wave</label>
                   </div>
                 </form>
-              </td>
-              <td>Makeup Artist</td>
-              <td>09876541234</td>
+              </td> 
+              <td>Costume Designer</td>
+              <td>09291387121</td>
               <td>Available</td>
-            </tr>
-            <td>
-              <form>
-                <div class="form-group checkbox">
-                  <label><input type="checkbox" id="" value="makeup">Kame Wave</label>
-                </div>
-              </form>
-            </td> 
-            <td>Costume Designer</td>
-            <td>09291387121</td>
-            <td>Available</td>
-          </tbody>
-        </table>
-        <div class="row">
-              <div class="col-lg-6">
-                <button type="button" class="btn btn-primary">Remove Staff</button>
-              </div>
-                <div class="col-lg-2">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
-                <!-- Add staff Modal -->
-                <div class="modal fade" id="addstaff" role="dialog">
-                  <div class="modal-dialog">
-                  
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add Staff</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div class="col-lg-4">
-                            <input type="text" class="search form-control" placeholder="What you looking for?">
-                        </div>
-                        <span class="counter pull-right"></span>
-                        <table class="table table-hover table-bordered results">
-                          <thead>
-                            <tr>
-                              <th>#</th>
-                              <th class="col-md-5 col-xs-5">Name</th>
-                              <th class="col-md-4 col-xs-4">Role</th>
-                              <th class="col-md-3 col-xs-3">Conatct Number</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">
-                                <form action="/action_page.php">
-                                  <input type="checkbox" name="check" value="Bike"><br>
-                                </form>
-                              </th>
-                              <td>Frida Eadwig</td>
-                              <td>
-                                <form action="/action_page.php">
-                                  <input type="text" name="FirstName" value="" id="form1">
-                                </form>
-                              </td>
-                              <td>09982765760</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">
-                                <form action="/action_page.php">
-                                  <input type="checkbox" name="check" value="Bike"><br>
-                                </form>
-                              </th>
-                              <td>Aloisa Piccio</td>
-                              <td>
-                                <form action="/action_page.php">
-                                  <input type="text" name="FirstName" value="" id="form1">
-                                </form>
-                              </td>
-                              <td>09987765560</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">
-                                <form action="/action_page.php">
-                                  <input type="checkbox" name="check" value="Bike"><br>
-                                </form>
-                              </th>
-                              <td>Daniella Mattsson</td>
-                              <td>
-                                <form action="/action_page.php">
-                                  <input type="text" name="FirstName" value="" id="form1">
-                                </form>
-                              </td>
-                              <td>09877789082</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-                <!-- End of Add staff modal -->
-                </div>
-                <div class="col-lg-2">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
-                  </button>
-                  <!-- Modal for add on-call Staff -->
-                    <div class="modal fade" id="addoncallstaff" role="dialog">
-                      <div class="modal-dialog">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add On-Call Staff</h4>
-                          </div>
-                          <div class="modal-body">
-                            <div class="container" id="con1">
-                              <form action="/action_page.php">
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="fname">On-Call Staff ID</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <div id="GovID" > ****** </div>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="lname">Staff Name</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="text" id="lname" name="lastname" placeholder="Staff Name">
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="lname">Role</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="text" id="lname" name="lastname" placeholder="Role">
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class="col-25">
-                                    <label for="lname">Contact Number</label>
-                                  </div>
-                                  <div class="col-75">
-                                    <input type="text" id="lname" name="lastname" placeholder="Contact Number">
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                       </div> 
-                      </div>
-                    </div
-                  <!-- End modal for on-call Staff -->
-                </div>
-                </div>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-lg-4">
+              <button type="button" class="btn btn-block btn-primary">Remove Staff</button>
+            </div>
+            <div class="col-lg-4">
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
+
+            </div>
+            <div class="col-lg-4">
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
+              </button>
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <!--end staff col-->
+
   </div>
-</div> 
+
+<div class="control-sidebar-bg"></div> 
 </section>
 <!-- /.content-wrapper -->
-
+  <!-- Add the sidebar's background. This div must be placed
+    immediately after the control sidebar -->
+    
+</div>
 <!-- modals... -->
 <!-- add service modal -->
 <div class="modal fade" role="dialog" id="addServc">
@@ -501,11 +351,143 @@ if (!$this->session->has_userdata('currentEventID')) {
   </div>
 </div>
 
-  <!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
+
+  <!-- Add staff Modal -->
+<div class="modal fade" id="addstaff" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Staff</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-4">
+            <input type="text" class="search form-control" placeholder="What you looking for?">
+        </div>
+        <span class="counter pull-right"></span>
+        <table class="table table-hover table-bordered results">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="col-md-5 col-xs-5">Name</th>
+              <th class="col-md-4 col-xs-4">Role</th>
+              <th class="col-md-3 col-xs-3">Conatct Number</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">
+                <form action="/action_page.php">
+                  <input type="checkbox" name="check" value="Bike"><br>
+                </form>
+              </th>
+              <td>Frida Eadwig</td>
+              <td>
+                <form action="/action_page.php">
+                  <input type="text" name="FirstName" value="" id="form1">
+                </form>
+              </td>
+              <td>09982765760</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <form action="/action_page.php">
+                  <input type="checkbox" name="check" value="Bike"><br>
+                </form>
+              </th>
+              <td>Aloisa Piccio</td>
+              <td>
+                <form action="/action_page.php">
+                  <input type="text" name="FirstName" value="" id="form1">
+                </form>
+              </td>
+              <td>09987765560</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <form action="/action_page.php">
+                  <input type="checkbox" name="check" value="Bike"><br>
+                </form>
+              </th>
+              <td>Daniella Mattsson</td>
+              <td>
+                <form action="/action_page.php">
+                  <input type="text" name="FirstName" value="" id="form1">
+                </form>
+              </td>
+              <td>09877789082</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
   </div>
-  <!-- ./wrapper -->
+</div>
+<!-- End of Add staff modal -->
+
+<!-- Modal for add on-call Staff -->
+<div class="modal fade" id="addoncallstaff" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add On-Call Staff</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container" id="con1">
+          <form action="/action_page.php">
+            <div class="row">
+              <div class="col-25">
+                <label for="fname">On-Call Staff ID</label>
+              </div>
+              <div class="col-75">
+                <div id="GovID" > ****** </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Staff Name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="lname" name="lastname" placeholder="Staff Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Role</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="lname" name="lastname" placeholder="Role">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Contact Number</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="lname" name="lastname" placeholder="Contact Number">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+   </div> 
+  </div>
+</div>
+<!-- End modal for on-call Staff -->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>

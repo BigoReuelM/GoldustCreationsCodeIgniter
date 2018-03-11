@@ -107,6 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['servcs'] = $this->events_model->getServices();
 			// get services availed for an event ONLY
 			$data['avlServcs'] = $this->events_model->servcTransac($id);
+			$data['eventDetail'] = $this->events_modal->getEventDetails($id);
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
