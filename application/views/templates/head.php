@@ -24,6 +24,8 @@
   <link rel="stylesheet" href="<?php echo base_url();?>/public/dist/css/skins/skin-blue.css">
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/public/style.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>/public/plugins/timepicker/bootstrap-timepicker.min.css">
+
 
 </head>
 

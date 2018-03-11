@@ -1,16 +1,10 @@
 
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
   <section class="content-header">
-    <div class="row">
-      <div class="col-lg-10">
-        <button type="button" class="btn btn-priamry btn-lg">Back</button>
-      </div>
-      <div class="col-lg-2">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointment</button>
-      </div>
-    </div>  
+    <a type="button" class="btn btn-primary btn-lg" href="<?php echo base_url('transactions/transactions') ?>">Back</a>
   </section>
   <section class="content container-fluid">
       <div class="box box-info">
@@ -142,7 +136,14 @@
             <!--list of appointments col-->
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">List of Appointments</h3>    
+                <div class="row">
+                  <div class="col-md-6">
+                    <h3 class="box-title">List of Appointments</h3>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointment</button>
+                  </div>
+                </div>    
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -292,50 +293,51 @@
         <h4 class="modal-title">Add Appointment</h4>
       </div>
       <div class="modal-body">
-        <div class="container" id="con1">
-      <form action="/action_page.php">
-        <div class="row">
-          <div class="col-25">
-            <label for="lname">Client Name</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="fname" name="lastname" placeholder="Employee Name">
-          </div>
+        <div class="box-body">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Client Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Employee Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Date:</label>
+
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker">
+              </div>
+            </div>
+            <div class="bootstrap-timepicker">
+              <div class="form-group">
+                <label>Time Picker:</label>
+
+                <div class="input-group">
+                  <input type="text" class="form-control timepicker">
+
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Agenda</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Email" disabled>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="lname">Employee Name</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="fname" name="lastname" placeholder="Contact Number">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="lname">Date</label>
-          </div>
-          <div class="col-75">
-            <input type="date" id="fname" name="lastname" placeholder="Email">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="lname">Time</label>
-          </div>
-          <div class="col-75">
-            <input type="time" id="fname" name="lastname" placeholder="Address">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-25">
-            <label for="lname">Agenda</label>
-          </div>
-          <div class="col-75">
-            <input type="text" id="fname" name="lastname" placeholder="Address">
-          </div>
-        </div>
-      </form>
-    </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
@@ -348,7 +350,7 @@
 <!-- End -->
 
 <!-- Modal for adding expense -->
-<div class="modal fade" id="addexpense" role="dialog">
+<div class="modal fade" id="addexpenses" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
@@ -496,21 +498,38 @@
 <!-- End of add payment modal -->
 
 
-<!-- REQUIRED JS SCRIPTS -->
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery 3 -->
+<script src="<?php echo base_url(); ?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url(); ?>/public/bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="<?php echo base_url(); ?>/public/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll -->
+<script src="<?php echo base_url(); ?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="<?php echo base_url(); ?>/public/plugins/iCheck/icheck.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url(); ?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url(); ?>/public/dist/js/demo.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url();?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script>
   $(function () {
     $('#appointmentsTable').DataTable()
@@ -519,4 +538,71 @@
     $('#expenseTable').DataTable()
   })
 
+</script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
 </script>
