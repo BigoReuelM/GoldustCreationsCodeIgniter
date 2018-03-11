@@ -273,6 +273,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->eventDecors();			
 		}
+		// nasa items controller din tu...
+		/*public function changeDecor(){
+			$this->load->model('events_model');
+			$this->events_model->changeDecor($eId, $decId, $newdecID);
+			$this->eventDecors();
+		}*/
 
 		/*
 		public function setEntourageID(){
@@ -292,12 +298,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventEntourage();
 		}
 
-		public function changeDecor(){
+		/*public function changeDecor(){
+			$newdecID = $this->input->post('decorID');
 			$eId = $this->session->userdata('currentEventID');
 			$decId = $this->session->userdata('currentDecorID');
-
-			$this->decors();
-		}
+			
+			$this->events_model->changeDecor($eId, $decId, $newdecId);
+			$this->'items/decors()';
+		}*/
 	}
 
 ?>

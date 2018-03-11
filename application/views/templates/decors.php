@@ -91,20 +91,30 @@
       <!-- gallery -->
       <div class="container" id="con">
         <div class="row">
+          <form id="" role="form" method="post" action="<?php echo base_url('items/changeDecor') ?>">
           <?php
-            foreach ($allDecors as $dec) { ?>
-                <div class="col-lg-3">
-                  <div class="thumbnail">
-                  <?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
-                  </div>
-                </div>
+            foreach ($allDecors as $dec) { 
+              $decorID = $dec['decorsID'] ?>             
+                  <div class="col-lg-3">
+                    <div class="thumbnail">
+                    <!--<a id="newdecId" name="newdecId" value="<?php /*echo ($decorID) ?>"><?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>';*/ ?></a>-->
+                    <?php /*echo '<input id="newdecId" name="newdecId" value="<?php echo ($decorID) ?>" type="image" class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; */?>
+                    <input type="hidden" id="newdecId" name="newdecId" value="<?php echo ($decorID) ?>"><?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?></input>
+                    </div>
+                  </div>                
+
           <?php }
               ?>
+            <!-- submit id of the new decor id -->
+            <button type="submit" class="btn btn-md btn-primary" id="donebtn" name="donebtn">Done</button>
+                  
+            <button type="submit" class="btn btn-md btn-primary" id="backbtn">Back</button>
+          </form>    
         </div>
       </div> 
-
-    <button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
-    <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>
+    
+    <!--<button type="submit" class="btn btn-sm btn-primary" id="button">Done</button>
+    <button type="submit" class="btn btn-sm btn-primary" id="button">Back</button>-->
     </section>
     <!-- /.content -->
   </div>
