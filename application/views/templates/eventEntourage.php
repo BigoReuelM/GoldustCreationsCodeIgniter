@@ -112,57 +112,57 @@
                           <tr>
                             <td>
                             <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Name">
+                                    <input type="text" id="name" name="name" placeholder="Name">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Role">
+                                    <input type="text" id="role" name="role" placeholder="Role">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Shoulder">
+                                    <input type="text" id="shoulder" name="shoulder" placeholder="Shoulder">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Chest">
+                                    <input type="text" id="chest" name="chest" placeholder="Chest">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Stomach">
+                                    <input type="text" id="stomach" name="stomach" placeholder="Stomach">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Waist">
+                                    <input type="text" id="waist" name="waist" placeholder="Waist">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Arm Length">
+                                    <input type="text" id="armlength" name="armLength" placeholder="Arm Length">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Arm Hole">
+                                    <input type="text" id="armhole" name="armhole" placeholder="Arm Hole">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Muscle">
+                                    <input type="text" id="muscle" name="muscle" placeholder="Muscle">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Pants Length">
+                                    <input type="text" id="pantsLength" name="pantsLength" placeholder="Pants Length">
                                   </div>
                             </td>
                             <td>
                               <div>
-                                    <input type="text" id="lname" name="lastname" placeholder="Baston">
+                                    <input type="text" id="baston" name="baston" placeholder="Baston">
                                   </div>
                             </td>
                             <td>
