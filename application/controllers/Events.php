@@ -102,12 +102,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function eventDetails(){
 			$id = $this->session->userdata('currentEventID');
+			$clientID = $this->session->userdata('clientID');
 			$data['eventName'] =$this->events_model->getEventName($id);
 			// get ALL available services for modal (add service)
 			$data['servcs'] = $this->events_model->getServices();
 			// get services availed for an event ONLY
 			$data['avlServcs'] = $this->events_model->servcTransac($id);
-			$data['eventDetail'] = $this->events_modal->getEventDetails($id);
+			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
+			$data['handlers'] = $this->events_model->getHandlers();
+			$data['currentHandler'] = $this->events_model->getCurrentHandler($id); 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {

@@ -76,7 +76,16 @@
 			return $query->result_array();
 		}
 
-		public function getEventDetails(){
+		public function getEventDetails($eventID, $cID){
+
+			$query=$this->db->query("
+				SELECT *
+				FROM events 
+				NATURAL JOIN clients
+				WHERE eventID = $eventID;
+				");
+
+			return $query->row();
 			
 		}
 
@@ -193,11 +202,35 @@
 			return $query->result_array();
 		}
 
+		public function getHandlers(){
+			$query = $this->db->query("
+				SELECT *
+				FROM employees
+				WHERE role like 'handler' and status like 'active'
+			");
+			return $query->result_array();	
+		}
+
+		public function getCurrentHandler($ceid){
+			$query = $this->db->query("
+				SELECT employeeName, photo
+				FROM employees
+				Natural join events
+				where events.eventID = $ceid  
+			");
+			return $query->row();
+		}
+
+
+/*
+*
+*   ALL INSERT BELLOW
+*/
 		public function deleteEvntDecor($decId, $eId){
 			$this->db->where('decorID', $decId);
 			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
-			}	
+		}	
 
 		public function addEventPayment($cID, $eID, $ceID, $date, $time, $amount){
 			$data = array(
@@ -289,6 +322,7 @@
 			$this->db->where('eventID', $eID);
 			$this->db->delete('entourage');
 		}
+
 	}
 
  ?>

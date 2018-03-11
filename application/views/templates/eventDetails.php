@@ -1,16 +1,6 @@
-<?php
-
-if (!$this->session->has_userdata('currentEventID')) {
-  echo "wala laman";
-}else{
-  $id = $this->session->userdata('currentEventID');
-  //echo $id;
-}
-//echo $id;
-?>
-<!-- Content Header (Page header) -->
-
-
+<?php 
+  $empRole = $this->session->userdata('role');
+ ?>
 <!-- Main content -->
 <section class="content container-fluid">
   <section class="content-header">
@@ -31,60 +21,61 @@ if (!$this->session->has_userdata('currentEventID')) {
         <div class="box-body">
           <form role="form" method="post" action="">
             <div class="col-lg-6">
-            <div class="form-group">
-              <label>Event Name</label>
-              <input type="text" id="form1" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>Contact Number</label>
-              <input type="text" id="form1" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>Client Name</label>
-              <input type="text" id="form1" class="form-control">
-            </div>
-            <div class="form-group">
-              <label>Celebrant</label>
-              <input type="text" id="form1" class="form-control">
-            </div>
+              <div class="form-group">
+                <label>Event Name</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventName ?>">
+              </div>
+              <div class="form-group">
+                <label>Contact Number</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->contactNumber ?>">
+              </div>
+              <div class="form-group">
+                <label>Client Name</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->clientName ?>">
+              </div>
+              <div class="form-group">
+                <label>Celebrant</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+              </div>
+              <div class="form-group">
+                <label>Package Availed</label>
+                <?php 
+                  $full = "";
+                  $semi = "";
+                  if ($eventDetail->packageType === 'full-Package') {
+                    $full="checked";
+                  }else{
+                    $semi = "checked";
+                  }
+                 ?> 
+                <span class="radio"><label><input type="radio" id="event-time" value="full-Package" <?php echo $full ?>>Full Package</label></span>
+                <span class="radio"><label><input type="radio" id="event-time" value="semi-Package" <?php echo $semi ?>>Semi Package</label></span>
+              </div>
             </div>
             <div class="col-lg-6">
-            <div class="form-group">
-
               <div class="form-group">
                 <label>Event Date</label>
-                <input type="date" id="form1" class="form-control">
+                <input type="date" id="form1" class="form-control" value="<?php echo $eventDetail->eventDate ?>">
               </div>
 
               <div class="form-group">
                 <label>Event Time</label>
-                <input type="time" id="form1" class="form-control">
+                <input type="time" id="form1" class="form-control" value="<?php echo $eventDetail->eventTime ?>">
               </div>
 
               <div class="form-group">
                 <label>Event Location</label>
-                <input type="text" id="form1" class="form-control">
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventLocation ?>">
               </div>
-              <label>Package Availed</label>
-              <label style="margin-left: 53%">Motiff</label>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <span class="radio"><label><input type="radio" id="event-time" value="full-Package">Full Package</label></span>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <span class="radio"><label><input type="radio" id="event-time" value="semi-Package">Semi Package</label></span>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <input type="text" id="form1" class="form-control">
-                  </div>
-                </div>
+
+              <div class="form-group">
+                <label>Event Type</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventType ?>">
               </div>
-            </div>
+              <div class="form-group">
+                <label>Motif</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->motif ?>">
+              </div>
             </div>
             <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </form>
@@ -100,18 +91,21 @@ if (!$this->session->has_userdata('currentEventID')) {
         <div class="box-body box-profile">
           <form role="form" method="post" >
             <div class="form-group">
-              <label>Select</label>
-              <select class="form-control">
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-                <option>option 4</option>
-                <option>option 5</option>
-              </select>
-            
-              <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
+              <?php  
+                if ($empRole === 'admin') {
+                  echo "<label>Select</label>";
+                  echo "<select class='form-control'>";
 
-              <h3 class="profile-username text-center">Nina Mcintire</h3>
+                  foreach ($handlers as $handler) {
+                    echo "<option>" . $handler['employeeName'] . "</option>";
+                  }
+
+                  echo "</select>";
+                }
+              ?>
+              <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
+
+              <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
 
               <p class="text-muted text-center">Event Handler</p>
 
@@ -125,7 +119,12 @@ if (!$this->session->has_userdata('currentEventID')) {
               </ul>
             </div>
             <div>
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>
+              <?php
+                if ($empRole === 'admin') {
+                   echo '<button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
+                 } 
+              ?>
+              
             </div>
           </form>
         </div>
@@ -170,7 +169,7 @@ if (!$this->session->has_userdata('currentEventID')) {
                 <label class="col-lg-2 control-label">Amount</label>
 
                 <div class="col-lg-10">
-                  <input type="text" class="form-control" placeholder="Enter Total Amount....">
+                  <input type="text" class="form-control" placeholder="Enter Total Amount...." value="<?php echo 'Php ' . $eventDetail->totalAmount ?>"> 
                 </div>
               </div>
               <div class="form-group">
@@ -246,32 +245,14 @@ if (!$this->session->has_userdata('currentEventID')) {
                 <th>Name</th>
                 <th>Role</th>
                 <th>Contact Number</th>
-                <th>Availability</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
-                  <form>
-                    <div class="form-group checkbox">
-                      <label><input type="checkbox" id="" value="gowns">Nemo Kamo</label>
-                    </div>
-                  </form>
-                </td>
+                <td>name</td>
                 <td>Makeup Artist</td>
                 <td>09876541234</td>
-                <td>Available</td>
               </tr>
-              <td>
-                <form>
-                  <div class="form-group checkbox">
-                    <label><input type="checkbox" id="" value="makeup">Kame Wave</label>
-                  </div>
-                </form>
-              </td> 
-              <td>Costume Designer</td>
-              <td>09291387121</td>
-              <td>Available</td>
             </tbody>
           </table>
           <div class="row">
