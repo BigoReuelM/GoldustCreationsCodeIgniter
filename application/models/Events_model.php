@@ -323,6 +323,26 @@
 			$this->db->delete('entourage');
 		}
 
-	}
+		public function addEventEntourage($enID, $eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
+	
+			$data = array(
+				'entourageID' => $enID,
+				'eventID' => $eID,
+				'entourageName' => $enName,
+				'role' => $role,
+				'shoulder' => $sho,
+				'chest' => $che,
+				'stomach' => $sto,
+				'waist' => $wai,
+				'armLength' => $armL,
+				'armHole' => $armH,
+				'muscle' => $mus,
+				'pantsLength' => $pantsL,
+				'baston' => $bas, 
+			);
+			$this->db->insert('entourage', $data);
+		} 
+			}
+
 
  ?>

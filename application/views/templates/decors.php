@@ -93,6 +93,7 @@
         <div class="row">
           <form id="" role="form" method="post" action="<?php echo base_url('items/changeDecor') ?>">
           <?php
+          if(!empty($allDecors)){
             foreach ($allDecors as $dec) { 
               $decorID = $dec['decorsID'] ?>             
                   <div class="col-lg-3">
@@ -103,7 +104,10 @@
                     </div>
                   </div>                
 
-          <?php }
+          <?php   }
+                } else {
+                  echo 'No decorations';
+                }
               ?>
             <!-- submit id of the new decor id -->
             <button type="submit" class="btn btn-md btn-primary" id="donebtn" name="donebtn">Done</button>

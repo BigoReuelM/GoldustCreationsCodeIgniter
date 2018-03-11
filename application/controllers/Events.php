@@ -352,6 +352,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->ongoingEvents();
 
 		}
+
+		public function addEntourage() {
+			$enId = $this->session->userdata('currentEntourageID');
+			$eId = $this->session->userdata('currentEventID');
+
+			$entName = $this->input->post('name');
+			$eRole = $this->input->post('role');
+			$eShoulder = $this->input->post('shoulder');
+			$eChest = $this->input->post('chest');
+			$eStomach = $this->input->post('stomach');
+			$eWaist = $this->input->post('waist');
+			$eArmL = $this->input->post('armLength');
+			$eArmH = $this->input->post('armHole');
+			$eMuscle = $this->input->post('muscle');
+			$ePantsL = $this->input->post('pantsLength');
+			$eBaston = $this->input->post('baston');
+
+			$this->events_model->addEventEntourage($enId, $eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+
+			redirect('events/eventEntourage');
+		}
+
 	}
 
 ?>
