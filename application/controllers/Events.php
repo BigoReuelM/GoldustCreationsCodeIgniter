@@ -298,6 +298,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->decors();
 		}
+
+		public function addEvent(){
+
+			$clientName = $this->input->post('client-name');
+			$clientContact = $this->input->post('contact-number');
+
+			$newClientID = $this->events_model->addClient($clientName, $clientContact);
+
+			$eventName = $this->input->post('event-name');
+			$celebrantName = $this->input->post('celebrant');
+			$location = $this->input->post('event-loc');
+			$date = $this->input->post('event-date');
+			$time = $this->input->post('event-time');
+			$package = $this->input->post('package');
+			$motiff = $this->input->post('motiff');
+			$newEventID = $this->events_model->addEvent($newClientID, $eventName, $celebrantName, $location, $date, $time, $motiff, $package);
+
+			$this->ongoingEvents();
+
+		}
 	}
 
 ?>

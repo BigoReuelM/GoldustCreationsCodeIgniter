@@ -176,6 +176,35 @@
 			return $query->result_array();
 		}
 
+		public function addClient($cname, $contact){
+			$data = array(
+				'clientName' => $cname,
+				'contactNumber' => $contact
+			);
+
+			$this->db->insert('clients', $data);
+			return $this->db->insert_id();
+		}
+
+		public function addEvent($clientID, $ename, $celebrantName, $elocation, $edate, $etime, $emotif, $packageType){
+			$eventStatus = "new";
+			$data = array(
+				'eventName' => $ename,
+				'celebrantName' => $celebrantName,
+				'eventLocation' => $elocation,
+				'eventDate' => $edate,
+				'eventTime' => $etime,
+				'motif' => $emotif,
+				'packageType' => $packageType,
+				'clientID' => $clientID
+			);
+
+			$this->db->insert('events', $data);
+
+			return $this->db->insert_id();
+
+		}
+
 		//public function addEventExpenses()
 	
 		/*public function getEntAttirePhoto($entID){

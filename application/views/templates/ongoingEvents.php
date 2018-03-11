@@ -149,7 +149,7 @@
         <div id="add-event" class="modal fade bd-example-modal-lg" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
-              <form action="">
+              <form role="form" method="post" action="<?php echo base_url('events/addEvent'); ?>">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add Event</h4>
@@ -218,14 +218,14 @@
                       <div class="col-lg-6">
                       <div class="form-group">
                         <label>Package Availed</label>
-                        <span class="radio"><label><input type="radio" name="event-time" value="full-Package">Full Package</label></span>
-                        <soan class="radio"><label><input type="radio" name="event-time" value="semi-Package">Semi Package</label></soan>
+                        <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
+                        <soan class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></soan>
                       </div>
                     </div>
                     <div class="col-lg-6">
-                      <div>
+                      <div class="form-group">
                         <label>Motiff</label>
-                        <input type="color" name="motiff" class="form-control">
+                        <input type="text" name="motiff" class="form-control">
                       </div>
                     </div>
                     </div>
@@ -248,7 +248,6 @@
                           </thead>
                           <tbody>
                             <?php
-                            echo count($services);
                             if (!empty($services)) {
                                foreach ($services as $service) {
                               
@@ -275,11 +274,11 @@
                 </div>
                 <div class="modal-footer">
                   <div class="row">
-                    <div class="col-lg-2">
-                      <button type="submit" class="btn btn-success" action="submitForm.php">Save</button>
+                    <div class="col-lg-6">
+                      <button type="submit" class="btn btn-block btn-success">Save</button>
                     </div>
-                    <div class="col-lg-2">
-                      <button type="reset" class="btn btn-danger" onclick="reset_chkbx()">Reset</button>
+                    <div class="col-lg-6">
+                      <button type="reset" class="btn btn-block btn-danger" onclick="reset_chkbx()">Reset</button>
                     </div>
                   </div>
                 </div>
