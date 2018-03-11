@@ -1,3 +1,78 @@
+  
+<style type="text/css">
+  input[type=text], select, textarea {
+    width: 250%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+}
+
+label {
+    padding: 6px 6px 6px 0;
+    display: inline-block;
+}
+
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    margin-right: 50px;
+    width: 25%;
+    margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media (max-width: 50px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+#con1 {
+  width:100%;
+   background-color: white;
+}
+
+#tab1 {
+  border:1px solid #ccc;
+  background-color: #E6E6E6;
+}
+
+#fname {
+  width: 250px;
+}
+</style>
   <!-- Content Wrapper. Contains page content -->
   <?php
     $employeeRole = $this->session->userdata('role');
@@ -20,34 +95,52 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">RENTALS</h4>
+                  <h4 class="modal-title">On-Going Rentals</h4>
                 </div>
                 <div class="modal-body">
-                  <form>
-                    <label>Date Rented</label>
-                    <span class="form-group">
-                      <input type="text" id="dateRented" class="form-control">
-                    </span>
-
-                    <span class="form-group">
-                      <label>Item Name</label>
-                      <input type="text" id="itemName" class="form-control">
-                    </span>
-
-                    <span class="form-group">
-                      <label>Quantity</label>
-                      <input type="text" id="quantity" class="form-control">
-                    </span>
-
-                    <span class="form-group">
-                      <label>Photo</label>
-                      <input type="image" src="#" alt="Design" id="photo" class="form-control">
-                    </span>
-                  </form>
-                </div>
+                  <div class="container" id="con1">
+          <form action="/action_page.php">
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Date Rented</label>
+              </div>
+              <div class="col-75">
+                <input type="date" id="fname" name="lastname" placeholder="Date Rented">
               </div>
             </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Item Name</label>
+              </div>
+              <div class="col-75">
+                <input type="text" id="fname" name="lastname" placeholder="Item Name">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Quantity</label>
+              </div>
+              <div class="col-75">
+                <input type="number" id="fname" name="lastname" placeholder="Quantity">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-25">
+                <label for="lname">Photo</label>
+              </div>
+              <div class="col-75">
+                <img src="">
+              </div>
+            </div>
+          </form>
+        </div>
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
+        </div>
+                </div>
+              </div>
         </form>
         <div class="content">
           <div class="row">

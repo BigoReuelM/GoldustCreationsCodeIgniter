@@ -19,6 +19,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('form');
 		}
 
+		public function newEvents(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$status = "new";
+			$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				
+			}else{
+				$this->load->view("templates/header.php");
+				
+			}
+			$this->load->view("templates/newEvents.php", $data);
+			$this->load->view("templates/footer.php");
+
+			
+		}
+
 		public function ongoingEvents(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -306,6 +327,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->changeDecor($eId, $decId, $newdecId);
 			$this->'items/decors()';
 		}*/
+
+		public function addEvent(){
+
+			$clientName = $this->input->post('client-name');
+			$clientContact = $this->input->post('contact-number');
+
+			$newClientID = $this->events_model->addClient($clientName, $clientContact);
+
+			$eventName = $this->input->post('event-name');
+			$celebrantName = $this->input->post('celebrant');
+			$location = $this->input->post('event-loc');
+			$date = $this->input->post('event-date');
+			$time = $this->input->post('event-time');
+			$package = $this->input->post('package');
+			$motiff = $this->input->post('motiff');
+			$type = $this->input->post('event-type');
+			$newEventID = $this->events_model->addEvent($newClientID, $eventName, $celebrantName, $location, $date, $time, $motiff, $package, $type);
+
+			$this->ongoingEvents();
+
+		}
 	}
 
 ?>
