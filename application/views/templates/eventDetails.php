@@ -179,7 +179,7 @@
               <label class="col-lg-2 control-label">Amount</label>
 
               <div class="col-lg-10">
-                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled>
+                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled value="<?php echo "Php " . $serviceTotal->total ?>">
               </div>
             </div>
           </div>

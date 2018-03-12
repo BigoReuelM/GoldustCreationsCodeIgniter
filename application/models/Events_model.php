@@ -240,6 +240,28 @@
 			return $query->result_array();
 		}
 
+		public function getServiceTotal($ceid){
+			$query = $this->db->query("
+				SELECT SUM(amount) as total
+				FROM eventservices
+				WHERE eventID = $ceid
+				");
+
+			return $query->row();
+		}
+
+		public function getApointments($ceid){
+			$query = $this->db->query("
+				SELECT eventName, appointments.date, appointments.time, agenda, employeeName
+				FROM appointments
+				NATURAL JOIN events
+				NATURAL JOIN employees
+				WHERE appointments.eventID = $ceid
+			");
+
+			return $query->result_array();
+		}
+
 
 
 /*

@@ -34,12 +34,13 @@ $eventId = $this->session->userdata('currentEventID');
   background-color: #E6E6E6;
 }
 input[type=text], select, textarea {
-  width:250%;
+  width:100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
   background-color: #E6E6E6;
+  text-align: center;
 }
 
 label {
@@ -116,9 +117,7 @@ input[type=submit] {
       <div class="row">
         <div class="col-lg-6">
           <h3 class="box-title">List Of Decors</h3>    
-        </div>
-
-            
+        </div>   
               <div class="col-lg-3">
                 <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Decors </button>
               </div> 
@@ -151,7 +150,7 @@ input[type=submit] {
           
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="decorsTable" class="table table-bordered table-striped text-center">
+            <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
               <thead>
                 <tr>
                   <!--<th>Decor ID</th>
@@ -175,7 +174,7 @@ input[type=submit] {
                           <td><?php //echo $ed['eventID']; ?></td> 
                         -->
                         <td><?php echo $ed['decorName']; ?></td>
-                        <td><div class="col-lg-3"><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></div></td>
+                        <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></td>
                         <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
                         <td>                            
                           <!-- remove decor button -->
@@ -185,13 +184,12 @@ input[type=submit] {
                               <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
                               <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>  
-
                           </div>
                           <!-- change decor button -->
                           <div class="col-md-3 col-sm-4">
-                          <form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
-                            <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
-                          </form>
+                            <form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
+                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
+                            </form>
                           </div>
                         </td>
                       </tr>
