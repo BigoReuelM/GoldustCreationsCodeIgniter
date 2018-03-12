@@ -1,6 +1,11 @@
 <?php 
   $empRole = $this->session->userdata('role');
  ?>
+ <style type="text/css">
+   #butt5 {
+    width: 100px;
+   }
+ </style>
 <!-- Main content -->
 <section class="content container-fluid">
   <section class="content-header">
@@ -293,9 +298,12 @@
                 <td><?php echo $staff['role']; ?></td>
                 <td><?php echo $staff['num']; ?></td>
                 <td>
-                  <a href="#">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </a>
+                  <div class="col-md-6 col-sm-6">
+                  <form role="form" method="post">
+                      <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> Remove <i class="fa fa-fw fa-remove"> </i>
+                      </button>
+                  </form>
+                  </div>
                 </td>
               </tr>
               <?php 
