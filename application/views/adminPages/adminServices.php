@@ -66,6 +66,10 @@ input[type=submit] {
   border:1px solid #ccc;
   background-color: #E6E6E6;
 }
+
+#butt4 {
+  margin-right: 10px;
+}
 </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -142,80 +146,16 @@ input[type=submit] {
                       <td>Rental of Gowns</td>
                       <td id="tietch">
                        <a href="#">
-                          <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
-                          <!--start of edit service modal -->
-                    <div class="modal fade" id="eddd" role="dialog" >
-                  <div class="modal-dialog">
-                  
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Service</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div class="container" id="con1">
-                            <form action="/action_page.php">
-                              <div class="row">
-                                <div class="col-25">
-                                  <label for="fname">Type</label>
-                                </div>
-                              <div class="col-75">
-                                <input type="text" id="fname" name="firstname" placeholder="Type">
-                              </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-25">
-                                  <label for="fname">Description</label>
-                                </div>
-                              <div class="col-75">
-                                <input type="text" id="fname" name="firstname" placeholder="Description">
-                              </div>
-                              </div>
-                            </form>
-                        </div>
-                      </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#deact" >Deactivate</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                       </a>
-                       <!-- Start -->
-                        <!-- Modal for  deactivating services -->
-                  <div class="modal fade" id="deact" role="dialog" >
-                  <div class="modal-dialog">
-                  
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Alert</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> Are you sure you want to deactivate this Service? </p>  
-                      </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <!-- End of modal for  deactivating services-->
-                        <!-- End -->
-
-                </td>
+                          <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                          <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
                     </tr>
                     <tr>
                       <td>Accessories</td>
                       <td>Rental of Accessories</td>
                       <td id="tietch">
                 <a href="#">
-                    <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
+                   <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                   <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
                 </a>
                 </td>
                     </tr>
@@ -224,7 +164,8 @@ input[type=submit] {
                       <td>Make-Up Services</td>
                       <td id="tietch">
                 <a href="#">
-                    <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
+                   <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                   <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
                 </a>
                 </td>
                     </tr>
@@ -260,71 +201,9 @@ input[type=submit] {
                       <td>Rental of Gowns</td>
                       <td id="tietch">
                        <a href="#">
-                          <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
-                          <!--start of edit service modal -->
-                    <div class="modal fade" id="eddd" role="dialog" >
-                  <div class="modal-dialog">
-                  
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Service</h4>
-                      </div>
-                      <div class="modal-body">
-                        <div class="container" id="con1">
-                            <form action="/action_page.php">
-                              <div class="row">
-                                <div class="col-25">
-                                  <label for="fname">Type</label>
-                                </div>
-                              <div class="col-75">
-                                <input type="text" id="fname" name="firstname" placeholder="Type">
-                              </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-25">
-                                  <label for="fname">Description</label>
-                                </div>
-                              <div class="col-75">
-                                <input type="text" id="fname" name="firstname" placeholder="Description">
-                              </div>
-                              </div>
-                            </form>
-                        </div>
-                      </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#act" >Activate</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                       </a>
-                       <!-- Start -->
-                        <!-- Modal for  deactivating services -->
-                  <div class="modal fade" id="act" role="dialog" >
-                  <div class="modal-dialog">
-                  
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Alert</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p> Are you sure you want to Activate this Service? </p>  
-                      </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    <!-- End of modal for  deactivating services-->
-                        <!-- End -->
+                          <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                          <button type="button" class="btn btn-primary" id="butt4">Activate</button>
+                      </a>
 
                 </td>
                     </tr>
@@ -333,7 +212,8 @@ input[type=submit] {
                       <td>Rental of Accessories</td>
                       <td id="tietch">
                 <a href="#">
-                    <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
+                    <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                    <button type="button" class="btn btn-primary" id="butt4">Activate</button>
                 </a>
                 </td>
                     </tr>
@@ -342,7 +222,8 @@ input[type=submit] {
                       <td>Make-Up Services</td>
                       <td id="tietch">
                 <a href="#">
-                    <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#eddd"></span>
+                    <button type="button" class="btn btn-danger" id="butt4">Remove</button>
+                    <button type="button" class="btn btn-primary" id="butt4">Activate</button>
                 </a>
                 </td>
                     </tr>

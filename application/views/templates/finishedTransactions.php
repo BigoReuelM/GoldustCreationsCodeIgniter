@@ -4,7 +4,7 @@
  ?>
 
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
      <h1>
@@ -66,16 +66,20 @@
                                 <td><?php echo $transac['contactNo']; ?></td>
                                 <td><?php echo $transac['totalAmount']; ?></td>
                                 <td>
-                                  <div class="col-md-3 col-sm-4">
-                                    <a >
-                                    <i class="fa fa-fw fa-check"></i>
-                                    </a>
+                                  <div class="col-md-6 col-sm-4">
+                                    <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                    <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
+                            Finished <i class="fa fa-fw fa-check"></i>
+                          </button>
+
+                                    </form>
                                   </div>
-                                  <div class="col-md-3 col-sm-4" >
-                                    <form role="form" action="#" method="post">
-                                    <a href="<?php echo base_url('transactions/transactionDetails') ?>">
-                                      <i class="fa fa-fw fa-info" ></i>
-                                    </a>
+                                  <div class="col-md-6 col-sm-4" >
+                                    <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                    <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
+                            View Info <i class="fa fa-fw fa-info"></i>
+                          </button>
+
                                     </form>
                                   </div>
                                 </td>

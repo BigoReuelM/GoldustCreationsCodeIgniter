@@ -68,6 +68,10 @@ input[type=submit] {
   clear: both;
 }
 
+#butt5 {
+ width: 100px;
+}
+
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media (max-width: 50px) {
   .col-25, .col-75, input[type=submit] {
@@ -135,7 +139,14 @@ input[type=submit] {
                   <td><?php echo $a['contactNumber'] ?></td>
                   <td><?php echo $a['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                    <div class="col-md-3 col-sm-4">
+                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                    <button class="btn btn-block" id="butt5" type="submit"> View Info
+                    <i class="fa fa-fw fa-info"></i>
+                    </button>
+                    </form>
+                    </div>
+                 
                    
                   </td>
                 </tr>
@@ -180,7 +191,13 @@ input[type=submit] {
                   <td><?php echo $h['contactNumber'] ?></td>
                   <td><?php echo $h['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                    <div class="col-md-3 col-sm-4">
+                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                    <button class="btn btn-block" id="butt5" type="submit"> View Info
+                    <i class="fa fa-fw fa-info"></i>
+                    </button>
+                    </form>
+                    </div>
                   </td>
                 </tr>
                 <?php 
@@ -224,8 +241,13 @@ input[type=submit] {
                   <td><?php echo $s['contactNumber'] ?></td>
                   <td><?php echo $s['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
-                  </td>
+                    <div class="col-md-3 col-sm-4">
+                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                    <button class="btn btn-block" id="butt5" type="submit"> View Info
+                    <i class="fa fa-fw fa-info"></i>
+                    </button>
+                    </form>
+                    </div>
                 </tr>
                 <?php 
                     }
