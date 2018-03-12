@@ -210,7 +210,7 @@ input[type=submit] {
                             if(!empty($evredata)){ 
                               while ($evredata = $ed) { ?> 
                                 <tr>
-                                  <td><?php echo $ed['serviceName']; ?></td>
+                                  <td><?php echo $ed['eventName']; ?></td>
                                   <td><?php echo $ed['clientName']; ?></td>
                                   <td><?php echo $ed['contactNumber']; ?></td>
                                   <td>

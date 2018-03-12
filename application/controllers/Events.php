@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$status = "new";
 			$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
+			$data['services']=$this->events_model->getServices();
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
@@ -322,6 +323,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$entID = $this->session->userdata('currentEntID');
 			$evID = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEntourage($entID, $evID);
+
+			$this->eventEntourage();
+		}
+
+		public function removeAttireEntourage(){
+			$currentEntID = $this->input->post('entourageID');
+			$this->session->set_userdata('currentEntID', $currentEntID);
+
+			$entID = $this->session->userdata('currentEntID');
+			$desID = $this->session->userdata('currentDesignID');
+			$this->events_model->deleteEntourage($entID, $desID);
 
 			$this->eventEntourage();
 		}

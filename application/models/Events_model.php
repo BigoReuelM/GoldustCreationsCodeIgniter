@@ -21,6 +21,25 @@
 			return $query->result_array();
 		}
 
+		public function getNewEvents($employeeID, $role, $status)
+		{
+			
+			$this->db->SELECT('*');
+			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
+			if ($role === 'handler') {
+				$this->db->where('employeeID', $employeeID);
+			}
+			$this->db->where('events.eventStatus', $status);
+			if ($role === 'admin') {
+				$this->db->where('employeeID', null);
+			}
+
+			$query=$this->db->get();
+
+			return $query->result_array();
+		}
+
 
 		public function getEventCount($employeeID, $role, $status)
 		{
@@ -57,24 +76,6 @@
 			return $query;
 		}
 
-		public function getNewEvents($employeeID, $role, $status)
-		{
-			
-			$this->db->SELECT('*');
-			$this->db->from('events');
-			$this->db->join('clients','events.clientID = clients.clientID');
-			if ($role === 'handler') {
-				$this->db->where('employeeID', $employeeID);
-			}
-			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
-			}
-
-			$query=$this->db->get();
-
-			return $query->result_array();
-		}
 
 		public function getEventDetails($eventID, $cID){
 
@@ -243,7 +244,7 @@
 
 /*
 *
-*   ALL INSERT BELLOW
+*   ALL INSERT/DELETE BELOW
 */
 		public function deleteEvntDecor($decId, $eId){
 			$this->db->where('decorID', $decId);
@@ -342,6 +343,12 @@
 			$this->db->delete('entourage');
 		}
 
+		public function deleteAttireEntourage($entID, $desID){
+			$this->db->where('entourageID', $entID);
+			$this->db->where('designID', $desID);
+			$this->db->delete('entouragedetails');
+
+		}
 		public function addEventEntourage($enID, $eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
 	
 			$data = array(
