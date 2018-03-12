@@ -21,6 +21,25 @@
 			return $query->result_array();
 		}
 
+		public function getNewEvents($employeeID, $role, $status)
+		{
+			
+			$this->db->SELECT('*');
+			$this->db->from('events');
+			$this->db->join('clients','events.clientID = clients.clientID');
+			if ($role === 'handler') {
+				$this->db->where('employeeID', $employeeID);
+			}
+			$this->db->where('events.eventStatus', $status);
+			if ($role === 'admin') {
+				$this->db->where('employeeID', null);
+			}
+
+			$query=$this->db->get();
+
+			return $query->result_array();
+		}
+
 
 		public function getEventCount($employeeID, $role, $status)
 		{
@@ -57,24 +76,6 @@
 			return $query;
 		}
 
-		public function getNewEvents($employeeID, $role, $status)
-		{
-			
-			$this->db->SELECT('*');
-			$this->db->from('events');
-			$this->db->join('clients','events.clientID = clients.clientID');
-			if ($role === 'handler') {
-				$this->db->where('employeeID', $employeeID);
-			}
-			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
-			}
-
-			$query=$this->db->get();
-
-			return $query->result_array();
-		}
 
 		public function getEventDetails($eventID, $cID){
 

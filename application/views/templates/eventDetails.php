@@ -38,6 +38,10 @@
                 <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
               </div>
               <div class="form-group">
+                <label>Date Availed</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+              </div>
+              <div class="form-group">
                 <label>Package Availed</label>
                 <?php 
                   $full = "";
@@ -76,6 +80,10 @@
                 <label>Motif</label>
                 <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->motif ?>">
               </div>
+              <div class="form-group">
+                <label>Theme</label>
+                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+              </div>
             </div>
             <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </form>
@@ -103,6 +111,11 @@
         <div class="box-body box-profile">
           <form role="form" method="post" >
             <div class="form-group">
+
+              <?php 
+                if(!empty($currentHandler)){
+
+              ?>
               
               <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
 
@@ -118,6 +131,14 @@
                   <b>Transactions</b> <a class="pull-right">543</a>
                 </li>
               </ul>
+
+              <?php 
+                }else{
+                  echo "
+                        No Handler Selected.
+                        ";
+                }
+              ?>
             </div>
             <div>
               <?php

@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$status = "new";
 			$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
+			$data['services']=$this->events_model->getServices();
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
