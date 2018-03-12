@@ -1,10 +1,18 @@
 
+<style type="text/css">
+  .glyphicon.glyphicon-circle-arrow-left {
+  font-size: 50px;
 
+}
+</style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
   <section class="content-header">
-    <a type="button" class="btn btn-primary btn-lg" href="<?php echo base_url('transactions/transactions') ?>">Back</a>
+    <a href="<?php echo base_url('transactions/transactions') ?>" id="icon">
+          <span class="glyphicon glyphicon-circle-arrow-left" ></span>
+    </a>
+    
   </section>
   <section class="content container-fluid">
       <div class="box box-info">

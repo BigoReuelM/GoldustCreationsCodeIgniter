@@ -135,7 +135,8 @@ input[type=submit] {
                   <td><?php echo $a['contactNumber'] ?></td>
                   <td><?php echo $a['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
+                 
                    
                   </td>
                 </tr>
@@ -180,7 +181,7 @@ input[type=submit] {
                   <td><?php echo $h['contactNumber'] ?></td>
                   <td><?php echo $h['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
                   </td>
                 </tr>
                 <?php 
@@ -224,7 +225,7 @@ input[type=submit] {
                   <td><?php echo $s['contactNumber'] ?></td>
                   <td><?php echo $s['role'] ?></td>
                   <td>
-                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-check"></i></a></div>
+                    <div class="col-md-3 col-sm-4"><a href="<?php echo base_url('admin/employeeDetails') ?>"><i class="fa fa-fw fa-info"></i></a></div>
                   </td>
                 </tr>
                 <?php 

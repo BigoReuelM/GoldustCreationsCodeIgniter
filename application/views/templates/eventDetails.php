@@ -248,6 +248,7 @@
                 <th>Name</th>
                 <th>Role</th>
                 <th>Contact Number</th>
+                <th>Action </th>
               </tr>
             </thead>
             <tbody>
@@ -261,6 +262,11 @@
                 <td><?php echo $staff['name']; ?></td>
                 <td><?php echo $staff['role']; ?></td>
                 <td><?php echo $staff['num']; ?></td>
+                <td>
+                  <a href="#">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </a>
+                </td>
               </tr>
               <?php 
                   }
@@ -269,14 +275,11 @@
             </tbody>
           </table>
           <div class="row">
-            <div class="col-lg-4">
-              <button type="button" class="btn btn-block btn-primary">Remove Staff</button>
-            </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
 
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
               </button>
 

@@ -90,12 +90,18 @@ input[type=submit] {
 #opt1 {
   width: 50px;
 }
+.glyphicon.glyphicon-circle-arrow-left {
+  font-size: 50px;
+}
 </style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="row">
-      <div class="col-lg-9">
+    <div class="col-lg-9">
+        <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>" id="icon">
+          <span class="glyphicon glyphicon-circle-arrow-left" ></span>
+        </a>
         <h1>
           Aina Andreason
         </h1>
