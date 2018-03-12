@@ -87,22 +87,23 @@
       <div class="box box-primary">
         <div class="box-header">
           <h3>Select Event Handler</h3>
+          <?php  
+            if ($empRole === 'admin') {
+              echo "<label>Select</label>";
+              echo "<select class='form-control'>";
+
+              foreach ($handlers as $handler) {
+                echo "<option>" . $handler['employeeName'] . "</option>";
+              }
+
+              echo "</select>";
+            }
+          ?>
         </div>
         <div class="box-body box-profile">
           <form role="form" method="post" >
             <div class="form-group">
-              <?php  
-                if ($empRole === 'admin') {
-                  echo "<label>Select</label>";
-                  echo "<select class='form-control'>";
-
-                  foreach ($handlers as $handler) {
-                    echo "<option>" . $handler['employeeName'] . "</option>";
-                  }
-
-                  echo "</select>";
-                }
-              ?>
+              
               <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
@@ -172,15 +173,17 @@
                   <input type="text" class="form-control" placeholder="Enter Total Amount...." value="<?php echo 'Php ' . $eventDetail->totalAmount ?>"> 
                 </div>
               </div>
-              <div class="form-group">
-                <label class="col-lg-8">
-                  Click Update Amount Button when sure..
-                </label>
-                <div class="col-lg-4">
-                  <button type="submit" class="btn btn-block btn-primary">Update Amount</button>
-                </div>
-              </div>
             </form>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="form-group">
+            <label class="col-lg-8">
+              Click Update Amount Button when sure..
+            </label>
+            <div class="col-lg-4">
+              <button type="submit" class="btn btn-block btn-primary">Update Amount</button>
+            </div>
           </div>
         </div>
       </div>
