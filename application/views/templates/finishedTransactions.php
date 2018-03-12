@@ -25,15 +25,6 @@
                   <div class="col-md-9">
                      <h3 class="box-title">Service Transactions Table</h3>
                   </div>
-                  <div class="col-md-3">
-                    <?php 
-                      if ($empRole === "admin") {
-                        echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServiceTransaction">Add Transaction</button>  ';
-                      }
-
-                     ?>
-                    
-                  </div>
                 </div>
                 
              </div>
