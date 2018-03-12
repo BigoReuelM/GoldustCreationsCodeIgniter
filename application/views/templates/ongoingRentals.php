@@ -72,6 +72,10 @@ input[type=submit] {
 #fname {
   width: 250px;
 }
+
+#butt5 {
+  width: 100px ;
+}
 </style>
   <!-- Content Wrapper. Contains page content -->
   <?php
@@ -172,7 +176,12 @@ input[type=submit] {
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
                           <td>
-                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
+                            <div class="col-md-6 col-sm-4" >
+                            <form role="form" method="post">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
+                                </button>
+                            </form>
+                            </div>
                           </td>
                           </tr>
                           <?php
@@ -214,7 +223,12 @@ input[type=submit] {
                                   <td><?php echo $ed['clientName']; ?></td>
                                   <td><?php echo $ed['contactNumber']; ?></td>
                                   <td>
-                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
+                                  <div class="col-md-6 col-sm-4">
+                            <form role="form" method="post">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
+                                </button>
+                            </form>
+                            </div>
                                   </td>
                                 </tr>
                                 <?php
