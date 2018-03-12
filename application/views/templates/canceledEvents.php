@@ -4,6 +4,11 @@
    // echo'<div class="content-wrapper">';
    //}
 ?>
+<style type="text/css">
+  #butt5 {
+    width:100px;
+  }
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -46,10 +51,13 @@
                           <td><?php echo $event['eventTime']; ?></td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
-                            <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                            <div class="col-md-3 col-sm-4">
+                            <div class="col-md-6 col-sm-4"><button data-toggle="modal" data-target="#modal-danger" class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
+                                  <i class="fa fa-fw fa-check"></i>
+                                </button></div>
+                          
+                            <div class="col-md-6 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
-                                <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
                                   <i class="fa fa-fw fa-info"></i>
                                 </button>  
                               </form>

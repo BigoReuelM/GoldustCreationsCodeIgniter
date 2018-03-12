@@ -6,6 +6,12 @@
    //}
   //$eventId = $this->session->userdata('currentEventID'); 
 ?>
+
+<style type="text/css">
+  #butt5 {
+    border-width: 2px;
+  }
+</style>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -73,7 +79,7 @@
 
                         <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
                           <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
-                          <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                          <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
                             View Info <i class="fa fa-fw fa-info"></i>
                           </button>  
                         </form>
