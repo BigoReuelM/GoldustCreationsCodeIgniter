@@ -36,7 +36,8 @@
               <?php
                 if (!empty($designs)) {
                    foreach ($designs as $design) {
-                    $entID = $this->session->userdata('entourageID');
+                    /*$entID = $this->session->userdata('entourageID');*/
+                    $desID = $design['designID'];
                      
               ?>
               <tr>
@@ -48,7 +49,7 @@
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
 
                   <div class="col-md-3 col-sm-4"><form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
-                  <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"><i class="fa fa-remove"></i></button></form></div>
+                  <button class="btn btn-link" id="designID" name="designID" type="submit" value="<?php echo($desID) ?>"><i class="fa fa-remove"></i></button></form></div>
                 </td>
               </tr>
               <?php 
