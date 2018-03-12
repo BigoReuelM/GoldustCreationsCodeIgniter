@@ -114,6 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['oncallStaff'] = $this->events_model->getOncallStaff($id);
+			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
 			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -218,8 +219,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function appointments(){
 			$currentEvent = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($currentEvent);
 			$empRole = $this->session->userdata('role');
+
+
+			$data['eventName'] = $this->events_model->getEventName($currentEvent);
+			$data['appointments'] = $this->events_model->getApointments($currentEvent);
 			
 			
 			$this->load->view("templates/head.php");
