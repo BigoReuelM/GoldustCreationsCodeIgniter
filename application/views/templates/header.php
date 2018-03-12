@@ -29,7 +29,7 @@ $photo = $this->session->userdata('photo');
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo base_url('transactions/transactions') ?>">Service Transactions</a></li>
+                <li><a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Service Transactions</a></li>
                 <li><a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a></li>
               </ul>
             </li>
