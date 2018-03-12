@@ -326,6 +326,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventEntourage();
 		}
 
+		public function removeAttireEntourage(){
+			$currentEntID = $this->input->post('entourageID');
+			$this->session->set_userdata('currentEntID', $currentEntID);
+
+			$entID = $this->session->userdata('currentEntID');
+			$desID = $this->session->userdata('currentDesignID');
+			$this->events_model->deleteEntourage($entID, $desID);
+
+			$this->eventEntourage();
+		}
+
 		/*public function changeDecor(){
 			$newdecID = $this->input->post('decorID');
 			$eId = $this->session->userdata('currentEventID');

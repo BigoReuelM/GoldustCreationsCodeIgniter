@@ -36,6 +36,7 @@
               <?php
                 if (!empty($designs)) {
                    foreach ($designs as $design) {
+                    $entID = $this->session->userdata('entourageID');
                      
               ?>
               <tr>
@@ -45,7 +46,9 @@
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-remove"></i></a></div>
+
+                  <div class="col-md-3 col-sm-4"><form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
+                  <button class="btn btn-link" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"><i class="fa fa-remove"></i></button></form></div>
                 </td>
               </tr>
               <?php 
@@ -111,8 +114,12 @@
                         <tbody>
                           <tr>
                             <td>
-                            <div>
+                              <div>
+                                <form role="form" method="post" action="<?php echo base_url('events/addEntourage') ?>">
+
+                                  <div>
                                     <input type="text" id="name" name="name" placeholder="Name">
+                                    <?php echo $entName->name ?>
                                   </div>
                             </td>
                             <td>

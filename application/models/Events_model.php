@@ -243,7 +243,7 @@
 
 /*
 *
-*   ALL INSERT BELLOW
+*   ALL INSERT/DELETE BELOW
 */
 		public function deleteEvntDecor($decId, $eId){
 			$this->db->where('decorID', $decId);
@@ -342,6 +342,12 @@
 			$this->db->delete('entourage');
 		}
 
+		public function deleteAttireEntourage($entID, $desID){
+			$this->db->where('entourageID', $entID);
+			$this->db->where('designID', $desID);
+			$this->db->delete('entouragedetails');
+
+		}
 		public function addEventEntourage($enID, $eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
 	
 			$data = array(
