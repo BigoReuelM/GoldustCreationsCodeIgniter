@@ -372,6 +372,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function addEventAppointments(){
+			$empID = $this->session->userdata('employeeID');
+			$ceID = $this->session->userdata('currentEventID');
+			$date = $this->input->post('date');
+			$time = $this->input->post('time');
+			$agenda = $this->input->post('agenda');
+
+			$this->events_model->addEventAppointment($empID, $ceID, $date, $time, $agenda);
+
+			$this->appointments();
+		}
+
 		public function addEntourage() {
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');

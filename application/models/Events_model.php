@@ -318,10 +318,23 @@
 			//return $query->result_array();
 		}
 
+		public function addEventAppointment($employeeID, $currentEventID, $date, $time, $agenda){
+			$data = array(
+				'eventID' => $currentEventID,
+				'date' => $date,
+				'time' => $time,
+				'agenda' => $agenda,
+				'employeeID' => $employeeID
+			);
+
+			$this->db->insert('appointments', $data);
+		}
+
 		public function addClient($cname, $contact){
 			$data = array(
 				'clientName' => $cname,
 				'contactNumber' => $contact
+
 			);
 
 			$this->db->insert('clients', $data);
