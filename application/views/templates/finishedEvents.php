@@ -4,6 +4,11 @@
     //echo'<div class="content-wrapper">';
    //}
 ?>
+<style type="text/css">
+  #butt5 {
+    width:100px;
+  }
+</style>
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -49,7 +54,7 @@
                           <td>
                             <div class="col-md-3 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
-                                <button id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
                                   <i class="fa fa-fw fa-info"></i>
                                 </button>  
                               </form>

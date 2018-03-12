@@ -91,19 +91,22 @@
       <!-- gallery -->
       <div class="container" id="con">
         <div class="row">
-          <form id="" role="form" method="post" action="<?php echo base_url('items/changeDecor') ?>">
+          
           <?php
           if(!empty($allDecors)){
             foreach ($allDecors as $dec) { 
               $decorID = $dec['decorsID'] ?>             
                   <div class="col-lg-3">
                     <div class="thumbnail">
-                    <!--<a id="newdecId" name="newdecId" value="<?php /*echo ($decorID) ?>"><?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>';*/ ?></a>-->
-                    <?php /*echo '<input id="newdecId" name="newdecId" value="<?php echo ($decorID) ?>" type="image" class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; */?>
-                    <input type="hidden" id="newdecId" name="newdecId" value="<?php echo ($decorID) ?>"><?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?></input>
+                    <!-- input type image... image will send the data within hidden input -->
+                    <form id="" role="form" method="post" action="<?php echo base_url('items/changeDecor') ?>">
+                    <?php 
+                      echo '<input type="text" id="newdecId" name="newdecId" value="' . $decorID . '"/>';
+                      echo '<input type="image" class="galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; 
+                    ?>
+                    </form>
                     </div>
-                  </div>                
-
+                  </div>                                  
           <?php   }
                 } else {
                   echo 'No decorations';
@@ -113,7 +116,7 @@
             <button type="submit" class="btn btn-md btn-primary" id="donebtn" name="donebtn">Done</button>
                   
             <button type="submit" class="btn btn-md btn-primary" id="backbtn">Back</button>
-          </form>    
+             
         </div>
       </div> 
     

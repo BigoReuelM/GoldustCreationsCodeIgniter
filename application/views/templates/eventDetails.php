@@ -5,9 +5,15 @@
 <section class="content container-fluid">
   <section class="content-header">
     <div class="row">
-      <div class="col-lg-4">       
+      <div class="col-lg-9">
           <h1>
-            Event Details
+            <?php
+            //foreach ($eventName as $name) {
+              $name = $eventName->eventName; 
+              echo $name . '</a>';
+            //}
+              
+            ?>
           </h1>        
       </div>
       <div class="col-lg-2">

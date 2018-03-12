@@ -295,7 +295,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			redirect('events/paymentAndExpences');
 		}
-
+		// set and delete selected decor...
 		public function setCurrentDecorID(){
 			$currentDecorID = $this->input->post('decorID');
 			$this->session->set_userdata('currentDecorID', $currentDecorID);
