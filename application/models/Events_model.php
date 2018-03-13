@@ -402,6 +402,15 @@
 				'baston' => $bas, 
 			);
 			$this->db->insert('entourage', $data);
+		}
+
+		public function updateEventHandler($eventID, $handlerID){
+			$data = array(
+				'employeeID' =>$handlerID
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
 		} 
 	}
 

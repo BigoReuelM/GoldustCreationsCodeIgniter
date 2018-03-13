@@ -405,6 +405,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			redirect('events/eventEntourage');
 		}
 
+		public function selectEventHandler(){
+			$eId = $this->session->userdata('currentEventID');
+			$handlerID = $this->input->post('handler');
+			$this->events_model->updateEventHandler($eId, $handlerID);
+			redirect('events/eventDetails');
+		}
+
 	}
 
 ?>
