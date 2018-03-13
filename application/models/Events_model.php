@@ -318,10 +318,10 @@
 			//return $query->result_array();
 		}
 
-		public function addEventAppointment($employeeID, $currentEventID, $date, $time, $agenda){
+		public function addEventAppointment($employeeID, $currentEventID, $adate, $time, $agenda){
 			$data = array(
 				'eventID' => $currentEventID,
-				'date' => $date,
+				'date' => $adate,
 				'time' => $time,
 				'agenda' => $agenda,
 				'employeeID' => $employeeID

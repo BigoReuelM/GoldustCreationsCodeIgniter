@@ -101,12 +101,7 @@
             </div>
             <div class="form-group">
               <label>Date:</label>
-              <div class="input-group date">
-                <input type="text" class="form-control pull-right" id="datepicker" name="date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-              </div>
+              <input type="date" class="form-control pull-right" name="appointmentDate">
             </div>
             <div class="bootstrap-timepicker">
               <div class="form-group">
