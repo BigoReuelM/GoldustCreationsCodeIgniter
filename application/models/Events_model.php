@@ -411,6 +411,15 @@
 
 			$this->db->where('eventID', $eventID);
 			$this->db->update('events', $data);
+		}
+
+		public function updateEventStatus($eventID){
+			$data = array(
+				'eventStatus' => "on-going" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
 		} 
 	}
 

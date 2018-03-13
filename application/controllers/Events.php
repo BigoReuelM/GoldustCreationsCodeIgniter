@@ -261,9 +261,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
 			$currentClientID = $this->input->post('clientID');
+			$currentEventStatus = $this->input->post('eventStatus');
+			$empRole = $this->session->userdata('role');
 			$this->session->set_userdata('currentEventID', $currentEventID);
 			$this->session->set_userdata('clientID', $currentClientID);
-
+			if ($currentEventStatus === "new" & $empRole === "handler") {
+				$this->events_model->updateEventStatus($currentEventID);
+			}
 			$this->eventDetails();
 		}
 
