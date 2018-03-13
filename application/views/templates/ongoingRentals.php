@@ -78,12 +78,7 @@ input[type=submit] {
 }
 </style>
   <!-- Content Wrapper. Contains page content -->
-  <?php
-    $employeeRole = $this->session->userdata('role');
-    if ($employeeRole === 'handler') {
-      echo'<div class="content-wrapper">';
-     }
-  ?>
+  <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
       <h1>
@@ -211,17 +206,19 @@ input[type=submit] {
                             <th>Event Name</th>
                             <th>Client Name</th>
                             <th>Contact Number</th>
+                            <th>Service Name</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             <?php 
                             if(!empty($evredata)){ 
-                              while ($evredata = $ed) { ?> 
+                              foreach ($evredata as $ed) { ?> 
                                 <tr>
                                   <td><?php echo $ed['eventName']; ?></td>
                                   <td><?php echo $ed['clientName']; ?></td>
                                   <td><?php echo $ed['contactNumber']; ?></td>
+                                  <td><?php echo $ed['serviceName']; ?></td>
                                   <td>
                                   <div class="col-md-6 col-sm-4">
                             <form role="form" method="post">

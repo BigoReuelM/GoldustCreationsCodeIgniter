@@ -55,6 +55,12 @@
           </a>
         </li>
         <li>
+          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
+            <i class="glyphicon glyphicon-credit-card"></i> 
+            <span>Ongoing Rentals</span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">
             <i class="glyphicon glyphicon-user"></i>
             <span>Employees</span>

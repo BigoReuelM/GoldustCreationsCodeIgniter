@@ -117,21 +117,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function ongoing_rentals(){
 			$empRole = $this->session->userdata('role');
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/header.php");
+			
 			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
-			$this->load->view('templates/ongoingRentals', $data);
-
-			$this->load->view("templates/footer.php");
-		}
-
-
-		public function ongoing_rentals_events(){
-			$eRole = $this->session->userdata('role');
-			$this->load->view("template/head.php");
-			$this->load->view("template/header.php");
 			$data['evredata'] = $this->transactions_model->viewEventRentals();
+			
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+				$this->load->view("templates/header.php");
+			}
 			$this->load->view('templates/ongoingRentals', $data);
+
 			$this->load->view("templates/footer.php");
 		}
 
