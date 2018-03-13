@@ -231,6 +231,7 @@
                 <th>Services</th>
                 <th>Quantity</th>
                 <th>Amount</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -238,28 +239,32 @@
                 if (!empty($avlServcs)) {
                  // $mergeArray = array_merge($servcs, $avlServcs);
                   foreach ($avlServcs as $avlSvc) { ?>
-              <tr>
-                <!-- service name -->
-                <td><?php echo $avlSvc['serviceName'] ?></td>
-                <!-- quantity... query later... -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="qty" value="<?php echo $avlSvc['quantity'] ?>"></td>
-                <!-- amount... query later...  -->
-                <td><input class="form-control" type="text" name="" style="border: none;" placeholder="amount" value="<?php  echo $avlSvc['amount']?>"></td>
-              </tr>
-              <?php }
-                }
-              ?>
+                    <tr>
+                      <!-- service name -->
+                      <td><?php echo $avlSvc['serviceName'] ?></td>
+                      <!-- quantity -->
+                      <td><input class="form-control" type="text" name="svcqty" style="border: none;" placeholder="qty" value="<?php echo $avlSvc['quantity'] ?>"></td>
+                      <!-- amount -->
+                      <td><input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="amount" value="<?php  echo $avlSvc['amount']?>"></td>
+                      <td>
+                        <form id="evtsvcidform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>">
+                          <button class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button> 
+                        </form>
+                      </td>
+                    </tr>
+                  <?php }
+                    }
+                  ?>
             </tbody>
           </table>
           <div class="row">
             <div class= "col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" >Update Services</button> 
+              <button type="button" class="btn btn-block btn-primary">Update Services</button> 
               </div>
               <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
               </div>
-          </div>
-            
+          </div>            
         </div>
       </div>
     </div>
@@ -339,42 +344,48 @@
         <h4 class="modal-title">Add Service/s</h4>
       </div>
       <div class="modal-body">
+        <form id="addsvcform" role="form" method="post" action="<?php echo base_url('events/addsvc') ?>">
           <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
             <thead>
               <tr>
                 <th>Service Name</th>
                 <th>Description</th>
+                <th>Quantity</th>
+                <th>Amount</th>
               </tr>
             </thead>
             <tbody>
-              <form>
+              
                 <?php
                   if (!empty($servcs)) {
                     foreach ($servcs as $svc) { ?>
-                      <tr>
-                        <td><div class="checkbox"><label><input type="checkbox" name=""><?php echo $svc['serviceName'] ?></label></div></td>
-                        <td><?php echo $svc['description'] ?></td>
+                      <tr>                   
+                          <td>
+                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox" value="<?php echo $svc['serviceID'] ?>"><?php echo $svc['serviceName'] ?></label></div>
+                            <?php 
+                              if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
+                                
+                              }
+                            ?>
+                          </td>
+                          <td><?php echo $svc['description'] ?></td>
+                          <td><input class="form-control" type="text" name="addsvcqty" style="border: none;" placeholder="qty"></td>
+                          <td><input class="form-control" type="text" name="addsvcamt" style="border: none;" placeholder="amount"></td>
                       </tr>
                 <?php }
                   }
                 ?>
-              </form>
-            </tbody>
-          </table>  
+              
+            </tbody>            
+          </table> 
       </div>
-      <div class="modal-footer">
-        <tfoot>
-          <div class="row">
-            <div class="col-lg-6">
-              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-            </div>
-            <div class="col-lg-6">
-              <button class="btn btn-default" action="" type="submit">Add</button>
-            </div>
-          </div>
-        </tfoot>
+      <div class="modal-footer">                 
+        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+        <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button>
       </div>
+      </form>
     </div>
+
   </div>
 </div>
 
@@ -400,7 +411,7 @@
               <th>#</th>
               <th class="col-md-5 col-xs-5">Name</th>
               <th class="col-md-4 col-xs-4">Role</th>
-              <th class="col-md-3 col-xs-3">Conatct Number</th>
+              <th class="col-md-3 col-xs-3">Contact Number</th>
             </tr>
           </thead>
           <tbody>
@@ -575,11 +586,15 @@
 <style>
   @media screen and (min-with: 768px){
     #add-event .modal-dialog {
-      with:900px;
+      width:900px;
     }
   }
 
   #add-event .modal-dialog {
     width:90%;
+  }
+
+  #addServc .modal-dialog {
+    width:70%;
   }
 </style>

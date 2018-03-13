@@ -302,19 +302,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->eventDecors();			
 		}
-		// nasa items controller din tu...
-		/*public function changeDecor(){
-			$this->load->model('events_model');
-			$this->events_model->changeDecor($eId, $decId, $newdecID);
-			$this->eventDecors();
-		}*/
-
 		/*
 		public function setEntourageID(){
 			$currentEntId = $this->input->post('entInfo');
 			$this->session->set_userdata('currentEntId', $currentEntId);
 			$this->eventEntourage();
 		}*/
+
+		// set and delete selected event service...
+		public function setDltCurrentSvcID(){
+			$currentSvcID = $this->input->post('svcID');
+			$this->session->set_userdata('currentSvcID', $currentSvcID);
+			
+			$svcId = $this->session->userdata('currentSvcID');
+			$eId = $this->session->userdata('currentEventID');
+			$this->events_model->deleteEvntSvc($svcId, $eId);
+
+			$this->eventDetails();			
+		}
 
 		public function removeEntourage(){
 			$currentEntID = $this->input->post('entourageID');
@@ -387,6 +392,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->addEventEntourage($enId, $eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
 
 			redirect('events/eventEntourage');
+		}
+
+		public function addsvc(){
+			$addSvc = $this->input->post('add_servc_chkbox');
+			$svcqty = $this->input->post('addsvcqty');
+			$svcamt = $this->input->post('addsvcamt');
+			$eID = $this->session->userdata('currentEventID');
+			$this->events_model->addServcs($eID, $addSvc, $svcamt, $svcqty);
+			$this->eventDetails();
 		}
 
 	}
