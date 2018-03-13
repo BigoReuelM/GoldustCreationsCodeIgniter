@@ -72,14 +72,13 @@ input[type=submit] {
 #fname {
   width: 250px;
 }
+
+#butt5 {
+  width: 100px ;
+}
 </style>
   <!-- Content Wrapper. Contains page content -->
-  <?php
-    $employeeRole = $this->session->userdata('role');
-    if ($employeeRole === 'handler') {
-      echo'<div class="content-wrapper">';
-     }
-  ?>
+  <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
       <h1>
@@ -172,7 +171,12 @@ input[type=submit] {
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
                           <td>
-                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
+                            <div class="col-md-6 col-sm-4" >
+                            <form role="form" method="post">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
+                                </button>
+                            </form>
+                            </div>
                           </td>
                           </tr>
                           <?php
@@ -202,19 +206,26 @@ input[type=submit] {
                             <th>Event Name</th>
                             <th>Client Name</th>
                             <th>Contact Number</th>
+                            <th>Service Name</th>
                             <th>Action</th>
                           </tr>
                         </thead>
                         <tbody>
                             <?php 
                             if(!empty($evredata)){ 
-                              while ($evredata = $ed) { ?> 
+                              foreach ($evredata as $ed) { ?> 
                                 <tr>
                                   <td><?php echo $ed['eventName']; ?></td>
                                   <td><?php echo $ed['clientName']; ?></td>
                                   <td><?php echo $ed['contactNumber']; ?></td>
+                                  <td><?php echo $ed['serviceName']; ?></td>
                                   <td>
-                                  <div class="col-md-3 col-sm-4"><a href="#view-rental" data-toggle="modal"><i class="fa fa-fw fa-info"></i></a></div>
+                                  <div class="col-md-6 col-sm-4">
+                            <form role="form" method="post">
+                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
+                                </button>
+                            </form>
+                            </div>
                                   </td>
                                 </tr>
                                 <?php

@@ -34,8 +34,15 @@
     echo'<body class="hold-transition skin-blue layout-top-nav">
     <div class="wrapper">';
    }else{
-    echo "<body class='hold-transition skin-blue sidebar-mini'>
-    <div class='wrapper'>";
+    $control = $this->session->userdata('sidebarControl');
+    if ($control === "0") {
+      echo "<body class='hold-transition skin-blue sidebar-mini sidebar-collapse'>
+      <div class='wrapper'>";
+    }else{
+      echo "<body class='hold-transition skin-blue sidebar-mini'>
+      <div class='wrapper'>";
+    }
+    
    }
 ?>
 

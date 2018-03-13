@@ -240,6 +240,28 @@
 			return $query->result_array();
 		}
 
+		public function getServiceTotal($ceid){
+			$query = $this->db->query("
+				SELECT SUM(amount) as total
+				FROM eventservices
+				WHERE eventID = $ceid
+				");
+
+			return $query->row();
+		}
+
+		public function getApointments($ceid){
+			$query = $this->db->query("
+				SELECT eventName, appointments.date, appointments.time, agenda, employeeName
+				FROM appointments
+				NATURAL JOIN events
+				NATURAL JOIN employees
+				WHERE appointments.eventID = $ceid
+			");
+
+			return $query->result_array();
+		}
+
 
 
 /*
@@ -302,10 +324,23 @@
 			//return $query->result_array();
 		}
 
+		public function addEventAppointment($employeeID, $currentEventID, $adate, $time, $agenda){
+			$data = array(
+				'eventID' => $currentEventID,
+				'date' => $adate,
+				'time' => $time,
+				'agenda' => $agenda,
+				'employeeID' => $employeeID
+			);
+
+			$this->db->insert('appointments', $data);
+		}
+
 		public function addClient($cname, $contact){
 			$data = array(
 				'clientName' => $cname,
 				'contactNumber' => $contact
+
 			);
 
 			$this->db->insert('clients', $data);
@@ -373,6 +408,24 @@
 				'baston' => $bas, 
 			);
 			$this->db->insert('entourage', $data);
+		}
+
+		public function updateEventHandler($eventID, $handlerID){
+			$data = array(
+				'employeeID' =>$handlerID
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
+		public function updateEventStatus($eventID){
+			$data = array(
+				'eventStatus' => "on-going" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
 		} 
 
 		public function addServcs($eID, $svcid, $amt, $qty){

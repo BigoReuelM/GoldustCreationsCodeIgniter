@@ -47,6 +47,7 @@
                   foreach ($events as $event) {
                   $empID = $event['eventID'];
                   $clientID = $event['clientID'];
+                  $eventStatus = $event['eventStatus'];
                  ?>
                   
                     <tr>
@@ -79,6 +80,7 @@
 
                         <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
                           <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
+                          <input type="hidden" name="eventStatus" value="<?php echo($eventStatus) ?>">
                           <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
                             View Info <i class="fa fa-fw fa-info"></i>
                           </button>  

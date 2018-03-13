@@ -25,7 +25,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="glyphicon glyphicon-briefcase"></i> 
+            <i class="glyphicon glyphicon-calendar"></i> 
             <span>Event</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-rigth"></i>
@@ -50,22 +50,28 @@
         </li>
         <li>
           <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">
-            <i class="glyphicon glyphicon-briefcase"></i> 
+            <i class="glyphicon glyphicon-credit-card"></i> 
             <span>Transactions</span>
           </a>
         </li>
         <li>
+          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
+            <i class="glyphicon glyphicon-credit-card"></i> 
+            <span>Ongoing Rentals</span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">
-            <i class="glyphicon glyphicon-briefcase"></i> 
+            <i class="glyphicon glyphicon-user"></i>
             <span>Employees</span>
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-briefcase"></i> <span>Services</span></a>
+          <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Services</span></a>
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="glyphicon glyphicon-briefcase"></i> 
+            <i class="glyphicon glyphicon-folder-close"></i> 
             <span>Decors And Design</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-right pull-rigth"></i>

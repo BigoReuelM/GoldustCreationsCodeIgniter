@@ -1,7 +1,7 @@
 
 <style type="text/css">
-.glyphicon {
-  font-size: 30px;
+.glyphicon.glyphicon-circle-arrow-left {
+  font-size: 50px;
 }
 </style>
 <div class="content-wrapper">

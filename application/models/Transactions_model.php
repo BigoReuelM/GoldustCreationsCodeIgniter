@@ -51,25 +51,7 @@
 			return $query->result_array();
 
 		}
-		public function view_home_ongoing_rentals(){
-			$eID = $this->session->userdata('employeeID');
-			$query= $this->db->query("SELECT *
-				FROM
-				    services s
-				        NATURAL JOIN			  
-				    clients c
-				        NATURAL JOIN
-				    transactions t
-	                	NATURAL JOIN
-	                transactiondetails ts
-				WHERE
-				    s.serviceName LIKE '%rental%'
-				        AND t.transactionstatus LIKE 'on%going'
-				        AND t.employeeID = $eID"
-			); 
-
-			return $query->result_array();
-		}
+		
 
 		public function getdecors(){
 			$this->db->select('*');
@@ -87,19 +69,53 @@
 
 		public function viewEventRentals(){
 			$emID = $this->session->userdata('employeeID');
-			$evID = $this->session->userdate('eventID');
-			$query = $this->db->query("SELECT *
-					FROM
-						event e
-							NATURAL JOIN
-						clients c
-							NATURAL JOIN
-						entourage en
-					WHERE
-						e.eventID = $evID
-						AND e.employeeID = $emID
-						AND e.eventStatus LIKE 'on%going'"
-			);
+			$empRole = $this->session->userdata('role');
+			if($empRole === "handler"){
+				$query = $this->db->query("
+				SELECT eventName, clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				");
+			}else{
+				$query = $this->db->query("
+				SELECT eventName, clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				");
+			}
+			return $query->result_array();
+		}
+
+		public function view_home_ongoing_rentals(){
+			$eID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			if ($empRole === "handler") {
+				$query= $this->db->query("SELECT *
+				FROM
+				    services s
+				        NATURAL JOIN			  
+				    clients c
+				        NATURAL JOIN
+				    transactions t
+	                	NATURAL JOIN
+	                transactiondetails ts
+				WHERE
+				    s.serviceName LIKE '%rental%'
+				        AND t.transactionstatus LIKE 'on%going'
+				        AND t.employeeID = $eID"
+				);
+			}else{
+				$query= $this->db->query("SELECT *
+				FROM
+				    services s
+				        NATURAL JOIN			  
+				    clients c
+				        NATURAL JOIN
+				    transactions t
+	                	NATURAL JOIN
+	                transactiondetails ts
+				WHERE
+				    s.serviceName LIKE '%rental%'
+				        AND t.transactionstatus LIKE 'on%going'"
+				); 
+			}
+			
 			return $query->result_array();
 		}
 

@@ -1,6 +1,11 @@
 <?php 
   $empRole = $this->session->userdata('role');
  ?>
+ <style type="text/css">
+   #butt5 {
+    width: 100px;
+   }
+ </style>
 <!-- Main content -->
 <section class="content container-fluid">
   <section class="content-header">
@@ -10,14 +15,14 @@
             <?php
             //foreach ($eventName as $name) {
               $name = $eventName->eventName; 
-              echo $name . '</a>';
+              echo '<p>' . $name . '</p>';
             //}
               
             ?>
           </h1>        
       </div>
-      <div class="col-lg-2">
-        <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
       </div>
     </div>
   </section>
@@ -99,63 +104,65 @@
     </div>
     <div class="col-lg-4">
       <div class="box box-primary">
-        <div class="box-header">
-          <h3>Select Event Handler</h3>
-          <?php  
-            if ($empRole === 'admin') {
-              echo "<label>Select</label>";
-              echo "<select class='form-control'>";
+        <form role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
+          <div class="box-header">
+            <h3>Select Event Handler</h3>
+            <?php  
+              if ($empRole === 'admin') {
+                echo "<label>Select</label>";
+                echo "<select class='form-control' name='handler'>";
+                echo "<option selected disabled hidden>Choose Handler</option>";
 
-              foreach ($handlers as $handler) {
-                echo "<option>" . $handler['employeeName'] . "</option>";
-              }
-
-              echo "</select>";
-            }
-          ?>
-        </div>
-        <div class="box-body box-profile">
-          <form role="form" method="post" >
-            <div class="form-group">
-
-              <?php 
-                if(!empty($currentHandler)){
-
-              ?>
-              
-              <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
-
-              <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
-
-              <p class="text-muted text-center">Event Handler</p>
-
-              <ul class="list-group list-group-unbordered">
-                <li class="list-group-item">
-                  <b>Events</b> <a class="pull-right">1,322</a>
-                </li>
-                <li class="list-group-item">
-                  <b>Transactions</b> <a class="pull-right">543</a>
-                </li>
-              </ul>
-
-              <?php 
-                }else{
-                  echo "
-                        No Handler Selected.
-                        ";
+                foreach ($handlers as $handler) {
+                  echo "<option value='" . $handler['employeeID'] . "'>" . $handler['employeeName'] . "</option>";
                 }
-              ?>
-            </div>
-            <div>
-              <?php
-                if ($empRole === 'admin') {
-                   echo '<button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
-                 } 
-              ?>
-              
-            </div>
-          </form>
-        </div>
+
+                echo "</select>";
+              }
+            ?>
+          </div>
+          <div class="box-body box-profile">
+            
+              <div class="form-group">
+
+                <?php 
+                  if(!empty($currentHandler)){
+
+                ?>
+                
+                <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
+
+                <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
+
+                <p class="text-muted text-center">Event Handler</p>
+
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item">
+                    <b>Events</b> <a class="pull-right">1,322</a>
+                  </li>
+                  <li class="list-group-item">
+                    <b>Transactions</b> <a class="pull-right">543</a>
+                  </li>
+                </ul>
+
+                <?php 
+                  }else{
+                    echo "
+                          No Handler Selected.
+                          ";
+                  }
+                ?>
+              </div>
+              <div>
+                <?php
+                  if ($empRole === 'admin') {
+                     echo '<button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
+                   } 
+                ?>
+                
+              </div>
+          </div>
+        </form>
       </div>
     </div>     
   </div>
@@ -174,7 +181,7 @@
               <label class="col-lg-2 control-label">Amount</label>
 
               <div class="col-lg-10">
-                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled>
+                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled value="<?php echo "Php " . $serviceTotal->total ?>">
               </div>
             </div>
           </div>
@@ -298,9 +305,12 @@
                 <td><?php echo $staff['role']; ?></td>
                 <td><?php echo $staff['num']; ?></td>
                 <td>
-                  <a href="#">
-                    <span class="glyphicon glyphicon-remove"></span>
-                  </a>
+                  <div class="col-md-6 col-sm-6">
+                  <form role="form" method="post">
+                      <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> Remove <i class="fa fa-fw fa-remove"> </i>
+                      </button>
+                  </form>
+                  </div>
                 </td>
               </tr>
               <?php 

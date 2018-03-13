@@ -114,6 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['oncallStaff'] = $this->events_model->getOncallStaff($id);
+			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
 			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -218,8 +219,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function appointments(){
 			$currentEvent = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($currentEvent);
 			$empRole = $this->session->userdata('role');
+
+
+			$data['eventName'] = $this->events_model->getEventName($currentEvent);
+			$data['appointments'] = $this->events_model->getApointments($currentEvent);
 			
 			
 			$this->load->view("templates/head.php");
@@ -257,9 +261,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function setEventID(){
 			$currentEventID = $this->input->post('eventInfo');
 			$currentClientID = $this->input->post('clientID');
+			$currentEventStatus = $this->input->post('eventStatus');
+			$empRole = $this->session->userdata('role');
 			$this->session->set_userdata('currentEventID', $currentEventID);
 			$this->session->set_userdata('clientID', $currentClientID);
-
+			if ($currentEventStatus === "new" & $empRole === "handler") {
+				$this->events_model->updateEventStatus($currentEventID);
+			}
 			$this->eventDetails();
 		}
 
@@ -373,6 +381,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function addEventAppointments(){
+			$empID = $this->session->userdata('employeeID');
+			$ceID = $this->session->userdata('currentEventID');
+			$adate = $this->input->post('appointmentDate');
+			$time = $this->input->post('time');
+			$agenda = $this->input->post('agenda');
+
+			$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+
+			$this->appointments();
+		}
+
 		public function addEntourage() {
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
@@ -394,6 +414,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			redirect('events/eventEntourage');
 		}
 
+		public function selectEventHandler(){
+			$eId = $this->session->userdata('currentEventID');
+			$handlerID = $this->input->post('handler');
+			$this->events_model->updateEventHandler($eId, $handlerID);
+			redirect('events/eventDetails');
+		}
 		public function addsvc(){
 			$addSvc = $this->input->post('add_servc_chkbox');
 			$svcqty = $this->input->post('addsvcqty');
