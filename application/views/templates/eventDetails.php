@@ -15,14 +15,14 @@
             <?php
             //foreach ($eventName as $name) {
               $name = $eventName->eventName; 
-              echo $name . '</a>';
+              echo '<p>' . $name . '</p>';
             //}
               
             ?>
           </h1>        
       </div>
-      <div class="col-lg-2">
-        <button style="margin-left: 338%; margin-top: 5%" type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-primary btn-lg" id="button1">Print Event Details</button>
       </div>
     </div>
   </section>

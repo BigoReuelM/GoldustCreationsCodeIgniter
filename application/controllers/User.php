@@ -43,6 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		 			$this->session->set_userdata('role',$data['role']);
 
 		 			if ($data['role'] === "admin") {
+		 				$this->session->set_userdata('sidebarControl', "0");
 		 				redirect('admin');
 		 			}else{
 		 				redirect('handler');
