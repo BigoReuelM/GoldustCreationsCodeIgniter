@@ -111,6 +111,7 @@
               if ($empRole === 'admin') {
                 echo "<label>Select</label>";
                 echo "<select class='form-control' name='handler'>";
+                echo "<option selected disabled hidden>Choose Handler</option>";
 
                 foreach ($handlers as $handler) {
                   echo "<option value='" . $handler['employeeID'] . "'>" . $handler['employeeName'] . "</option>";
