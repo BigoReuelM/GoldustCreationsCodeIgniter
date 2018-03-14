@@ -30,6 +30,22 @@
 			");
 			return $query->result_array();
 		}
+
+		public function insertNewEmployee($name, $cNumber, $email, $address, $role, $image){
+			$data = array(
+				'employeeName' => $name,
+				'contactNumber' => $cNumber,
+				'address' => $address,
+				'email' => $email,
+				'role' => $role,
+				'photo' => $image,
+				'username' => $name,
+				'password' => "pwd",
+				'status' => "active"
+			);
+
+			$this->db->insert('employees', $data);
+		}
 		
 	}
  ?>

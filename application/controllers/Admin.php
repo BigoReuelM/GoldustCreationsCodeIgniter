@@ -52,6 +52,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function addEmployee(){
+			$name = $this->input->post('name');
+			$cNumber = $this->input->post('cNumber');
+			$email = $this->input->post('email');
+			$address = $this->input->post('address');
+			$role = $this->input->post('role');
+			$image = $this->input->post('employeeImage');
+
+			$this->admin_model->insertNewEmployee($name, $cNumber, $email, $address, $role, $image);
+
+			redirect('admin/adminEmployeeManagement');
+
+		}
+
 		public function services(){
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
