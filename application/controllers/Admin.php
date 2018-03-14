@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('admin_model');
 			$this->load->model('events_model');
 			$this->load->library('session');
+			$this->load->helper('form');
 		}
 
 		public function index(){
@@ -33,10 +34,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function employeeDetails(){
+			$employeeID = $this->input->post('employeeID');
+
+			$data['employee'] = $this->admin_model->getEmpDetails($employeeID);
+
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/employeeDetails.php");
+			$this->load->view("adminPages/employeeDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -52,12 +57,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function addEmployee(){
+			$name = $this->input->post('name');
+			$cNumber = $this->input->post('cNumber');
+			$email = $this->input->post('email');
+			$address = $this->input->post('address');
+			$role = $this->input->post('role');
+			$image = $this->input->post('employeeImage');
+
+			$this->admin_model->insertNewEmployee($name, $cNumber, $email, $address, $role, $image);
+
+			redirect('admin/adminEmployeeManagement');
+
+		}
+
 		public function services(){
+			$data['active'] = $this->admin_model->getActiveServices();
+			$data['inactive'] = $this->admin_model->getInactiveServices();
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminServices.php");
+			$this->load->view("adminPages/adminServices.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function activateServiceStatus(){
+			$serviceID = $this->input->post('inactive');
+
+			$this->admin_model->activateService($serviceID);
+				
+			redirect('admin/services');		
+
+		}
+
+		public function deactivateServiceStatus(){
+			$serviceID = $this->input->post('active');
+
+			$this->admin_model->deactivateService($serviceID);
+
+			redirect('admin/services');
+
+		}
+
+		public function addNewService(){
+			$serviceName = $this->input->post('serviceName');
+			$serviceDisk = $this->input->post('description');
+
+			$this->admin_model->insertService($serviceName, $serviceDisk);
+
+			redirect('admin/services');
 		}
 
 	}

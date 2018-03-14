@@ -1,95 +1,5 @@
-<style type="text/css">
-* {
-  box-sizing: border-box;
-}
-#name{
- width:250%;
- padding: 12px;
- border: 1px solid #ccc;
- border-radius: 4px;
- resize: vertical;
- background-color: #E6E6E6;
-}
-#GovID {
-  width:250%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-  background-color: #E6E6E6;
-}
-input[type=text], select, textarea {
-  width:250%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-  background-color: #E6E6E6;
-}
 
-label {
-  padding: 6px 6px 6px 0;
-  display: inline-block;
-}
-
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}
-
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-  margin-left: 10px;
-}
-
-.col-75 {
-  float: left;
-  margin-right: 50px;
-  width: 25%;
-  margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 50px) {
-  .col-25, .col-75, input[type=submit] {
-    width: 100%;
-    margin-top: 0;
-  }
-}
-
-#con1 {
-  width:100%;
-  background-color: white;
-}
-
-#tab1 {
-  border:1px solid #ccc;
-  background-color: #E6E6E6;
-}
-
-#opt1 {
-  width: 50px;
-}
+<style>
 .glyphicon.glyphicon-circle-arrow-left {
   font-size: 50px;
 }
@@ -98,118 +8,122 @@ input[type=submit] {
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="row">
-    <div class="col-lg-9">
+      <div class="col-lg-9">
         <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>" id="icon">
           <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
-        <h1>
-          Aina Andreason
-        </h1>
       </div>
     </div>  
   </section>
   <section class="content container-fluid">
     <div classs="content">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Admin Table</h3>
-        </div>
-        <div class="box-body">
-          <form action="/action_page.php">
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Employee ID</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="0001">
-              </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Profile</h3>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Contact Number</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="09128623549">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Address</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="#1 ABC Street Baguio City">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Role</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Handler">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Standing</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Regular">
-              </div>
-            </div>
-            <div class="row">
-                <div class="col-25">
-                    <label for="lname">Status</label>
+            <form class="form-horizontal">
+              <div class="box-body box-profile">          
+                <div class="col-lg-6">               
+                  <div class="form-group">
+                    <img class="profile-user-img img-responsive img-circle"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
+
+                    <!-- -->
+
+                    <h3 class="profile-username text-center"></h3>
+
+                    <p class="text-muted text-center">Event Handler</p>
+
+                    <ul class="list-group list-group-unbordered">
+                      <li class="list-group-item">
+                        <b>Events</b> <a class="pull-right">1,322</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>Transactions</b> <a class="pull-right">543</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-group">
+                    <button type="button" class="btn btn-block btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
+                  </div>
                 </div>
-                <div class="col-75" id="opt1">
-                    <select>
-                      <option value="volvo">Active</option>
-                      <option value="saab">Inactive</option>
-                    </select>
-                </div>
-            </div>
-              <div class="col-25">
-                <label> Handled Events</label>
-              </div>          
-                <table class="table table-bordered" id="tab1">
-                  <thead>
-                    <tr>
-                      <th id="tab1">ID</th>
-                      <th id="tab1">Customer Name</th>
-                      <th id="tab1">Events/Rental Name</th>
-                      <th id="tab1">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td id="tab1">0000001</td>
-                      <td id="tab1">Touma Kazusa</td>
-                      <td id="tab1">Nagato-Nagato Nuptial</td>
-                      <td id="tab1">2017-04-08</td>
-                    </tr>
-                    <tr>
-                      <td id="tab1">0000002</td>
-                      <td id="tab1">Rin Tohsaka</td>
-                      <td id="tab1">Emiya Shorou Birthday</td>
-                      <td id="tab1">2019-09-02</td>
-                    </tr>
-                    <tr>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                      <td id="tab1"></td>
-                    </tr>
-                  </tbody>
-                </table>
-                 <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">Back </a></button>
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Employee ID</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeName ?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Contact Number</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->contactNumber ?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Email Address</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->email ?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Home Address</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->address ?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Role</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->role?>" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Status</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->status ?>" disabled>
+                    </div>
+                  </div>
+                </div>     
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-        </div>
-      </div>
       </div>
     </div>
-  </div>
   </section>
-          
+  <div class="control-sidebar-bg"></div>
+</div>
+
+    <!-- REQUIRED JS SCRIPTS -->
+
+  <!-- jQuery 3 -->
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap 3.3.7 -->
+  <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
+  <!-- DataTables -->
+  <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <!-- SlimScroll -->
+  <script src="<?php echo base_url();?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <!-- FastClick -->
+  <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
+  <!-- page script -->
+  <script>
+    $(function () {
+      $('#adminTable').DataTable()
+      $('#handlerTable').DataTable()
+      $('#staffTable').DataTable()
+    })
+  </script>
