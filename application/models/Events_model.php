@@ -274,6 +274,12 @@
 			$this->db->delete('eventdecors');
 		}	
 
+		public function deleteEvntSvc($svcId, $eId){
+			$this->db->where('serviceID', $svcId);
+			$this->db->where('eventID', $eId);
+			$this->db->delete('eventservices');
+		}	
+
 		public function addEventPayment($cID, $eID, $ceID, $date, $time, $amount){
 			$data = array(
 				'clientID' => $cID,
@@ -421,6 +427,17 @@
 			$this->db->where('eventID', $eventID);
 			$this->db->update('events', $data);
 		} 
+
+		public function addServcs($eID, $svcid, $amt, $qty){
+			// INSERT INTO eventservices(serviceID, quantity, amount) VALUES(001, 10, 10000);
+			$data = array(
+				'eventID' => $eID,
+				'serviceID' => $svcid,
+				'amount' => $amt,
+				'quantity' => $qty
+			);
+			$this->db->insert('eventservices', $data);
+		}
 	}
 
 
