@@ -268,7 +268,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($currentEventStatus === "new" & $empRole === "handler") {
 				$this->events_model->updateEventStatus($currentEventID);
 			}
-			$this->eventDetails();
+			redirect('events/eventDetails');
 		}
 
 		public function addPayment(){
@@ -377,7 +377,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$type = $this->input->post('event-type');
 			$newEventID = $this->events_model->addEvent($newClientID, $eventName, $celebrantName, $location, $date, $time, $motiff, $package, $type);
 
-			$this->ongoingEvents();
+			redirect('events/ongoingEvents');
 
 		}
 
@@ -390,7 +390,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
 
-			$this->appointments();
+			redirect('events/appointments');
 		}
 
 		public function addEntourage() {
