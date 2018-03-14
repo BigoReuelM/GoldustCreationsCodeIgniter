@@ -101,7 +101,7 @@
                     <!-- input type image... image will send the data within hidden input -->
                     <form id="" role="form" method="post" action="<?php echo base_url('items/changeDecor') ?>">
                     <?php 
-                      echo '<input type="text" id="newdecId" name="newdecId" value="' . $decorID . '"/>';
+                      echo '<input type="hidden" id="newdecId" name="newdecId" value="' . $decorID . '"/>';
                       echo '<input type="image" class="galleryImg" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; 
                     ?>
                     </form>

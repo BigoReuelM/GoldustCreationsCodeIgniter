@@ -429,6 +429,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventDetails();
 		}
 
+		public function editSvc(){
+			$eID = $this->session->userdata('currentEventID');
+			$qty = $this->input->post('svcqty');
+			$amt = $this->input->post('svcamt');
+			$this->events_model->updateSvc($eID, $qty, $amt);
+			$this->eventDetails();
+		}
+
 	}
 
 ?>

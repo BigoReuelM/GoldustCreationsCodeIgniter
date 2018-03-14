@@ -226,12 +226,16 @@
 
   <div class="row">
     <!--service column-->
+    <form id="svcform" role="form" method="post" action="<?php echo base_url('events/editSvc') ?>"></form>
+    <form id="evtsvcdltform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>"></form>
+    
     <div class="col-lg-6">
       <div class="box box-primary">
         <div class="box-header">
           <h3 class="box-title">Services</h3>
         </div>
         <div class="box-body">
+          
           <table id="serviceTable" class="table table-striped table-bordered">
             <thead>
               <tr>
@@ -250,13 +254,11 @@
                       <!-- service name -->
                       <td><?php echo $avlSvc['serviceName'] ?></td>
                       <!-- quantity -->
-                      <td><input class="form-control" type="text" name="svcqty" style="border: none;" placeholder="qty" value="<?php echo $avlSvc['quantity'] ?>"></td>
+                      <td><input class="form-control" type="text" name="svcqty" style="border: none;"  placeholder="<?php echo $avlSvc['quantity'] ?>"></td>
                       <!-- amount -->
-                      <td><input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="amount" value="<?php  echo $avlSvc['amount']?>"></td>
-                      <td>
-                        <form id="evtsvcidform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>">
-                          <button class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button> 
-                        </form>
+                      <td><input class="form-control" type="text" name="svcamt" style="border: none;"  placeholder="<?php echo $avlSvc['amount']?>"></td>
+                      <td>                       
+                        <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>                 
                       </td>
                     </tr>
                   <?php }
@@ -266,15 +268,17 @@
           </table>
           <div class="row">
             <div class= "col-lg-6">
-              <button type="button" class="btn btn-block btn-primary">Update Services</button> 
-              </div>
-              <div class= "col-lg-6">
+              <button type="submit" form="svcform" class="btn btn-block btn-primary">Update Services</button> 
+            </div>
+            <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
-              </div>
-          </div>            
+            </div>
+          </div> 
+                    
         </div>
-      </div>
+      </div>     
     </div>
+
     <!--end of service col-->
 
     <!--start of stff col-->
@@ -371,7 +375,7 @@
                     foreach ($servcs as $svc) { ?>
                       <tr>                   
                           <td>
-                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox" value="<?php echo $svc['serviceID'] ?>"><?php echo $svc['serviceName'] ?></label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
                             <?php 
                               if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
                                 

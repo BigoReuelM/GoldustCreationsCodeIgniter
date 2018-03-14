@@ -428,6 +428,15 @@
 			$this->db->update('events', $data);
 		} 
 
+		public function updateSvc($eventID, $qty, $amt){
+			$data = array(
+				'quantity' => $qty,
+				'amount' => $amt
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('eventservices', $data);
+		}
+
 		public function addServcs($eID, $svcid, $amt, $qty){
 			// INSERT INTO eventservices(serviceID, quantity, amount) VALUES(001, 10, 10000);
 			$data = array(
