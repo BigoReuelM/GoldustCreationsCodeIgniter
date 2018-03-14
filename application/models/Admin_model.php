@@ -79,7 +79,7 @@
 
 		public function activateService($serviceID){
 			$data = array(
-				'status' => "inactive"
+				'status' => "active"
 			);
 
 			$this->db->where('serviceID', $serviceID);
@@ -88,7 +88,7 @@
 
 		public function deactivateService($serviceID){
 			$data = array(
-				'status' => "active"
+				'status' => "inactive"
 			);
 
 			$this->db->where('serviceID', $serviceID);

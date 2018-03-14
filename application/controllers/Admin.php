@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('admin_model');
 			$this->load->model('events_model');
 			$this->load->library('session');
+			$this->load->helper('form');
 		}
 
 		public function index(){
@@ -81,16 +82,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function activateServiceStatus(){
-			$serviceID = $this->input->post('active');
+			$serviceID = $this->input->post('inactive');
 
 			$this->admin_model->activateService($serviceID);
-
-			redirect('admin/services');
+				
+			redirect('admin/services');		
 
 		}
 
 		public function deactivateServiceStatus(){
-			$serviceID = $this->input->post('inactive');
+			$serviceID = $this->input->post('active');
 
 			$this->admin_model->deactivateService($serviceID);
 

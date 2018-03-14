@@ -39,7 +39,8 @@
                 <td><?php echo $a['description']; ?></td>
                 <td>
                   <form role="form" method="post" action="<?php echo base_url('admin/deactivateServiceStatus') ?>">
-                    <button type="submit" id="active" name="active" value="<?php echo($serviceID) ?>" class="btn btn-block btn-danger">Deactivate</button> 
+                    <input type="text" name="active" value="<?php echo($serviceID) ?> " hidden>
+                    <button type="submit" class="btn btn-block btn-danger">Deactivate</button> 
                   </form>                  
                 </td>
               </tr>
@@ -75,7 +76,8 @@
                 <td><?php echo $ia['description']; ?></td>
                 <td>
                   <form role="form" method="post" action="<?php echo base_url('admin/activateServiceStatus') ?>">
-                    <button type="submit" id="inactive" name="inactive" value="<?php echo($iID) ?>" class="btn btn-block btn-primary">Activate</button>
+                    <input type="text" name="inactive" value="<?php echo($iID) ?>" hidden>
+                    <button type="submit" class="btn btn-block btn-primary">Activate</button>
                   </form>
                 </td>
               </tr>
