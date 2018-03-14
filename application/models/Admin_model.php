@@ -94,6 +94,16 @@
 			$this->db->where('serviceID', $serviceID);
 			$this->db->update('services', $data);
 		}
+
+		public function insertService($serviceName, $serviceDisk){
+			$data = array(
+				'serviceName' => $serviceName,
+				'description' => $serviceDisk,
+				'status' => "active" 
+			);
+
+			$this->db->insert('services', $data);
+		}
 		
 	}
  ?>

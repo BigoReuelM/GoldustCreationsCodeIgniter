@@ -10,7 +10,7 @@
              <h3>Services</h3>
           </div>
           <div class="col-md-3">
-            <button href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adserv" >Add Service</button>  
+            <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addService" >Add Service</button>  
           </div>
         </div>   
      </div>
@@ -96,49 +96,44 @@
 
   <div class="control-sidebar-bg"></div>
 
-        <!-- Modal for Add Services -->
-      <div class="modal fade" id="adserv" role="dialog" >
+  <div class="modal fade" id="addService" role="dialog" >
     <div class="modal-dialog">
-    
-      <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Service</h4>
-        </div>
-        <div class="modal-body">
-          <div class="container" id="con1">
-              <form action="/action_page.php">
-                <div class="row">
-                  <div class="col-25">
-                    <label for="fname">Type</label>
-                  </div>
-                  <div class="col-75">
-                    <input type="text" id="fname" name="firstname" placeholder="Type">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-25">
-                    <label for="fname">Description</label>
-                  </div>
-                  <div class="col-75">
-                    <input type="text" id="fname" name="firstname" placeholder="Description">
-                  </div>
-                </div>
-              </form>
+        <form role="form" method="post" action="<?php echo base_url('admin/addNewService') ?>" class="form-horizontal">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Add Service</h4>
           </div>
-        </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
+          <div class="modal-body">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Service Name</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="serviceName" placeholder="Enter Service Name Here ... ">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label">Description</label>
+                <div class="col-sm-9">
+                  <textarea rows="5" class="form-control" name="description" placeholder="Enter Service Description Here ... "></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <div class="col-sm-6">
+                <button type="submit" class="btn btn-block btn-default">Add</button>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>   
+          </div>
+        </form>
       </div>
-      </div>
-      </div>
-      <!-- End of modal -->
-</div>
-<!-- ./wrapper -->
-
+    </div>
+  </div>
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
@@ -157,6 +152,10 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <!-- page script -->
+<!-- InputMask -->
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script>
   $(function () {
     $('#activeService').DataTable()

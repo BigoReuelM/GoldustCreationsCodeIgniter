@@ -99,6 +99,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function addNewService(){
+			$serviceName = $this->input->post('serviceName');
+			$serviceDisk = $this->input->post('description');
+
+			$this->admin_model->insertService($serviceName, $serviceDisk);
+
+			redirect('admin/services');
+		}
+
 	}
 
  ?>

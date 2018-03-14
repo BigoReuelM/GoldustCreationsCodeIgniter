@@ -9,7 +9,7 @@
         </h1>
       </div>
       <div class="col-lg-3">
-        <button href="addAdmin.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addAdmin">Add Employee</button>
+        <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addAdmin">Add Employee</button>
       </div>
     </div>  
   </section>
