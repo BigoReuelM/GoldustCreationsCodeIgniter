@@ -33,10 +33,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function employeeDetails(){
+			$employeeID = $this->input->post('employeeID');
+
+			$data['employee'] = $this->admin_model->getEmpDetails($employeeID);
+
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/employeeDetails.php");
+			$this->load->view("adminPages/employeeDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -67,11 +71,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function services(){
+			$data['active'] = $this->admin_model->getActiveServices();
+			$data['inactive'] = $this->admin_model->getInactiveServices();
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminServices.php");
+			$this->load->view("adminPages/adminServices.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function activateServiceStatus(){
+			$serviceID = $this->input->post('active');
+
+			$this->admin_model->activateService($serviceID);
+
+			redirect('admin/services');
+
+		}
+
+		public function deactivateServiceStatus(){
+			$serviceID = $this->input->post('inactive');
+
+			$this->admin_model->deactivateService($serviceID);
+
+			redirect('admin/services');
+
 		}
 
 	}

@@ -46,6 +46,54 @@
 
 			$this->db->insert('employees', $data);
 		}
+
+		public function getEmpDetails($empID){
+			$query=$this->db->query("
+				SELECT *
+				FROM employees
+				WHERE employeeID = $empID
+			");
+
+			return $query->row();
+		}
+
+		public function getActiveServices(){
+			$query = $this->db->query("
+				SELECT *
+				FROM services
+				WHERE status like 'active'
+			");
+
+			return $query->result_array();
+		}
+
+		public function getInactiveServices(){
+			$query = $this->db->query("
+				SELECT *
+				FROM services
+				WHERE status like 'inactive'
+			");
+
+			return $query->result_array();
+		}
+
+		public function activateService($serviceID){
+			$data = array(
+				'status' => "inactive"
+			);
+
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('services', $data);
+		}
+
+		public function deactivateService($serviceID){
+			$data = array(
+				'status' => "active"
+			);
+
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('services', $data);
+		}
 		
 	}
  ?>

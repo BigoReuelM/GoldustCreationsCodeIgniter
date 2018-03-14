@@ -1,5 +1,6 @@
 <?php 
   $empRole = $this->session->userdata('role');
+
  ?>
  <style type="text/css">
    #butt5 {
@@ -16,6 +17,7 @@
             //foreach ($eventName as $name) {
               $name = $eventName->eventName; 
               echo '<p>' . $name . '</p>';
+
             //}
               
             ?>

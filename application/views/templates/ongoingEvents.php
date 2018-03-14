@@ -81,7 +81,7 @@
 
                             <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
                               <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
-                              <button class="btn btn-block"id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
+                              <button class="btn btn-block" id="eventInfo" name="eventInfo" type="submit" value="<?php echo($empID) ?>">
                                 View Info <i class="fa fa-fw fa-info"></i>
                               </button>  
                             </form>

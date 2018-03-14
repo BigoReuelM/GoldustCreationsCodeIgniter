@@ -27,9 +27,9 @@
               <div class="box-body box-profile">          
                 <div class="col-lg-6">               
                   <div class="form-group">
-                    <img class="profile-user-img img-responsive img-circle"  alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
 
-                    <!--src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" -->
+                    <!-- -->
 
                     <h3 class="profile-username text-center"></h3>
 
@@ -52,43 +52,43 @@
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Employee ID</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Name</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeName ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Contact Number</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->contactNumber ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Email Address</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->email ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Home Address</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->address ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Role</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->role?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-3 control-label">Status</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" placeholder="Email" disabled>
+                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->status ?>" disabled>
                     </div>
                   </div>
                 </div>     

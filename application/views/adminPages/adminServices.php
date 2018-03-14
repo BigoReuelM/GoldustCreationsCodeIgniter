@@ -1,94 +1,100 @@
-<style type="text/css">
-  input[type=text], select, textarea {
-    width: 250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
 
-label {
-    padding: 6px 6px 6px 0;
-    display: inline-block;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
-
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-
-.col-75 {
-    float: left;
-    margin-right: 50px;
-    width: 25%;
-    margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 50px) {
-    .col-25, .col-75, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-    }
-}
-
-#con1 {
-  width:100%;
-   background-color: white;
-}
-
-#tab1 {
-  border:1px solid #ccc;
-  background-color: #E6E6E6;
-}
-
-#butt4 {
-  margin-right: 10px;
-}
 </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="box-header">
-                <div class="row">
-                  <div class="col-md-9">
-                     <h3>Services</h3>
-                  </div>
-                  <div class="col-md-3">
-                    <button href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adserv" >Add Service</button>  
-                  </div>
-                </div>
-                
-             </div>
+        <div class="row">
+          <div class="col-md-9">
+             <h3>Services</h3>
+          </div>
+          <div class="col-md-3">
+            <button href="addEvent.php" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#adserv" >Add Service</button>  
+          </div>
+        </div>   
+     </div>
     </section>
     <section class="content container-fluid">
-      <!-- Modal for Add Services -->
+      <h2>   Active Services</h2>
+      <div class="box">
+        <div class="box-body">
+          <div class="table table-responsive">
+            <table id="activeService" class="table table-bordered table-condensed table-hover text-center">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Descriptions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                if (!empty($active)) {
+                  foreach ($active as $a) {
+                    $serviceID = $a['serviceID'];
+              ?>
+              <tr>
+                <td><?php echo $a['serviceName']; ?></td>
+                <td><?php echo $a['description']; ?></td>
+                <td>
+                  <form role="form" method="post" action="<?php echo base_url('admin/deactivateServiceStatus') ?>">
+                    <button type="submit" id="active" name="active" value="<?php echo($serviceID) ?>" class="btn btn-block btn-danger">Deactivate</button> 
+                  </form>                  
+                </td>
+              </tr>
+              <?php 
+                  }
+                }
+              ?>       
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+     <h2>   Deactivated Services</h2>
+     <div class="box">
+        <div class="box-body">
+          <div class="table table-responsive">
+            <table id="inactiveService" class="table table-bordered table-condensed table-hover text-center">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Descriptions</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php 
+                if (!empty($inactive)) {
+                  foreach ($inactive as $ia) {
+                    $iID = $ia['serviceID'];
+              ?>
+              <tr>
+                <td><?php echo $ia['serviceName']; ?></td>
+                <td><?php echo $ia['description']; ?></td>
+                <td>
+                  <form role="form" method="post" action="<?php echo base_url('admin/activateServiceStatus') ?>">
+                    <button type="submit" id="inactive" name="inactive" value="<?php echo($iID) ?>" class="btn btn-block btn-primary">Activate</button>
+                  </form>
+                </td>
+              </tr>
+              <?php 
+                  }
+                }
+              ?>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="control-sidebar-bg"></div>
+
+        <!-- Modal for Add Services -->
       <div class="modal fade" id="adserv" role="dialog" >
     <div class="modal-dialog">
     
@@ -128,130 +134,6 @@ input[type=submit] {
       </div>
       </div>
       <!-- End of modal -->
-    <h2>   Active Services</h2>
-    <div class="box">
-              <!-- /.box-header -->
-              <div class="box-body">
-                <table id="rentalService" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Type</th>
-                      <th>Descriptions</th>
-                      <th id="tietch">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Gown</td>
-                      <td>Rental of Gowns</td>
-                      <td id="tietch">
-                       <a href="#">
-                          <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                          <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
-                    </tr>
-                    <tr>
-                      <td>Accessories</td>
-                      <td>Rental of Accessories</td>
-                      <td id="tietch">
-                <a href="#">
-                   <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                   <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
-                </a>
-                </td>
-                    </tr>
-                    <tr>
-                      <td>Make-Up</td>
-                      <td>Make-Up Services</td>
-                      <td id="tietch">
-                <a href="#">
-                   <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                   <button type="button" class="btn btn-primary" id="butt4">Deactivate</button>
-                </a>
-                </td>
-                    </tr>
-
-                    <!--
-                    <tr>
-                        <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                        <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
-                      </td>
-                    </tr>
-                  -->
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-          <h2>   Deactivated Services</h2>
-     <div class="box">
-              <!-- /.box-header -->
-              <div class="box-body">
-                <table id="rentalService" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Type</th>
-                      <th>Descriptions</th>
-                      <th id="tietch">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Gown</td>
-                      <td>Rental of Gowns</td>
-                      <td id="tietch">
-                       <a href="#">
-                          <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                          <button type="button" class="btn btn-primary" id="butt4">Activate</button>
-                      </a>
-
-                </td>
-                    </tr>
-                    <tr>
-                      <td>Accessories</td>
-                      <td>Rental of Accessories</td>
-                      <td id="tietch">
-                <a href="#">
-                    <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                    <button type="button" class="btn btn-primary" id="butt4">Activate</button>
-                </a>
-                </td>
-                    </tr>
-                    <tr>
-                      <td>Make-Up</td>
-                      <td>Make-Up Services</td>
-                      <td id="tietch">
-                <a href="#">
-                    <button type="button" class="btn btn-danger" id="butt4">Remove</button>
-                    <button type="button" class="btn btn-primary" id="butt4">Activate</button>
-                </a>
-                </td>
-                    </tr>
-
-                    <!--
-                    <tr>
-                        <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-danger"><i class="fa fa-fw fa-check"></i></a></div>
-                        <div class="col-md-3 col-sm-4"><a href="eventDetails.php"><i class="fa fa-fw fa-info"></i></a></div>
-                      </td>
-                    </tr>
-                  -->
-                </tbody>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-         </section>
-    <!-- Main content -->
-    
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-
-
-  <!-- Add the sidebar's background. This div must be placed
-  immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
@@ -275,14 +157,7 @@ input[type=submit] {
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
+    $('#activeService').DataTable()
+    $('#inactiveService').DataTable()
   })
 </script>

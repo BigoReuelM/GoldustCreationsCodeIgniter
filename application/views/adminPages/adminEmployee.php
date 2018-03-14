@@ -36,7 +36,8 @@
               <tbody>
                 <?php
                   if (!empty($admin)) {
-                     foreach ($admin as $a) {
+                    foreach ($admin as $a) {
+                      $adminID = $a['employeeID'];
                 ?>
                 <tr>
                   <td><?php echo $a['employeeID'] ?></td>
@@ -47,6 +48,7 @@
                   <td><?php echo $a['role'] ?></td>
                   <td>                   
                     <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                      <input type="text" name="employeeID" value="<?php echo $adminID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
                       </button>
@@ -84,7 +86,9 @@
               <tbody>
                 <?php
                   if (!empty($handler)) {
+
                      foreach ($handler as $h) {
+                      $handlerID = $h['employeeID'];
                 ?>
                 <tr>
                   <td><?php echo $h['employeeID'] ?></td>
@@ -95,6 +99,7 @@
                   <td><?php echo $h['role'] ?></td>
                   <td>
                     <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                      <input type="text" name="employeeID" value="<?php echo $handlerID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
                       </button>
@@ -131,8 +136,9 @@
               </thead>
               <tbody>
                 <?php
-                  if (!empty($staff)) {
-                     foreach ($staff as $s) {
+                  if (!empty($staff)) {               
+                    foreach ($staff as $s) {
+                      $staffID = $s['employeeID'];
                 ?>
                 <tr>
                   <td><?php echo $s['employeeID'] ?></td>
@@ -143,6 +149,7 @@
                   <td><?php echo $s['role'] ?></td>
                   <td>
                     <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                      <input type="text" name="employeeID" value="<?php echo $staffID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
                       </button>
