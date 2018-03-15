@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->library('session');
 		}
 
-		public function ongoingTransactions(){
+		public function transactions(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$data['services']=$this->events_model->getServices();
@@ -33,74 +33,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
+
 			}else{
 
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/transactionNav.php");
+
 			}
-			$this->load->view("templates/ongoignTransactions.php", $data);
+			$this->load->view("templates/transactions.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
-		public function finishedTransactions(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$data['services']=$this->events_model->getServices();
-			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
-			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
-			$data['decors'] = $this->transactions_model->getDecors();
-			$data['designs'] = $this->transactions_model->getDesigns();
-
-
-			$this->load->view("templates/head.php");
-			
-			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
-			}else{
-
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/transactionNav.php");
-			}
-			$this->load->view("templates/finishedTransactions.php", $data);
-			$this->load->view("templates/footer.php");
-		}
-
-		public function canceledTransactions(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$data['services']=$this->events_model->getServices();
-			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
-			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
-			$data['decors'] = $this->transactions_model->getDecors();
-			$data['designs'] = $this->transactions_model->getDesigns();
-
-
-			$this->load->view("templates/head.php");
-			
-			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
-			}else{
-
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/transactionNav.php");
-			}
-			$this->load->view("templates/canceledTransactions.php", $data);
-			$this->load->view("templates/footer.php");
-		}
 		public function transactionDetails(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
-			$data['services']=$this->events_model->getServices();
-			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
-			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
-			$data['decors'] = $this->transactions_model->getDecors();
-			$data['designs'] = $this->transactions_model->getDesigns();
+			$tranID = $this->input->post('transInfo');
 
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
+			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
+			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
+			$data['expenses'] = $this->transactions_model->getTransactionExpenses($tranID);
+			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
 
 			$this->load->view("templates/head.php");
 			

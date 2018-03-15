@@ -5,6 +5,14 @@
 
 }
 </style>
+
+<?php 
+  $transactiontotalAmount = $details->totalAmount;
+  $totalAmountPaid = $total->total;
+
+  $balance = $transactiontotalAmount - $totalAmountPaid;
+
+?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
@@ -24,39 +32,39 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Client Name</label>
+                  <label class="col-sm-2 control-label">Client Names</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="client name" value="<?php echo $details->clientName ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Contact No.</label>
+                  <label class="col-sm-2 control-label">Contact Number</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="contact" value="<?php echo $details->contactNumber ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Address</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="address" value="<?php echo $details->homeAddress ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Year & Section</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="year and section" value="<?php echo $details->yearAndSection ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">School</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="School" value="<?php echo $details->school ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Date Availed</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="date" value="<?php echo $details->dateAvail ?>" disabled>
                   </div>
                 </div>
               </div>
@@ -64,37 +72,37 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Time Availed</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="time" value="<?php echo $details->time ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">ID Type</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="ID Type" value="<?php echo $details->IDType ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Deposited Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="balance" value="<?php echo $details->depositAmt ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Total Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="total amount" value="<?php echo $details->totalAmount ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Balance</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="balance" value="<?php echo $balance; ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Status</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Email" disabled>
+                    <input type="text" class="form-control" placeholder="status" value="<?php echo $details->transactionstatus ?>" disabled>
                   </div>
                 </div>
               </div>
@@ -115,23 +123,21 @@
                 <table id="servicesTable" class="table table-bordered table-striped text-center">
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Agenda</th>
-                      <th>Event Name</th>
-                      <th>Handler</th>
+                      <th>Service</th>
+                      <th>Amount</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-
-                      </td>
-                    </tr>
+                    <?php if ($transServices){
+                      foreach ($transServices as $service) {
+                    ?>
+                      <tr>
+                        <td><?php echo $service['serviceName'] ?></td>
+                        <td><?php echo $service['amount'] ?></td>
+                        <td></td>
+                      </tr>
+                    <?php }}?>
                   </tbody>
                 </table>
               </div>
@@ -161,20 +167,21 @@
                       <th>Date</th>
                       <th>Time</th>
                       <th>Agenda</th>
-                      <th>Event Name</th>
-                      <th>Handler</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>
-
-                      </td>
-                    </tr>
+                    <?php if (!empty($transAppointments)){
+                        foreach ($transAppointments as $appointment) {
+                    ?>
+                      <tr>
+                        <td><?php echo $appointment['date'] ?></td>
+                        <td><?php echo $appointment['time'] ?></td>
+                        <td><?php echo $appointment['agenda'] ?></td>
+                      </tr>  
+                    <?php
+                        }
+                      }
+                    ?>
                   </tbody>
                 </table>
               </div>
@@ -198,10 +205,6 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div>
-
-                <h3>Balance:</h3> <h1>eventBalance</h1>
-              </div>
               <table id="paymentTable" class="table table-bordered">
                 <thead>
                   <tr>
@@ -212,22 +215,21 @@
                   </tr>
                 </thead>
                 <tbody> 
-
-                  <tr>
-                    <td>paymentID</td>
-                    <td>amount</td>
-                    <td>date</td>
-                    <td>time</td>
-                  </tr>
+                  <?php if (!empty($payments)){
+                    foreach ($payments as $payment) {
+                  ?>
+                    <tr>
+                      <td><?php echo $payment['paymentID'] ?></td>
+                      <td><?php echo $payment['amount'] ?></td>
+                      <td><?php echo $payment['date'] ?></td>
+                      <td><?php echo $payment['time'] ?></td>
+                    </tr>
+                  <?php 
+                      }
+                    }
+                  ?>
                 </tbody>
               </table>
-
-              <div class="">
-                <h3>Total Amount:</h3>
-                <h3>Total Amount Paid: Php</h3>
-
-
-              </div>
             </div>
           </div>
         </div>
@@ -245,14 +247,6 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div class="row">
-                <div class="col-md-6">                 
-                  <h3>Total Expenses:</h3>
-                </div>
-                <div class="col-md-6">
-                  <h3>Remaining Budget:</h3>
-                </div>
-              </div>
 
               <table id="expenseTable" class="table table-bordered">
                 <thead>
@@ -265,23 +259,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>expensesID</td>
-                    <td>expensesAmount</td>
-                    <td>expensesName</td>
-                    <td>expensesDate</td>
-                    <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
-                  </tr>
+                  <?php if (!empty($expenses)){
+                    foreach ($expenses as $expense) {
+                  ?>
+                    <tr>
+                      <td><?php echo $expense['expensesID'] ?></td>
+                      <td><?php echo $expense['expensesAmount'] ?></td>
+                      <td><?php echo $expense['expensesname'] ?></td>
+                      <td><?php echo $expense['espensesDate'] ?></td>
+                      <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
+                    </tr> 
+                  <?php
+                      }
+                    }
+                  ?>
+                  
                 </tbody>
               </table>
-
-              <!-- /.box-body -->
-              <div>
-
-               <h3>Over Budget: Php</h3>
-               <h3>Total Budget:</h3>
-
-             </div>
            </div>
          </div>
        </div>
