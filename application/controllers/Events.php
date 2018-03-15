@@ -420,6 +420,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->updateEventHandler($eId, $handlerID);
 			redirect('events/eventDetails');
 		}
+
 		public function addsvc(){
 			$addSvc = $this->input->post('add_servc_chkbox');
 			$svcqty = $this->input->post('addsvcqty');
@@ -429,12 +430,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventDetails();
 		}
 
-		public function editSvc(){
+		public function chkSvcQtyAmt(){
 			$eID = $this->session->userdata('currentEventID');
+			$dbSvcQty = $this->events_model->returnSvcQty('currentEventID');
+			$dbSvcAmt = $this->events_model->returnSvcAmt('currentEventID');	
 			$qty = $this->input->post('svcqty');
 			$amt = $this->input->post('svcamt');
-			$this->events_model->updateSvc($eID, $qty, $amt);
-			$this->eventDetails();
+			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {			
+				$this->events_model->updateSvcQty($eID, $qty);
+				$this->eventDetails();
+			}elseif (!($amt === $dbSvcAmt) && ($qty === $dbSvcQty)) {
+				$this->events_model->updateSvcAmt($eID, $amt);
+				$this->eventDetails();
+			}else{			
+				$this->events_model->updateSvcAmtQty($eID, $qty, $amt);
+				$this->eventDetails();
+			}
 		}
 
 	}
