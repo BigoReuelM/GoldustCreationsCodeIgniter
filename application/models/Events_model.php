@@ -367,17 +367,6 @@
 
 		}
 
-		//public function addEventExpenses()
-	
-		/*public function getEntAttirePhoto($entID){
-			$this->db->select('designImage');
-			$this->db->from('designs');
-			$this->db->join('entouragedetails', 'designs.designID = entouragedetails.designID');
-			$this->db->where('entourageID', $entID);
-			$query = $this->db->get();
-			return $query->row();
-		}*/
-
 		public function deleteEntourage($entID, $eID){
 			$this->db->where('entourageID', $entID);
 			$this->db->where('eventID', $eID);

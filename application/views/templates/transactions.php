@@ -3,7 +3,12 @@
   $empRole = $this->session->userdata('role');
  ?>
 
+<div class="content-wrapper">
 <!-- Content Wrapper. Contains page content -->
+
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,6 +29,15 @@
                 <div class="row">
                   <div class="col-md-9">
                      <h3 class="box-title">Service Transactions Table</h3>
+                  </div>
+                  <div class="col-md-3">
+                    <?php 
+                      if ($empRole === "admin") {
+                        echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServiceTransaction">Add Transaction</button>  ';
+                      }
+
+                     ?>
+                    
                   </div>
                 </div>
                 
@@ -57,22 +71,12 @@
                                 <td><?php echo $transac['contactNo']; ?></td>
                                 <td><?php echo $transac['totalAmount']; ?></td>
                                 <td>
-                                  <div class="col-md-6 col-sm-4">
-                                    <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
-                                    <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
-                            Finished <i class="fa fa-fw fa-check"></i>
-                          </button>
 
-                                    </form>
-                                  </div>
-                                  <div class="col-md-6 col-sm-4" >
-                                    <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
-                                    <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
-                            View Info <i class="fa fa-fw fa-info"></i>
-                          </button>
+                                  <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                    <input type="text" value="<?php echo($tranID) ?>" name="transInfo" hidden>
+                                    <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
+                                  </form>
 
-                                    </form>
-                                  </div>
                                 </td>
                               
                           <?php }

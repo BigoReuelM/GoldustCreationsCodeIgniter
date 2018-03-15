@@ -49,7 +49,7 @@
 
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">
+          <a href="<?php echo base_url('transactions/transactions') ?>">
             <i class="glyphicon glyphicon-credit-card"></i> 
             <span>Transactions</span>
           </a>
