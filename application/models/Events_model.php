@@ -155,13 +155,12 @@
 		}
 
 		public function getEntourageDetails($currentEventID){
-			$evID = $currentEventID;
 
 			$this->db->select('*');
 			$this->db->from('entouragedetails');
 			$this->db->join('entourage', 'entouragedetails.entourageID = entourage.entourageID');
 			$this->db->join('designs', 'designs.designID = entouragedetails.designID');
-			//$this->db->where('entourage.eventID', $evID);
+			$this->db->where('entourage.eventID', $currentEventID);
 
 			$query = $this->db->get();
 			return $query->result_array();
@@ -390,13 +389,12 @@
 			$this->db->delete('entouragedetails');
 
 		}
-		public function addEventEntourage($enID, $eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
+		public function addEventEntourage($eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
 	
 			$data = array(
-				'entourageID' => $enID,
 				'eventID' => $eID,
 				'entourageName' => $enName,
-				'role' => $role,
+				'role' => $enRole,
 				'shoulder' => $sho,
 				'chest' => $che,
 				'stomach' => $sto,
@@ -406,6 +404,7 @@
 				'muscle' => $mus,
 				'pantsLength' => $pantsL,
 				'baston' => $bas, 
+				'status' => "not-done"
 			);
 			$this->db->insert('entourage', $data);
 		}
