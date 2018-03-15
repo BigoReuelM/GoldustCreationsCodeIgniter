@@ -366,17 +366,6 @@
 
 		}
 
-		//public function addEventExpenses()
-	
-		/*public function getEntAttirePhoto($entID){
-			$this->db->select('designImage');
-			$this->db->from('designs');
-			$this->db->join('entouragedetails', 'designs.designID = entouragedetails.designID');
-			$this->db->where('entourageID', $entID);
-			$query = $this->db->get();
-			return $query->row();
-		}*/
-
 		public function deleteEntourage($entID, $eID){
 			$this->db->where('entourageID', $entID);
 			$this->db->where('eventID', $eID);
@@ -427,12 +416,45 @@
 			$this->db->update('events', $data);
 		} 
 
-		public function updateSvc($eventID, $qty, $amt){
+		public function returnSvcQty($eventID){
+			$this->db->select('quantity');
+			$this->db->from('eventservices');
+			$this->db->where('eventID', $eventID);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function returnSvcAmt($eventID){
+			$this->db->select('amount');
+			$this->db->from('eventservices');
+			$this->db->where('eventID', $eventID);
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function updateSvcQty($eventID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('eventservices', $data);
+		}
+
+		public function updateSvcAmt($eventID, $amt){
+			$data = array(
+				'amount' => $amt
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('eventservices', $data);
+		}
+
+		public function updateSvcAmtQty($eventID, $qty, $amt){
 			$data = array(
 				'quantity' => $qty,
 				'amount' => $amt
 			);
 			$this->db->where('eventID', $eventID);
+
 			$this->db->update('eventservices', $data);
 		}
 
