@@ -166,6 +166,15 @@
 			return $query->result_array();
 		}
 
+		public function getEntourage($currentEventID){
+			$this->db->select('*');
+			$this->db->from('entourage');
+			$this->db->where('entourage.eventID', $currentEventID);
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function totalExpenses($eID){
 			$query = $this->db->query("SELECT sum(expensesAmount) as total
 				from expenses

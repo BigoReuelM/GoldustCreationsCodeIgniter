@@ -138,6 +138,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$id = $this->session->userdata('currentEventID');
 			$data['eventName'] =$this->events_model->getEventName($id);
 			$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
+			$data['entourage'] = $this->events_model->getEntourage($id);
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['designs']=$this->events_model->getDesigns($currentEvent);

@@ -93,7 +93,7 @@
             </thead>
             <tbody>
               <?php 
-                foreach ($entourageDet as $details) {
+                foreach ($entourage as $details) {
                     $entID = $details['entourageID'];
                  ?>
                   <tr>
