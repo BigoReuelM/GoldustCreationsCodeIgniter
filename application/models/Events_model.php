@@ -345,7 +345,6 @@
 		}
 
 		public function insertNewEvent($clientID, $employeeID){
-			$eventStatus = "new";
 			$data = array(
 				'clientID' => $clientID,
 				'employeeID' => $employeeID
@@ -388,6 +387,67 @@
 			);
 			$this->db->insert('entourage', $data);
 		}
+		/*
+
+		Bellow are the queries for updating each event detail attribute...
+
+		*/
+		public function upEventName($eventName, $eventID){
+			$data = array(
+				'eventName' => $eventName
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upCelebrantName($celebrantName, $eventID){
+			$data = array(
+				'celebrantName' => $celebrantName
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upPackageType($packageType, $eventID){
+			$data = array(
+				'packageType' => $packageType
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upEventDate($eventDate, $eventID){
+			$data = array(
+				'eventDate' => $eventDate
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upEventTime($eventTime, $eventID){
+			$data = array(
+				'eventTime' => $eventTime
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upLocation($location, $eventID){
+			$data = array(
+				'eventLocation' => $location
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upType($type, $eventID){
+			$data = array(
+				'eventType' => $type
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upMotif($motif, $eventID){
+			$data = array(
+				'motif' => $motif
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
 
 		public function updateEventHandler($eventID, $handlerID){
 			$data = array(
@@ -405,7 +465,13 @@
 
 			$this->db->where('eventID', $eventID);
 			$this->db->update('events', $data);
-		} 
+		}
+
+		/*
+
+		Bellow are the queries for updating each event detail attribute...
+
+		*/
 
 		public function returnSvcQty($eventID, $svcID){
 			$this->db->select('quantity');

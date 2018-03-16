@@ -39,70 +39,87 @@
     <div class="col-lg-8">
       <div class="box box-primary">
         <div class="box-body">
-          <form role="form" method="post" action="">
+          <form role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>">
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventName ?>">
+                <input type="text" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
               </div>
               <div class="form-group">
                 <label>Contact Number</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->contactNumber ?>">
+                <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
               </div>
               <div class="form-group">
                 <label>Client Name</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->clientName ?>">
+                <input type="text" name="clientName" class="form-control" placeholder="<?php echo $eventDetail->clientName ?>" value="">
               </div>
               <div class="form-group">
                 <label>Celebrant</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+                <input type="text" name="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+                <input type="text" name="dateAvailed" class="form-control" placeholder="still not included in database" value="">
               </div>
               <div class="form-group">
-                <label>Package Availed</label>
-                <?php 
-                  $full = "";
-                  $semi = "";
-                  if ($eventDetail->packageType === 'full-Package') {
-                    $full="checked";
-                  }else{
-                    $semi = "checked";
-                  }
-                 ?> 
-                <span class="radio"><label><input type="radio" id="event-time" value="full-Package" <?php echo $full ?>>Full Package</label></span>
-                <span class="radio"><label><input type="radio" id="event-time" value="semi-Package" <?php echo $semi ?>>Semi Package</label></span>
+                <div class="col-lg-4">
+                  <label>Package Availed</label>
+                  <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
+                </div>
+                <div class="col-lg-8">
+                  <label>Change Package Type</label>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
+                    </div>
+                    <div class="col-lg-6">
+                      <span class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></span>
+                    </div>
+                  </div>
+                </div> 
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Event Date</label>
-                <input type="date" id="form1" class="form-control" value="<?php echo $eventDetail->eventDate ?>">
+                
+                <div class="col-lg-4">
+                  <label>Event Date</label>
+                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventDate ?>">  
+                </div>
+                <div class="col-lg-8">
+                  <label>Change Date</label>
+                  <input type="date" class="form-control" name="eventDate">
+                </div>
               </div>
 
               <div class="form-group">
-                <label>Event Time</label>
-                <input type="time" id="form1" class="form-control" value="<?php echo $eventDetail->eventTime ?>">
+                <div class="col-lg-4">
+                  <label>Event Time</label>
+                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventTime ?>">
+                </div>
+                <div class="col-lg-8">
+                  <label>Change Time</label>
+                  <input type="time" class="form-control" name="eventTime">
+                </div>
+                
               </div>
 
               <div class="form-group">
                 <label>Event Location</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventLocation ?>">
+                <input type="text" name="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
               </div>
 
               <div class="form-group">
                 <label>Event Type</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->eventType ?>">
+                <input type="text" name="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
               </div>
               <div class="form-group">
                 <label>Motif</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->motif ?>">
+                <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
               <div class="form-group">
                 <label>Theme</label>
-                <input type="text" id="form1" class="form-control" value="<?php echo $eventDetail->celebrantName ?>">
+                <input type="text" name="theme" class="form-control" placeholder="not in database" value="">
               </div>
             </div>
             <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>

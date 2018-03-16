@@ -1,20 +1,5 @@
 
-<style>
-.glyphicon.glyphicon-circle-arrow-left {
-  font-size: 50px;
-}
-</style>
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <div class="row">
-      <div class="col-lg-9">
-        <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>" id="icon">
-          <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-        </a>
-      </div>
-    </div>  
-  </section>
   <section class="content container-fluid">
     <div classs="content">
       <div class="row">

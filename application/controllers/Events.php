@@ -444,6 +444,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 		}
 
+		public function updateEventDetails(){
+			$eventID = $this->session->userdata('currentEventID');
+			$eventName = $this->input->post('eventName');
+			$celebrant = $this->input->post('celebrantName');
+			$dateAvailed = $this->input->post('dateAvailed');
+			$packageType = $this->input->post('package');
+			$eventDate = $this->input->post('eventDate');
+			$eventTime = $this->input->post('eventTime');
+			$location = $this->input->post('location');
+			$type = $this->input->post('type');
+			$motif = $this->input->post('motif');
+			$theme = $this->input->post('theme');
+
+			if (!empty($eventName)) {
+				$this->events_model->upEventName($eventName, $eventID);		
+			}
+			if (!empty($celebrant)) {
+				$this->events_model->upCelebrantName($celebrant, $eventID);
+			}
+			if (!empty($packageType)) {
+				$this->events_model->upPackageType($packageType, $eventID);
+			}
+			if (!empty($eventDate)) {
+				$this->events_model->upEventDate($eventDate, $eventID);
+			}
+			if (!empty($eventTime)) {
+				$this->events_model->upEventTime($eventTime, $eventID);
+			}
+			if (!empty($location)) {
+				$this->events_model->upLocation($location, $eventID);
+			}
+			if (!empty($type)) {
+				$this->events_model->upType($type, $eventID);
+			}
+			if (!empty($motif)) {
+				$this->events_model->upMotif($motif, $eventID);
+			}
+
+			redirect('events/eventDetails');
+		}
+
 	}
 
 ?>
