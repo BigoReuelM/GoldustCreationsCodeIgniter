@@ -22,13 +22,13 @@
 
       <div class="content">
        
-         <div class="row">
+        <div class="row">
           <div class="col-md-12"> 
             <div class="box">
               <div class="box-header">
                 <div class="row">
                   <div class="col-md-9">
-                     <h3 class="box-title">Service Transactions Table</h3>
+                     <h3 class="box-title">Ongoing Transactions Table</h3>
                   </div>
                   <div class="col-md-3">
                     <?php 
@@ -39,203 +39,271 @@
                      ?>
                     
                   </div>
-                </div>
-                
-             </div>
+                </div>  
+              </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div  class="table table-responsive">
-                      <table id ="rentalTable" class="table table-bordered table-condensed">
-                        <thead>
-                          <tr>
-                            <th>Transaction ID</th>
-                            <th>Client Name</th>
-                            <th>Contact Number</th>
-                            <th>Total Amount</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php 
-                            if(!empty($transactions)){
+                  <div  class="table table-responsive">
+                    <table id ="rentalTable" class="table table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Transaction ID</th>
+                          <th>Client Name</th>
+                          <th>Contact Number</th>
+                          <th>Total Amount</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php 
+                          if(!empty($ongoingTransactions)){
 
-                            foreach ($transactions as $transac) { 
-                            $tranID = $transac['transactionID'];
-                              
-                          ?> 
-                              
-                              <tr>
+                          foreach ($ongoingTransactions as $transac) { 
+                          $tranID = $transac['transactionID'];
+                            
+                        ?> 
+                            
+                            <tr>
 
-                                <td><?php echo $transac['transactionID']; ?></td>
-                                <td><?php echo $transac['clientName']; ?></td>
-                                <td><?php echo $transac['contactNo']; ?></td>
-                                <td><?php echo $transac['totalAmount']; ?></td>
-                                <td>
+                              <td><?php echo $transac['transactionID']; ?></td>
+                              <td><?php echo $transac['clientName']; ?></td>
+                              <td><?php echo $transac['contactNo']; ?></td>
+                              <td><?php echo $transac['totalAmount']; ?></td>
+                              <td>
 
-                                  <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
-                                    <input type="text" value="<?php echo($tranID) ?>" name="transInfo" hidden>
-                                    <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
-                                  </form>
+                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                  <input type="text" value="<?php echo($tranID) ?>" name="transInfo" hidden>
+                                  <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
+                                </form>
 
-                                </td>
-                              
-                          <?php }
-                            }else{
-                              echo "0 results";
-                            }
-                          ?>
-                          </tr>
-                      
-                        </tbody>
+                              </td>
+                            
+                        <?php }
+                          }else{
+                            echo "0 results";
+                          }
+                        ?>
+                        </tr>
+                    
+                      </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-        </div>
-       
-        <!-- add service transaction modal-->
-        <div class="modal fade bd-example-modal-lg" id="addServiceTransaction" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add Transaction</h4>
+          </div>
+
+          <div class="row">
+          <div class="col-md-12"> 
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Finished Transactions Table</h3> 
               </div>
-              <div class="modal-body">
-                <form>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>Client Name</label>
-                        
-                        <input type="text" name="client-name" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Contact Number</label>
-                        <input type="text" name="contactNum" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" name="date" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="form-group">
-                        <label>Home Address</label>
-                        <input type="text" name="hAddress" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label>Rental Charge</label>
-                        <input type="text" name="rentChrge" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label>Advance</label>
-                        <input type="text" name="advnce" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group">
-                        <label>Balance</label>
-                        <input type="text" name="balance" class="form-control">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>ID Type</label>
-                        <input type="text" name="idType" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <div class="form-group">
-                        <label>School<i>(For Students)</i></label>
-                        <input type="text" name="school" class="form-control">
-                      </div>                 
-                    </div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label>Year & Section<i>(For Students)</i></label>
-                        <input type="text" name="yrSec" class="form-control">
-                      </div>
-                    </div>
-                  </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div  class="table table-responsive">
+                    <table id ="rentalTable" class="table table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Transaction ID</th>
+                          <th>Client Name</th>
+                          <th>Contact Number</th>
+                          <th>Total Amount</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php 
+                          if(!empty($finishedTransactions)){
 
-              
+                          foreach ($finishedTransactions as $ftransac) { 
+                          $ftranID = $ftransac['transactionID'];
+                            
+                        ?> 
+                            
+                            <tr>
 
-                  <!-- borrowed items --> 
-                  <div class="col-lg-12">
-                    <div class="box">
-                      <div class="box-header">
-                        <h4>Borrowed Items</h4>
-                      </div>
-                      <div class="box-body">
-                        <div class="table table-responsive">
-                          <table id="borrowedItms" class="table table-bordered table-condensed table-hover text-center">
-                            <thead>
-                              <tr>
-                                <th>Item Name</th>
-                                <th>Color</th>
-                                <th>Image</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <!--<label>Decors</label>-->
-                              <?php
-                                foreach ($decors as $dec) { ?> 
-                                  <tr>
-                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $dec['decorName']?></span></form></td>
-                                    <td><?php echo $dec['color'] ?></td>
-                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($dec['decorImage']) . '"/>' ?></td>
-                                  </tr>
-                              <?php  }
-                              ?>
-                              <!--<label>Designs</label>-->
-                              <?php
-                                foreach ($designs as $des) { ?>
-                                  <tr>
-                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $des['designName']?></span></form></td>
-                                    <td><?php echo $des['color'] ?></td>
-                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($des['designImage']) . '"/>' ?></td>
-                                  </tr>
-                              <?php  }
-                              ?>
-                            </tbody>
-                          </table>  
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                              <td><?php echo $ftransac['transactionID']; ?></td>
+                              <td><?php echo $ftransac['clientName']; ?></td>
+                              <td><?php echo $ftransac['contactNo']; ?></td>
+                              <td><?php echo $ftransac['totalAmount']; ?></td>
+                              <td>
 
-                  <div class="modal-footer">
-                    <div class="row">
-                      <div class="col-lg-2">
-                        <button type="submit" class="btn btn-success" action="submitForm.php">Save</button>
-                      </div>
-                      <div class="col-lg-2">
-                        <button type="reset" class="btn btn-danger" onclick="reset_chkbx()">Reset</button>
-                      </div>
-                    </div>
+                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                  <input type="text" value="<?php echo($ftranID) ?>" name="transInfo" hidden>
+                                  <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
+                                </form>
+
+                              </td>
+                            
+                        <?php }
+                          }else{
+                            echo "0 results";
+                          }
+                        ?>
+                        </tr>
+                    
+                      </tbody>
+                    </table>
                   </div>
-                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+          <div class="col-md-12"> 
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">Cancelled Transactions Table</h3>
+              </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                  <div  class="table table-responsive">
+                    <table id ="rentalTable" class="table table-bordered table-condensed">
+                      <thead>
+                        <tr>
+                          <th>Transaction ID</th>
+                          <th>Client Name</th>
+                          <th>Contact Number</th>
+                          <th>Total Amount</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php 
+                          if(!empty($cancelledTransactions)){
+
+                          foreach ($cancelledTransactions as $ctransac) { 
+                          $ctranID = $ctransac['transactionID'];
+                            
+                        ?> 
+                            
+                            <tr>
+
+                              <td><?php echo $ctransac['transactionID']; ?></td>
+                              <td><?php echo $ctransac['clientName']; ?></td>
+                              <td><?php echo $ctransac['contactNo']; ?></td>
+                              <td><?php echo $ctransac['totalAmount']; ?></td>
+                              <td>
+
+                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                  <input type="text" value="<?php echo($ctranID) ?>" name="transInfo" hidden>
+                                  <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
+                                </form>
+
+                              </td>
+                            
+                        <?php }
+                          }else{
+                            echo "0 results";
+                          }
+                        ?>
+                        </tr>
+                    
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       
+<!-- add service transaction modal-->
+<div class="modal fade bd-example-modal-lg" id="addServiceTransaction" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Transaction</h4>
+      </div>
+      <form>
+        <div class="modal-body"> 
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Client Name</label>
+                
+                <input type="text" name="client-name" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>Contact Number</label>
+                <input type="text" name="contactNum" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>Date</label>
+                <input type="date" name="date" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" name="hAddress" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label>Rental Charge</label>
+                <input type="text" name="rentChrge" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label>Advance</label>
+                <input type="text" name="advnce" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label>Balance</label>
+                <input type="text" name="balance" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>ID Type</label>
+                <input type="text" name="idType" class="form-control">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>School<i>(For Students)</i></label>
+                <input type="text" name="school" class="form-control">
+              </div>                 
+            </div>
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label>Year & Section<i>(For Students)</i></label>
+                <input type="text" name="yrSec" class="form-control">
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-lg-2">
+              <button type="submit" class="btn btn-success" action="submitForm.php">Save</button>
+            </div>
+            <div class="col-lg-2">
+              <button type="reset" class="btn btn-danger" onclick="reset_chkbx()">Reset</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
         
     </section>
     <!-- /.content -->
@@ -312,3 +380,55 @@
   
 </script>
 
+
+              
+
+                  <!-- borrowed items --> 
+                  <!--
+                  <div class="col-lg-12">
+                    <div class="box">
+                      <div class="box-header">
+                        <h4>Borrowed Items</h4>
+                      </div>
+                      <div class="box-body">
+                        <div class="table table-responsive">
+                          <table id="borrowedItms" class="table table-bordered table-condensed table-hover text-center">
+                            <thead>
+                              <tr>
+                                <th>Item Name</th>
+                                <th>Color</th>
+                                <th>Image</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            -->
+                              <!--<label>Decors</label>-->
+                              <!--
+                              <?php
+                                foreach ($decors as $dec) { ?> 
+                                  <tr>
+                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $dec['decorName']?></span></form></td>
+                                    <td><?php echo $dec['color'] ?></td>
+                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($dec['decorImage']) . '"/>' ?></td>
+                                  </tr>
+                              <?php  }
+                              ?>
+                            -->
+                              <!--<label>Designs</label>-->
+                              <!--
+                              <?php
+                                foreach ($designs as $des) { ?>
+                                  <tr>
+                                    <td><form><span class="form-group checkbox"><label><input type="checkbox" name="" value=""></label><?php echo $des['designName']?></span></form></td>
+                                    <td><?php echo $des['color'] ?></td>
+                                    <td><?php echo '<img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($des['designImage']) . '"/>' ?></td>
+                                  </tr>
+                              <?php  }
+                              ?>
+                            </tbody>
+                          </table>  
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  -->

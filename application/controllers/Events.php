@@ -138,6 +138,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$id = $this->session->userdata('currentEventID');
 			$data['eventName'] =$this->events_model->getEventName($id);
 			$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
+			$data['entourage'] = $this->events_model->getEntourage($id);
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['designs']=$this->events_model->getDesigns($currentEvent);
@@ -397,7 +398,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = $this->input->post('name');
+			$entName = $this->input->post('entourage_name');
 			$eRole = $this->input->post('role');
 			$eShoulder = $this->input->post('shoulder');
 			$eChest = $this->input->post('chest');
@@ -409,7 +410,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$ePantsL = $this->input->post('pantsLength');
 			$eBaston = $this->input->post('baston');
 
-			$this->events_model->addEventEntourage($enId, $eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+			$this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
 
 			redirect('events/eventEntourage');
 		}

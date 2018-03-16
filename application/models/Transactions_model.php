@@ -5,7 +5,7 @@
 	class Transactions_model extends CI_model
 	{
 		
-		public function view_transactions($empID, $role)
+		public function ongoingTransactions($empID, $role)
 		{
 
 			if ($role === 'admin') {
@@ -21,6 +21,54 @@
 					from clients 
 					join transactions using(clientID)
 					where $empID = employeeID and transactionstatus like 'on-going'"
+				);
+
+			}
+
+			return $query->result_array();
+
+		}
+		
+		public function finishedTransactions($empID, $role)
+		{
+
+			if ($role === 'admin') {
+				$query=$this->db->query(
+					"SELECT *  
+					from clients 
+					join transactions using(clientID)
+					where transactionstatus like 'finished'"
+				);
+			}else{
+				$query=$this->db->query(
+					"SELECT * 
+					from clients 
+					join transactions using(clientID)
+					where $empID = employeeID and transactionstatus like 'finished'"
+				);
+
+			}
+
+			return $query->result_array();
+
+		}
+
+		public function cancelledTransactions($empID, $role)
+		{
+
+			if ($role === 'admin') {
+				$query=$this->db->query(
+					"SELECT *  
+					from clients 
+					join transactions using(clientID)
+					where transactionstatus like 'cancelled'"
+				);
+			}else{
+				$query=$this->db->query(
+					"SELECT * 
+					from clients 
+					join transactions using(clientID)
+					where $empID = employeeID and transactionstatus like 'cancelled'"
 				);
 
 			}
@@ -155,6 +203,27 @@
 			}
 			
 			return $query->result_array();
+		}
+
+		public function finishTransaction($transID){
+
+			$data = array(
+				'transactionstatus' => "finished"
+			);
+
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+
+		}
+
+		public function cancelTransaction($transID){
+
+			$data = array(
+				'transactionstatus' => "cancelled"
+			);
+
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
 		}
 
 

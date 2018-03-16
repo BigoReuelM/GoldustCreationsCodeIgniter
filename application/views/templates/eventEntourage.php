@@ -74,60 +74,7 @@
             <div class="col-lg-3">
               <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
 
-              <!-- Modal for adding of entourage -->
-              <div class="modal fade" id="addEntourage" role="dialog">
-                  <div class="modal-dialog">
-
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <div class="col-lg-6">
-                          <h4 class="modal-title">Add Entourage</h4>
-                        </div>
-                        <!--div class="col-lg-6" id="butt1">
-                          <a type="button" class="btn btn-block btn-primary btn-lg">Add</a>
-                        </div-->
-                      </div>
-                    <div class="modal-body">
-                  <div class="box">
-      
-                    <div class="box-body">
-                      
-                    
-                      <table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
-                        <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Role</th>
-                          <th>Shoulder</th>
-                          <th>Chest</th>
-                          <th>Stomach</th>
-                          <th>Waist</th>
-                          <th>Arm Length</th>
-                          <th>Arm Hole</th>
-                          <th>Muscle</th>
-                          <th>Pants Length</th>
-                          <th>Baston</th>
-                          <th>Design Photo</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          
-                        </tbody>
-                      </table>
-                    </div>
-                        <!-- /.box-body -->
-                  </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-        
-              </div>
-            </div>
-            </div>
-              <!-- End of modal -->
+             </div> 
               <div class="col-lg-3">
               <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
             </div>
@@ -146,7 +93,7 @@
             </thead>
             <tbody>
               <?php 
-                foreach ($entourageDet as $details) {
+                foreach ($entourage as $details) {
                     $entID = $details['entourageID'];
                  ?>
                   <tr>
@@ -241,6 +188,8 @@
                           </tr>
                           <?php 
                                }
+                             }else{
+                              echo "wala laman";
                              }
                           ?>
                         </tbody>
@@ -283,6 +232,135 @@
             </div>
           <!-- /.modal-dialog -->
 
+          <!-- Modal for adding of entourage -->
+              <div class="modal fade" id="addEntourage" role="dialog">
+                  <div class="modal-dialog">
+
+                    <div class="modal-content">
+                      <form role="form" method="post" action="<?php echo base_url('events/addEntourage') ?>">
+
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="col-lg-6">
+                          <h4 class="modal-title">Add Entourage</h4>
+                        </div>
+                      </div>
+
+                    <div class="modal-body">
+                   <div class="row">
+                    <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Entourage Name</label>
+                        <input type="text" name="entourage_name" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" name="role" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Shoulder</label>
+                        <input type="text" name="shoulder" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Chest</label>
+                        <input type="text" name="chest" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Stomach</label>
+                        <input type="text" name="stomach" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Waist</label>
+                        <input type="text" name="waist" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Arm Length</label>
+                        <input type="text" name="armLength" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Arm Hole</label>
+                        <input type="text" name="armHole" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Muscle</label>
+                        <input type="text" name="muscle" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Pants Length</label>
+                        <input type="text" name="pantsLength" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Baston</label>
+                        <input type="text" name="baston" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                        <label>Design Photo </label>
+                        <img src="">
+                        </div>
+                    </div>
+                    </div>
+ 
+                        <!-- /.box-body -->
+                  </div>
+                  </div>
+                </div>
+                  <div class="modal-footer">
+                    <div class="col-lg-6" id="butt1">
+                          <button type="submit" class="btn btn-block btn-primary btn-lg">Add</button>
+                      </div>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+              <!-- End of modal -->
+
          <!--<div class="modal fade" id="rmvent" >
             <div class="modal-dialog">
               <div class="modal-content">
@@ -298,12 +376,11 @@
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
                 </div>
-              </div>
+              </div-->
               <!-- /.modal-content -->
             </div>
           <!-- /.modal-dialog -->
-          </div>
-    </section>
+        </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

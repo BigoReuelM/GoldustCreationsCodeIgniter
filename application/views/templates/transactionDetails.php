@@ -109,6 +109,20 @@
             </div>                  
           </div>
         </form>
+        <div class="row">
+          <form method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+            <div class="col-lg-6">
+              <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
+              <button type="submit" class="btn btn-block btn-primary">Finish</button>
+            </div>
+          </form>
+          <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+            <div class="col-lg-6">
+              <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
+              <button type="submit" class="btn btn-block btn-danger">Cancel</button>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-6">
