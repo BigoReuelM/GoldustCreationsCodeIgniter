@@ -46,12 +46,12 @@
                 <input type="text" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
               </div>
               <div class="form-group">
-                <label>Contact Number</label>
-                <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
+                <label>Client Name</label>
+                <input type="text" name="clientName" class="form-control" placeholder="<?php echo $eventDetail->clientName ?>" value="" disabled>
               </div>
               <div class="form-group">
-                <label>Client Name</label>
-                <input type="text" name="clientName" class="form-control" placeholder="<?php echo $eventDetail->clientName ?>" value="">
+                <label>Contact Number</label>
+                <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
               </div>
               <div class="form-group">
                 <label>Celebrant</label>

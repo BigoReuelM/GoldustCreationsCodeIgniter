@@ -368,6 +368,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID);
 
 			$this->session->set_userdata('currentEventID', $newEventID);
+			$this->session->set_userdata('clientID', $clientID);
 
 			redirect('events/eventDetails');
 
@@ -446,7 +447,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function updateEventDetails(){
 			$eventID = $this->session->userdata('currentEventID');
+			$clientID = $this->session->userdata('clientID');
 			$eventName = $this->input->post('eventName');
+			$clientContactNo = $this->input->post('contactNumber');
 			$celebrant = $this->input->post('celebrantName');
 			$dateAvailed = $this->input->post('dateAvailed');
 			$packageType = $this->input->post('package');
@@ -462,6 +465,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			if (!empty($celebrant)) {
 				$this->events_model->upCelebrantName($celebrant, $eventID);
+			}
+			if (!empty($clientContactNo)) {
+				$this->events_model->upClientContactNo($clientContactNo, $clientID);
 			}
 			if (!empty($packageType)) {
 				$this->events_model->upPackageType($packageType, $eventID);

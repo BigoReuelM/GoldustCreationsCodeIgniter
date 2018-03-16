@@ -406,6 +406,13 @@
 			$this->db->where('eventID', $eventID);
 			$this->db->update('events', $data);
 		}
+		public function upClientContactNo($clientContactNo, $clientID){
+			$data = array(
+				'contactNumber' => $clientContactNo
+			);
+			$this->db->where('clientID', $clientID);
+			$this->db->update('clients', $data);
+		}
 		public function upPackageType($packageType, $eventID){
 			$data = array(
 				'packageType' => $packageType
