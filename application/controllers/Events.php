@@ -362,10 +362,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		public function addEvent(){
-
+			$employeeID = $this->session->userdata('employeeID');
 			$clientID = $this->input->post('clientID');
 
-			$newEventID = $this->events_model->addEvent($clientID);
+			$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID);
 
 			$this->session->set_userdata('currentEventID', $newEventID);
 

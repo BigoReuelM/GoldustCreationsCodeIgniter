@@ -344,10 +344,11 @@
 			$this->db->insert('appointments', $data);
 		}
 
-		public function addEvent($clientID){
+		public function insertNewEvent($clientID, $employeeID){
 			$eventStatus = "new";
 			$data = array(
-				'clientID' => $clientID
+				'clientID' => $clientID,
+				'employeeID' => $employeeID
 			);
 
 			$this->db->insert('events', $data);
