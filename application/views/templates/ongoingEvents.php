@@ -23,8 +23,6 @@
           echo'<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#add-event">Add Event</button>';
          }
       ?>
-      
-
 
       <!-- Data table of ongoing events -->
         <div class="box">
