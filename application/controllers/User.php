@@ -56,16 +56,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		       		$this->load->view("login.php");
 		 
 		      	}
+
+
 		 
 		}
 		//user-profile loader
-		/*
-		function user_profile(){
- 
-			$this->load->view('user_profile.php');
+		
+		public function user_profile(){
+
+			$userID = $this->session->userdata("employeeID");
+			$empRole = $this->session->userdata('role');
+			$data['employee'] = $this->user_model->getProfile($userID);
+
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				
+			}else{
+				$this->load->view("templates/header.php");
+				
+			}
+			$this->load->view("templates/profile.php", $data);
+			$this->load->view("templates/footer.php");
  
 		}
-		*/
+		
 		//user logout, session destroy
 		public function user_logout(){
  

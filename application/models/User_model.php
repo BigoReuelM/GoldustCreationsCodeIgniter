@@ -25,6 +25,16 @@
 				return false;
 			}
 		}
+
+		public function getProfile($empID){
+			$query=$this->db->query("
+				SELECT *
+				FROM employees
+				WHERE employeeID = $empID
+			");
+
+			return $query->row();
+		}
 		//check if email already registered
 		/*
 		public function email_check($email){

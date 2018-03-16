@@ -50,18 +50,14 @@
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <?php
-                  '<img src="' . base64_encode($photo) . '" class="user-image" alt="User Image">' 
-              ?>
+              <img class="user-image" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs"><?php echo $name ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <?php
-                  '<img src="'.$photo.'" class="img-circle" alt="User Image">' 
-                ?>
+                <img class="img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
                 
                 <p>
                   <?php echo $name ?> - Admin
@@ -70,7 +66,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="../profile.php" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?php echo base_url('user/user_profile') ?>" class="btn btn-default btn-flat">Profile</a>
                 </div> <!--trial-->
                 <div class="pull-right">
                   <a href="<?php echo base_url('user/user_logout') ?>" class="btn btn-default btn-flat">Sign out</a>
