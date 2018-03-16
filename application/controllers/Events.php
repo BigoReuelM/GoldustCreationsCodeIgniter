@@ -424,27 +424,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addsvc(){
 			$addSvc = $this->input->post('add_servc_chkbox');
-			$svcqty = $this->input->post('addsvcqty');
-			$svcamt = $this->input->post('addsvcamt');
 			$eID = $this->session->userdata('currentEventID');
-			$this->events_model->addServcs($eID, $addSvc, $svcamt, $svcqty);
+			$this->events_model->addServcs($eID, $addSvc);
 			$this->eventDetails();
 		}
 
 		public function chkSvcQtyAmt(){
+			$svcID = $this->input->post('svcID');
+			$this->session->set_userdata('currentSvcID', $svcID);
+
 			$eID = $this->session->userdata('currentEventID');
-			$dbSvcQty = $this->events_model->returnSvcQty('currentEventID');
-			$dbSvcAmt = $this->events_model->returnSvcAmt('currentEventID');	
+			$srvcID = $this->session->userdata('currentSvcID');
+
+			$dbSvcQty = $this->events_model->returnSvcQty($eID, $srvcID);
+			$dbSvcAmt = $this->events_model->returnSvcAmt($eID, $srvcID);	
+
 			$qty = $this->input->post('svcqty');
 			$amt = $this->input->post('svcamt');
-			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {			
-				$this->events_model->updateSvcQty($eID, $qty);
+			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {
+				$this->events_model->updateSvcQty($eID, $qty, $srvcID);
 				$this->eventDetails();
 			}elseif (!($amt === $dbSvcAmt) && ($qty === $dbSvcQty)) {
-				$this->events_model->updateSvcAmt($eID, $amt);
+				$this->events_model->updateSvcAmt($eID, $amt, $srvcID);
 				$this->eventDetails();
 			}else{			
-				$this->events_model->updateSvcAmtQty($eID, $qty, $amt);
+				$this->events_model->updateSvcAmtQty($eID, $qty, $amt, $srvcID);
 				$this->eventDetails();
 			}
 		}

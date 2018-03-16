@@ -1,11 +1,18 @@
 <?php 
   $empRole = $this->session->userdata('role');
 
+  if(!$this->session->has_userdata('currentSvcID')){
+      echo "awan";
+  }else{
+    $svcid = $this->session->userdata('currentSvcID');
+    echo $svcid;
+  }
  ?>
  <style type="text/css">
    #butt5 {
     width: 100px;
    }
+
  </style>
 <!-- Main content -->
 <section class="content container-fluid">
@@ -160,8 +167,7 @@
                   if ($empRole === 'admin') {
                      echo '<button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
                    } 
-                ?>
-                
+                ?>               
               </div>
           </div>
         </form>
@@ -227,12 +233,12 @@
   </div>
 
   <div class="row">
-    <!--service column-->
+    <!--service table-->
     <!-- form for updating qty and svc -->
     
     <!-- form for removing a row from svc table -->
     <form id="evtsvcdltform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>"></form>
-    
+
     <div class="col-lg-6">
       <div class="box box-primary">
         <div class="box-header">
@@ -252,30 +258,36 @@
             <tbody>
               <?php
                 if (!empty($avlServcs)) {
-                 // $mergeArray = array_merge($servcs, $avlServcs);
-                  foreach ($avlServcs as $avlSvc) { ?>
+                  foreach ($avlServcs as $avlSvc) { 
+                      $svcID = $avlSvc['serviceID'];
+                    ?>
                     <tr>
                       <form id="svcform" role="form" method="post" action="<?php echo base_url('events/chkSvcQtyAmt') ?>">
                         <!-- service name -->
-                        <td><?php echo $avlSvc['serviceName'] ?></td>
+                        <td>
+                          <?php echo $avlSvc['serviceName'] ?>                         
+                        </td>
                         <!-- quantity -->                     
-                        <td><input class="form-control" type="text" name="svcqty" style="border: none;"  value="<?php echo $avlSvc['quantity'] ?>"></td>
+                        <td>
+                          <input class="form-control" type="text" name="svcqty" style="border: none;"  value="<?php echo $avlSvc['quantity'] ?>">
+                        </td>
                         <!-- amount -->
-                        <td><input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>"></td>
+                        <td>
+                          <input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>">
+                        </td>
                         <td>                       
-                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>                 
-                        </td>                     
+                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>  
+                          <button form="svcform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Update</button>          
+                        </td> 
+                        </form>                    
                     </tr>
                   <?php }
                     }
                   ?>
             </tbody>
           </table>
-          <div class="row">
-            <div class= "col-lg-6">
-              <button type="submit" form="svcform" class="btn btn-block btn-primary">Update Services</button> 
-            </div>
-            </form>
+          
+            
             <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
             </div>
@@ -370,8 +382,6 @@
               <tr>
                 <th>Service Name</th>
                 <th>Description</th>
-                <th>Quantity</th>
-                <th>Amount</th>
               </tr>
             </thead>
             <tbody>
@@ -389,8 +399,6 @@
                             ?>
                           </td>
                           <td><?php echo $svc['description'] ?></td>
-                          <td><input class="form-control" type="text" name="addsvcqty" style="border: none;" placeholder="qty"></td>
-                          <td><input class="form-control" type="text" name="addsvcamt" style="border: none;" placeholder="amount"></td>
                       </tr>
                 <?php }
                   }
@@ -408,7 +416,6 @@
 
   </div>
 </div>
-
 
   <!-- Add staff Modal -->
 <div class="modal fade" id="addstaff" role="dialog">

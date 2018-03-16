@@ -425,55 +425,56 @@
 			$this->db->update('events', $data);
 		} 
 
-		public function returnSvcQty($eventID){
+		public function returnSvcQty($eventID, $svcID){
 			$this->db->select('quantity');
 			$this->db->from('eventservices');
 			$this->db->where('eventID', $eventID);
+			$this->db->where('serviceID', $svcID);
 			$query = $this->db->get();
 			return $query->row();
 		}
 
-		public function returnSvcAmt($eventID){
+		public function returnSvcAmt($eventID, $svcID){
 			$this->db->select('amount');
 			$this->db->from('eventservices');
 			$this->db->where('eventID', $eventID);
+			$this->db->where('serviceID', $svcID);
 			$query = $this->db->get();
 			return $query->row();
 		}
 
-		public function updateSvcQty($eventID, $qty){
+		public function updateSvcQty($eventID, $qty, $svcID){
 			$data = array(
 				'quantity' => $qty
 			);
 			$this->db->where('eventID', $eventID);
+			$this->db->where('serviceID', $svcID);
 			$this->db->update('eventservices', $data);
 		}
 
-		public function updateSvcAmt($eventID, $amt){
+		public function updateSvcAmt($eventID, $amt, $svcID){
 			$data = array(
 				'amount' => $amt
 			);
 			$this->db->where('eventID', $eventID);
+			$this->db->where('serviceID', $svcID);
 			$this->db->update('eventservices', $data);
 		}
 
-		public function updateSvcAmtQty($eventID, $qty, $amt){
+		public function updateSvcAmtQty($eventID, $qty, $amt, $svcID){
 			$data = array(
 				'quantity' => $qty,
 				'amount' => $amt
 			);
 			$this->db->where('eventID', $eventID);
-
+			$this->db->where('serviceID', $svcID);
 			$this->db->update('eventservices', $data);
 		}
 
-		public function addServcs($eID, $svcid, $amt, $qty){
-			// INSERT INTO eventservices(serviceID, quantity, amount) VALUES(001, 10, 10000);
+		public function addServcs($eID, $svcid){
 			$data = array(
 				'eventID' => $eID,
-				'serviceID' => $svcid,
-				'amount' => $amt,
-				'quantity' => $qty
+				'serviceID' => $svcid
 			);
 			$this->db->insert('eventservices', $data);
 		}
