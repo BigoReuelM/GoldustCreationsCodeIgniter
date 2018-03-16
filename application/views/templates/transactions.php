@@ -67,7 +67,7 @@
 
                               <td><?php echo $transac['transactionID']; ?></td>
                               <td><?php echo $transac['clientName']; ?></td>
-                              <td><?php echo $transac['contactNo']; ?></td>
+                              <td><?php echo $transac['contactNumber']; ?></td>
                               <td><?php echo $transac['totalAmount']; ?></td>
                               <td>
 
@@ -125,7 +125,7 @@
 
                               <td><?php echo $ftransac['transactionID']; ?></td>
                               <td><?php echo $ftransac['clientName']; ?></td>
-                              <td><?php echo $ftransac['contactNo']; ?></td>
+                              <td><?php echo $ftransac['contactNumber']; ?></td>
                               <td><?php echo $ftransac['totalAmount']; ?></td>
                               <td>
 
@@ -183,7 +183,7 @@
 
                               <td><?php echo $ctransac['transactionID']; ?></td>
                               <td><?php echo $ctransac['clientName']; ?></td>
-                              <td><?php echo $ctransac['contactNo']; ?></td>
+                              <td><?php echo $ctransac['contactNumber']; ?></td>
                               <td><?php echo $ctransac['totalAmount']; ?></td>
                               <td>
 

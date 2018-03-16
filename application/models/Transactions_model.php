@@ -10,14 +10,14 @@
 
 			if ($role === 'admin') {
 				$query=$this->db->query(
-					"SELECT *  
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName  
 					from clients 
 					join transactions using(clientID)
 					where transactionstatus like 'on-going'"
 				);
 			}else{
 				$query=$this->db->query(
-					"SELECT * 
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName 
 					from clients 
 					join transactions using(clientID)
 					where $empID = employeeID and transactionstatus like 'on-going'"
@@ -34,14 +34,14 @@
 
 			if ($role === 'admin') {
 				$query=$this->db->query(
-					"SELECT *  
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName  
 					from clients 
 					join transactions using(clientID)
 					where transactionstatus like 'finished'"
 				);
 			}else{
 				$query=$this->db->query(
-					"SELECT * 
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName 
 					from clients 
 					join transactions using(clientID)
 					where $empID = employeeID and transactionstatus like 'finished'"
@@ -58,14 +58,14 @@
 
 			if ($role === 'admin') {
 				$query=$this->db->query(
-					"SELECT *  
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName  
 					from clients 
 					join transactions using(clientID)
 					where transactionstatus like 'cancelled'"
 				);
 			}else{
 				$query=$this->db->query(
-					"SELECT * 
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName 
 					from clients 
 					join transactions using(clientID)
 					where $empID = employeeID and transactionstatus like 'cancelled'"
@@ -79,7 +79,7 @@
 
 		public function getTransactionDetails($transID){
 			$query=$this->db->query(
-					"SELECT * 
+					"SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName 
 					FROM transactions  
 					NATURAL JOIN clients
 					WHERE transactionID = $transID"
@@ -158,11 +158,11 @@
 			$empRole = $this->session->userdata('role');
 			if($empRole === "handler"){
 				$query = $this->db->query("
-				SELECT eventName, clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
 				");
 			}else{
 				$query = $this->db->query("
-				SELECT eventName, clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
 				");
 			}
 			return $query->result_array();
@@ -172,7 +172,7 @@
 			$eID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query= $this->db->query("SELECT *
+				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
 				FROM
 				    services s
 				        NATURAL JOIN			  
@@ -187,7 +187,7 @@
 				        AND t.employeeID = $eID"
 				);
 			}else{
-				$query= $this->db->query("SELECT *
+				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
 				FROM
 				    services s
 				        NATURAL JOIN			  

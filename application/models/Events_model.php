@@ -8,7 +8,7 @@
 		public function getEvents($employeeID, $role, $status)
 		{
 			
-			$this->db->select('*');
+			$this->db->select('*, concat(firstName, " ", middleName, " ", lastName) as clientName');
 			$this->db->from('events');
 			$this->db->join('clients','events.clientID = clients.clientID');
 			if ($role === 'handler') {
@@ -24,7 +24,7 @@
 		public function getNewEvents($employeeID, $role, $status)
 		{
 			
-			$this->db->SELECT('*');
+			$this->db->SELECT('*, concat(firstName, " ", middleName, " ", lastName) as clientName');
 			$this->db->from('events');
 			$this->db->join('clients','events.clientID = clients.clientID');
 			if ($role === 'handler') {
@@ -80,7 +80,7 @@
 		public function getEventDetails($eventID, $cID){
 
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
 				FROM events 
 				NATURAL JOIN clients
 				WHERE eventID = $eventID;
@@ -150,7 +150,7 @@
 		}
 
 		public function getClientName($cid){
-			$query = $this->db->query("SELECT clientName FROM clients where clientID = $cid");
+			$query = $this->db->query("SELECT concat(firstName, ' ', middleName, ' ', lastName) as clientName FROM clients where clientID = $cid");
 			return $query->row();
 		}
 
