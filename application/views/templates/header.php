@@ -16,7 +16,7 @@ $photo = $this->session->userdata('photo');
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
+            <li><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -33,13 +33,9 @@ $photo = $this->session->userdata('photo');
                 <li><a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a></li>
               </ul>
             </li>
-            <li class="active"><a href="<?php echo base_url('items/gowns') ?>">Gallery</a></li>
+            <li><a href="<?php echo base_url('items/gowns') ?>">Gallery</a></li>
+            <li><a href="<?php echo base_url('clients/clients') ?>">Clients</a></li>
           </ul>
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
-            </div>
-          </form>
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->
