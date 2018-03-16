@@ -36,7 +36,7 @@
                 	<?php 
                 		if (!empty($clients)) {
                 			foreach ($clients as $client) {
-                				
+                			$cID = $client['clientID'];
                 	?>
                 	<tr>
 	                    <td><?php echo $client['clientName'] ?></td>
@@ -44,18 +44,22 @@
 	                    <td><?php echo $client['contactNumber'] ?></td>
 	                    <td>
 	                    	<div class="row">
-	                    		<form role="form" action="">
+	                    		<form role="form" method="post" action="<?php echo base_url('transactions/addTransaction') ?>">
 		                    		<div class="col-lg-6">
-		                    			<button class="btn btn-block btn-default">
+                              <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
+		                    			<button type="submit" class="btn btn-block btn-default">
 		                    				Add Transaction
 		                    			</button>
 		                    		</div>
 	                    		</form>
-	                    		<div class="col-lg-6">
-	                    			<button class="btn btn-block btn-default">
-	                    				Add Event
-	                    			</button>
-	                    		</div>
+                          <form role="form" method="post" action="<?php echo base_url('events/addEvent') ?>">
+  	                    		<div class="col-lg-6">
+                              <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
+    	                    			<button type="submit" class="btn btn-block btn-default">
+    	                    				Add Event
+    	                    			</button>
+  	                    		</div>
+                          </form>
 	                    	</div>
 	                    </td>
                 	</tr>

@@ -226,6 +226,17 @@
 			$this->db->update('transactions', $data);
 		}
 
+		public function insertTransaction($clientID){
+
+			$data = array(
+				'clientID' => $clientID,
+			);
+
+			$this->db->insert('transactions', $data);
+
+			return $this->db->insert_id();
+		}
+
 
 	}
 
