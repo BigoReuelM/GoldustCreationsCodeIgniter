@@ -397,7 +397,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = $this->input->post('name');
+			$entName = $this->input->post('entourage_name');
 			$eRole = $this->input->post('role');
 			$eShoulder = $this->input->post('shoulder');
 			$eChest = $this->input->post('chest');
@@ -409,7 +409,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$ePantsL = $this->input->post('pantsLength');
 			$eBaston = $this->input->post('baston');
 
-			$this->events_model->addEventEntourage($enId, $eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+			$this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
 
 			redirect('events/eventEntourage');
 		}
@@ -420,6 +420,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->updateEventHandler($eId, $handlerID);
 			redirect('events/eventDetails');
 		}
+
 		public function addsvc(){
 			$addSvc = $this->input->post('add_servc_chkbox');
 			$svcqty = $this->input->post('addsvcqty');
@@ -429,12 +430,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventDetails();
 		}
 
-		public function editSvc(){
+		public function chkSvcQtyAmt(){
 			$eID = $this->session->userdata('currentEventID');
+			$dbSvcQty = $this->events_model->returnSvcQty('currentEventID');
+			$dbSvcAmt = $this->events_model->returnSvcAmt('currentEventID');	
 			$qty = $this->input->post('svcqty');
 			$amt = $this->input->post('svcamt');
-			$this->events_model->updateSvc($eID, $qty, $amt);
-			$this->eventDetails();
+			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {			
+				$this->events_model->updateSvcQty($eID, $qty);
+				$this->eventDetails();
+			}elseif (!($amt === $dbSvcAmt) && ($qty === $dbSvcQty)) {
+				$this->events_model->updateSvcAmt($eID, $amt);
+				$this->eventDetails();
+			}else{			
+				$this->events_model->updateSvcAmtQty($eID, $qty, $amt);
+				$this->eventDetails();
+			}
 		}
 
 	}

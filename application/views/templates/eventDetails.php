@@ -228,7 +228,9 @@
 
   <div class="row">
     <!--service column-->
-    <form id="svcform" role="form" method="post" action="<?php echo base_url('events/editSvc') ?>"></form>
+    <!-- form for updating qty and svc -->
+    
+    <!-- form for removing a row from svc table -->
     <form id="evtsvcdltform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>"></form>
     
     <div class="col-lg-6">
@@ -253,15 +255,16 @@
                  // $mergeArray = array_merge($servcs, $avlServcs);
                   foreach ($avlServcs as $avlSvc) { ?>
                     <tr>
-                      <!-- service name -->
-                      <td><?php echo $avlSvc['serviceName'] ?></td>
-                      <!-- quantity -->
-                      <td><input class="form-control" type="text" name="svcqty" style="border: none;"  placeholder="<?php echo $avlSvc['quantity'] ?>"></td>
-                      <!-- amount -->
-                      <td><input class="form-control" type="text" name="svcamt" style="border: none;"  placeholder="<?php echo $avlSvc['amount']?>"></td>
-                      <td>                       
-                        <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>                 
-                      </td>
+                      <form id="svcform" role="form" method="post" action="<?php echo base_url('events/chkSvcQtyAmt') ?>">
+                        <!-- service name -->
+                        <td><?php echo $avlSvc['serviceName'] ?></td>
+                        <!-- quantity -->                     
+                        <td><input class="form-control" type="text" name="svcqty" style="border: none;"  value="<?php echo $avlSvc['quantity'] ?>"></td>
+                        <!-- amount -->
+                        <td><input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>"></td>
+                        <td>                       
+                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>                 
+                        </td>                     
                     </tr>
                   <?php }
                     }
@@ -272,6 +275,7 @@
             <div class= "col-lg-6">
               <button type="submit" form="svcform" class="btn btn-block btn-primary">Update Services</button> 
             </div>
+            </form>
             <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
             </div>
