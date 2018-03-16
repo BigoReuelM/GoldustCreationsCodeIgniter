@@ -22,11 +22,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$data['services']=$this->events_model->getServices();
-			$data['transactions']=$this->transactions_model->view_transactions($empID, $empRole);
+
 			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
 			$data['decors'] = $this->transactions_model->getDecors();
 			$data['designs'] = $this->transactions_model->getDesigns();
-
+			$data['ongoingTransactions']=$this->transactions_model->ongoingTransactions($empID, $empRole);
+			$data['finishedTransactions']=$this->transactions_model->finishedTransactions($empID, $empRole);
+			$data['cancelledTransactions']=$this->transactions_model->cancelledTransactions($empID, $empRole);
 
 			$this->load->view("templates/head.php");
 			
@@ -90,6 +92,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			//$this->session->set_serdata('tID');
 			$currentTransactionID = $this->input->post('tID');
 			$this->session->set_userdata('tID', $currentTransactionID);
+			
+		}
+
+		public function markFinish(){
+			$id = $this->input->post('finish');
+
+			$this->transactions_model->finishTransaction($id);
+
+			redirect('transactions/transactions');
+		}
+
+		public function markCancel(){
+			$id = $this->input->post('cancel');
+
+			$this->transactions_model->cancelTransaction($id);
+
+			redirect('transactions/transactions');
 			
 		}
 		
