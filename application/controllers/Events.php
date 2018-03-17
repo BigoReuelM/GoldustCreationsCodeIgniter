@@ -522,6 +522,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			redirect('events/canceledEvents');
 		}
 
+		/*public function getRole(){
+			$this->load->model('events_model');
+			$data['results'] = $this->events_model->getRole();
+			$this->load->view('entourage', $data);
+		}*/
+
+		public function showEntourageRole(){
+		 	$data = array();
+		 	$this->load->model('events_model');
+		 	$query = $this->events_model->getRole();
+		 	if ($query){
+		 		$data['roles'] = $query; 
+		 	}
+		 	$this->load->view('eventEntourage', $data);
+		 }
+
+		 public function showDesignName(){
+			$data = array();
+			$this->load->model('events_model');
+			$query = $this->events_model->getDesignName();
+			if ($query){
+				$data['designs'] = $query;
+			}
+			$this->load->view(eventEntourage, $data);
+		}
 	}
 
 ?>

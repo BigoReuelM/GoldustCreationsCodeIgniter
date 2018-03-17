@@ -99,10 +99,10 @@
               $gowID = $gow['designID'] ?>             
                   <div class="col-lg-3">
                     <div class="thumbnail">
-                      <form id="" role="form" method="post" action="<?php echo base_url('items/changeAttireEntourage') ?>">
-
+                      <form id="" role="form" method="post" action="">
+                            
                       <?php 
-                      echo '<input type="hidden" id="newDesId" name="newDesId" value="' . $gowID . '"/>';
+                      /*echo '<input type="hidden" id="newDesId" name="newDesId" value="' . $gowID . '"/>';*/
 
                       echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $gow['designImage'] ) . '"/>'; 
                       ?>

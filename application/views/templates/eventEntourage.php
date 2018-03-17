@@ -28,6 +28,7 @@
               <th>Design ID</th>
               <th>Name</th>
               <th>Quantity</th>
+              <th>Role</th>
               <th>Image</th>
               <th>Action</th>
             </tr>
@@ -43,12 +44,26 @@
                 <td><?php echo $design['designID'] ?></td>
                 <td><?php echo $design['designName'] ?></td>
                 <td><?php echo $design['quantity'] ?></td>
+                <td>
+                  <!--?php echo form_dropdown('nagan', $data['results']) ?-->
+                  <select name="role">
+                  <?php foreach($roles as $row) { ?>
+                  <option value="<?=$row->id?><?=$row->role?>"</option>
+                  <?php } ?>
+                  </select>
+                </td>
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
-                  <div class="col-md-3 col-sm-4">
+                  <!--div class="col-md-3 col-sm-4">
                   <form role="form" action="<?php echo base_url('items/changeAttireEntourageNewVal') ?>" method="post">
                   <button class="btn btn-block" id="changedesignbtn" name="designID" type="submit" value="<?php echo($desID)?>"> Edit <i class="fa fa-fw fa-edit"></i></button>
                   </form>
+                  </div-->
+                  <div class="col-md-3 col-sm-4">
+                    <form id="entourageidform" role="form" method="post" action="">
+                      <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value=""> Update <i class="fa fa-exchange" > </i>
+                      </button>
+                    </form>
                   </div>
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
@@ -96,6 +111,7 @@
               <th>Name</th>
               <th>Role</th>
               <th>Status</th>
+              <th>Design Name</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -108,6 +124,13 @@
                     <td><?php echo $details['entourageName'] ?></td>
                     <td><?php echo $details['role'] ?></td>
                     <td><?php echo $details['status'] ?></td>
+                    <td>
+                      <select name="designName">
+                      <!--<?php foreach($designs as $des) { ?>
+                      <option value="<?=$des->id?>"><?=$des->designName?></option>
+                      <?php } ?>-->
+                      </select>
+                    </td>
                     <td>
                       <div class="col-md-6 col-sm-4">
                       <!--form role="form" action="<?php echo base_url('') ?>" method="post">

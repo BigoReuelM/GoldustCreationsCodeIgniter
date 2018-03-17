@@ -150,7 +150,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/eventEntourage.php", $data);
 		}
 
-		public function changeAttireEntourage() {
+		/*public function changeAttireEntourage() {
 			$newDesID = $this->input->post('newDesId');
 			$eID = $this->session->userdata('currentEventID');
 			$deID = $this->session->userdata('currentDesignID');
@@ -166,6 +166,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->session->set_userdata('currentDesignID', $currentDesignID);
 
 			$this->gowns();
-		}
+		}*/
+
+		
 	} 
 ?>
