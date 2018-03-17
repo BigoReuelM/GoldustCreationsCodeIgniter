@@ -28,10 +28,10 @@
                         <th>Event Name</th>
                         <th>Client Name</th>
                         <th>Event Type</th>
-                        <th>Package Type</th>
-                        <th>Event Date</th>
-                        <th>Event Time</th>
+                        <th>Event Date</th>                        
                         <th>Event Location</th>
+                        <th>Refunded Amount</th>
+                        <th>Date Cancelled</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -46,10 +46,10 @@
                           <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
-                          <td><?php echo $event['packageType']; ?></td>
                           <td><?php echo $event['eventDate']; ?></td>
-                          <td><?php echo $event['eventTime']; ?></td>
                           <td><?php echo $event['eventLocation']; ?></td>
+                          <td><?php echo $event['refundedAmount']; ?></td>
+                          <td><?php echo $event['cancelledDate']; ?></td>
                           <td>
                             <div class="col-md-6 col-sm-4"><button data-toggle="modal" data-target="#modal-danger" class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
                                   <i class="fa fa-fw fa-check"></i>

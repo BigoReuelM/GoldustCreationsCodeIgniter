@@ -476,7 +476,38 @@
 
 		/*
 
-		Bellow are the queries for updating each event detail attribute...
+		Above are the queries for updating each event detail attribute...
+
+		*/
+
+		/*
+
+		Bellow are the queries for updating event status...
+
+		*/
+		public function markEventFinish($eventID){
+			$data = array(
+				'eventStatus' => "finished" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
+		public function markEventCancelled($eventID, $refundedAmount, $dateRefunded, $dateCancelled){
+			$data = array(
+				'refundedAmount' => $refundedAmount,
+				'refundedDate' => $dateRefunded,
+				'cancelledDate' => $dateCancelled,
+				'eventStatus' => "cancelled" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		/*
+
+		Above are the queries for updating event status...
 
 		*/
 

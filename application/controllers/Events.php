@@ -491,6 +491,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			redirect('events/eventDetails');
 		}
 
+		public function finishEvent(){
+			$eventID = $this->input->post('eventID');
+
+			$this->events_model->markEventFinish($eventID);
+
+			redirect('events/finishedEvents');
+		}
+
+		public function cancelEvent(){
+			$eventID = $this->input->post('eventID');
+			$refundAmount = $this->input->post('refundAmount');
+			$refundDate = $this->input->post('dateRefunded');
+			$cancelDate = $this->input->post('dateCancelled');
+
+			$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+
+			redirect('events/canceledEvents');
+		}
+
 	}
 
 ?>
