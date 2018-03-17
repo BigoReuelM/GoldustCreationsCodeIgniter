@@ -229,7 +229,7 @@
 			return $query->row();
 		}
 
-		public function getStaff($ceid){
+		/*public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
 				FROM employees
@@ -237,12 +237,13 @@
 				where eventID = $ceid    
 			");
 			return $query->result_array();
-		}
+		}*/
 
-		public function getOncallStaff($ceid){
+		public function getStaff($ceid){
 			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num, OCStaffID as empId
-				FROM oncallstaff
+				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
+				FROM employees
+				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
 			return $query->result_array();

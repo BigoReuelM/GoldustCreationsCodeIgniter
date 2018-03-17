@@ -113,7 +113,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['handlers'] = $this->events_model->getHandlers();
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 			$data['eventStaff'] = $this->events_model->getStaff($id);
-			$data['oncallStaff'] = $this->events_model->getOncallStaff($id);
 			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
 			 
 			$empRole = $this->session->userdata('role');
@@ -334,10 +333,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function rmvStaff(){
 			$svcStaff = $this->input->post('evtstaffdlt');
 			$this->session->set_userdata('currrentSvcStaff', $svcStaff);
+			
 			$svcstaffID = $this->session->userdata('currrentSvcStaff');
 			$eId = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEvtStaff($eId, $svcstaffID);
-			$this->events_model->deleteEvtOCStaff($eId, $svcstaffID);
 			$this->eventDetails();
 		}
 
@@ -426,9 +425,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addsvc(){
-			$addSvc = $this->input->post('add_servc_chkbox');
+			$addSvc = array($this->input->post('add_servc_chkbox'));
 			$eID = $this->session->userdata('currentEventID');
-			$this->events_model->addServcs($eID, $addSvc);
+			foreach ($addSvc as $svc) {
+				$this->events_model->addServcs($eID, $svc);
+			}			
 			$this->eventDetails();
 		}
 
@@ -442,8 +443,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$dbSvcQty = $this->events_model->returnSvcQty($eID, $srvcID);
 			$dbSvcAmt = $this->events_model->returnSvcAmt($eID, $srvcID);	
 
-			$qty = $this->input->post('svcqty');
-			$amt = $this->input->post('svcamt');
+			$qty = $this->input->post('rowqty');
+			$amt = $this->input->post('rowamt');
 			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {
 				$this->events_model->updateSvcQty($eID, $qty, $srvcID);
 				$this->eventDetails();
