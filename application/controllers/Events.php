@@ -317,23 +317,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventEntourage();
 		}*/
 
-		// set and delete selected event service...
-		public function setDltCurrentSvcID(){
-			$currentSvcID = $this->input->post('svcID');
-			$this->session->set_userdata('currentSvcID', $currentSvcID);
-			
-			$svcId = $this->session->userdata('currentSvcID');
-			$eId = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEvntSvc($svcId, $eId);
-
-			$this->eventDetails();			
-		}
-
 		// remove staff from event
 		public function rmvStaff(){
 			$svcStaff = $this->input->post('evtstaffdlt');
 			$this->session->set_userdata('currrentSvcStaff', $svcStaff);
-			
+
 			$svcstaffID = $this->session->userdata('currrentSvcStaff');
 			$eId = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEvtStaff($eId, $svcstaffID);
@@ -426,35 +414,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addsvc(){
 			$addSvc = array($this->input->post('add_servc_chkbox'));
-			$eID = $this->session->userdata('currentEventID');
-			foreach ($addSvc as $svc) {
-				$this->events_model->addServcs($eID, $svc);
-			}			
+			$eID = $this->session->userdata('currentEventID');		
+			
+			if (!empty($this->input->post('add_servc_chkbox[]'))) {
+				foreach ($this->input->post('add_servc_chkbox[]') as $svc) {
+					$this->events_model->addServcs($eID, $svc);
+				}
+			}
+
 			$this->eventDetails();
 		}
-
-		public function chkSvcQtyAmt(){
-			$svcID = $this->input->post('svcID');
+		// update service quantity and amount
+		public function upSvcQtyAmt(){
+			$svcID = $this->input->post('svcid');
 			$this->session->set_userdata('currentSvcID', $svcID);
 
 			$eID = $this->session->userdata('currentEventID');
 			$srvcID = $this->session->userdata('currentSvcID');
 
-			$dbSvcQty = $this->events_model->returnSvcQty($eID, $srvcID);
-			$dbSvcAmt = $this->events_model->returnSvcAmt($eID, $srvcID);	
+			$btnval = $this->input->post('btn');
+			$qty = $this->input->post('svcqty');
+			$amt = $this->input->post('svcamt');
+			if ($btnval === "updt") {
+				if (!empty($qty)) {
+					$this->events_model->updateSvcQty($eID, $qty, $srvcID);
+				}
+				if (!empty($amt)) {
+					$this->events_model->updateSvcAmt($eID, $amt, $srvcID);			
+				}
+			}	
 
-			$qty = $this->input->post('rowqty');
-			$amt = $this->input->post('rowamt');
-			if (!($qty === $dbSvcQty) && ($amt === $dbSvcAmt)) {
-				$this->events_model->updateSvcQty($eID, $qty, $srvcID);
-				$this->eventDetails();
-			}elseif (!($amt === $dbSvcAmt) && ($qty === $dbSvcQty)) {
-				$this->events_model->updateSvcAmt($eID, $amt, $srvcID);
-				$this->eventDetails();
-			}else{			
-				$this->events_model->updateSvcAmtQty($eID, $qty, $amt, $srvcID);
-				$this->eventDetails();
-			}
+			if ($btnval === "rmv") {
+				$this->events_model->deleteEvntSvc($srvcID, $eID);
+			}		
+			$this->eventDetails();
 		}
 
 		public function updateEventDetails(){
