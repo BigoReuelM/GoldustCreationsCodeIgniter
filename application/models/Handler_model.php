@@ -27,6 +27,15 @@
 			return $query->row_array();
 		}
 
+		public function toDoList($employeeID){
+			$query = $this->db->query("
+				SELECT *
+				FROM appointments
+				WHERE employeeID = $employeeID
+			");
+
+			return $query->result_array();
+		}
 		
 
 
