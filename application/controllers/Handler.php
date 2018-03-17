@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 			$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
+			$data['todoItems'] = $this->handler_model->toDoList($empID);
 
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/header.php");

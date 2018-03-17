@@ -93,14 +93,20 @@
  
     <div class="container" id="con">
         <div class="row">
-          <form id="" role="form" method="post" action="">
           <?php
             if(!empty($allGowns)){
             foreach ($allGowns as $gow) { 
               $gowID = $gow['designID'] ?>             
                   <div class="col-lg-3">
                     <div class="thumbnail">
-                      <?php echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $gow['designImage'] ) . '"/>'; ?>
+                      <form id="" role="form" method="post" action="<?php echo base_url('items/changeAttireEntourage') ?>">
+
+                      <?php 
+                      echo '<input type="hidden" id="newDesId" name="newDesId" value="' . $gowID . '"/>';
+
+                      echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $gow['designImage'] ) . '"/>'; 
+                      ?>
+                      </form>
                     </div>
                   </div>                
           <?php }
@@ -108,16 +114,17 @@
                 echo 'No gowns';
               }
               ?>
+
               <!-- submit button should be here... -->          
-          </form>    
+              
         </div>
-      <div class="row">
-        <!-- submit id of the new ... id -->
+      <!--div class="row">
+        < submit id of the new ... id >
         <button type="submit" class="btn btn-md btn-primary" id="donebtn" name="donebtn">Done</button>
                     
         <button type="submit" class="btn btn-md btn-primary" id="backbtn">Back</button>
       </div>  
-    </div>
+    </div-->
 
     </section>
     <!-- /.content -->

@@ -45,12 +45,15 @@
                 <td><?php echo $design['quantity'] ?></td>
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
-                  <div class="col-md-3 col-sm-4"><a data-toggle="modal" data-target="#modal-photo"><i class="fa fa-fw fa-exchange"></i></a></div>
-
+                  <div class="col-md-3 col-sm-4">
+                  <form role="form" action="<?php echo base_url('items/changeAttireEntourageNewVal') ?>" method="post">
+                  <button class="btn btn-block" id="changedesignbtn" name="designID" type="submit" value="<?php echo($desID)?>"> Edit <i class="fa fa-fw fa-edit"></i></button>
+                  </form>
+                  </div>
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
-                      <button class="btn btn-link" id="designID" name="designID" type="submit" value="<?php echo($desID) ?>">
-                        <i class="fa fa-remove"></i>
+                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($desID) ?>">
+                         Remove <i class="fa fa-remove"></i>
                       </button>
                     </form>
                   </div>
@@ -107,13 +110,13 @@
                     <td><?php echo $details['status'] ?></td>
                     <td>
                       <div class="col-md-6 col-sm-4">
-                      <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                      <!--form role="form" action="<?php echo base_url('') ?>" method="post">
                       <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
                             Edit <i class="fa fa-fw fa-exchange"></i>
                           </button>
                       </form>
                       </div>
-                      <div class="col-md-6 col-sm-4">
+                      <div class="col-md-6 col-sm-4"-->
                       <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
                       <button class="btn btn-block" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"> Remove <i class="fa fa-remove"></i></button></form></div>
                     </td>
@@ -213,29 +216,6 @@
           <!-- /.modal-dialog -->
           </div>
 
-          <!-- modal body -->
-          <div class="modal modal-default fade" id="modal-photo">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Design Name Here</h4> 
-                </div>
-                <div class="modal-body">
-                  <!--<img class="eventDecorsImg" src="" alt="photo">
-                  <?echo $attirePhoto ?>-->
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <a href="<?php echo base_url('items/gowns') ?>"><button type="button" class="btn btn-primary">Change</button></a>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Remove</button>
-                </div>
-                </div>
-              </div>
-              <!-- /.modal-content -->
-            </div>
-          <!-- /.modal-dialog -->
 
           <!-- Modal for adding of entourage -->
               <div class="modal fade" id="addEntourage" role="dialog">
@@ -436,7 +416,7 @@
   }
     @media screen and (min-with: 768px){
     #addEntourage .modal-dialog {
-      with:950px;
+      with:850px;
     }
   }
 
@@ -451,5 +431,9 @@
   #butt1 {
     float:right;
     width:250px;
+  }
+  #entourageID, #designID {
+    float: left;
+    width: 150px;
   }
 </style>
