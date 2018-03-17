@@ -102,7 +102,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
 				}
 			}
-
 			redirect('transactions/transactionDetails');
 		}
 		

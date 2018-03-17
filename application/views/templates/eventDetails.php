@@ -1,12 +1,12 @@
 <?php 
   $empRole = $this->session->userdata('role');
 
-  if(!$this->session->has_userdata('currentSvcID')){
+  /*if(!$this->session->has_userdata('currentSvcID')){
       echo "awan";
   }else{
     $svcid = $this->session->userdata('currentSvcID');
     echo $svcid;
-  }
+  }*/
  ?>
  <style type="text/css">
    #butt5 {
@@ -281,9 +281,6 @@
 
   <div class="row">
     <!--service table-->
-    <!-- form for removing a row from svc table -->
-    <form id="evtsvcdltform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>"></form>
-
     <div class="col-lg-6">
       <div class="box box-primary">
         <div class="box-header">
@@ -300,48 +297,48 @@
                 <th>Action</th>
               </tr>
             </thead>
+            
             <tbody>
+              
               <?php
                 if (!empty($avlServcs)) {
                   foreach ($avlServcs as $avlSvc) { 
                       $svcID = $avlSvc['serviceID'];
                     ?>
+
                     <tr>
-                      <form id="svcform" role="form" method="post" action="<?php echo base_url('events/chkSvcQtyAmt') ?>">
+                      <form id="svcform" role="form" method="post" action="<?php echo base_url('events/upSvcQtyAmt') ?>">
                         <!-- service name -->
                         <td>
                           <?php echo $avlSvc['serviceName'] ?>                         
                         </td>
+                        
                         <!-- quantity -->                
                         <td>
-                          <input class="form-control" type="text" name="svcqty" style="border: none;"  value="<?php echo $avlSvc['quantity'] ?>">
+                          <input class="form-control" type="text" name="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
                         </td>
                         <!-- amount -->
                         <td>
-                          <input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>">
+                          <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $avlSvc['amount'] ?>">
                         </td>
-                        <td>                      
-                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Remove <i class="fa fa-remove"></i></button> 
-                          <!-- nya ngy, dituy nga part... -->
-                          <input type="hidden" name="rowqty" value="<?php echo $avlSvc['quantity'] ?>">
-                          <input type="hidden" name="rowamt" value="<?php echo $avlSvc['amount']?>"> 
-                          <!-- gana tuy shettt -->
-                          <button form="svcform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Update <i class="fa fa-remove"></i></button>   
+                        <td>  
+                          <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">                    
+                          <button class="btn btn-link" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove <i class="fa fa-remove"></i></button>
+                          <button class="btn btn-link" id="updtsvcbtn" name="btn" type="submit" value="updt">Update <i class="fa fa-remove"></i></button>   
                         </td> 
-                        </form>                    
+                      </form>
                     </tr>
                   <?php }
                     }
                   ?>
+
             </tbody>
-          </table>
-          
-            
+
+          </table> 
+                
             <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
-            </div>
-          
-                    
+            </div>                 
         </div>
       </div>     
     </div>
@@ -389,11 +386,10 @@
           </table>
           <div class="row">
             <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff </button>
             </div>
             <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
-              </button>
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff</button>
             </div>
           </div>
         </div>
@@ -428,14 +424,13 @@
                 <th>Description</th>
               </tr>
             </thead>
-            <tbody>
-              
+            <tbody>              
                 <?php
                   if (!empty($servcs)) {
                     foreach ($servcs as $svc) { ?>
                       <tr>                   
                           <td>
-                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
                             <?php 
                               if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
                                 
@@ -446,8 +441,7 @@
                       </tr>
                 <?php }
                   }
-                ?>
-              
+                ?>             
             </tbody>            
           </table> 
       </div>

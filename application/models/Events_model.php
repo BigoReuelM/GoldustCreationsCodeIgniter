@@ -561,16 +561,6 @@
 			$this->db->update('eventservices', $data);
 		}
 
-		public function updateSvcAmtQty($eventID, $qty, $amt, $svcID){
-			$data = array(
-				'quantity' => $qty,
-				'amount' => $amt
-			);
-			$this->db->where('eventID', $eventID);
-			$this->db->where('serviceID', $svcID);
-			$this->db->update('eventservices', $data);
-		}
-
 		public function addServcs($eID, $svcid){
 			$data = array(
 				'eventID' => $eID,
