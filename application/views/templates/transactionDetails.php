@@ -159,7 +159,14 @@
             <!--list of services col-->
             <div class="box">
               <div class="box-header">
-                <h3 class="box-title">List of Services</h3>    
+                <div class="row">
+                  <div class="col-lg-6">
+                    <h3 class="box-title">List of Services</h3>
+                  </div>
+                  <div class="col-lg-6">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServc">Add Services</button>
+                  </div>  
+                </div>    
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -167,21 +174,32 @@
                   <thead>
                     <tr>
                       <th>Service</th>
+                      <th>Quantity</th>
                       <th>Amount</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php if ($transServices){
-                      foreach ($transServices as $service) {
-                    ?>
-                      <tr>
-                        <td><?php echo $service['serviceName'] ?></td>
-                        <td><?php echo $service['amount'] ?></td>
-                        <td></td>
-                      </tr>
-                    <?php }}?>
-                  </tbody>
+                  
+                    <tbody>
+                      <?php if ($transServices){
+                        foreach ($transServices as $service) {
+                          $serviceID = $service['serviceID'];
+                      ?>
+                        <tr>
+                          <form role="form" method="post" action="<?php echo base_url('transactions/updateServiceDetails') ?>">
+                            <td><?php echo $service['serviceName'] ?></td>
+                            <td><input class="form-control" name="quantity" type="text" placeholder="<?php echo $service['quantity'] ?>"></td>
+                            <td><input class="form-control" name="amount" type="text" placeholder="<?php echo $service['amount'] ?>"></td>
+                            <td>
+                              <input type="text" name="serviceID" value="<?php echo $serviceID ?>" hidden>
+                              <button class="btn btn-block btn-default" type="submit" name="action" value="remove">Remove</button>
+                              <button class="btn btn-block btn-default" type="submit" name="action" value="update">Update</button>
+                            </td>
+                          </form>
+                        </tr>
+                      <?php }}?>
+                    </tbody>
+                  
                 </table>
               </div>
             </div>
@@ -514,11 +532,62 @@
           <button id="addPayment" type="submit" name="addPayment" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
+      </form>
     </div>
     
   </div>
 </div>
 <!-- End of add payment modal -->
+
+<!-- add service modal -->
+<div class="modal fade" role="dialog" id="addServc">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Service/s</h4>
+      </div>
+      <form role="form" method="post" action="<?php echo base_url('transactions/addsvc') ?>">
+      <div class="modal-body">
+          <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
+            <thead>
+              <tr>
+                <th>Service Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <?php
+                  if (!empty($servcs)) {
+                    foreach ($servcs as $svc) { ?>
+                      <tr>                   
+                          <td>
+                            <div class="checkbox"><label><input type="checkbox" name="services[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
+                            <?php 
+                              if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
+                                
+                              }
+                            ?>
+                          </td>
+                          <td><?php echo $svc['description'] ?></td>
+                      </tr>
+                <?php }
+                  }
+                ?>
+              
+            </tbody>            
+          </table> 
+      </div>
+      <div class="modal-footer">                 
+        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+        <button class="btn btn-default" type="submit">Add</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+</div>
 
 
 <!-- jQuery 3 -->

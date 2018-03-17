@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
+			$data['servcs'] = $this->transactions_model->getServices();
 
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
@@ -68,6 +69,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			$this->load->view("templates/transactionDetails.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function addsvc(){
+			//$addSvc = $this->input->post('add_servc_chkbox');
+			$tID = $this->session->userdata('currentTransactionID');
+			if (!empty($this->input->post('services[]'))) {
+				foreach ($this->input->post('services[]') as $service) {
+					$this->transactions_model->addServcs($tID, $service);
+				}
+			}
+			
+			redirect('transactions/transactionDetails');
+		}
+
+		public function updateServiceDetails(){
+			$tid = $this->session->userdata('currentTransactionID');
+			$serviceID = $this->input->post('serviceID');
+			$quantity = $this->input->post('quantity');
+			$amount = $this->input->post('amount');
+			$action = $this->input->post('action');
+			
+			if ($action === "remove") {
+				$this->transactions_model->removeService($tid, $serviceID);
+			}
+
+			if ($action === "update") {
+				if (!empty($quantity)) {
+					$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
+				}
+				if (!empty($amount)) {
+					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
+				}
+			}
+
+			redirect('transactions/transactionDetails');
 		}
 		
 		public function ongoing_rentals(){

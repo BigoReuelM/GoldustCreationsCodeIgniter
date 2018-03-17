@@ -92,7 +92,7 @@
 		public function getTransactionServices($transID){
 			$query=$this->db->query(
 				"
-				SELECT serviceName, amount 
+				SELECT * 
 				FROM transactiondetails
 				NATURAL JOIN services
 				WHERE transactionID = $transID 
@@ -101,6 +101,42 @@
 
 			return $query->result_array();
 		}
+
+		/**
+			Below is the code for updating transaction services
+
+		*/
+
+		public function removeService($tid, $serviceID){
+			$this->db->where('transactionID', $tid);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->delete('transactiondetails');
+		}
+
+		public function updateAmount($tid, $serviceID, $amount){
+			$data = array(
+				'amount' => $amount
+			);
+
+			$this->db->where('transactionID', $tid);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('transactiondetails', $data);
+		}
+
+		public function updateQuantity($tid, $serviceID, $quantity){
+			$data = array(
+				'quantity' => $quantity
+			);
+
+			$this->db->where('transactionID', $tid);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('transactiondetails', $data);
+		}
+
+		/**
+			Above is the code for updating transaction services
+
+		*/
 
 		public function getTransactionAppointments($transID){
 			$query=$this->db->query("
@@ -150,6 +186,19 @@
 			$this->db->select('*');
 			$this->db->from('designs');
 			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function addServcs($tID, $svcid){
+			$data = array(
+				'transactionID' => $tID,
+				'serviceID' => $svcid
+			);
+			$this->db->insert('transactiondetails', $data);
+		}
+
+		public function getServices(){
+			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
 			return $query->result_array();
 		}
 
