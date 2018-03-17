@@ -342,14 +342,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function removeAttireEntourage(){
-			$currentEntID = $this->input->post('entourageID');
-			$this->session->set_userdata('currentEntID', $currentEntID);
+			$desID = $this->input->post('designID');
+			/*$this->session->set_userdata('currentEventID', $currentEvID);
 
-			$entID = $this->session->userdata('currentEntID');
-			$desID = $this->session->userdata('currentDesignID');
-			$this->events_model->deleteEntourage($entID, $desID);
+			$evID = $this->session->userdata('currentEvID');*/
+			$currentEvID = $this->session->userdata('currentEventID');
+			$this->events_model->deleteAttireEntourage($currentEvID, $desID);
 
-			$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		/*public function changeDecor(){

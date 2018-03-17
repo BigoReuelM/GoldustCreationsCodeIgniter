@@ -116,7 +116,7 @@
 			$this->db->join('events', 'eventdesigns.eventID = events.eventID');
 			$this->db->where('events.eventID', $currentEventID);
 			*/
-			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs NATURAL JOIN events where events.eventID = $currentEventID" );
+			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs where eventID = $currentEventID" );
 			return $query->result_array();
 		}
 
@@ -362,10 +362,10 @@
 			$this->db->delete('entourage');
 		}
 
-		public function deleteAttireEntourage($entID, $desID){
-			$this->db->where('entourageID', $entID);
+		public function deleteAttireEntourage($eID, $desID){
+			$this->db->where('eventID', $eID);
 			$this->db->where('designID', $desID);
-			$this->db->delete('entouragedetails');
+			$this->db->delete('eventdesigns');
 
 		}
 		public function addEventEntourage($eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
