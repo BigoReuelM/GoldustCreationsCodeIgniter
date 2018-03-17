@@ -138,6 +138,18 @@
 
 		*/
 
+		public function addTransactionAppointment($employeeID, $currentTransactionID, $adate, $time, $agenda){
+			$data = array(
+				'transactionID' => $currentTransactionID,
+				'date' => $adate,
+				'time' => $time,
+				'agenda' => $agenda,
+				'employeeID' => $employeeID
+			);
+
+			$this->db->insert('appointments', $data);
+		}
+
 		public function getTransactionAppointments($transID){
 			$query=$this->db->query("
 				SELECT appointments.date, appointments.time, agenda

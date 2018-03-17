@@ -49,6 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
+
 			$data['servcs'] = $this->transactions_model->getServices();
 
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
@@ -102,6 +103,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
 				}
 			}
+
+			redirect('transactions/transactionDetails');
+		}
+
+		public function addTransactionAppointments(){
+			$empID = $this->session->userdata('employeeID');
+			$ctID = $this->session->userdata('currentTransactionID');
+			$adate = $this->input->post('appointmentDate');
+			$time = $this->input->post('time');
+			$agenda = $this->input->post('agenda');
+
+			$this->transactions_model->addTransactionAppointment($empID, $ctID, $adate, $time, $agenda);
 
 			redirect('transactions/transactionDetails');
 		}
