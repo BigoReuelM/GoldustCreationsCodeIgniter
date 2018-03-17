@@ -226,6 +226,96 @@
 			$this->db->update('transactions', $data);
 		}
 
+		public function insertTransaction($clientID, $empID){
+			$defaultStatus = "on-going";
+			$data = array(
+				'clientID' => $clientID,
+				'transactionstatus' => $defaultStatus,
+				'employeeID' => $empID
+			);
+
+			$this->db->insert('transactions', $data);
+
+			return $this->db->insert_id();
+		}
+
+		/*
+
+		Bellow are the queries for updating each transactino detail attribute...
+
+		*/
+		public function upContactNumber($contactNumber, $clientID){
+			$data = array(
+				'contactNumber' => $contactNumber
+			);
+			$this->db->where('clientID', $clientID);
+			$this->db->update('clients', $data);
+		}
+
+		public function upAddress($address, $transID){
+			$data = array(
+				'homeAddress' => $address
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upYnS($yNs, $transID){
+			$data = array(
+				'yearAndSection' => $yNs
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upSchool($school, $transID){
+			$data = array(
+				'school' => $school
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upIdType($idType, $transID){
+			$data = array(
+				'IDType' => $idType
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upDepositAmount($depositAmount, $transID){
+			$data = array(
+				'depositAmt' => $depositAmount
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upTotalAmount($totalAmount, $transID){
+			$data = array(
+				'totalAmount' => $totalAmount
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upDate($date, $transID){
+			$data = array(
+				'dateAvail' => $date
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function upTime($time, $transID){
+			$data = array(
+				'time' => $time
+			);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
 
 	}
 

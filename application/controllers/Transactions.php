@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function transactionDetails(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
-			$tranID = $this->input->post('transInfo');
+			$tranID = $this->session->userdata('currentTransactionID');
 
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
@@ -89,9 +89,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function setTransactionID(){
-			//$this->session->set_serdata('tID');
-			$currentTransactionID = $this->input->post('tID');
-			$this->session->set_userdata('tID', $currentTransactionID);
+			$currentTransactionID = $this->input->post('transInfo');
+			$this->session->set_userdata('currentTransactionID', $currentTransactionID);
+
+			redirect('transactions/transactionDetails');
 			
 		}
 
@@ -110,6 +111,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			redirect('transactions/transactions');
 			
+		}
+
+		public function addTransaction(){
+			$clientID = $this->input->post('clientID');
+			$empID = $this->session->userdata('employeeID');
+
+			$newTranID = $this->transactions_model->insertTransaction($clientID, $empID);
+
+			$this->session->set_userdata('currentTransactionID', $newTranID);
+
+			redirect('transactions/transactionDetails');
+		}
+
+		public function updateTransactionDetails(){
+			$transID = $this->session->userdata('currentTransactionID');
+			$clientID = $this->session->userdata('clientID');
+			$contactNumber = $this->input->post('contactNumber');
+			$address = $this->input->post('address');
+			$yNs = $this->input->post('yNs');
+			$school = $this->input->post('school');
+			$idType = $this->input->post('idType');
+			$depositAmount = $this->input->post('depositAmt');
+			$totalAmount = $this->input->post('totalAmount');
+			$date = $this->input->post('date');
+			$time = $this->input->post('time');
+
+			if (!empty($contactNumber)) {
+				$this->transactions_model->upContactNumber($contactNumber, $clientID);		
+			}
+			if (!empty($address)) {
+				$this->transactions_model->upAddress($address, $transID);		
+			}
+			if (!empty($yNs)) {
+				$this->transactions_model->upYnS($yNs, $transID);		
+			}
+			if (!empty($school)) {
+				$this->transactions_model->upSchool($school, $transID);		
+			}
+			if (!empty($idType)) {
+				$this->transactions_model->upIdType($idType, $transID);		
+			}
+			if (!empty($depositAmount)) {
+				$this->transactions_model->upDepositAmount($depositAmount, $transID);		
+			}
+			if (!empty($totalAmount)) {
+				$this->transactions_model->upTotalAmount($totalAmount, $transID);		
+			}
+			if (!empty($date)) {
+				$this->transactions_model->upDate($date, $transID);		
+			}
+			if (!empty($time)) {
+				$this->transactions_model->upTime($time, $transID);		
+			}
+
+			redirect('transactions/transactionDetails');
+
 		}
 		
 	}

@@ -116,7 +116,7 @@
 			$this->db->join('events', 'eventdesigns.eventID = events.eventID');
 			$this->db->where('events.eventID', $currentEventID);
 			*/
-			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs NATURAL JOIN events where events.eventID = $currentEventID" );
+			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs where eventID = $currentEventID" );
 			return $query->result_array();
 		}
 
@@ -344,29 +344,10 @@
 			$this->db->insert('appointments', $data);
 		}
 
-		public function addClient($cname, $contact){
+		public function insertNewEvent($clientID, $employeeID){
 			$data = array(
-				'clientName' => $cname,
-				'contactNumber' => $contact
-
-			);
-
-			$this->db->insert('clients', $data);
-			return $this->db->insert_id();
-		}
-
-		public function addEvent($clientID, $ename, $celebrantName, $elocation, $edate, $etime, $emotif, $packageType, $etype){
-			$eventStatus = "new";
-			$data = array(
-				'eventName' => $ename,
-				'celebrantName' => $celebrantName,
-				'eventLocation' => $elocation,
-				'eventDate' => $edate,
-				'eventTime' => $etime,
-				'motif' => $emotif,
-				'packageType' => $packageType,
 				'clientID' => $clientID,
-				'eventType' => $etype
+				'employeeID' => $employeeID
 			);
 
 			$this->db->insert('events', $data);
@@ -381,10 +362,10 @@
 			$this->db->delete('entourage');
 		}
 
-		public function deleteAttireEntourage($entID, $desID){
-			$this->db->where('entourageID', $entID);
+		public function deleteAttireEntourage($eID, $desID){
+			$this->db->where('eventID', $eID);
 			$this->db->where('designID', $desID);
-			$this->db->delete('entouragedetails');
+			$this->db->delete('eventdesigns');
 
 		}
 
@@ -419,6 +400,74 @@
 			);
 			$this->db->insert('entourage', $data);
 		}
+		/*
+
+		Bellow are the queries for updating each event detail attribute...
+
+		*/
+		public function upEventName($eventName, $eventID){
+			$data = array(
+				'eventName' => $eventName
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upCelebrantName($celebrantName, $eventID){
+			$data = array(
+				'celebrantName' => $celebrantName
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upClientContactNo($clientContactNo, $clientID){
+			$data = array(
+				'contactNumber' => $clientContactNo
+			);
+			$this->db->where('clientID', $clientID);
+			$this->db->update('clients', $data);
+		}
+		public function upPackageType($packageType, $eventID){
+			$data = array(
+				'packageType' => $packageType
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upEventDate($eventDate, $eventID){
+			$data = array(
+				'eventDate' => $eventDate
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upEventTime($eventTime, $eventID){
+			$data = array(
+				'eventTime' => $eventTime
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upLocation($location, $eventID){
+			$data = array(
+				'eventLocation' => $location
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upType($type, $eventID){
+			$data = array(
+				'eventType' => $type
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		public function upMotif($motif, $eventID){
+			$data = array(
+				'motif' => $motif
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
 
 		public function updateEventHandler($eventID, $handlerID){
 			$data = array(
@@ -436,7 +485,44 @@
 
 			$this->db->where('eventID', $eventID);
 			$this->db->update('events', $data);
-		} 
+		}
+
+		/*
+
+		Above are the queries for updating each event detail attribute...
+
+		*/
+
+		/*
+
+		Bellow are the queries for updating event status...
+
+		*/
+		public function markEventFinish($eventID){
+			$data = array(
+				'eventStatus' => "finished" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
+		public function markEventCancelled($eventID, $refundedAmount, $dateRefunded, $dateCancelled){
+			$data = array(
+				'refundedAmount' => $refundedAmount,
+				'refundedDate' => $dateRefunded,
+				'cancelledDate' => $dateCancelled,
+				'eventStatus' => "cancelled" 
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+		/*
+
+		Above are the queries for updating event status...
+
+		*/
 
 		public function returnSvcQty($eventID, $svcID){
 			$this->db->select('quantity');

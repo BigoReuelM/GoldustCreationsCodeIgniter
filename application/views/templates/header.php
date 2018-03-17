@@ -88,22 +88,10 @@ $photo = $this->session->userdata('photo');
                     <?php echo($employeeName)?> - Event Handler
                   </p>
                 </li>
-                <!-- Menu Body -->
-                <li class="user-body">
-                  <div class="row">
-                    <div class="col-xs-6 text-center">
-                      <a href="#">Events handled</a>
-                    </div>
-                    <div class="col-xs-6 text-center">
-                      <a href="#">Transactions</a>
-                    </div>
-                  </div>
-                  <!-- /.row -->
-                </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
                   <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    <a href="<?php echo base_url('user/user_profile') ?>" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
                     <a href="<?php echo base_url('user/user_logout') ?>" class="btn btn-default btn-flat">Sign out</a>

@@ -31,7 +31,7 @@
                         <th>Event Type</th>
                         <th>Package Type</th>
                         <th>Event Date</th>
-                        <th>Event Time</th>
+                        <th>Date Finished</th>
                         <th>Event Location</th>
                         <th>Actions</th>
                       </tr>
@@ -49,7 +49,7 @@
                           <td><?php echo $event['eventType']; ?></td>
                           <td><?php echo $event['packageType']; ?></td>
                           <td><?php echo $event['eventDate']; ?></td>
-                          <td><?php echo $event['eventTime']; ?></td>
+                          <td><p>place in database</p></td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
                             <div class="col-md-3 col-sm-4">

@@ -92,6 +92,12 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="<?php echo base_url('clients/clients') ?>">
+            <i class="glyphicon glyphicon-user"></i>
+            <span>Clients</span>
+          </a>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

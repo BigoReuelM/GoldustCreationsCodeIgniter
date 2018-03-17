@@ -31,12 +31,14 @@
                      <h3 class="box-title">Ongoing Transactions Table</h3>
                   </div>
                   <div class="col-md-3">
+                    <!--
                     <?php 
                       if ($empRole === "admin") {
                         echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServiceTransaction">Add Transaction</button>  ';
                       }
 
                      ?>
+                   -->
                     
                   </div>
                 </div>  
@@ -71,7 +73,7 @@
                               <td><?php echo $transac['totalAmount']; ?></td>
                               <td>
 
-                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">
                                   <input type="text" value="<?php echo($tranID) ?>" name="transInfo" hidden>
                                   <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
                                 </form>
@@ -129,7 +131,7 @@
                               <td><?php echo $ftransac['totalAmount']; ?></td>
                               <td>
 
-                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">
                                   <input type="text" value="<?php echo($ftranID) ?>" name="transInfo" hidden>
                                   <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
                                 </form>
@@ -187,7 +189,7 @@
                               <td><?php echo $ctransac['totalAmount']; ?></td>
                               <td>
 
-                                <form role="form" action="<?php echo base_url('transactions/transactionDetails') ?>" method="post">
+                                <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">
                                   <input type="text" value="<?php echo($ctranID) ?>" name="transInfo" hidden>
                                   <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
                                 </form>

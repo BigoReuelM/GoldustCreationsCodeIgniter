@@ -353,14 +353,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function removeAttireEntourage(){
-			$currentEntID = $this->input->post('entourageID');
-			$this->session->set_userdata('currentEntID', $currentEntID);
+			$desID = $this->input->post('designID');
+			/*$this->session->set_userdata('currentEventID', $currentEvID);
 
-			$entID = $this->session->userdata('currentEntID');
-			$desID = $this->session->userdata('currentDesignID');
-			$this->events_model->deleteEntourage($entID, $desID);
+			$evID = $this->session->userdata('currentEvID');*/
+			$currentEvID = $this->session->userdata('currentEventID');
+			$this->events_model->deleteAttireEntourage($currentEvID, $desID);
 
-			$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		/*public function changeDecor(){
@@ -373,23 +373,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		public function addEvent(){
+			$employeeID = $this->session->userdata('employeeID');
+			$clientID = $this->input->post('clientID');
 
-			$clientName = $this->input->post('client-name');
-			$clientContact = $this->input->post('contact-number');
+			$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID);
 
-			$newClientID = $this->events_model->addClient($clientName, $clientContact);
+			$this->session->set_userdata('currentEventID', $newEventID);
+			$this->session->set_userdata('clientID', $clientID);
 
-			$eventName = $this->input->post('event-name');
-			$celebrantName = $this->input->post('celebrant');
-			$location = $this->input->post('event-loc');
-			$date = $this->input->post('event-date');
-			$time = $this->input->post('event-time');
-			$package = $this->input->post('package');
-			$motiff = $this->input->post('motiff');
-			$type = $this->input->post('event-type');
-			$newEventID = $this->events_model->addEvent($newClientID, $eventName, $celebrantName, $location, $date, $time, $motiff, $package, $type);
-
-			redirect('events/ongoingEvents');
+			redirect('events/eventDetails');
 
 		}
 
@@ -462,6 +454,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->events_model->updateSvcAmtQty($eID, $qty, $amt, $srvcID);
 				$this->eventDetails();
 			}
+		}
+
+		public function updateEventDetails(){
+			$eventID = $this->session->userdata('currentEventID');
+			$clientID = $this->session->userdata('clientID');
+			$eventName = $this->input->post('eventName');
+			$clientContactNo = $this->input->post('contactNumber');
+			$celebrant = $this->input->post('celebrantName');
+			$dateAvailed = $this->input->post('dateAvailed');
+			$packageType = $this->input->post('package');
+			$eventDate = $this->input->post('eventDate');
+			$eventTime = $this->input->post('eventTime');
+			$location = $this->input->post('location');
+			$type = $this->input->post('type');
+			$motif = $this->input->post('motif');
+			$theme = $this->input->post('theme');
+
+			if (!empty($eventName)) {
+				$this->events_model->upEventName($eventName, $eventID);		
+			}
+			if (!empty($celebrant)) {
+				$this->events_model->upCelebrantName($celebrant, $eventID);
+			}
+			if (!empty($clientContactNo)) {
+				$this->events_model->upClientContactNo($clientContactNo, $clientID);
+			}
+			if (!empty($packageType)) {
+				$this->events_model->upPackageType($packageType, $eventID);
+			}
+			if (!empty($eventDate)) {
+				$this->events_model->upEventDate($eventDate, $eventID);
+			}
+			if (!empty($eventTime)) {
+				$this->events_model->upEventTime($eventTime, $eventID);
+			}
+			if (!empty($location)) {
+				$this->events_model->upLocation($location, $eventID);
+			}
+			if (!empty($type)) {
+				$this->events_model->upType($type, $eventID);
+			}
+			if (!empty($motif)) {
+				$this->events_model->upMotif($motif, $eventID);
+			}
+
+			redirect('events/eventDetails');
+		}
+
+		public function finishEvent(){
+			$eventID = $this->input->post('eventID');
+
+			$this->events_model->markEventFinish($eventID);
+
+			redirect('events/finishedEvents');
+		}
+
+		public function cancelEvent(){
+			$eventID = $this->input->post('eventID');
+			$refundAmount = $this->input->post('refundAmount');
+			$refundDate = $this->input->post('dateRefunded');
+			$cancelDate = $this->input->post('dateCancelled');
+
+			$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+
+			redirect('events/canceledEvents');
 		}
 
 	}

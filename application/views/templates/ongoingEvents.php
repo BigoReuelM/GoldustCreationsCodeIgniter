@@ -1,11 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
-<?php
-  //$employeeRole = $this->session->userdata('role');
-  //if ($employeeRole === 'admin') {
-    //echo'<div class="content-wrapper">';
-   //}
-  //$eventId = $this->session->userdata('currentEventID'); 
-?>
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,12 +11,14 @@
     <!-- Main content -->
 
     <section class="content container-fluid">
+      <!--
       <?php
         $employeeRole = $this->session->userdata('role');
         if ($employeeRole === 'handler') {
           echo'<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#add-event">Add Event</button>';
          }
       ?>
+    -->
 
       <!-- Data table of ongoing events -->
         <div class="box">

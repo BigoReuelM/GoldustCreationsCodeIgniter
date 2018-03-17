@@ -17,112 +17,141 @@
   <!-- Content Header (Page header) -->
 
   <section class="content-header">
-    <a href="<?php echo base_url('transactions/transactions') ?>" id="icon">
-          <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-    </a>
-    
+    <div class="row">
+      <div class="col-lg-6">
+        <a href="<?php echo base_url('transactions/transactions') ?>" id="icon">
+              <span class="glyphicon glyphicon-circle-arrow-left" ></span>
+        </a>
+      </div>
+
+      <?php if ($details->transactionstatus === "on-going"): ?>
+        
+          <form method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+            <div class="col-lg-3">
+              <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
+              <button type="submit" class="btn btn-block btn-primary btn-lg">Finish</button>
+            </div>
+          </form>
+          <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+            <div class="col-lg-3">
+              <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
+              <button type="submit" class="btn btn-block btn-danger btn-lg">Cancel</button>
+            </div>
+          </form>
+               
+      <?php endif ?>
+    </div>
   </section>
   <section class="content container-fluid">
       <div class="box box-info">
         <div class="box-header">
           <h3 class="box-title">Transaction Details</h3>
         </div>
-        <form class="form-horizontal">
+        <form role="form" method="post" action="<?php echo base_url('transactions/updateTransactionDetails') ?>" class="form-horizontal">
           <div class="box-body">
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Client Names</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="client name" value="<?php echo $details->clientName ?>" disabled>
+                    <input type="text" name="clientName" class="form-control" placeholder="<?php echo $details->clientName ?>" value="" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Contact Number</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="contact" value="<?php echo $details->contactNumber ?>" disabled>
+                    <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $details->contactNumber ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Address</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="address" value="<?php echo $details->homeAddress ?>" disabled>
+                    <input type="text" name="address" class="form-control" placeholder="<?php echo $details->homeAddress ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Year & Section</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="year and section" value="<?php echo $details->yearAndSection ?>" disabled>
+                    <input type="text" name="yNs" class="form-control" placeholder="<?php echo $details->yearAndSection ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">School</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="School" value="<?php echo $details->school ?>" disabled>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Date Availed</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="date" value="<?php echo $details->dateAvail ?>" disabled>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Time Availed</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="time" value="<?php echo $details->time ?>" disabled>
+                    <input type="text" name="school" class="form-control" placeholder="<?php echo $details->school ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">ID Type</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="ID Type" value="<?php echo $details->IDType ?>" disabled>
+                    <input type="text" name="idType" class="form-control" placeholder="<?php echo $details->IDType ?>" value="">
                   </div>
                 </div>
+              </div>
+              <div class="col-lg-6">             
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Deposited Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="balance" value="<?php echo $details->depositAmt ?>" disabled>
+                    <input type="text" name="depositAmt" class="form-control" placeholder="<?php echo $details->depositAmt ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Total Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="total amount" value="<?php echo $details->totalAmount ?>" disabled>
+                    <input type="text" name="totalAmount" class="form-control" placeholder="<?php echo $details->totalAmount ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Balance</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="balance" value="<?php echo $balance; ?>" disabled>
+                    <input type="text" name="balance" class="form-control" placeholder="<?php echo $balance; ?>" value="" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Status</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="status" value="<?php echo $details->transactionstatus ?>" disabled>
+                    <input type="text" name="status" class="form-control" placeholder="<?php echo $details->transactionstatus ?>" value="" disabled>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="col-sm-4 control-label">Date Availed</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" value="<?php echo $details->dateAvail ?>" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-7">
+                      <label class="col-sm-4 control-label">Change Date Availed</label>
+                      <div class="col-sm-8">
+                        <input type="date" name="date" class="form-control" value="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <label class="col-sm-4 control-label">Time Availed</label>
+                      <div class="col-sm-8">
+                        <input type="text" class="form-control" value="<?php echo $details->time ?>" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-7">
+                      <label class="col-sm-4 control-label">Change Time Availed</label>
+                      <div class="col-sm-8">
+                        <input type="time" name="time" class="form-control" value="">
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>                  
           </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+          </div>
         </form>
-        <div class="row">
-          <form method="post" action="<?php echo base_url('transactions/markFinish') ?>">
-            <div class="col-lg-6">
-              <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
-              <button type="submit" class="btn btn-block btn-primary">Finish</button>
-            </div>
-          </form>
-          <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
-            <div class="col-lg-6">
-              <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-              <button type="submit" class="btn btn-block btn-danger">Cancel</button>
-            </div>
-          </form>
-        </div>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -279,8 +308,8 @@
                     <tr>
                       <td><?php echo $expense['expensesID'] ?></td>
                       <td><?php echo $expense['expensesAmount'] ?></td>
-                      <td><?php echo $expense['expensesname'] ?></td>
-                      <td><?php echo $expense['espensesDate'] ?></td>
+                      <td><?php echo $expense['expensesName'] ?></td>
+                      <td><?php echo $expense['expensesDate'] ?></td>
                       <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
                     </tr> 
                   <?php
