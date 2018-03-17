@@ -312,7 +312,7 @@
                         <td>
                           <?php echo $avlSvc['serviceName'] ?>                         
                         </td>
-                        <!-- quantity -->                     
+                        <!-- quantity -->                
                         <td>
                           <input class="form-control" type="text" name="svcqty" style="border: none;"  value="<?php echo $avlSvc['quantity'] ?>">
                         </td>
@@ -321,7 +321,11 @@
                           <input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>">
                         </td>
                         <td>                      
-                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Remove <i class="fa fa-remove"></i></button>  
+                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Remove <i class="fa fa-remove"></i></button> 
+                          <!-- nya ngy, dituy nga part... -->
+                          <input type="hidden" name="rowqty" value="<?php echo $avlSvc['quantity'] ?>">
+                          <input type="hidden" name="rowamt" value="<?php echo $avlSvc['amount']?>"> 
+                          <!-- gana tuy shettt -->
                           <button form="svcform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Update <i class="fa fa-remove"></i></button>   
                         </td> 
                         </form>                    
@@ -363,9 +367,8 @@
             </thead>
             <tbody>
               <?php  
-                  if (!empty($eventStaff) || !empty($oncallStaff)) {
-                    $mergedStaffArray = array_merge($eventStaff, $oncallStaff);
-                    foreach ($mergedStaffArray as $staff) {  
+                  if (!empty($eventStaff)) {
+                    foreach ($eventStaff as $staff) {  
                       $svcstaff = $staff['empId'];
                 ?>
               <tr>               
@@ -373,10 +376,8 @@
                 <td><?php echo $staff['role']; ?></td>
                 <td><?php echo $staff['num']; ?></td>
                 <td>
-                  <div class="col-md-6 col-sm-6">
-                  
-                      <button form="evtstaffdltform" class="btn btn-link" id="evtstaffdlt" name="evtstaffdlt" type="submit" value="<?php echo($svcstaff) ?>"> Remove <i class="fa fa-remove"></i></button>
-                  
+                  <div class="col-md-6 col-sm-6">                  
+                    <button form="evtstaffdltform" class="btn btn-link" id="evtstaffdlt" name="evtstaffdlt" type="submit" value="<?php echo($svcstaff) ?>"> Remove <i class="fa fa-remove"></i></button>                
                   </div>
                 </td>
               </tr>
@@ -389,12 +390,10 @@
           <div class="row">
             <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff</button>
-
             </div>
             <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff
               </button>
-
             </div>
           </div>
         </div>
