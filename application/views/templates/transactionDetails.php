@@ -308,8 +308,8 @@
                     <tr>
                       <td><?php echo $expense['expensesID'] ?></td>
                       <td><?php echo $expense['expensesAmount'] ?></td>
-                      <td><?php echo $expense['expensesname'] ?></td>
-                      <td><?php echo $expense['espensesDate'] ?></td>
+                      <td><?php echo $expense['expensesName'] ?></td>
+                      <td><?php echo $expense['expensesDate'] ?></td>
                       <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
                     </tr> 
                   <?php
