@@ -242,7 +242,9 @@
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+                  <?php if ($this->session->userdata('role') === "admin"): ?>
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+                  <?php endif ?>
                 </div>
               </div>
             </div>
@@ -284,7 +286,9 @@
                   <h3 class="box-title">Expenses Table:</h3>
                 </div>
                 <div class="col-lg-7">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+                  <?php if ($this->session->userdata('role') === "admin"): ?>
+                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+                  <?php endif ?>
                 </div>
               </div>
             </div>
