@@ -564,6 +564,14 @@
 			);
 			$this->db->insert('eventservices', $data);
 		}
+
+		public function changeAttireEntourage($eID, $desID, $newDesId) {
+			$data = array('designID' => $newDesId);
+
+			$this->db->where('eventID', $eID);
+			$this->db->where('designID', $desID);
+			$this->db->update('eventdesigns', $data);
+		}
 	}
 
 

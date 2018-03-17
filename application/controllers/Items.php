@@ -149,5 +149,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['attirePhoto'] = $this->events_model->getEntAttirePhoto($currentEntId);
 			$this->load->view("templates/eventEntourage.php", $data);
 		}
+
+		public function changeAttireEntourage() {
+			$newDesID = $this->input->post('newDesId');
+			$eID = $this->session->userdata('currentEventID');
+			$deID = $this->session->userdata('currentDesignID');
+
+			$this->load->model('events_model');
+			$this->events_model->changeAttireEntourage($eID, $deID, $newDesID);
+
+			redirect('events/eventEntourage');
+		}
+
+		public function changeAttireEntourageNewVal(){
+			$currentDesignID = $this->input->post('designID');
+			$this->session->set_userdata('currentDesignID', $currentDesignID);
+
+			$this->gowns();
+		}
 	} 
 ?>
