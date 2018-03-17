@@ -192,7 +192,7 @@
                             <td><input class="form-control" name="amount" type="text" placeholder="<?php echo $service['amount'] ?>"></td>
                             <td>
                               <input type="text" name="serviceID" value="<?php echo $serviceID ?>" hidden>
-                              <button class="btn btn-block btn-default" type="submit" name="action" value="remove">Remove</button>
+                              <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>
                               <button class="btn btn-block btn-default" type="submit" name="action" value="update">Update</button>
                             </td>
                           </form>
@@ -359,59 +359,50 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Appointment</h4>
       </div>
-      <div class="modal-body">
-        <div class="box-body">
-          <form class="form-horizontal">
+      <form role="form" action="<?php echo base_url('transactions/addTransactionAppointments') ?>" method="post" class="form-horizontal">
+        <div class="modal-body">       
+          <div class="box-body">          
             <div class="form-group">
               <label class="col-sm-2 control-label">Client Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Employee Name</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
+                <input type="text" class="form-control" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Agenda</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
+                <textarea class="form-control" rows="5" placeholder="Enter Agenda..." name="agenda"></textarea>
               </div>
             </div>
             <div class="form-group">
               <label>Date:</label>
-
-              <div class="input-group date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker">
-              </div>
+              <input type="date" class="form-control pull-right" name="appointmentDate">
             </div>
             <div class="bootstrap-timepicker">
               <div class="form-group">
                 <label>Time Picker:</label>
-
                 <div class="input-group">
-                  <input type="text" class="form-control timepicker">
-
+                  <input type="text" class="form-control timepicker" name="time">
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
                   </div>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
+          <div class="box-footer">
+            <div class="form-group">
+              <div class="col-sm-6">
+                <button type="submit" class="btn btn-block btn-default" >Save</button>                
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Close</button>  
+              </div>             
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    
+      </form>
+    </div>  
   </div>
 </div>
 <!-- End -->
