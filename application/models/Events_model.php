@@ -231,7 +231,7 @@
 
 		public function getStaff($ceid){
 			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num
+				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
 				FROM employees
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
@@ -241,7 +241,7 @@
 
 		public function getOncallStaff($ceid){
 			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num
+				SELECT employeeName as name, employeeRole as role, contactNumber as num, OCStaffID as empId
 				FROM oncallstaff
 				where eventID = $ceid    
 			");
@@ -387,6 +387,19 @@
 			$this->db->delete('entouragedetails');
 
 		}
+
+		public function deleteEvtStaff($eID, $svcStaffId){
+			$this->db->where('eventID', $eID);
+			$this->db->where('employeeID', $svcStaffId);
+			$this->db->delete('eventstaff');
+		}
+
+		public function deleteEvtOCStaff($eID, $svcStaffId){
+			$this->db->where('eventID', $eID);
+			$this->db->where('OCStaffID', $svcStaffId);
+			$this->db->delete('oncallstaff');
+		}
+
 		public function addEventEntourage($eID, $enName, $enRole, $sho, $che, $sto, $wai, $armL, $armH, $mus, $pantsL, $bas) {
 	
 			$data = array(

@@ -234,8 +234,6 @@
 
   <div class="row">
     <!--service table-->
-    <!-- form for updating qty and svc -->
-    
     <!-- form for removing a row from svc table -->
     <form id="evtsvcdltform" role="form" method="post" action="<?php echo base_url('events/setDltCurrentSvcID') ?>"></form>
 
@@ -246,7 +244,7 @@
         </div>
         <div class="box-body">
           
-          <table id="serviceTable" class="table table-striped table-bordered">
+          <table id="serviceTable" class="table table-striped table-bordered table-responsive">
             <thead>
               <tr>
                 <th>Services</th>
@@ -275,9 +273,9 @@
                         <td>
                           <input class="form-control" type="text" name="svcamt" style="border: none;"  value="<?php echo $avlSvc['amount']?>">
                         </td>
-                        <td>                       
-                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Remove</button>  
-                          <button form="svcform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>"><i class="fa fa-remove"></i> Update</button>          
+                        <td>                      
+                          <button form="evtsvcdltform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Remove <i class="fa fa-remove"></i></button>  
+                          <button form="svcform" class="btn btn-link" id="rmvsvcbtn" name="svcID" type="submit" value="<?php echo($avlSvc['serviceID']) ?>">Update <i class="fa fa-remove"></i></button>   
                         </td> 
                         </form>                    
                     </tr>
@@ -291,7 +289,7 @@
             <div class= "col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
             </div>
-          </div> 
+          
                     
         </div>
       </div>     
@@ -300,6 +298,7 @@
     <!--end of service col-->
 
     <!--start of stff col-->
+    <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
     <div class="col-lg-6">
       <div class="box box-primary">
         <div class="box-header">
@@ -320,7 +319,7 @@
                   if (!empty($eventStaff) || !empty($oncallStaff)) {
                     $mergedStaffArray = array_merge($eventStaff, $oncallStaff);
                     foreach ($mergedStaffArray as $staff) {  
-                      
+                      $svcstaff = $staff['empId'];
                 ?>
               <tr>               
                 <td><?php echo $staff['name']; ?></td>
@@ -328,10 +327,9 @@
                 <td><?php echo $staff['num']; ?></td>
                 <td>
                   <div class="col-md-6 col-sm-6">
-                  <form role="form" method="post">
-                      <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> Remove <i class="fa fa-fw fa-remove"> </i>
-                      </button>
-                  </form>
+                  
+                      <button form="evtstaffdltform" class="btn btn-link" id="evtstaffdlt" name="evtstaffdlt" type="submit" value="<?php echo($svcstaff) ?>"> Remove <i class="fa fa-remove"></i></button>
+                  
                   </div>
                 </td>
               </tr>

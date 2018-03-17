@@ -330,6 +330,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->eventDetails();			
 		}
 
+		// remove staff from event
+		public function rmvStaff(){
+			$svcStaff = $this->input->post('evtstaffdlt');
+			$this->session->set_userdata('currrentSvcStaff', $svcStaff);
+			$svcstaffID = $this->session->userdata('currrentSvcStaff');
+			$eId = $this->session->userdata('currentEventID');
+			$this->events_model->deleteEvtStaff($eId, $svcstaffID);
+			$this->events_model->deleteEvtOCStaff($eId, $svcstaffID);
+			$this->eventDetails();
+		}
+
 		public function removeEntourage(){
 			$currentEntID = $this->input->post('entourageID');
 			$this->session->set_userdata('currentEntID', $currentEntID);
