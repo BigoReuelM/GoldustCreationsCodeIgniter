@@ -47,7 +47,7 @@
                 <td>
                   <!--?php echo form_dropdown('nagan', $data['results']) ?-->
                   <select name="role">
-                    <option selected hidden>Role</option>
+                    <option selected hidden>Please Choose</option>
                     <?php if(!empty($entourageRole)){ 
                       foreach($entourageRole as $role) { ?>
                     <option value="<?php echo $role['role'] ?>"><?php echo $role['role'] ?></option>
@@ -132,7 +132,7 @@
                     <td><?php echo $details['status'] ?></td>
                     <td>
                       <select name="designName">
-                      <option selected hidden>Design Name</option>
+                      <option selected hidden>Please Choose</option>
                       <?php if(!empty($designs)){ 
                         foreach($designs as $name) { ?>
                           <option value="<?php echo $name['designName'] ?>"><?php echo $name['designName'] ?></option>
@@ -143,14 +143,14 @@
                       </select>
                     </td>
                     <td>
-                      <div class="col-md-6 col-sm-4">
-                      <!--form role="form" action="<?php echo base_url('') ?>" method="post">
-                      <button class="btn btn-block" id="butt5" name="eventInfo" type="submit">
-                            Edit <i class="fa fa-fw fa-exchange"></i>
+                      
+                      <div class="col-md-3 col-sm-4">
+                        <form id="entourageidform" role="form" method="post" action="">
+                          <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value=""> Update <i class="fa fa-exchange" > </i>
                           </button>
-                      </form>
+                        </form>
                       </div>
-                      <div class="col-md-6 col-sm-4"-->
+                      <div class="col-md-6 col-sm-4">
                       <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
                       <button class="btn btn-block" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"> Remove <i class="fa fa-remove"></i></button></form></div>
                     </td>
