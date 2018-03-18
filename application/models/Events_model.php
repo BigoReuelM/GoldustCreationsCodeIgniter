@@ -615,15 +615,15 @@
 		}
 
 		public function getDesignName(){
-			$this->db->select('designID');
-			$query = $this->db->get('entourageDesigns'); // mali po itoooo gg
+			$eventID = $this->session->userdata('currentEventID');
+			$query = $this->db->query("
+				SELECT designs.designName 
+				FROM designs 
+				NATURAL JOIN eventdesigns 
+				WHERE eventID = $eventID"
+			);
 
-			if ($query->num_rows() > 0){
-				foreach($query->result() as $row) {
-				$data[] = $row;
-				}
-				return $data;
-			}
+			return $query->result_array();
 		}
 	}
 

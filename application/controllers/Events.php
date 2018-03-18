@@ -539,7 +539,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($query){
 				$data['designs'] = $query;
 			}
-			$this->load->view(eventEntourage, $data);
+			$this->load->view('eventEntourage', $data);
 		}
 	}
 
