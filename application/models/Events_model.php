@@ -588,7 +588,7 @@
 			}
 			return $results;
 		}*/
-
+		/*
 		public function getRole(){
 			$this->db->select('role');
 			$query = $this->db->get('entourage'); //,ali ata to
@@ -599,6 +599,19 @@
 				}
 				return $data;
 			}
+		}
+		*/
+
+		public function getEntourageRole(){
+			$eventID = $this->session->userdata('currentEventID');
+			$query = $this->db->query("
+				SELECT entourage.role
+				FROM entourage
+				NATURAL JOIN events
+				WHERE eventID = $eventID
+			");
+
+			return $query->result_array();
 		}
 
 		public function getDesignName(){

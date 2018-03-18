@@ -47,9 +47,10 @@
                 <td>
                   <!--?php echo form_dropdown('nagan', $data['results']) ?-->
                   <select name="role">
-                  <?php foreach($roles as $row) { ?>
-                  <option value="<?=$row->id?><?=$row->role?>"</option>
-                  <?php } ?>
+                    <option selected hidden>Role</option>
+                    <?php if(!empty($entourageRole)){ foreach($entourageRole as $role) { ?>
+                    <option value="<?php echo $role['role'] ?>"><?php echo $role['role'] ?></option>
+                    <?php } }else{ echo "no role"; } ?>
                   </select>
                 </td>
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>

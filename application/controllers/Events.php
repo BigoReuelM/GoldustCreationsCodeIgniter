@@ -141,6 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['designs']=$this->events_model->getDesigns($currentEvent);
+			$data['entourageRole'] = $this->events_model->getEntourageRole();
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
