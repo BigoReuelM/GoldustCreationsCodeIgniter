@@ -246,7 +246,7 @@
 
 		public function getApointments($ceid){
 			$query = $this->db->query("
-				SELECT eventName, appointments.date, appointments.time, agenda, employeeName
+				SELECT eventName, appointments.date, appointments.time, agenda, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM appointments
 				NATURAL JOIN events
 				NATURAL JOIN employees

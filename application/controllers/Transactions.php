@@ -56,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
 			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
 			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
-			$data['expenses'] = $this->transactions_model->getTransactionExpenses($tranID);
+
 			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
 
 			$this->load->view("templates/head.php");
