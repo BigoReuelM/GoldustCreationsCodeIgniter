@@ -231,6 +231,9 @@
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
+		}
+		public function getAllStaff(){
+			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
 			return $query->result_array();
 		}
 
@@ -598,7 +601,9 @@
 			return $query->result_array();
 		}
 
-		// this method will resume a cancelled event
+
+
+		// resume a cancelled event
 		public function changeEvtStatus(){
 			$eID = $this->session->userdata('currentEventID');
 			$data = array(
