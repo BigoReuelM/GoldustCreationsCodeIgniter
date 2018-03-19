@@ -6,7 +6,7 @@
 	{
 		public function getAdminEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				where role = 'admin'
 			");
@@ -15,7 +15,7 @@
 
 		public function getHandlerEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				where role = 'handler'
 			");
@@ -24,7 +24,7 @@
 
 		public function getStaffEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				where role = 'staff' OR role = 'on-call staff'
 			");
@@ -41,7 +41,7 @@
 				'email' => $email,
 				'role' => $role,
 				'photo' => $image,
-				'username' => $name,
+				'username' => $fname,
 				'password' => "pwd",
 				'status' => "active"
 			);
@@ -51,7 +51,7 @@
 
 		public function getEmpDetails($empID){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE employeeID = $empID
 			");

@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('events_model');
 			$this->load->library('session');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 		}
 
 		public function index(){
@@ -58,18 +59,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
-			$fname = $this->input->post('firstname');
-			$mname = $this->input->post('middlename');
-			$lname = $this->input->post('lastname');
-			$cNumber = $this->input->post('cNumber');
-			$email = $this->input->post('email');
-			$address = $this->input->post('address');
-			$role = $this->input->post('role');
-			$image = $this->input->post('employeeImage');
+			$this->form_validation->set_rules('firstname', 'First Name', 'required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'required');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				//ini_set('display_errors', 1);
+				$errors['errors'] = $this->form_validation->set_err();
+			}else{
+				$fname = $this->input->post('firstname');
+				$mname = $this->input->post('middlename');
+				$lname = $this->input->post('lastname');
+				$cNumber = $this->input->post('cNumber');
+				$email = $this->input->post('email');
+				$address = $this->input->post('address');
+				$role = $this->input->post('role');
+				$image = $this->input->post('employeeImage');
 
-			$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
+				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
 
-			redirect('admin/adminEmployeeManagement');
+				echo "success";
+				//redirect('admin/adminEmployeeManagement');
+
+			}
 
 		}
 
