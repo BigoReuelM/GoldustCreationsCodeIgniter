@@ -229,16 +229,6 @@
 			return $query->row();
 		}
 
-		/*public function getStaff($ceid){
-			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
-				FROM employees
-				NATURAL JOIN eventstaff
-				where eventID = $ceid    
-			");
-			return $query->result_array();
-		}*/
-
 		public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
@@ -246,6 +236,11 @@
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
+			return $query->result_array();
+		}
+
+		public function getAllStaff(){
+			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
 			return $query->result_array();
 		}
 
@@ -626,7 +621,9 @@
 			return $query->result_array();
 		}
 
-		// this method will resume a cancelled event
+
+
+		// resume a cancelled event
 		public function changeEvtStatus(){
 			$eID = $this->session->userdata('currentEventID');
 			$data = array(

@@ -112,8 +112,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 			$data['handlers'] = $this->events_model->getHandlers();
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
+			// get staff assigned to an event ONLY
 			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
+			// get ALL staff from the database
+			$data['staff'] = $this->events_model->getAllStaff();
 			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -125,11 +128,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 			}else{
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-				
+				$this->load->view("templates/eventNav.php", $data);			
 			}
-			$this->load->view("templates/eventDetails.php");
+			$this->load->view("templates/eventDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -551,3 +552,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	}
 
 ?>
+
