@@ -51,10 +51,6 @@
                           <td><?php echo $event['refundedAmount']; ?></td>
                           <td><?php echo $event['cancelledDate']; ?></td>
                           <td>
-                            <div class="col-md-6 col-sm-4"><button data-toggle="modal" data-target="#modal-danger" class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
-                                  <i class="fa fa-fw fa-check"></i>
-                                </button></div>
-                          
                             <div class="col-md-6 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
                                 <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info

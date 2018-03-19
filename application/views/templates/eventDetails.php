@@ -46,9 +46,9 @@
       <?php endif ?>
 
       <?php if ($eventDetail->eventStatus === "cancelled"): ?>
-        <form form="form" method="post" action="">
+        <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
           <div class="col-lg-3">
-            <button type="button" class="btn btn-block btn-primary btn-lg">Continue Event</button>
+            <button type="submit" class="btn btn-block btn-primary btn-lg">Continue Event</button>
           </div>
         </form>
         <div class="col-lg-3">

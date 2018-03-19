@@ -541,6 +541,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			$this->load->view('eventEntourage', $data);
 		}
+
+		// this method will resume a cancelled event 
+		public function contEvent(){
+			$this->load->model('events_model');
+			$this->events_model->changeEvtStatus();
+			$this->ongoingEvents();
+		}
 	}
 
 ?>
