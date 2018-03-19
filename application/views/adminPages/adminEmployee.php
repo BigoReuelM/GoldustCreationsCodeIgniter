@@ -348,9 +348,9 @@
           if (response.success == true) {
             // if success we would show message
             // and also remove the error class
-            $('#the-message').append('<div class="alert alert-success">' +
+            $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
-            ' Data has been saved' +
+            ' New employee has been saved.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
@@ -362,7 +362,7 @@
             $(this).delay(3000).hide(10, function() {
               $(this).remove();
             });
-          })
+            })
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

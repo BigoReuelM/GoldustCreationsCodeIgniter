@@ -1,85 +1,7 @@
-<style type="text/css">
-#name{
-   width:250%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
-  input[type=text], select, textarea {
-    width: 250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
 
-label {
-    padding: 6px 6px 6px 0;
-    display: inline-block;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
-
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-
-.col-75 {
-    float: left;
-    margin-right: 50px;
-    width: 25%;
-    margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 50px) {
-    .col-25, .col-75, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-    }
-}
-
-#con1 {
-  width:100%;
-   background-color: white;
-}
-
-#tab1 {
-  border:1px solid #ccc;
-  background-color: #E6E6E6
-}
-
-#head1 {
-  font-size: 18px;
-  font-weight: bold;
-}
-</style>
+<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -142,85 +64,88 @@ input[type=submit] {
   
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('admin/addExpenses') ?>">
+      <?php 
+        $attributes = array("name" => "addExpenses", "id" => "addExpenses", "class" => "form-horizontal");
+        echo form_open("admin/addExpenses", $attributes);
+      ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Expenses</h4>
         </div>
+        <div id="the-message">
+          
+        </div>
         <div class="modal-body">
-          <div class="container" id="con1">
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Client Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" > Azuma Kazuma </div>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Event Name</label>
+          <div class="box-body">
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label class="control-label">Client Name</label>
               </div>
-              <div class="col-75">
-                <div id="name" > Azuma Anniversary </div>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" disabled>
               </div>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Name</label>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label class="control-label">Event Name</label>
               </div>
-              <div class="col-75">
-                <input type="text" name="expenseName" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Date</label>
-              </div>
-              <div class="col-75">
-                <input type="date" name="date" placeholder="Description" class="form-control">
+              <div class="col-lg-9">
+                <input type="text" class="form-control" disabled>
               </div>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Amount</label>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="expenseName" class="control-label">Expense Name</label>
               </div>
-              <div class="col-75">
-                <input type="text" name="expenseAmount" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Reciept No.</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="receiptNumber" placeholder="Amount" class="form-control">
+              <div class="col-lg-9">
+                <input type="text" name="expenseName" id="expenseName" placeholder="Enter Expense Name..." class="form-control">
               </div>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <p id="head1">Select files</p>
-                <div class="form-inline">
-                  <div class="form-group">
-                    <input type="file" name="expenseImage" id="js-upload-files" multiple>
-                  </div>
-                </div>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="expenseDate" class="control-label">Date</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="date" name="expenseDate" id="expenseDate" class="form-control">
               </div>
             </div>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="expenseAmount" class="control-label">Expenses Amount</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="text" name="expenseAmount" id="expenseAmount" class="form-control" placeholder="Enter Amount here...">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="expenseReceipt" class="control-label">Receipt No.</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="text" name="expenseReceipt" id="expenseReceipt" class="form-control" placeholder="Enter Receipt No. Here..">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-lg-3">
+                <label for="expensePhoto" class="control-label">Receipt Photo</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="file" name="expensePhoto" id="expensePhoto" class="form-control">
+              </div>
+            </div>  
           </div>
         </div>
         <div class="modal-footer">
-          <button id="addExpenses" type="submit" name="addExpenses" class="btn btn-default">Add</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button id="submit" type="submit" class="btn btn-default">Add</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>
     
   </div>
 </div>
 
-    <!-- REQUIRED JS SCRIPTS -->
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->
@@ -238,4 +163,50 @@ input[type=submit] {
       $('#handlerTable').DataTable()
       $('#expenseTable').DataTable()
     })
+  </script>
+
+  <script>
+    $('#addExpenses').submit(function(e){
+      e.preventDefault();
+
+      var expensesDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: expensesDetails.attr('action'),
+        data: expensesDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New expense has been saved.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            expensesDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
   </script>

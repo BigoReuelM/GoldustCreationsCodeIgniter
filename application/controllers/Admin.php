@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addEmployee(){
 
-			$data = array('success' => false, 'message' => array());
+			$data = array('success' => false, 'messages' => array());
 
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
@@ -133,16 +133,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addExpenses(){
-			$date = $this->input->post('date');
-			$amount = $this->input->post('expenseAmount');
-			$name = $this->input->post('expenseName');
-			$image = $this->input->post('expenseImage');
-			$rNum = $this->input->post('receiptNumber');
-			$currentEventID = $this->session->userdata('currentEventID');
 			$empID = $this->session->userdata('employeeID');
-			$this->admin_model->addEventExpenses($empID, $currentEventID, $name, $date, $amount, $rNum, $image);
 
-			redirect('admin/expenses');
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('expenseName', 'Expense Name', 'trim|required');
+			$this->form_validation->set_rules('expenseDate', 'Expenses Date', 'required');
+			$this->form_validation->set_rules('expenseAmount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('expenseReceipt', 'Receipt No.', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger>', '</p>');
+
+			if ($this->form_validation->run()) {
+				$date = $this->input->post('expenseDate');
+				$amount = $this->input->post('expenseAmount');
+				$name = $this->input->post('expenseName');
+				$image = $this->input->post('expensePhoto');
+				$rNum = $this->input->post('expenseReceipt');
+				
+				$this->admin_model->addExpenses($empID, $name, $date, $amount, $rNum, $image);
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+			
+			echo json_encode($data);
+
 		}
 
 		public function addNewService(){
