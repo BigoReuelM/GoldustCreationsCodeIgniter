@@ -523,7 +523,7 @@
                     foreach ($staff as $s) { ?>
                       <tr>                   
                         <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['employeeID'] ?>"><?php echo $s['employeeName'] ?></label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['employeeID'] ?>"><?php echo $s['name'] ?></label></div>
                         </td>
                         <td><input type="text" name=""></td>
                         <td><?php echo $s['contactNumber'] ?></td>

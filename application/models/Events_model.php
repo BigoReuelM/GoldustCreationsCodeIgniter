@@ -214,7 +214,7 @@
 			return $query->row();
 		}
 
-		public function getStaff($ceid){
+		/*public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
 				FROM employees
@@ -222,10 +222,8 @@
 				where eventID = $ceid    
 			");
 			return $query->result_array();
-		}
+		}*/
 
-		/*public function getStaff($ceid){
-			");*/
 		public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
@@ -233,6 +231,7 @@
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
+		}
 		public function getAllStaff(){
 			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
 			return $query->result_array();
