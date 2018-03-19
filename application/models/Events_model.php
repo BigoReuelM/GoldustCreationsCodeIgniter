@@ -132,17 +132,7 @@
 			return $query->result_array();
 		}
 
-		public function getExpenses($currentEventID){
-
-			$eID = $currentEventID;
-
-			$this->db->select('*');
-			$this->db->from('expenses');
-			$this->db->join('events', 'events.eventID = expenses.eventID');
-			$this->db->where('events.eventID', $eID);
-			$query = $this->db->get();
-			return $query->result_array();
-		}
+		
 
 		public function getEventName($id){
 			$query = $this->db->query("SELECT eventName FROM events where eventID = $id");
@@ -175,12 +165,7 @@
 			return $query->result_array();
 		}
 
-		public function totalExpenses($eID){
-			$query = $this->db->query("SELECT sum(expensesAmount) as total
-				from expenses
-				where eventID = $eID");
-			return $query->row();
-		}
+
 
 		public function totalAmount($eID){
 			$query = $this->db->query("SELECT totalAmount 
@@ -212,7 +197,7 @@
 
 		public function getHandlers(){
 			$query = $this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE role like 'handler' and status like 'active'
 			");
@@ -221,7 +206,7 @@
 
 		public function getCurrentHandler($ceid){
 			$query = $this->db->query("
-				SELECT employeeName, photo
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, photo
 				FROM employees
 				Natural join events
 				where events.eventID = $ceid  
@@ -239,6 +224,15 @@
 			return $query->result_array();
 		}
 
+		/*public function getStaff($ceid){
+			");*/
+		public function getStaff($ceid){
+			$query = $this->db->query("
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
+				FROM employees
+				NATURAL JOIN eventstaff
+				where eventID = $ceid    
+			");
 		public function getAllStaff(){
 			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
 			return $query->result_array();
@@ -256,7 +250,7 @@
 
 		public function getApointments($ceid){
 			$query = $this->db->query("
-				SELECT eventName, appointments.date, appointments.time, agenda, employeeName
+				SELECT eventName, appointments.date, appointments.time, agenda, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM appointments
 				NATURAL JOIN events
 				NATURAL JOIN employees
@@ -300,19 +294,6 @@
 			*/
 		}
 
-		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
-			$data = array(
-				'eventID' => $ceID,
-				'employeeID' => $empID,
-				'expensesName' => $expName,
-				'expensesAmount' => $amount,
-				'expensesDate' => $date,
-				'receiptNum' => $num,
-				'receiptImage' => $image
-			);
-
-			$this->db->insert('expenses', $data);
-		}
 
 		public function changeDecor($eId, $decId, $newdecId){
 			// add $newdecId later....

@@ -177,15 +177,6 @@
 
 			return $query->row();
 		}
-		
-		public function getTransactionExpenses($transID){
-			$query=$this->db->query("
-				SELECT *
-				FROM expenses 
-				WHERE transactionID = $transID
-			");
-			return $query->result_array();
-		}
 
 		public function getdecors(){
 			$this->db->select('*');

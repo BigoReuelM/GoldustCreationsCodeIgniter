@@ -150,7 +150,7 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="still not included in database" value="">
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
               </div>
               <div class="form-group">
                 <div class="col-lg-4">
@@ -186,7 +186,7 @@
               </div>
               <div class="form-group">
                 <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="not in database" value="">
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
               </div>
 
               <div class="form-group">
@@ -241,7 +241,9 @@
             </div>
           </div>
         </div>
-        
+        <div class="box-footer">
+          
+        </div>
       </div>
     </div>
     

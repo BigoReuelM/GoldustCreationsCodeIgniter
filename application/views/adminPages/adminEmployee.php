@@ -174,7 +174,10 @@
   <div class="modal-dialog">    
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="role" method="post" class="form-horizontal" action="<?php  echo base_url('admin/addEmployee') ?>">
+      <?php 
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee");
+        echo form_open("admin/addEmployee", $attributes);
+      ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Employee</h4>
@@ -182,65 +185,88 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-3 control-label">Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="name" placeholder="Enter Employee Name ... ">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label class="control-label">First Name</label>
+                </div>
+                <div class="col-sm-4">
+                  <label class="control-label">Middle Name</label>
+                </div>
+                <div class="col-sm-4"> 
+                  <label class="control-label">Last Name</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name ... ">
+                </div>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Contact Number</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="cNumber" placeholder="Enter Contact Number ... ">
+                <input type="text" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Email</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="email" placeholder="email@gmail.com">
+                <input type="text" class="form-control" id="email" name="email" placeholder="email@gmail.com">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Address</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="address" placeholder="Enter Address ...">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address ...">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3">Select Role</label>
+              <label class="col-sm-3 control-label">Select Role</label>
               <div class="col-sm-9">
-                <select name="role" class="form-control">
+                <select id="role" name="role" class="form-control">
                   <option selected disabled hidden>Choose Role</option>
                   <option value="admin">Admin</option>
                   <option value="handler">Handler</option>
                   <option value="staff">Staff</option>
+                  <option value="on-call staff">On-call Staff</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3" for="exampleInputFile">Select Employee Image</label>
-              <div class="col-sm-9">
+              <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
+              <div class="col-sm-7">
                 <input type="file" name="employeeImage" id="js-upload-files" multiple>
               </div>
             </div>
           </div>
         </div>
+        <div id="alert-msg">
+          
+        </div>
         <div class="modal-footer">
           <div class="row">
             <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-default" data-toggle="modal">Save</button>
+              <button id="submit" type="submit" class="btn btn-block btn-default">Add</button>
             </div>
             <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>   
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>       
   </div>
 </div>
 <!-- Modal -->
 
   <!-- jQuery 3 -->
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -302,4 +328,42 @@
     }
 
 }
+</script>
+<script>
+  //$(function(){
+    $('#submit').click(function(event){
+      event.preventDefault();
+      var fname = $('#firstname').val();
+      var mname = $('#middlename').val();
+      var lname = $('#lastname').val();
+      var cNumber = $('#cNumber').val();
+      var email = $('#email').val();
+      var address = $('#address').val();
+      var role = $('#role').val();
+      var image = $('#js-upload-files').val();
+
+      $event.ajax({
+        type: 'POST',
+        url: <?php  echo base_url('admin/addEmployee') ?>,
+        data: {
+          'fname': fname,
+          'mname': mname,
+          'lname': lname,
+          'cNumber': cNumber,
+          'email': email,
+          'address': address,
+          'role': role,
+          'image': image
+        },
+        success: function(results){
+          if (results == 'success') {
+            $('#alert-msg').html('<div class="alert alert-success text-center">Employee Was added successfully!</div>');
+          }else{
+            $('#alert-msg').html('<div class="alert alert-danger">' + results + '</div>');
+          }
+        }
+      });
+      return false;
+    });
+  //});
 </script>

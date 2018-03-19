@@ -8,7 +8,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	class Events extends CI_Controller
 	{
 
-
 		
 		public function __construct()
 		{
@@ -195,9 +194,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$cid = $this->session->userdata('clientID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
 			$data['totalPayments']=$this->events_model->totalAmountPaid($currentEvent);
-			$data['expenses']=$this->events_model->getExpenses($currentEvent);
-			$data['totalExpenses']=$this->events_model->totalExpenses($currentEvent);
-			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);
+			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);			
 			$data['balance']=$this->events_model->balance($currentEvent);
 			$data['clientName']=$this->events_model->getClientName($cid);
 			
@@ -289,18 +286,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function addExpenses(){
-			$date = $this->input->post('date');
-			$amount = $this->input->post('expenseAmount');
-			$name = $this->input->post('expenseName');
-			$image = $this->input->post('expenseImage');
-			$rNum = $this->input->post('receiptNumber');
-			$currentEventID = $this->session->userdata('currentEventID');
-			$empID = $this->session->userdata('employeeID');
-			$this->events_model->addEventExpenses($empID, $currentEventID, $name, $date, $amount, $rNum, $image);
 
-			redirect('events/paymentAndExpences');
-		}
 		// set and delete selected decor...
 		public function setCurrentDecorID(){
 			$currentDecorID = $this->input->post('decorID');

@@ -1,19 +1,10 @@
 <?php
   $empRole = $this->session->userdata('role');
   $tAmount = $totalAmount->totalAmount; 
-  $totalExpenses = $totalExpenses->total;
   $totalAmountPaid = $totalPayments->total;
   $totalBudget = $tAmount * .30;
   $eventBalance = $balance->balance;
-
-  $remainingBudget = $totalBudget - $totalExpenses;
-  if ($remainingBudget < 0) {
-    $remainingBudget = "0000";
-    
-  $overBudget = $totalExpenses - $totalBudget;
-  if($overBudget < 0){
-    $overBudget = "00000";
-  }
+  
 ?>
 <style type="text/css">
 #name{
@@ -128,8 +119,6 @@ input[type=submit] {
     <section class="content container-fluid">
 
       <div class="content">
-        <div class="row">
-        <div class="col-md-6">
           <div class="box">
             <div class="box-header with-border">
               <div class="row">
@@ -192,87 +181,8 @@ input[type=submit] {
             </div>
           </div>
           </div>
-        </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <div class="row">
-                <div class="col-lg-5">
-                  <h3 class="box-title">Expenses Table:</h3>
-                </div>
-                <div class="col-lg-7">
-                  <?php 
-                    if ($empRole === "admin") {
-                      echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>';
-                    }
-                  ?>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <div class="row">
-                <div class="col-md-6">                 
-                  <h3>Total Expenses:</h3>
-                  <?php 
-                    
-                    echo '<h1>Php' . $totalExpenses . '</h1>';  
-                  ?>
-                </div>
-                <div class="col-md-6">
-                  <h3>Remaining Budget:</h3>
-                  <?php 
-                    
-                    echo '<h1>Php ' . $remainingBudget . '</h1>';
-                  ?>
-                </div>
-              </div>
-              
-              <table id="expenseTable" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Expenses ID</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Proof</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                    if (!empty($expenses)) {
-                       foreach ($expenses as $expense) {
-            
-                  ?>
-                  <tr>
-                    <td><?php  echo $expense['expensesID']; ?></td>
-                    <td><?php  echo $expense['expensesAmount']; ?></td>
-                    <td><?php  echo $expense['expensesName']; ?></td>
-                    <td><?php  echo $expense['expensesDate']; ?></td>
-                    <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
-                  </tr>
-                  <?php
-                      }
-                    }else{
-                      echo "0 data";
-                    }
-                  ?>
-                </tbody>
-              </table>
-            
-            <!-- /.box-body -->
-              <div>
-                <?php
-                  
-                  echo '<h3>Over Budget: Php ' . $overBudget . '</h3>';
-                  echo '<h3>Total Budget: ' . $totalBudget . '</h3>';
-                 ?>
-              </div>
-          </div>
-        </div>
-      </div>
 
-    </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -344,87 +254,7 @@ input[type=submit] {
 </div>
 <!-- End of add payment modal -->
 <!-- Modal for add expenses -->
-<div class="modal fade" id="addexpenses" role="dialog">
-  <div class="modal-dialog">
-  
-    <!-- Modal content-->
-    <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addExpenses') ?>">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Expenses</h4>
-        </div>
-        <div class="modal-body">
-          <div class="container" id="con1">
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Client Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" > Azuma Kazuma </div>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Event Name</label>
-              </div>
-              <div class="col-75">
-                <div id="name" > Azuma Anniversary </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Name</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="expenseName" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Date</label>
-              </div>
-              <div class="col-75">
-                <input type="date" name="date" placeholder="Description" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Expense Amount</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="expenseAmount" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Reciept No.</label>
-              </div>
-              <div class="col-75">
-                <input type="text" name="receiptNumber" placeholder="Amount" class="form-control">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <p id="head1">Select files</p>
-                <div class="form-inline">
-                  <div class="form-group">
-                    <input type="file" name="expenseImage" id="js-upload-files" multiple>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="addExpenses" type="submit" name="addExpenses" class="btn btn-default">Add</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </form>
-    </div>
-    
-  </div>
-</div>
+
 <!-- end modal for add expenses -->
   <!-- /.content-wrapper -->
 

@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('events_model');
 			$this->load->library('session');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 		}
 
 		public function index(){
@@ -58,16 +59,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
-			$name = $this->input->post('name');
-			$cNumber = $this->input->post('cNumber');
-			$email = $this->input->post('email');
-			$address = $this->input->post('address');
-			$role = $this->input->post('role');
-			$image = $this->input->post('employeeImage');
+			$this->form_validation->set_rules('firstname', 'First Name', 'required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'required');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'required');
+			if ($this->form_validation->run() == FALSE) {
+				//ini_set('display_errors', 1);
+				$errors['errors'] = $this->form_validation->set_err();
+			}else{
+				$fname = $this->input->post('firstname');
+				$mname = $this->input->post('middlename');
+				$lname = $this->input->post('lastname');
+				$cNumber = $this->input->post('cNumber');
+				$email = $this->input->post('email');
+				$address = $this->input->post('address');
+				$role = $this->input->post('role');
+				$image = $this->input->post('employeeImage');
 
-			$this->admin_model->insertNewEmployee($name, $cNumber, $email, $address, $role, $image);
+				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
 
-			redirect('admin/adminEmployeeManagement');
+				echo "success";
+				//redirect('admin/adminEmployeeManagement');
+
+			}
 
 		}
 
@@ -100,11 +113,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function expenses(){
+
+			$data['expenses']=$this->admin_model->getExpenses();
+			$data['totalExpenses']=$this->admin_model->totalExpenses();
+
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php");
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/expenseMonitoring.php");
+			$this->load->view("adminPages/expenseMonitoring.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function addExpenses(){
+			$date = $this->input->post('date');
+			$amount = $this->input->post('expenseAmount');
+			$name = $this->input->post('expenseName');
+			$image = $this->input->post('expenseImage');
+			$rNum = $this->input->post('receiptNumber');
+			$currentEventID = $this->session->userdata('currentEventID');
+			$empID = $this->session->userdata('employeeID');
+			$this->admin_model->addEventExpenses($empID, $currentEventID, $name, $date, $amount, $rNum, $image);
+
+			redirect('admin/expenses');
 		}
 
 		public function addNewService(){
@@ -115,6 +145,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			redirect('admin/services');
 		}
+
+
 
 
 

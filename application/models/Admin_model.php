@@ -6,7 +6,7 @@
 	{
 		public function getAdminEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				where role = 'admin'
 			");
@@ -15,7 +15,7 @@
 
 		public function getHandlerEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				where role = 'handler'
 			");
@@ -24,22 +24,24 @@
 
 		public function getStaffEmployees(){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
-				where role = 'staff'
+				where role = 'staff' OR role = 'on-call staff'
 			");
 			return $query->result_array();
 		}
 
-		public function insertNewEmployee($name, $cNumber, $email, $address, $role, $image){
+		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image){
 			$data = array(
-				'employeeName' => $name,
+				'firstName' => $fname,
+				'midName' => $mname,
+				'lastName' => $lname,
 				'contactNumber' => $cNumber,
 				'address' => $address,
 				'email' => $email,
 				'role' => $role,
 				'photo' => $image,
-				'username' => $name,
+				'username' => $fname,
 				'password' => "pwd",
 				'status' => "active"
 			);
@@ -49,12 +51,21 @@
 
 		public function getEmpDetails($empID){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE employeeID = $empID
 			");
 
 			return $query->row();
+		}
+
+		public function getExpenses(){
+
+
+			$this->db->select('*');
+			$this->db->from('expenses');
+			$query = $this->db->get();
+			return $query->result_array();
 		}
 
 		public function getActiveServices(){
@@ -65,6 +76,28 @@
 			");
 
 			return $query->result_array();
+		}
+
+		public function totalExpenses(){
+			$query = $this->db->query("SELECT sum(expensesAmount) as total
+				from expenses
+			");
+			return $query->row();
+		}
+
+		
+		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
+			$data = array(
+				'eventID' => $ceID,
+				'employeeID' => $empID,
+				'expensesName' => $expName,
+				'expensesAmount' => $amount,
+				'expensesDate' => $date,
+				'receiptNum' => $num,
+				'receiptImage' => $image
+			);
+
+			$this->db->insert('expenses', $data);
 		}
 
 		public function getInactiveServices(){
