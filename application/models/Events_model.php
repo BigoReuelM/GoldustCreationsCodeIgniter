@@ -597,6 +597,16 @@
 
 			return $query->result_array();
 		}
+
+		// this method will resume a cancelled event
+		public function changeEvtStatus(){
+			$eID = $this->session->userdata('currentEventID');
+			$data = array(
+				'eventStatus' => 'on-going'
+			);
+			$this->db->where('eventID', $eID);
+			$this->db->update('events', $data);
+		}
 	}
 
 
