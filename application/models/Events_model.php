@@ -132,17 +132,7 @@
 			return $query->result_array();
 		}
 
-		public function getExpenses($currentEventID){
-
-			$eID = $currentEventID;
-
-			$this->db->select('*');
-			$this->db->from('expenses');
-			$this->db->join('events', 'events.eventID = expenses.eventID');
-			$this->db->where('events.eventID', $eID);
-			$query = $this->db->get();
-			return $query->result_array();
-		}
+		
 
 		public function getEventName($id){
 			$query = $this->db->query("SELECT eventName FROM events where eventID = $id");
@@ -175,12 +165,7 @@
 			return $query->result_array();
 		}
 
-		public function totalExpenses($eID){
-			$query = $this->db->query("SELECT sum(expensesAmount) as total
-				from expenses
-				where eventID = $eID");
-			return $query->row();
-		}
+
 
 		public function totalAmount($eID){
 			$query = $this->db->query("SELECT totalAmount 
@@ -305,19 +290,6 @@
 			*/
 		}
 
-		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
-			$data = array(
-				'eventID' => $ceID,
-				'employeeID' => $empID,
-				'expensesName' => $expName,
-				'expensesAmount' => $amount,
-				'expensesDate' => $date,
-				'receiptNum' => $num,
-				'receiptImage' => $image
-			);
-
-			$this->db->insert('expenses', $data);
-		}
 
 		public function changeDecor($eId, $decId, $newdecId){
 			// add $newdecId later....

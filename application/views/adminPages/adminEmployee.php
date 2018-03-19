@@ -182,9 +182,27 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-3 control-label">Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" name="name" placeholder="Enter Employee Name ... ">
+              <div class="row">
+                <div class="col-sm-4">
+                  <label class="control-label">First Name</label>
+                </div>
+                <div class="col-sm-4">
+                  <label class="control-label">Middle Name</label>
+                </div>
+                <div class="col-sm-4"> 
+                  <label class="control-label">Last Name</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" name="firstname" placeholder="Enter First Name ... ">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" name="middlename" placeholder="Enter Middle Name ... ">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" name="filename" placeholder="Enter Last Name ... ">
+                </div>
               </div>
             </div>
             <div class="form-group">
@@ -206,19 +224,20 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3">Select Role</label>
+              <label class="col-sm-3 control-label">Select Role</label>
               <div class="col-sm-9">
                 <select name="role" class="form-control">
                   <option selected disabled hidden>Choose Role</option>
                   <option value="admin">Admin</option>
                   <option value="handler">Handler</option>
                   <option value="staff">Staff</option>
+                  <option value="on-call staff">On-call Staff</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3" for="exampleInputFile">Select Employee Image</label>
-              <div class="col-sm-9">
+              <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
+              <div class="col-sm-7">
                 <input type="file" name="employeeImage" id="js-upload-files" multiple>
               </div>
             </div>

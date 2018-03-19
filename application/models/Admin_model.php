@@ -26,14 +26,16 @@
 			$query=$this->db->query("
 				SELECT *
 				FROM employees
-				where role = 'staff'
+				where role = 'staff' OR role = 'on-call staff'
 			");
 			return $query->result_array();
 		}
 
-		public function insertNewEmployee($name, $cNumber, $email, $address, $role, $image){
+		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image){
 			$data = array(
-				'employeeName' => $name,
+				'firstName' => $fname,
+				'midName' => $mname,
+				'lastName' => $lname,
 				'contactNumber' => $cNumber,
 				'address' => $address,
 				'email' => $email,
@@ -57,6 +59,15 @@
 			return $query->row();
 		}
 
+		public function getExpenses(){
+
+
+			$this->db->select('*');
+			$this->db->from('expenses');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function getActiveServices(){
 			$query = $this->db->query("
 				SELECT *
@@ -65,6 +76,28 @@
 			");
 
 			return $query->result_array();
+		}
+
+		public function totalExpenses(){
+			$query = $this->db->query("SELECT sum(expensesAmount) as total
+				from expenses
+			");
+			return $query->row();
+		}
+
+		
+		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
+			$data = array(
+				'eventID' => $ceID,
+				'employeeID' => $empID,
+				'expensesName' => $expName,
+				'expensesAmount' => $amount,
+				'expensesDate' => $date,
+				'receiptNum' => $num,
+				'receiptImage' => $image
+			);
+
+			$this->db->insert('expenses', $data);
 		}
 
 		public function getInactiveServices(){
