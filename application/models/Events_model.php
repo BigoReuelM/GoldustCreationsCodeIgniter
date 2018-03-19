@@ -197,7 +197,7 @@
 
 		public function getHandlers(){
 			$query = $this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE role like 'handler' and status like 'active'
 			");
@@ -206,7 +206,7 @@
 
 		public function getCurrentHandler($ceid){
 			$query = $this->db->query("
-				SELECT employeeName, photo
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, photo
 				FROM employees
 				Natural join events
 				where events.eventID = $ceid  
@@ -226,7 +226,7 @@
 
 		public function getStaff($ceid){
 			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
 				FROM employees
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
