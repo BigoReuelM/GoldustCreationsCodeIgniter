@@ -9,8 +9,7 @@
   $remainingBudget = $totalBudget - $totalExpenses;
   if ($remainingBudget < 0) {
     $remainingBudget = "0000";
-  }
-  
+    
   $overBudget = $totalExpenses - $totalBudget;
   if($overBudget < 0){
     $overBudget = "00000";

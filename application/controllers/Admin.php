@@ -99,6 +99,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function expenses(){
+			$this->load->view("templates/head.php");
+			$this->load->view("templates/adminHeader.php");
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/expenseMonitoring.php");
+			$this->load->view("templates/footer.php");
+		}
+
 		public function addNewService(){
 			$serviceName = $this->input->post('serviceName');
 			$serviceDisk = $this->input->post('description');
@@ -107,6 +115,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			redirect('admin/services');
 		}
+
+
 
 	}
 

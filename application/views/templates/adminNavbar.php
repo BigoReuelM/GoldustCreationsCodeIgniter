@@ -98,6 +98,12 @@
             <span>Clients</span>
           </a>
         </li>
+        <li>
+          <a href="<?php echo base_url('admin/expenses') ?>">
+            <i class="glyphicon glyphicon-user"></i>
+            <span>Expenses</span>
+          </a>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
