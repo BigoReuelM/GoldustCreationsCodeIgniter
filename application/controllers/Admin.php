@@ -59,13 +59,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
-			$this->form_validation->set_rules('firstname', 'First Name', 'required');
-			$this->form_validation->set_rules('middlename', 'Middle Name', 'required');
-			$this->form_validation->set_rules('lastname', 'Last Name', 'required');
-			if ($this->form_validation->run() == FALSE) {
-				//ini_set('display_errors', 1);
-				$errors['errors'] = $this->form_validation->set_err();
-			}else{
+
+			$data = array('success' => false, 'message' => array());
+
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required');
+			$this->form_validation->set_rules('address', 'Address', 'trim|required');
+			$this->form_validation->set_rules('role', 'Role', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger>', '</p>');
+			if ($this->form_validation->run()) {
 				$fname = $this->input->post('firstname');
 				$mname = $this->input->post('middlename');
 				$lname = $this->input->post('lastname');
@@ -76,11 +81,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$image = $this->input->post('employeeImage');
 
 				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
-
-				echo "success";
-				//redirect('admin/adminEmployeeManagement');
-
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
+
+			echo json_encode($data);
 
 		}
 

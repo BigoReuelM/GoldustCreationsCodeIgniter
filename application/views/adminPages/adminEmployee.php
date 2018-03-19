@@ -1,4 +1,9 @@
 <!-- Content Wrapper. Contains page content -->
+  <!-- jQuery 3 -->
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -175,37 +180,40 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addEmployee", "id" => "addEmployee");
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal");
         echo form_open("admin/addEmployee", $attributes);
       ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Employee</h4>
         </div>
+        <div id="the-message">
+          
+        </div>
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <div class="row">
-                <div class="col-sm-4">
-                  <label class="control-label">First Name</label>
-                </div>
-                <div class="col-sm-4">
-                  <label class="control-label">Middle Name</label>
-                </div>
-                <div class="col-sm-4"> 
-                  <label class="control-label">Last Name</label>
-                </div>
+              <div class="col-sm-3">
+                <label for="firstname" class="control-label">First Name</label>
               </div>
-              <div class="row">
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
-                </div>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
-                </div>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name ... ">
-                </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3">
+                <label for="middlename" class="control-label">Middle Name</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3"> 
+                <label for="lastname" class="control-label">Last Name</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name ... ">
               </div>
             </div>
             <div class="form-group">
@@ -246,9 +254,6 @@
             </div>
           </div>
         </div>
-        <div id="alert-msg">
-          
-        </div>
         <div class="modal-footer">
           <div class="row">
             <div class="col-lg-6">
@@ -265,9 +270,7 @@
 </div>
 <!-- Modal -->
 
-  <!-- jQuery 3 -->
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- AdminLTE App -->
@@ -331,39 +334,50 @@
 </script>
 <script>
   //$(function(){
-    $('#submit').click(function(event){
-      event.preventDefault();
-      var fname = $('#firstname').val();
-      var mname = $('#middlename').val();
-      var lname = $('#lastname').val();
-      var cNumber = $('#cNumber').val();
-      var email = $('#email').val();
-      var address = $('#address').val();
-      var role = $('#role').val();
-      var image = $('#js-upload-files').val();
+    $('#addEmployee').submit(function(e){
+      e.preventDefault();
 
-      $event.ajax({
+      var employeeDetails = $(this);
+
+      $.ajax({
         type: 'POST',
-        url: <?php  echo base_url('admin/addEmployee') ?>,
-        data: {
-          'fname': fname,
-          'mname': mname,
-          'lname': lname,
-          'cNumber': cNumber,
-          'email': email,
-          'address': address,
-          'role': role,
-          'image': image
-        },
-        success: function(results){
-          if (results == 'success') {
-            $('#alert-msg').html('<div class="alert alert-success text-center">Employee Was added successfully!</div>');
+        url: employeeDetails.attr('action'),
+        data: employeeDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' Data has been saved' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            employeeDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
           }else{
-            $('#alert-msg').html('<div class="alert alert-danger">' + results + '</div>');
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
           }
         }
       });
-      return false;
     });
   //});
 </script>
