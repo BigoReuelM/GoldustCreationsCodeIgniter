@@ -1,4 +1,9 @@
 <!-- Content Wrapper. Contains page content -->
+  <!-- jQuery 3 -->
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -174,52 +179,77 @@
   <div class="modal-dialog">    
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="role" method="post" class="form-horizontal" action="<?php  echo base_url('admin/addEmployee') ?>">
+      <?php 
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal");
+        echo form_open("admin/addEmployee", $attributes);
+      ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Employee</h4>
         </div>
+        <div id="the-message">
+          
+        </div>
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-3 control-label">Name</label>
+              <div class="col-sm-3">
+                <label for="firstname" class="control-label">First Name</label>
+              </div>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="name" placeholder="Enter Employee Name ... ">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3">
+                <label for="middlename" class="control-label">Middle Name</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-3"> 
+                <label for="lastname" class="control-label">Last Name</label>
+              </div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name ... ">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Contact Number</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="cNumber" placeholder="Enter Contact Number ... ">
+                <input type="text" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Email</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="email" placeholder="email@gmail.com">
+                <input type="text" class="form-control" id="email" name="email" placeholder="email@gmail.com">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Address</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" name="address" placeholder="Enter Address ...">
+                <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address ...">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3">Select Role</label>
+              <label class="col-sm-3 control-label">Select Role</label>
               <div class="col-sm-9">
-                <select name="role" class="form-control">
+                <select id="role" name="role" class="form-control">
                   <option selected disabled hidden>Choose Role</option>
                   <option value="admin">Admin</option>
                   <option value="handler">Handler</option>
                   <option value="staff">Staff</option>
+                  <option value="on-call staff">On-call Staff</option>
                 </select>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-3" for="exampleInputFile">Select Employee Image</label>
-              <div class="col-sm-9">
-                <input type="file" name="employeeImage" id="js-upload-files" multiple>
+              <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
+              <div class="col-sm-7">
+                <input type="file" class="form-control" name="employeeImage" id="employeeImage" multiple>
               </div>
             </div>
           </div>
@@ -227,21 +257,20 @@
         <div class="modal-footer">
           <div class="row">
             <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-default" data-toggle="modal">Save</button>
+              <button id="submit" type="submit" class="btn btn-block btn-default">Add</button>
             </div>
             <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </div>   
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>       
   </div>
 </div>
 <!-- Modal -->
 
-  <!-- jQuery 3 -->
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- AdminLTE App -->
@@ -264,42 +293,52 @@
     })
   </script>
 
-<script type="text/javascript">
-  
-    + function($) {
-    'use strict';
+<script>
+  //$(function(){
+    $('#addEmployee').submit(function(e){
+      e.preventDefault();
 
+      var employeeDetails = $(this);
 
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
-
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone';
-
-        startUpload(e.dataTransfer.files)
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone';
-        return false;
-    }
-
-}
+      $.ajax({
+        type: 'POST',
+        url: employeeDetails.attr('action'),
+        data: employeeDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New employee has been saved.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            employeeDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+  //});
 </script>

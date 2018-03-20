@@ -31,7 +31,7 @@
               <li><a href="<?php echo base_url('events/eventDetails') ?>">Details</a></li>
               <li><a href="<?php echo base_url('events/eventEntourage') ?>">Entourage</a></li>
               <li><a href="<?php echo base_url('events/eventDecors') ?>">Decors</a></li>
-              <li><a href="<?php echo base_url('events/paymentAndExpences') ?>">Payment and Expenses</a></li>
+              <li><a href="<?php echo base_url('events/paymentAndExpences') ?>">Payments</a></li>
               <li><a href="<?php echo base_url('events/appointments') ?>">Appointments</a></li>
             </ul>
           </div><!-- /.navbar-collapse -->

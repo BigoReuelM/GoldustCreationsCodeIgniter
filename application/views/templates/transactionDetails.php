@@ -251,100 +251,48 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <div class="row">
-                <div class="col-lg-5">
-                  <h3 class="box-title">Payments Table:</h3>
-                </div>
-                <div class="col-lg-7">
-                  <?php if ($this->session->userdata('role') === "admin"): ?>
-                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
-                  <?php endif ?>
-                </div>
-              </div>
+      <div class="box">
+        <div class="box-header with-border">
+          <div class="row">
+            <div class="col-lg-5">
+              <h3 class="box-title">Payments Table:</h3>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="paymentTable" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Payment ID</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                  </tr>
-                </thead>
-                <tbody> 
-                  <?php if (!empty($payments)){
-                    foreach ($payments as $payment) {
-                  ?>
-                    <tr>
-                      <td><?php echo $payment['paymentID'] ?></td>
-                      <td><?php echo $payment['amount'] ?></td>
-                      <td><?php echo $payment['date'] ?></td>
-                      <td><?php echo $payment['time'] ?></td>
-                    </tr>
-                  <?php 
-                      }
-                    }
-                  ?>
-                </tbody>
-              </table>
+            <div class="col-lg-7">
+              <?php if ($this->session->userdata('role') === "admin"): ?>
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>
+              <?php endif ?>
             </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="box">
-            <div class="box-header with-border">
-              <div class="row">
-                <div class="col-lg-5">
-                  <h3 class="box-title">Expenses Table:</h3>
-                </div>
-                <div class="col-lg-7">
-                  <?php if ($this->session->userdata('role') === "admin"): ?>
-                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
-                  <?php endif ?>
-                </div>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-
-              <table id="expenseTable" class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>Expenses ID</th>
-                    <th>Amount</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Proof</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if (!empty($expenses)){
-                    foreach ($expenses as $expense) {
-                  ?>
-                    <tr>
-                      <td><?php echo $expense['expensesID'] ?></td>
-                      <td><?php echo $expense['expensesAmount'] ?></td>
-                      <td><?php echo $expense['expensesName'] ?></td>
-                      <td><?php echo $expense['expensesDate'] ?></td>
-                      <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
-                    </tr> 
-                  <?php
-                      }
-                    }
-                  ?>
-                  
-                </tbody>
-              </table>
-           </div>
-         </div>
-       </div>
-     </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table id="paymentTable" class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Payment ID</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <?php if (!empty($payments)){
+                foreach ($payments as $payment) {
+              ?>
+                <tr>
+                  <td><?php echo $payment['paymentID'] ?></td>
+                  <td><?php echo $payment['amount'] ?></td>
+                  <td><?php echo $payment['date'] ?></td>
+                  <td><?php echo $payment['time'] ?></td>
+                </tr>
+              <?php 
+                  }
+                }
+              ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
      <div class="control-sidebar-bg"></div>             
   </section> 
 </div>

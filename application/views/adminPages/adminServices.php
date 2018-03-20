@@ -99,23 +99,29 @@
   <div class="modal fade" id="addService" role="dialog" >
     <div class="modal-dialog">
       <div class="modal-content">
-        <form role="form" method="post" action="<?php echo base_url('admin/addNewService') ?>" class="form-horizontal">
+        <?php 
+          $attributes = array("name" => "addNewService", "id" => "addNewService", "class" => "form-horizontal");
+          echo form_open("admin/addNewService", $attributes);
+        ?>
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Add Service</h4>
+          </div>
+          <div id="the-message">
+            
           </div>
           <div class="modal-body">
             <div class="box-body">
               <div class="form-group">
                 <label class="col-sm-3 control-label">Service Name</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" name="serviceName" placeholder="Enter Service Name Here ... ">
+                  <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="Enter Service Name Here ... ">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3 control-label">Description</label>
                 <div class="col-sm-9">
-                  <textarea rows="5" class="form-control" name="description" placeholder="Enter Service Description Here ... "></textarea>
+                  <textarea rows="5" class="form-control" id="description" name="description" placeholder="Enter Service Description Here ... "></textarea>
                 </div>
               </div>
             </div>
@@ -130,7 +136,7 @@
               </div>
             </div>   
           </div>
-        </form>
+        <?php  echo form_close(); ?>
       </div>
     </div>
   </div>
@@ -161,4 +167,63 @@
     $('#activeService').DataTable()
     $('#inactiveService').DataTable()
   })
+</script>
+
+<script>
+  $('#addNewService').submit(function(e){
+    e.preventDefault();
+
+    var serviceDetails = $(this);
+
+    $.ajax({
+      type: 'POST',
+      url: serviceDetails.attr('action'),
+      data: serviceDetails.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if (response.success == true) {
+          $('#the-message').append('<div class="alert alert-success text-center">' +
+          '<span class="icon fa fa-check"></span>' +
+          ' New expense has been saved.' +
+          '</div>');
+          $('.form-group').removeClass('has-error')
+                .removeClass('has-success');
+          $('.text-danger').remove();
+          // reset the form
+          serviceDetails[0].reset();
+          // close the message after seconds
+          $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
+        }else{
+          $.each(response.messages, function(key, value) {
+            var element = $('#' + key);
+            
+            element.closest('div.form-group')
+            .removeClass('has-error')
+            .addClass(value.length > 0 ? 'has-error' : 'has-success')
+            .find('.text-danger')
+            .remove();
+            
+            element.after(value);
+          });
+        }
+
+        if (response.alert == true) {
+          $('#the-message').append('<div class="alert alert-warning text-center">' +
+          '<span class="icon fa-fa-warning"></span>' +
+          ' Service name already exist!' +
+          '</div>');
+
+          $('.alert-warning').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
+        }
+      }
+    });
+  });
 </script>

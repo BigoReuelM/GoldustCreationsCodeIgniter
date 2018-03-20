@@ -150,7 +150,7 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="still not included in database" value="">
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
               </div>
               <div class="form-group">
                 <div class="col-lg-4">
@@ -186,7 +186,7 @@
               </div>
               <div class="form-group">
                 <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="not in database" value="">
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
               </div>
 
               <div class="form-group">
@@ -241,7 +241,9 @@
             </div>
           </div>
         </div>
-        
+        <div class="box-footer">
+          
+        </div>
       </div>
     </div>
     
@@ -345,7 +347,7 @@
 
     <!--end of service col-->
 
-    <!--start of stff col-->
+    <!--start of staff col-->
     <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
     <div class="col-lg-6">
       <div class="box box-primary">
@@ -386,7 +388,7 @@
           </table>
           <div class="row">
             <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addstaff">Add Staff </button>
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addStaff">Add Staff </button>
             </div>
             <div class="col-lg-6">
               <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff</button>
@@ -431,11 +433,6 @@
                       <tr>                   
                           <td>
                             <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
-                            <?php 
-                              if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
-                                
-                              }
-                            ?>
                           </td>
                           <td><?php echo $svc['description'] ?></td>
                       </tr>
@@ -455,7 +452,7 @@
   </div>
 </div>
 
-  <!-- Add staff Modal -->
+  <!-- Cancel event Modal -->
 <div class="modal fade" id="cancellEvent" role="dialog">
   <div class="modal-dialog">
   
@@ -500,84 +497,50 @@
       </div>   
   </div>
 </div>
-<!-- End of Add staff modal -->
+<!-- End of cancel event modal -->
 
-  <!-- Add staff Modal -->
-<div class="modal fade" id="addstaff" role="dialog">
+<!-- Add staff Modal -->
+<div class="modal fade" role="dialog" id="addStaff">
   <div class="modal-dialog">
-  
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Staff</h4>
       </div>
       <div class="modal-body">
-        <div class="col-lg-4">
-            <input type="text" class="search form-control" placeholder="What you looking for?">
-        </div>
-        <span class="counter pull-right"></span>
-        <table class="table table-hover table-bordered results">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th class="col-md-5 col-xs-5">Name</th>
-              <th class="col-md-4 col-xs-4">Role</th>
-              <th class="col-md-3 col-xs-3">Contact Number</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">
-                <form action="/action_page.php">
-                  <input type="checkbox" name="check" value="Bike"><br>
-                </form>
-              </th>
-              <td>Frida Eadwig</td>
-              <td>
-                <form action="/action_page.php">
-                  <input type="text" name="FirstName" value="" id="form1">
-                </form>
-              </td>
-              <td>09982765760</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <form action="/action_page.php">
-                  <input type="checkbox" name="check" value="Bike"><br>
-                </form>
-              </th>
-              <td>Aloisa Piccio</td>
-              <td>
-                <form action="/action_page.php">
-                  <input type="text" name="FirstName" value="" id="form1">
-                </form>
-              </td>
-              <td>09987765560</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <form action="/action_page.php">
-                  <input type="checkbox" name="check" value="Bike"><br>
-                </form>
-              </th>
-              <td>Daniella Mattsson</td>
-              <td>
-                <form action="/action_page.php">
-                  <input type="text" name="FirstName" value="" id="form1">
-                </form>
-              </td>
-              <td>09877789082</td>
-            </tr>
-          </tbody>
-        </table>
+         <form id="addsvcform" role="form" method="post" action="">
+          <table class="table table-hover table-responsive table-bordered" id="modalStaffTbl">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Contact Number</th>
+              </tr>
+            </thead>
+            <tbody>              
+                <?php
+                  if (!empty($staff)) {
+                    foreach ($staff as $s) { ?>
+                      <tr>                   
+                        <td>
+                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['employeeID'] ?>"><?php echo $s['name'] ?></label></div>
+                        </td>
+                        <td><input type="text" name=""></td>
+                        <td><?php echo $s['contactNumber'] ?></td>
+                      </tr>
+                <?php }
+                  }
+                ?>             
+            </tbody>            
+          </table>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="modal-footer">                 
+        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+        <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
       </div>
+      </form>
     </div>
-    
+
   </div>
 </div>
 <!-- End of Add staff modal -->
@@ -660,6 +623,7 @@
       $('#serviceTable').DataTable()
       $('#staffTable').DataTable()
       $('#modalServcTbl').DataTable()
+      $('#modalStaffTbl').DataTable()
     })
 
     function reset_chkbx() {
