@@ -188,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function paymentAndExpences(){
+		public function payment(){
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['eventName'] =$this->events_model->getEventName($currentEvent);
 			$empRole = $this->session->userdata('role');
@@ -213,7 +213,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php", $data);
 				
 			}
-			$this->load->view("templates/paymentAndExpences.php", $data);
+			$this->load->view("templates/payment.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -223,7 +223,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 			$data['eventName'] = $this->events_model->getEventName($currentEvent);
-			$data['appointments'] = $this->events_model->getApointments($currentEvent);
+			$data['appointments'] = $this->events_model->getAppointments($currentEvent);
 			
 			
 			$this->load->view("templates/head.php");
@@ -239,7 +239,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php", $data);
 				
 			}
-			$this->load->view("templates/appointments.php");
+			$this->load->view("templates/appointments.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -376,16 +376,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function addEventAppointments(){
+		public function addNewEventAppointment(){
+
 			$empID = $this->session->userdata('employeeID');
 			$ceID = $this->session->userdata('currentEventID');
-			$adate = $this->input->post('appointmentDate');
-			$time = $this->input->post('time');
-			$agenda = $this->input->post('agenda');
 
-			$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+			$data = array('success' => false, 'messages' => array());
 
-			redirect('events/appointments');
+			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
+			$this->form_validation->set_rules('appointmentDate', 'Appointment Date', 'required');
+			$this->form_validation->set_rules('appointmentTime', 'Appointment Time', 'required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$adate = $this->input->post('appointmentDate');
+				$time = $this->input->post('appointmentTime');
+				$agenda = $this->input->post('agenda');
+
+				$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+
+				$data['success'] = true;	
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function addEntourage() {

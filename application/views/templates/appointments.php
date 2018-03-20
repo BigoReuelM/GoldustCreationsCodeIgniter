@@ -84,34 +84,36 @@
         <h4 class="modal-title">Add Appointment</h4>
       </div>
       <div class="modal-body">
-        <form role="form" action="<?php echo base_url('events/addEventAppointments') ?>" method="post" class="form-horizontal">
+        <?php 
+          $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal");
+          echo form_open("events/addNewEventAppointment", $attributes);
+        ?>
+          <div id="the-message">
+          </div>
           <div class="box-body">
           
             <div class="form-group">
-              <label class="col-sm-2 control-label">Client Name</label>
-              <div class="col-sm-10">
+              <label class="col-lg-3 control-label">Client Name</label>
+              <div class="col-lg-9">
                 <input type="text" class="form-control" disabled>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Agenda</label>
-              <div class="col-sm-10">
-                <textarea class="form-control" rows="5" placeholder="Enter Agenda..." name="agenda"></textarea>
+              <label class="col-lg-3 control-label">Agenda</label>
+              <div class="col-lg-9">
+                <textarea class="form-control" rows="5" placeholder="Enter Agenda..." name="agenda" id="agenda"></textarea>
               </div>
             </div>
             <div class="form-group">
-              <label>Date:</label>
-              <input type="date" class="form-control pull-right" name="appointmentDate">
+              <label class="col-lg-3 control-label">Date:</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="date" id="appointmentDate" name="appointmentDate">
+              </div>
             </div>
-            <div class="bootstrap-timepicker">
-              <div class="form-group">
-                <label>Time Picker:</label>
-                <div class="input-group">
-                  <input type="text" class="form-control timepicker" name="time">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                </div>
+            <div class="form-group">
+              <label class="col-lg-3">Time</label>
+              <div class="col-lg-9">
+                <input type="time" class="form-control" name="appointmentTime" id="appointmentTime">
               </div>
             </div>
           </div>
@@ -125,7 +127,7 @@
               </div>             
             </div>
           </div>
-        </form>
+        <?php echo form_Close(); ?>
       </div>
     </div>
     
@@ -180,73 +182,6 @@
   })
 </script>
 
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
 <style>
   @media screen and (min-with: 768px){
     #editEntourage .modal-dialog {
@@ -260,3 +195,51 @@
   }
 
 </style>
+
+<script>
+      $('#addNewAppointment').submit(function(e){
+      e.preventDefault();
+
+      var appointmentDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: appointmentDetails.attr('action'),
+        data: appointmentDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New payment has been saved.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            appointmentDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+</script>

@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('role', 'Role', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
-				$fname = $this->input->post('firstname');
+				$fname = $this->input->post('firstname');	
 				$mname = $this->input->post('middlename');
 				$lname = $this->input->post('lastname');
 				$cNumber = $this->input->post('cNumber');
