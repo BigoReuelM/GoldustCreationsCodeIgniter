@@ -210,7 +210,7 @@
 			$empRole = $this->session->userdata('role');
 			if($empRole === "handler"){
 				$query = $this->db->query("
-				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
+				SELECT eventID, eventName, clientID, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName, eventStatus
 				FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) 
 				AS event 
 				LEFT JOIN eventservices using (eventID) 

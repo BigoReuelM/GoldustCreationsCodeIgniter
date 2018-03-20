@@ -67,7 +67,7 @@
                   </div-->
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="">
-                      <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value=""> Update <i class="fa fa-exchange" > </i>
+                      <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value="updt"> Update <i class="fa fa-exchange" > </i>
                       </button>
                     </form>
                   </div>
