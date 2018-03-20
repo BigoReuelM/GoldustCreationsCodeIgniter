@@ -6,88 +6,7 @@
   $eventBalance = $balance->balance;
   
 ?>
-<style type="text/css">
-#name{
-   width:250%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
-  input[type=text], select, textarea {
-    width: 250%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    background-color: #E6E6E6;
-}
 
-label {
-    padding: 6px 6px 6px 0;
-    display: inline-block;
-}
-
-input[type=submit] {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    float: right;
-}
-
-.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-}
-
-.col-25 {
-    float: left;
-    width: 25%;
-    margin-top: 6px;
-}
-
-.col-75 {
-    float: left;
-    margin-right: 50px;
-    width: 25%;
-    margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media (max-width: 50px) {
-    .col-25, .col-75, input[type=submit] {
-        width: 100%;
-        margin-top: 0;
-    }
-}
-
-#con1 {
-  width:100%;
-   background-color: white;
-}
-
-#tab1 {
-  border:1px solid #ccc;
-  background-color: #E6E6E6
-}
-
-#head1 {
-  font-size: 18px;
-  font-weight: bold;
-}
-</style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -191,63 +110,54 @@ input[type=submit] {
   <div class="modal-dialog">  
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>">
-
+      <?php 
+        $attributes = array("name" => "addNewPayment", "id" => "addNewPayment", "class" => "form-horizontal");
+        echo form_open("events/addPayment", $attributes);
+      ?>
+      <div id="the-message">
+        
+      </div>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Payment</h4>
         </div>
         <div class="modal-body">
-          <div class="container" id="con1">
-              
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Client Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" > <?php echo $clientName->clientName; ?> </div>
-                </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Client Name</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" value="<?php echo $clientName->clientName; ?>" disabled>
             </div>
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Event Name</label>
-                </div>
-                <div class="col-75">
-                  <div id="name" > <?php echo $eventName->eventName; ?> </div>
-                </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Event Name</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" value="<?php echo $eventName->eventName; ?>" disabled>
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Date</label>
-              </div>
-              <div class="col-75">
-                <input type="date" name="date" placeholder="Description">
-              </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Amount</label>
+            <div class="col-lg-9">
+              <input type="text" class="form-control" name="amount" id="amount" placeholder="Enter amount..">
             </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">Time</label>
-              </div>
-              <div class="col-75">
-                <input type="time" name="time" placeholder="Description">
-              </div>
-            </div>
-            <div class="row">
-               <div class="col-25">
-                  <label for="fname">Amount</label>
-                </div>
-                <div class="col-75">
-                  <input type="text" name="amount" placeholder="Amount">
-               
-                </div>
-            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Date Payed</label>
+            <div class="col-lg-9">
+              <input type="date" class="form-control" name="date" id="date">
+            </div>            
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Time Payed</label>
+            <div class="col-lg-9">
+              <input type="time" class="form-control" name="time" id="time">
+            </div>            
           </div>
         </div>      
         <div class="modal-footer">
-          <button id="addPayment" type="submit" name="addPayment" class="btn btn-default">Add</button>
+          <button type="submit" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>
     
   </div>
@@ -262,27 +172,6 @@ input[type=submit] {
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<div class="modal modal-default fade" id="modal-photo">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Design Name Here</h4> 
-      </div>
-      <div class="modal-body">
-        <img src="sly2.jpg" alt="photo">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <a href="gowns.php"><button type="button" class="btn btn-primary">Change</button></a>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-<!-- /.modal-dialog -->
-</div>
-<!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
 
@@ -296,58 +185,10 @@ input[type=submit] {
 <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
-<script type="text/javascript">
-  
-    + function($) {
-    'use strict';
-
-
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
-
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone';
-
-        startUpload(e.dataTransfer.files)
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone';
-        return false;
-    }
-
-}
-  </script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
-<script>
-function date() {
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "date");
-    x.setAttribute("value", "2014-02-09");
-    document.body.appendChild(x);
-}
-</script>
 
 <script>
   $(function () {
@@ -356,4 +197,53 @@ function date() {
     $('#paymentTable').DataTable({
     })
   })
+</script>
+
+
+<script>
+      $('#addNewPayment').submit(function(e){
+      e.preventDefault();
+
+      var paymentDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: paymentDetails.attr('action'),
+        data: paymentDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New payment has been saved.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            paymentDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
 </script>

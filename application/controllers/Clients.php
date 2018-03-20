@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('clients_model');
 			$this->load->library('session');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 		}
 
 		public function clients(){
@@ -36,15 +37,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addClient(){
-			$firstname = $this->input->post('firstname');
-			$middlename = $this->input->post('middlename');
-			$lastname = $this->input->post('lastname');
-			$contactNo = $this->input->post('contact');
-			$date = $this->input->post('addDate');
 
-			$this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
+			$data = array('success' => false, 'messages' => array());
 
-			redirect('clients/clients');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('contact', 'Contact Number', 'trim|required');
+			$this->form_validation->set_rules('adddate', 'Date', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger"', '</p>');
+
+			if ($this->form_validation->run()) {
+				$firstname = $this->input->post('firstname');
+				$middlename = $this->input->post('middlename');
+				$lastname = $this->input->post('lastname');
+				$contactNo = $this->input->post('contact');
+				$date = $this->input->post('adddate');
+				$this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
+
+				$data['success'] = true;
+
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
 		}
 	}
 
