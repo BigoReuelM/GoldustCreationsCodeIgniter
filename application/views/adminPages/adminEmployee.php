@@ -249,7 +249,7 @@
             <div class="form-group">
               <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
               <div class="col-sm-7">
-                <input type="file" name="employeeImage" id="js-upload-files" multiple>
+                <input type="file" class="form-control" name="employeeImage" id="js-upload-files" multiple>
               </div>
             </div>
           </div>

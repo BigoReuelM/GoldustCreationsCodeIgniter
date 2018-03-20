@@ -78,57 +78,43 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <div class="col-lg-3">
-                <label class="control-label">Client Name</label>
-              </div>
+              <label class="control-label col-lg-3">Client Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" disabled>
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label class="control-label">Event Name</label>
-              </div>
+              <label class="control-label col-lg-3">Event Name</label>
               <div class="col-lg-9">
                 <input type="text" class="form-control" disabled>
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label for="expenseName" class="control-label">Expense Name</label>
-              </div>
+              <label for="expenseName" class="control-label col-lg-3">Expense Name</label>
               <div class="col-lg-9">
                 <input type="text" name="expenseName" id="expenseName" placeholder="Enter Expense Name..." class="form-control">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label for="expenseDate" class="control-label">Date</label>
-              </div>
+              <label for="expenseDate" class="control-label col-lg-3">Date</label>
               <div class="col-lg-9">
                 <input type="date" name="expenseDate" id="expenseDate" class="form-control">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label for="expenseAmount" class="control-label">Expenses Amount</label>
-              </div>
+              <label for="expenseAmount" class="control-label col-lg-3">Expenses Amount</label>
               <div class="col-lg-9">
                 <input type="text" name="expenseAmount" id="expenseAmount" class="form-control" placeholder="Enter Amount here...">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label for="expenseReceipt" class="control-label">Receipt No.</label>
-              </div>
+              <label for="expenseReceipt" class="control-label col-lg-3">Receipt No.</label>
               <div class="col-lg-9">
                 <input type="text" name="expenseReceipt" id="expenseReceipt" class="form-control" placeholder="Enter Receipt No. Here..">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-lg-3">
-                <label for="expensePhoto" class="control-label">Receipt Photo</label>
-              </div>
+              <label for="expensePhoto" class="control-label col-lg-3">Receipt Photo</label>
               <div class="col-lg-9">
                 <input type="file" name="expensePhoto" id="expensePhoto" class="form-control">
               </div>
@@ -179,7 +165,7 @@
         success: function(response){
           if (response.success == true) {
             $('#the-message').append('<div class="alert alert-success text-center">' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
+            '<span class="icon fa fa-ckeck"></span>' +
             ' New expense has been saved.' +
             '</div>');
             $('.form-group').removeClass('has-error')
