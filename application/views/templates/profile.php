@@ -10,7 +10,7 @@
             </div>
             <form class="form-horizontal">
               <div class="box-body box-profile">          
-                <div class="col-lg-6">               
+                <div class="col-lg-12">               
                   <div class="form-group">
                     <img class="profile-user-img img-responsive img-circle"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
 
@@ -33,46 +33,46 @@
                     <button type="button" class="btn btn-block btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-9">
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Employee ID</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Employee ID</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Name</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Name</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeName ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Contact Number</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Contact Number</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->contactNumber ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Email Address</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Email Address</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->email ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Home Address</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Home Address</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->address ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Role</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Role</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->role?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-3 control-label">Status</label>
-                    <div class="col-sm-9">
+                    <label class="col-sm-6 control-label">Status</label>
+                    <div class="col-sm-6">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->status ?>" disabled>
                     </div>
                   </div>
