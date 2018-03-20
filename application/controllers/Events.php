@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('events_model');
 			$this->load->library('session');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 		}
 
 		public function newEvents(){
@@ -271,19 +272,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addPayment(){
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
+			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$date = $this->input->post('date');
+				$time = $this->input->post('time');
+				$amount = $this->input->post('amount');
+				$currentEventID = $this->session->userdata('currentEventID');
+
+				$empID = $this->session->userdata('employeeID');
+				$clientID = $this->session->userdata('clientID');
+				$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+
+				$data['success'] = true;
+					
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
 			
-			$date = $this->input->post('date');
-			$time = $this->input->post('time');
-			$amount = $this->input->post('amount');
-			$currentEventID = $this->session->userdata('currentEventID');
-
-			$empID = $this->session->userdata('employeeID');
-			$clientID = $this->session->userdata('clientID');
-			$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
-			
-
-			redirect('events/paymentAndExpences');
-
 		}
 
 

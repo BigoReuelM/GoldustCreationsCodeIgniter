@@ -1,4 +1,6 @@
-
+<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -89,55 +91,62 @@
 	  	<div class="modal-content">
 		    <div class="modal-header">
 		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span></button>
+		        <span aria-hidden="true">&times;</span>
+          </button>
 		      <h4 class="modal-title">Add New Client</h4>
 		    </div>
-		    <form role="form" method="post" class="form-horizontal" action="<?php echo base_url('clients/addClient') ?>">
-			    <div class="modal-body">
-			    	<div class="box-body">
-			    		<div class="form-group">
-			              <label class="col-sm-3 control-label">First Name</label>
-			              <div class="col-sm-9">
-			                <input type="text" class="form-control" name="firstname">
-			              </div>
-			            </div>
-			            <div class="form-group">
-			              <label class="col-sm-3 control-label">Middle Name</label>
-			              <div class="col-sm-9">
-			                <input type="text" class="form-control" name="middlename">
-			              </div>
-			            </div>
-			            <div class="form-group">
-			              <label class="col-sm-3 control-label">Last Name</label>
-			              <div class="col-sm-9">
-			                <input type="text" class="form-control" name="lastname">
-			              </div>
-			            </div>
-			            <div class="form-group">
-			              <label class="col-sm-3 control-label">Contact Number</label>
-			              <div class="col-sm-9">
-			                <input type="text" class="form-control" name="contact">
-			              </div>
-			            </div>
-			    		<div class="form-group">
-			              <label class="col-sm-3 control-label">Date Registerd:</label>
-			              <div class="col-sm-9">
-			              	<input type="date" class="form-control pull-right" name="addDate">
-			              </div>
-			            </div>
-			    	</div>
-			    </div>
-			    <div class="modal-footer">
-			      <div class="row">
-			        <div class="col-lg-6">
-			          <button type="submit" class="btn btn-block btn-primary">Add New Client</button>
-			        </div>
-			        <div class="col-lg-6">
-			          <button class="btn btn-block btn-primary" data-dismiss="modal">Cancel</button>
-			        </div>
-			      </div>
-			    </div>
-			</form>
+        <?php 
+          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal");
+          echo form_open("clients/addClient", $attributes);
+        ?>
+        <div id="the-message">
+          
+        </div>
+		    <div class="modal-body">
+		    	<div class="box-body">
+            <div class="form-group">
+              <label class="col-lg-3 control-label">First Name</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="firstname" name="firstname">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Middle Name</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="middlename" name="middlename">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Last Name</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="lastname" name="lastname">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Contact Number</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="contact" name="contact">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Date Registerd:</label>
+              <div class="col-lg-9">
+                <input type="date" class="form-control" id="adddate" name="adddate">
+              </div>
+            </div>
+		    	</div>
+		    </div>
+		    <div class="modal-footer">
+		      <div class="row">
+		        <div class="col-lg-6">
+		          <button type="submit" class="btn btn-default">Add New Client</button>
+		        </div>
+		        <div class="col-lg-6">
+		          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+		        </div>
+		      </div>
+		    </div>
+			  <?php echo form_close(); ?>
 		</div>
 	</div>
 </div>
@@ -148,7 +157,6 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
@@ -162,72 +170,50 @@
 		$('#allClientsTable').DataTable({})
 	})
 </script>
-
-
 <script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+      $('#addNewClient').submit(function(e){
+      e.preventDefault();
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
+      var clientDetails = $(this);
 
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-      }
-    )
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
+      $.ajax({
+        type: 'POST',
+        url: clientDetails.attr('action'),
+        data: clientDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New employee has been saved.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            clientDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
 </script>
