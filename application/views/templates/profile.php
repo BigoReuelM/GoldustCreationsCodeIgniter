@@ -1,4 +1,22 @@
+<style type="text/css">
+  #list6 {
+  width:260px;
+  margin-left:40%;
+  padding-top: 15px;
+}
 
+
+#respass {
+  width: 400px;
+  margin-left:35%;
+  padding-top: 15px;
+  background: #3c8dbc;
+}
+#img5 {
+  width:250px;
+  height:250px;
+}
+</style>
 <div class="content-wrapper">
   <section class="content container-fluid">
     <div classs="content">
@@ -12,7 +30,7 @@
               <div class="box-body box-profile">          
                 <div class="col-lg-12">               
                   <div class="form-group">
-                    <img class="profile-user-img img-responsive img-circle"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
+                    <img class="profile-user-img img-responsive img-circle" id="img5"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
 
                     <!-- -->
 
@@ -21,10 +39,13 @@
                     <p class="text-muted text-center">Event Handler</p>
 
                     <ul class="list-group list-group-unbordered">
-                      <li class="list-group-item">
-                        <b>Events</b> <a class="pull-right">1,322</a>
+                      <li class="list-group-item" id="list6">
+                        <b>Handled Events</b> <a class="pull-right">1,322</a>
                       </li>
-                      <li class="list-group-item">
+                      <li class="list-group-item" id="list6">
+                        <b>Events Currently Handling</b> <a class="pull-right">50</a>
+                      </li>
+                      <li class="list-group-item" id="list6">
                         <b>Transactions</b> <a class="pull-right">543</a>
                       </li>
                     </ul>
@@ -33,46 +54,45 @@
                     <button type="button" class="btn btn-block btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
                   </div>
                 </div>
-                <div class="col-lg-9">
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Employee ID</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Employee ID</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Name</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Name</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeName ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Contact Number</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Contact Number</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->contactNumber ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Email Address</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Email Address</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->email ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Home Address</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Home Address</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->address ?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Role</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Role</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->role?>" disabled>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-6 control-label">Status</label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-4 control-label">Status</label>
+                    <div class="col-sm-5">
                       <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->status ?>" disabled>
                     </div>
                   </div>
