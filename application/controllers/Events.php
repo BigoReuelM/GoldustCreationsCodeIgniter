@@ -115,7 +115,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
 			// get ALL staff from the database
-			$data['staff'] = $this->events_model->getAllStaff();
+			$data['allStaff'] = $this->events_model->showAllStaff();
 			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -306,15 +306,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		// remove staff from event
-		public function rmvStaff(){
+		/*public function rmvStaff(){
 			$svcStaff = $this->input->post('evtstaffdlt');
 			$this->session->set_userdata('currrentSvcStaff', $svcStaff);
 
 			$svcstaffID = $this->session->userdata('currrentSvcStaff');
 			$eId = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEvtStaff($eId, $svcstaffID);
+			
 			$this->eventDetails();
-		}
+		}*/
 
 		public function removeEntourage(){
 			$currentEntID = $this->input->post('entourageID');
@@ -409,9 +409,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->events_model->addServcs($eID, $svc);
 				}
 			}
-
 			$this->eventDetails();
 		}
+
+		// add staff
+		public function addstaff(){
+			$addStaff = array($this->input->post('add_staff_chkbox'));
+			$eID = $this->session->userdata('currentEventID');
+			if (!empty($this->input->post('add_staff_chkbox[]'))) {
+				foreach ($this->input->post('add_staff_chkbox[]') as $s) {
+					$this->events_model->addStaff($eID, $s);
+				}
+			}
+			$this->eventDetails();
+		}
+
+		// update staff table (event details)
+		public function upEvtStaff(){
+			$svcstaffID = $this->input->post('svcstaffid');
+			$this->session->set_userdata('currentSvcStaffID', $svcstaffID);
+			$role = $this->input->post('staffRole');
+
+			$empID = $this->session->userdata('currentSvcStaffID');
+			$evtID = $this->session->userdata('currentEventID');
+
+			$btnval = $this->input->post('btn');
+
+			if ($btnval === "updt") {
+				if (!empty($role)) {
+					$this->events_model->updtEvtStaff($evtID, $empID, $role);
+				}
+			}	
+			if ($btnval === "rmv") {
+				$this->events_model->dltEvtStaff($evtID, $svcstaffID);
+			}		
+			$this->eventDetails();
+		}
+
 		// update service quantity and amount
 		public function upSvcQtyAmt(){
 			$svcID = $this->input->post('svcid');

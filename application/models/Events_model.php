@@ -165,8 +165,6 @@
 			return $query->result_array();
 		}
 
-
-
 		public function totalAmount($eID){
 			$query = $this->db->query("SELECT totalAmount 
 				from events
@@ -214,16 +212,7 @@
 			return $query->row();
 		}
 
-		/*public function getStaff($ceid){
-			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
-				FROM employees
-				NATURAL JOIN eventstaff
-				where eventID = $ceid    
-			");
-			return $query->result_array();
-		}*/
-
+		// get event staff
 		public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
@@ -231,9 +220,34 @@
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
+			return $query->result_array();
 		}
-		public function getAllStaff(){
-			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
+
+		public function addStaff($eID, $staffID){
+			$data = array(
+				'eventID' => $eID,
+				'employeeID' => $staffID
+			);
+			$this->db->insert('eventstaff', $data);
+		}
+
+		public function updtEvtStaff($evtID, $empID, $role){
+			$data = array(
+				'employeeRole' => $role
+			);
+			$this->db->where('employeeID', $empID);
+			$this->db->where('eventID', $evtID);
+			$this->db->update('eventstaff', $data);
+		}
+
+		public function dltEvtStaff($evtID, $svcStaffId){
+			$this->db->where('eventID', $evtID);
+			$this->db->where('employeeID', $svcStaffId);
+			$this->db->delete('eventstaff');
+		}
+
+		public function showAllStaff(){
+			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as name, role, contactNumber as num, employeeID as empId FROM employees WHERE role like '%staff'");
 			return $query->result_array();
 		}
 
@@ -343,12 +357,6 @@
 			$this->db->where('designID', $desID);
 			$this->db->delete('eventdesigns');
 
-		}
-
-		public function deleteEvtStaff($eID, $svcStaffId){
-			$this->db->where('eventID', $eID);
-			$this->db->where('employeeID', $svcStaffId);
-			$this->db->delete('eventstaff');
 		}
 
 		public function deleteEvtOCStaff($eID, $svcStaffId){
@@ -600,8 +608,6 @@
 
 			return $query->result_array();
 		}
-
-
 
 		// resume a cancelled event
 		public function changeEvtStatus(){

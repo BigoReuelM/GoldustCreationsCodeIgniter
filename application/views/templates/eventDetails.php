@@ -312,9 +312,8 @@
                       <form id="svcform" role="form" method="post" action="<?php echo base_url('events/upSvcQtyAmt') ?>">
                         <!-- service name -->
                         <td>
-                          <?php echo $avlSvc['serviceName'] ?>                         
+                          <?php echo $avlSvc['serviceName'] ?>
                         </td>
-                        
                         <!-- quantity -->                
                         <td>
                           <input class="form-control" type="text" name="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
@@ -370,16 +369,18 @@
                     foreach ($eventStaff as $staff) {  
                       $svcstaff = $staff['empId'];
                 ?>
-              <tr>               
-                <td><?php echo $staff['name']; ?></td>
-                <td><?php echo $staff['role']; ?></td>
-                <td><?php echo $staff['num']; ?></td>
-                <td>
-                  <div class="col-md-6 col-sm-6">                  
-                    <button form="evtstaffdltform" class="btn btn-link" id="evtstaffdlt" name="evtstaffdlt" type="submit" value="<?php echo($svcstaff) ?>"> Remove <i class="fa fa-remove"></i></button>                
-                  </div>
-                </td>
-              </tr>
+                  <tr>
+                    <form role="form" action="<?php echo base_url('events/upEvtStaff') ?>" method="post" id="staff_form">
+                      <td><?php echo $staff['name']; ?></td>
+                      <td><input type="text" name="staffRole" placeholder="<?php echo $staff['role']; ?>" class="form-control" style="border: none;"></td>
+                      <td><?php echo $staff['num']; ?></td>
+                      <td>
+                        <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
+                          <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
+                          <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="fa fa-remove"></i></button>
+                      </td>
+                    </form>
+                  </tr>
               <?php 
                   }
                 }
@@ -503,44 +504,42 @@
 <div class="modal fade" role="dialog" id="addStaff">
   <div class="modal-dialog">
     <div class="modal-content">
+      <!-- pwede ditu form -->
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Staff</h4>
       </div>
       <div class="modal-body">
-         <form id="addsvcform" role="form" method="post" action="">
+        <form id="addstaffform" role="form" method="post" action="<?php echo base_url('events/addStaff') ?>">
           <table class="table table-hover table-responsive table-bordered" id="modalStaffTbl">
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Role</th>
                 <th>Contact Number</th>
               </tr>
             </thead>
-            <tbody>              
+            <tbody>
                 <?php
-                  if (!empty($staff)) {
-                    foreach ($staff as $s) { ?>
+                  if (!empty($allStaff)) {
+                    foreach ($allStaff as $s) { ?>
                       <tr>                   
                         <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['employeeID'] ?>"><?php echo $s['name'] ?></label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['empId'] ?>" multiple><?php echo $s['name'] ?></label></div>
                         </td>
-                        <td><input type="text" name=""></td>
-                        <td><?php echo $s['contactNumber'] ?></td>
+                        <td><?php echo $s['num'] ?></td>
                       </tr>
                 <?php }
                   }
-                ?>             
+                ?> 
             </tbody>            
           </table>
-      </div>
-      <div class="modal-footer">                 
-        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-        <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
-      </div>
-      </form>
+          <div class="modal-footer">                 
+            <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+            <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
+          </div>
+        </form>
+      </div>     
     </div>
-
   </div>
 </div>
 <!-- End of Add staff modal -->
@@ -672,5 +671,9 @@
 
   #addServc .modal-dialog {
     width:70%;
+  }
+
+  #addStaff .modal-dialog {
+    width: 70%;
   }
 </style>
