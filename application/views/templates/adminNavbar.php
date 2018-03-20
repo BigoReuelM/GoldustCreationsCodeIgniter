@@ -49,15 +49,18 @@
 
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/transactions') ?>">
-            <i class="glyphicon glyphicon-credit-card"></i> 
-            <span>Transactions</span>
+          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
+            <i class="glyphicon glyphicon-briefcase"></i> 
+            <span>Ongoing Rentals</span>
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
-            <i class="glyphicon glyphicon-credit-card"></i> 
-            <span>Ongoing Rentals</span>
+          <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Services</span></a>
+        </li>
+        <li>
+          <a href="<?php echo base_url('clients/clients') ?>">
+            <i class="glyphicon glyphicon-user"></i>
+            <span>Clients</span>
           </a>
         </li>
         <li>
@@ -65,9 +68,6 @@
             <i class="glyphicon glyphicon-user"></i>
             <span>Employees</span>
           </a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Services</span></a>
         </li>
         <li class="treeview">
           <a href="#">
@@ -93,14 +93,14 @@
           </ul>
         </li>
         <li>
-          <a href="<?php echo base_url('clients/clients') ?>">
-            <i class="glyphicon glyphicon-user"></i>
-            <span>Clients</span>
+          <a href="<?php echo base_url('transactions/transactions') ?>">
+            <i class="glyphicon glyphicon-credit-card"></i> 
+            <span>Transactions</span>
           </a>
         </li>
         <li>
           <a href="<?php echo base_url('admin/expenses') ?>">
-            <i class="glyphicon glyphicon-user"></i>
+            <i class="glyphicon glyphicon-transfer"></i>
             <span>Expenses</span>
           </a>
         </li>
