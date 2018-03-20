@@ -60,6 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addEmployee(){
 
+
 			$data = array('success' => false, 'messages' => array());
 
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
@@ -78,9 +79,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$email = $this->input->post('email');
 				$address = $this->input->post('address');
 				$role = $this->input->post('role');
-				$image = $this->input->post('employeeImage');
+				$picture = $this->input->post('employeeImage');
 
-				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
+				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $picture);
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {

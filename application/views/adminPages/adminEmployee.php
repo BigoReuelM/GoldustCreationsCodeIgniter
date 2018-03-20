@@ -249,7 +249,7 @@
             <div class="form-group">
               <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
               <div class="col-sm-7">
-                <input type="file" class="form-control" name="employeeImage" id="js-upload-files" multiple>
+                <input type="file" class="form-control" name="employeeImage" id="employeeImage" multiple>
               </div>
             </div>
           </div>
@@ -293,45 +293,6 @@
     })
   </script>
 
-<script type="text/javascript">
-  
-    + function($) {
-    'use strict';
-
-
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
-
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone';
-
-        startUpload(e.dataTransfer.files)
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone';
-        return false;
-    }
-
-}
-</script>
 <script>
   //$(function(){
     $('#addEmployee').submit(function(e){
