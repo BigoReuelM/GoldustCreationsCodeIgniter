@@ -261,7 +261,7 @@
 			return $query->row();
 		}
 
-		public function getApointments($ceid){
+		public function getAppointments($ceid){
 			$query = $this->db->query("
 				SELECT eventName, appointments.date, appointments.time, agenda, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM appointments

@@ -210,11 +210,23 @@
 			$empRole = $this->session->userdata('role');
 			if($empRole === "handler"){
 				$query = $this->db->query("
-				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				SELECT eventID, eventName, clientID, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName, eventStatus
+				FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going' and employeeID = $emID) 
+				AS event 
+				LEFT JOIN eventservices using (eventID) 
+				JOIN services 
+				ON eventservices.serviceID=services.serviceID 
+				WHERE serviceName LIKE '%rental%';
 				");
 			}else{
 				$query = $this->db->query("
-				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') AS event LEFT JOIN eventservices using (eventID) JOIN services ON eventservices.serviceID=services.serviceID WHERE serviceName LIKE '%rental%';
+				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
+				FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') 
+				AS event 
+				LEFT JOIN eventservices using (eventID) 
+				JOIN services 
+				ON eventservices.serviceID=services.serviceID 
+				WHERE serviceName LIKE '%rental%';
 				");
 			}
 			return $query->result_array();

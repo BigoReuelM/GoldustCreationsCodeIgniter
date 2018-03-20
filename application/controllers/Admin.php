@@ -59,28 +59,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
-			$this->form_validation->set_rules('firstname', 'First Name', 'required');
-			$this->form_validation->set_rules('middlename', 'Middle Name', 'required');
-			$this->form_validation->set_rules('lastname', 'Last Name', 'required');
-			if ($this->form_validation->run() == FALSE) {
-				//ini_set('display_errors', 1);
-				$errors['errors'] = $this->form_validation->set_err();
-			}else{
-				$fname = $this->input->post('firstname');
+
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
+			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required');
+			$this->form_validation->set_rules('address', 'Address', 'trim|required');
+			$this->form_validation->set_rules('role', 'Role', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if ($this->form_validation->run()) {
+				$fname = $this->input->post('firstname');	
 				$mname = $this->input->post('middlename');
 				$lname = $this->input->post('lastname');
 				$cNumber = $this->input->post('cNumber');
 				$email = $this->input->post('email');
 				$address = $this->input->post('address');
 				$role = $this->input->post('role');
-				$image = $this->input->post('employeeImage');
+				$picture = $this->input->post('employeeImage');
 
-				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image);
-
-				echo "success";
-				//redirect('admin/adminEmployeeManagement');
-
+				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $picture);
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
+
+			echo json_encode($data);
 
 		}
 
@@ -125,25 +134,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addExpenses(){
-			$date = $this->input->post('date');
-			$amount = $this->input->post('expenseAmount');
-			$name = $this->input->post('expenseName');
-			$image = $this->input->post('expenseImage');
-			$rNum = $this->input->post('receiptNumber');
-			$currentEventID = $this->session->userdata('currentEventID');
 			$empID = $this->session->userdata('employeeID');
-			$this->admin_model->addEventExpenses($empID, $currentEventID, $name, $date, $amount, $rNum, $image);
 
-			redirect('admin/expenses');
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('expenseName', 'Expense Name', 'trim|required');
+			$this->form_validation->set_rules('expenseDate', 'Expenses Date', 'required');
+			$this->form_validation->set_rules('expenseAmount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('expenseReceipt', 'Receipt No.', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+
+
+			if ($this->form_validation->run()) {
+				$date = $this->input->post('expenseDate');
+				$amount = $this->input->post('expenseAmount');
+				$name = $this->input->post('expenseName');
+				$image = $this->input->post('expensePhoto');
+				$rNum = $this->input->post('expenseReceipt');
+				
+				
+				$this->admin_model->addExpenses($empID, $name, $date, $amount, $rNum, $image);
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+			
+			echo json_encode($data);
+
 		}
 
 		public function addNewService(){
-			$serviceName = $this->input->post('serviceName');
-			$serviceDisk = $this->input->post('description');
+			
+			$data = array('success' => false, 'messages' => array(), 'alert' => false);
 
-			$this->admin_model->insertService($serviceName, $serviceDisk);
+			$this->form_validation->set_rules('serviceName', 'Service Name', 'trim|required');
+			$this->form_validation->set_rules('description', 'Service Description', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('admin/services');
+			if ($this->form_validation->run()) {
+				$serviceName = $this->input->post('serviceName');
+				$serviceDisk = $this->input->post('description');
+
+				if ($this->form_validation->is_unique($serviceName, 'services.serviceName')) {
+					$this->admin_model->insertService($serviceName, $serviceDisk);
+
+					$data['success'] = true;
+				}else{
+					$data['alert'] = true;
+				}
+				 
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+			echo json_encode($data);
+			
 		}
 
 

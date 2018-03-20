@@ -86,13 +86,12 @@
 		}
 
 		
-		public function addEventExpenses($empID, $ceID, $expName, $date, $amount, $num, $image){
+		public function addExpenses($empID, $expName, $date, $amount, $num, $image){
 			$data = array(
-				'eventID' => $ceID,
 				'employeeID' => $empID,
 				'expensesName' => $expName,
 				'expensesAmount' => $amount,
-				'expensesDate' => $date,
+				'expenseDate' => $date,
 				'receiptNum' => $num,
 				'receiptImage' => $image
 			);
