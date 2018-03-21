@@ -153,9 +153,9 @@ input[type=submit] {
                   <table id="Rentals" class="table table-bordered table-condensed">
                     <thead>
                       <tr>
-                        <th>Service Name</th>
                         <th>Client Name</th>
                         <th>Contact Number</th>
+                        <th>Service Name</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -165,15 +165,16 @@ input[type=submit] {
                           if (!empty($tdata)) {
 
                           foreach($tdata as $d) {
+                            $transInfo = $d['transactionID'];
                           ?>
                           <tr>
-                          <td><?php echo $d['serviceName']; ?></td>
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
+                          <td><?php echo $d['serviceName']; ?></td>
                           <td>
                             <div class="col-md-6 col-sm-4" >
-                            <form role="form" method="post">
-                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
+                            <form role="form" method="post" action="<?php echo base_url('transactions/setTransactionID'); ?>">
+                                <button class="btn btn-block" id="transactionID" name="transInfo" type="submit" value="<?php echo($transInfo) ?>"> View Info <i class="fa fa-fw fa-info"> </i>
                                 </button>
                             </form>
                             </div>
@@ -213,7 +214,11 @@ input[type=submit] {
                         <tbody>
                             <?php 
                             if(!empty($evredata)){ 
-                              foreach ($evredata as $ed) { ?> 
+                              foreach ($evredata as $ed) { 
+                                $EventID = $ed['eventID'];
+                                $clientID = $ed['clientID'];
+                                $es = $ed['eventStatus'];
+                                ?> 
                                 <tr>
                                   <td><?php echo $ed['eventName']; ?></td>
                                   <td><?php echo $ed['clientName']; ?></td>
@@ -221,11 +226,13 @@ input[type=submit] {
                                   <td><?php echo $ed['serviceName']; ?></td>
                                   <td>
                                   <div class="col-md-6 col-sm-4">
-                            <form role="form" method="post">
-                                <button class="btn btn-block" id="butt5" name="eventInfo" type="submit"> View Info <i class="fa fa-fw fa-info"> </i>
-                                </button>
-                            </form>
-                            </div>
+                                    <form role="form" method="post" action="<?php echo base_url('events/setEventID')?>">
+                                    <input name="clientID" value="<?php echo($clientID)?>" hidden>
+                                    <input name="eventStatus" value="<?php echo($es)?>" hidden>
+                                    <button class="btn btn-block" id="eventID" name="eventInfo" type="submit" value="<?php echo($EventID)?>"> View Info <i class="fa fa-fw fa-info"> </i>
+                                    </button>
+                                    </form>
+                                  </div>
                                   </td>
                                 </tr>
                                 <?php

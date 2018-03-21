@@ -16,6 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('events_model');
 			$this->load->library('session');
 			$this->load->helper('form');
+			$this->load->library('form_validation');
 		}
 
 		public function newEvents(){
@@ -115,7 +116,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
 			// get ALL staff from the database
-			$data['staff'] = $this->events_model->getAllStaff();
+			$data['allStaff'] = $this->events_model->showAllStaff();
 			 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -187,15 +188,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function paymentAndExpences(){
+		public function payment(){
 			$currentEvent = $this->session->userdata('currentEventID');
 			$data['eventName'] =$this->events_model->getEventName($currentEvent);
 			$empRole = $this->session->userdata('role');
 			$cid = $this->session->userdata('clientID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
-			$data['totalPayments']=$this->events_model->totalAmountPaid($currentEvent);
-			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);			
-			$data['balance']=$this->events_model->balance($currentEvent);
+			$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
+			$totalAmount = $this->events_model->totalAmount($currentEvent);
+			$data['totalPayments'] = $totalPayments;
+			$data['totalAmount'] = $totalAmount;		
+			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 			$data['clientName']=$this->events_model->getClientName($cid);
 			
 			
@@ -212,7 +215,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php", $data);
 				
 			}
-			$this->load->view("templates/paymentAndExpences.php", $data);
+			$this->load->view("templates/payment.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -222,7 +225,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 			$data['eventName'] = $this->events_model->getEventName($currentEvent);
-			$data['appointments'] = $this->events_model->getApointments($currentEvent);
+			$data['appointments'] = $this->events_model->getAppointments($currentEvent);
 			
 			
 			$this->load->view("templates/head.php");
@@ -238,7 +241,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("templates/eventNav.php", $data);
 				
 			}
-			$this->load->view("templates/appointments.php");
+			$this->load->view("templates/appointments.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
@@ -271,19 +274,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addPayment(){
-			
-			$date = $this->input->post('date');
-			$time = $this->input->post('time');
-			$amount = $this->input->post('amount');
-			$currentEventID = $this->session->userdata('currentEventID');
-
+			$eventID = $this->session->userdata('currentEventID');
 			$empID = $this->session->userdata('employeeID');
 			$clientID = $this->session->userdata('clientID');
-			$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+
+			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+
+			$totalAmount = $this->events_model->totalAmount($eventID);
+			$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
+
+			$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
+
+			if ($eventBalance > 0) {
+				$data['balance'] = true;
+				$data['balanceAmount'] = $eventBalance;
+			}
+
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $eventBalance . ']');
+			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
+			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$date = $this->input->post('date');
+				$time = $this->input->post('time');
+				$amount = $this->input->post('amount');
+				
+				$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
+
+				$data['paymentID'] = $paymentID;
+
+				$data['success'] = true;
+					
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
 			
-
-			redirect('events/paymentAndExpences');
-
 		}
 
 
@@ -306,15 +336,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		// remove staff from event
-		public function rmvStaff(){
+		/*public function rmvStaff(){
 			$svcStaff = $this->input->post('evtstaffdlt');
 			$this->session->set_userdata('currrentSvcStaff', $svcStaff);
 
 			$svcstaffID = $this->session->userdata('currrentSvcStaff');
 			$eId = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEvtStaff($eId, $svcstaffID);
+			
 			$this->eventDetails();
-		}
+		}*/
 
 		public function removeEntourage(){
 			$currentEntID = $this->input->post('entourageID');
@@ -360,16 +390,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
-		public function addEventAppointments(){
+		public function addNewEventAppointment(){
+
 			$empID = $this->session->userdata('employeeID');
 			$ceID = $this->session->userdata('currentEventID');
-			$adate = $this->input->post('appointmentDate');
-			$time = $this->input->post('time');
-			$agenda = $this->input->post('agenda');
 
-			$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+			$data = array('success' => false, 'messages' => array(), 'appointmentID' => null);
 
-			redirect('events/appointments');
+			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
+			$this->form_validation->set_rules('appointmentDate', 'Appointment Date', 'required');
+			$this->form_validation->set_rules('appointmentTime', 'Appointment Time', 'required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$adate = $this->input->post('appointmentDate');
+				$time = $this->input->post('appointmentTime');
+				$agenda = $this->input->post('agenda');
+
+				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+
+				$data['appointmentID'] = $newAppID;
+
+				$data['success'] = true;	
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function addEntourage() {
@@ -409,9 +459,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->events_model->addServcs($eID, $svc);
 				}
 			}
-
 			$this->eventDetails();
 		}
+
+		// add staff
+		public function addstaff(){
+			$addStaff = array($this->input->post('add_staff_chkbox'));
+			$eID = $this->session->userdata('currentEventID');
+			if (!empty($this->input->post('add_staff_chkbox[]'))) {
+				foreach ($this->input->post('add_staff_chkbox[]') as $s) {
+					$this->events_model->addStaff($eID, $s);
+				}
+			}
+			$this->eventDetails();
+		}
+
+		// update staff table (event details)
+		public function upEvtStaff(){
+			$svcstaffID = $this->input->post('svcstaffid');
+			$this->session->set_userdata('currentSvcStaffID', $svcstaffID);
+			$role = $this->input->post('staffRole');
+
+			$empID = $this->session->userdata('currentSvcStaffID');
+			$evtID = $this->session->userdata('currentEventID');
+
+			$btnval = $this->input->post('btn');
+
+			if ($btnval === "updt") {
+				if (!empty($role)) {
+					$this->events_model->updtEvtStaff($evtID, $empID, $role);
+				}
+			}	
+			if ($btnval === "rmv") {
+				$this->events_model->dltEvtStaff($evtID, $svcstaffID);
+			}		
+			$this->eventDetails();
+		}
+
 		// update service quantity and amount
 		public function upSvcQtyAmt(){
 			$svcID = $this->input->post('svcid');

@@ -165,8 +165,6 @@
 			return $query->result_array();
 		}
 
-
-
 		public function totalAmount($eID){
 			$query = $this->db->query("SELECT totalAmount 
 				from events
@@ -179,11 +177,6 @@
 				from payments
 				where eventID = $eID");
 			return $query->row();	
-		}
-
-		public function balance($eID){
-			$query = $this->db->query("SELECT TOTAL.totalAmount-sum(amount) AS balance FROM (select events.eventID, payments.amount, events.totalAmount from events join payments USING(eventID))AS TOTAL WHERE eventID=$eID;");
-			return $query->row();
 		}
 
 		public function servcTransac($eID){
@@ -214,16 +207,7 @@
 			return $query->row();
 		}
 
-		/*public function getStaff($ceid){
-			$query = $this->db->query("
-				SELECT employeeName as name, employeeRole as role, contactNumber as num, employeeID as empId 
-				FROM employees
-				NATURAL JOIN eventstaff
-				where eventID = $ceid    
-			");
-			return $query->result_array();
-		}*/
-
+		// get event staff
 		public function getStaff($ceid){
 			$query = $this->db->query("
 				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
@@ -231,9 +215,34 @@
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
 			");
+			return $query->result_array();
 		}
-		public function getAllStaff(){
-			$query = $this->db->query("SELECT * FROM employees WHERE role like '%staff'");
+
+		public function addStaff($eID, $staffID){
+			$data = array(
+				'eventID' => $eID,
+				'employeeID' => $staffID
+			);
+			$this->db->insert('eventstaff', $data);
+		}
+
+		public function updtEvtStaff($evtID, $empID, $role){
+			$data = array(
+				'employeeRole' => $role
+			);
+			$this->db->where('employeeID', $empID);
+			$this->db->where('eventID', $evtID);
+			$this->db->update('eventstaff', $data);
+		}
+
+		public function dltEvtStaff($evtID, $svcStaffId){
+			$this->db->where('eventID', $evtID);
+			$this->db->where('employeeID', $svcStaffId);
+			$this->db->delete('eventstaff');
+		}
+
+		public function showAllStaff(){
+			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as name, role, contactNumber as num, employeeID as empId FROM employees WHERE role like '%staff'");
 			return $query->result_array();
 		}
 
@@ -247,7 +256,7 @@
 			return $query->row();
 		}
 
-		public function getApointments($ceid){
+		public function getAppointments($ceid){
 			$query = $this->db->query("
 				SELECT eventName, appointments.date, appointments.time, agenda, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM appointments
@@ -288,9 +297,8 @@
 			 );
 
 			$this->db->insert('payments', $data);
-			/*
-			$this->db->insert("INSERT INTO payments(clientID, eventID, employeeID, date, time, amount) values ($cID,$ceID,$eID,$date,$time,$amount);");	
-			*/
+
+			return $this->db->insert_id();
 		}
 
 
@@ -318,6 +326,8 @@
 			);
 
 			$this->db->insert('appointments', $data);
+
+			return $this->db->insert_id();
 		}
 
 		public function insertNewEvent($clientID, $employeeID){
@@ -343,12 +353,6 @@
 			$this->db->where('designID', $desID);
 			$this->db->delete('eventdesigns');
 
-		}
-
-		public function deleteEvtStaff($eID, $svcStaffId){
-			$this->db->where('eventID', $eID);
-			$this->db->where('employeeID', $svcStaffId);
-			$this->db->delete('eventstaff');
 		}
 
 		public function deleteEvtOCStaff($eID, $svcStaffId){
@@ -552,31 +556,6 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
-		/*public function getRole(){
-			$results = array();
-			$query = $this->db->get('role')->result_array();
-			if( is_query($results) && count($query) > 0 ) {
-				$results[''] = 'Choose Role';
-				foreach($query as $row) {
-					$result;[$row['designID']] === $row['nagan'];
-				}
-			}
-			return $results;
-		}*/
-		/*
-		public function getRole(){
-			$this->db->select('role');
-			$query = $this->db->get('entourage'); //,ali ata to
-
-			if ($query->num_rows() > 0){
-				foreach($query->result() as $row) {
-				$data[] = $row;
-				}
-				return $data;
-			}
-		}
-		*/
-
 		public function getEntourageRole(){
 			$eventID = $this->session->userdata('currentEventID');
 			$query = $this->db->query("
@@ -600,8 +579,6 @@
 
 			return $query->result_array();
 		}
-
-
 
 		// resume a cancelled event
 		public function changeEvtStatus(){
