@@ -6,13 +6,6 @@
 }
 </style>
 
-<?php 
-  $transactiontotalAmount = $details->totalAmount;
-  $totalAmountPaid = $total->total;
-
-  $balance = $transactiontotalAmount - $totalAmountPaid;
-
-?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
@@ -46,13 +39,19 @@
       <div class="box box-info">
         <div class="box-header">
           <h3 class="box-title">Transaction Details</h3>
+          <div id="updateConfirmation">
+            
+          </div>
         </div>
-        <form role="form" method="post" action="<?php echo base_url('transactions/updateTransactionDetails') ?>" class="form-horizontal">
+        <?php 
+          $attributes = array("name" => "updateTransactionDetails", "id" => "updateTransactionDetails", "class" => "form-horizontal");
+          echo form_open("transactions/updateTransactionDetails", $attributes);
+        ?>
           <div class="box-body">
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Client Names</label>
+                  <label class="col-sm-2 control-label">Client Name</label>
                   <div class="col-sm-10">
                     <input type="text" name="clientName" class="form-control" placeholder="<?php echo $details->clientName ?>" value="" disabled>
                   </div>
@@ -60,31 +59,31 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Contact Number</label>
                   <div class="col-sm-10">
-                    <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $details->contactNumber ?>" value="">
+                    <input type="text" id="contactNumber" name="contactNumber" class="form-control" placeholder="<?php echo $details->contactNumber ?>">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Address</label>
                   <div class="col-sm-10">
-                    <input type="text" name="address" class="form-control" placeholder="<?php echo $details->homeAddress ?>" value="">
+                    <input type="text" id="address" name="address" class="form-control" placeholder="<?php echo $details->homeAddress ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Year & Section</label>
                   <div class="col-sm-10">
-                    <input type="text" name="yNs" class="form-control" placeholder="<?php echo $details->yearAndSection ?>" value="">
+                    <input type="text" id="yNs" name="yNs" class="form-control" placeholder="<?php echo $details->yearAndSection ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">School</label>
                   <div class="col-sm-10">
-                    <input type="text" name="school" class="form-control" placeholder="<?php echo $details->school ?>" value="">
+                    <input type="text" id="school" name="school" class="form-control" placeholder="<?php echo $details->school ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">ID Type</label>
                   <div class="col-sm-10">
-                    <input type="text" name="idType" class="form-control" placeholder="<?php echo $details->IDType ?>" value="">
+                    <input type="text" id="idType" name="idType" class="form-control" placeholder="<?php echo $details->IDType ?>" value="">
                   </div>
                 </div>
               </div>
@@ -92,25 +91,25 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Deposited Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" name="depositAmt" class="form-control" placeholder="<?php echo $details->depositAmt ?>" value="">
+                    <input type="text" id="depositAmt" name="depositAmt" class="form-control" placeholder="<?php echo $details->depositAmt ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Total Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" name="totalAmount" class="form-control" placeholder="<?php echo $details->totalAmount ?>" value="">
+                    <input type="text" id="totalAmount" name="totalAmount" class="form-control" placeholder="<?php echo $details->totalAmount ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Balance</label>
                   <div class="col-sm-10">
-                    <input type="text" name="balance" class="form-control" placeholder="<?php echo $balance; ?>" value="" disabled>
+                    <input type="text" id="balance" name="balance" class="form-control" placeholder="<?php echo $balance; ?>" value="" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Status</label>
                   <div class="col-sm-10">
-                    <input type="text" name="status" class="form-control" placeholder="<?php echo $details->transactionstatus ?>" value="" disabled>
+                    <input type="text" id="status" name="status" class="form-control" placeholder="<?php echo $details->transactionstatus ?>" value="" disabled>
                   </div>
                 </div>
                 <div class="form-group">
@@ -124,7 +123,7 @@
                     <div class="col-lg-7">
                       <label class="col-sm-4 control-label">Change Date Availed</label>
                       <div class="col-sm-8">
-                        <input type="date" name="date" class="form-control" value="">
+                        <input type="date" id="newDate" name="newDate" class="form-control" value="">
                       </div>
                     </div>
                   </div>
@@ -140,7 +139,7 @@
                     <div class="col-lg-7">
                       <label class="col-sm-4 control-label">Change Time Availed</label>
                       <div class="col-sm-8">
-                        <input type="time" name="time" class="form-control" value="">
+                        <input type="time" id="newTime" name="newTime" class="form-control" value="">
                       </div>
                     </div>
                   </div>
@@ -151,7 +150,7 @@
           <div class="box-footer">
             <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </div>
-        </form>
+        <?php echo form_close(); ?>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -230,7 +229,7 @@
                       <th>Agenda</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="appTable">
                     <?php if (!empty($transAppointments)){
                         foreach ($transAppointments as $appointment) {
                     ?>
@@ -275,7 +274,7 @@
                 <th>Time</th>
               </tr>
             </thead>
-            <tbody> 
+            <tbody id="paymentTableBody"> 
               <?php if (!empty($payments)){
                 foreach ($payments as $payment) {
               ?>
@@ -306,35 +305,31 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Appointment</h4>
+        <div id="the-message">
+        </div>
       </div>
-      <form role="form" action="<?php echo base_url('transactions/addTransactionAppointments') ?>" method="post" class="form-horizontal">
+      <?php 
+        $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal");
+        echo form_open("transactions/addTransactionAppointments", $attributes);
+      ?>
         <div class="modal-body">       
           <div class="box-body">          
             <div class="form-group">
-              <label class="col-sm-2 control-label">Client Name</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" disabled>
-              </div>
-            </div>
-            <div class="form-group">
               <label class="col-sm-2 control-label">Agenda</label>
               <div class="col-sm-10">
-                <textarea class="form-control" rows="5" placeholder="Enter Agenda..." name="agenda"></textarea>
+                <textarea class="form-control" id="agenda" name="agenda" rows="5" placeholder="Enter Agenda..." name="agenda"></textarea>
               </div>
             </div>
             <div class="form-group">
-              <label>Date:</label>
-              <input type="date" class="form-control pull-right" name="appointmentDate">
+              <label class="col-lg-4 control-label">Date of appointment:</label>
+              <div class="col-lg-8">
+                <input class="form-control" type="date" id="appointmentDate" name="appointmentDate">
+              </div>
             </div>
-            <div class="bootstrap-timepicker">
-              <div class="form-group">
-                <label>Time Picker:</label>
-                <div class="input-group">
-                  <input type="text" class="form-control timepicker" name="time">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                </div>
+            <div class="form-group">
+              <label class="col-lg-4 control-label">Time of appointment:</label>
+              <div class="col-lg-8">
+                <input type="time" class="form-control" name="appointmentTime" id="appointmentTime">
               </div>
             </div>
           </div>
@@ -349,129 +344,74 @@
             </div>
           </div>
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>  
   </div>
 </div>
 <!-- End -->
 
-<!-- Modal for adding expense -->
-<div class="modal fade" id="addexpenses" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addExpenses') ?>" class="form-horizontal">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Expenses</h4>
-        </div>
-        <div class="modal-body">
-          <div class="box-body">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Client Name</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Expenses Name</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Enter Expenses Name...">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Amount</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Enter Amount">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Receipt No.</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Enter Receipt No....">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Date:</label>
-
-              <div class="input-group date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputFile">Select Receipt Image</label>
-              <input type="file" name="expenseImage" id="js-upload-files" multiple>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button id="addExpenses" type="submit" name="addExpenses" class="btn btn-default">Add</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </form>
-    </div>
-    
-  </div>
-</div>
-<!-- end of modal -->
 <!-- Modal for adding of payments -->
 <div class="modal fade" id="addpayment" role="dialog">
   <div class="modal-dialog">  
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" action="<?php echo base_url('events/addPayment') ?>" class="form-horizontal">
-
+      <?php 
+        $attributes = array("name" => "addNewPayment", "id" => "addNewPayment", "class" => "form-horizontal");
+        echo form_open("transactions/addPayment", $attributes);
+      ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Payment</h4>
+          <div id="the-message">
+          <?php if ($balance <= 0): ?>
+            <div class="alert alert-danger text-center">
+              <span class="icon fa fa-hand-stop-o"></span>
+              <span>This event is fully paid!</span>
+            </div>
+          <?php endif ?>
+          <?php if ($balance > 0): ?>
+            <div class="alert alert-success text-center">
+              <span>Remaining Balance</span>
+              <div>
+                <strong><?php echo $balance ?></strong>
+              </div>
+            </div>
+          <?php endif ?>
+          </div>
         </div>
         <div class="modal-body">
           <div class="box-body"">
             <div class="form-group">
               <label class="col-sm-2 control-label">Client Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Email" disabled>
+                <input type="text" class="form-control" placeholder="Email" value="<?php echo $details->clientName ?>" disabled>
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Amount</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Enter Amount">
+                <input type="text" class="form-control" name="amount" id="amount" placeholder="Enter Amount">
               </div>
             </div>
             <div class="form-group">
-              <label>Date:</label>
-
-              <div class="input-group date">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="datepicker">
-              </div>
+              <label class="col-lg-3 control-label">Date Payed</label>
+              <div class="col-lg-9">
+                <input type="date" class="form-control" name="date" id="date">
+              </div>            
             </div>
-            <div class="bootstrap-timepicker">
-              <div class="form-group">
-                <label>Time Picker:</label>
-
-                <div class="input-group">
-                  <input type="text" class="form-control timepicker">
-
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                </div>
-              </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Time Payed</label>
+              <div class="col-lg-9">
+                <input type="time" class="form-control" name="time" id="time">
+              </div>            
             </div>
           </div>
         </div>      
         <div class="modal-footer">
-          <button id="addPayment" type="submit" name="addPayment" class="btn btn-default">Add</button>
+          <button type="submit" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
-      </form>
+      <?php echo form_close(); ?>
     </div>
     
   </div>
@@ -567,113 +507,246 @@
     $('#servicesTable').DataTable()
     $('#paymentTable').DataTable()
     $('#expenseTable').DataTable()
-  })
+    $('#modalServcTbl').DataTable()
+  });
 
-</script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+  //Script for updating the payment
+  $('#addNewPayment').submit(function(e){
+    e.preventDefault();
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
+    var paymentDetails = $(this);
+    var time = $('#time').val();
+    var date = $('#date').val();
+    var amount = $('#amount').val();
+    $.ajax({
+      type: 'POST',
+      url: paymentDetails.attr('action'),
+      data: paymentDetails.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if(response.balance == true){
+          if (response.success == true) {
 
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-      {
-        ranges   : {
-          'Today'       : [moment(), moment()],
-          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        startDate: moment().subtract(29, 'days'),
-        endDate  : moment()
-      },
-      function (start, end) {
-        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+            var paymentID = response.paymentID;
+            var eventBalance = response.balanceAmount - amount;
+
+            $('.alert-success').remove();
+
+            // if success we would show message
+            // and also remove the error class
+
+            $('#the-message').append(
+              '<div class="alert alert-success text-center">' +
+                '<span class="glyphicon glyphicon-ok"></span>' +
+                '<span>New payment has been saved.</span>' +
+                '<div class="row">' +
+                  '<div class="col-lg-6">' +
+                    '<span>New Balance: </span>' +
+                  '</div>' +
+                  '<div class="col-lg-6">' +
+                    '<strong>' + eventBalance + '</strong>'+
+                  '</div>' +
+                '</div>' +
+              '</div>'
+            );
+
+            $('#paymentTableBody').prepend(
+              '<tr>' +
+                '<td>' + paymentID + '</td>' +
+                '<td>' + amount + '</td>' +
+                '<td>' + date + '</td>' +
+                '<td>' + time + '</td>' +
+              '</tr>'
+            );
+
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            paymentDetails[0].reset();
+            // close the message after seconds
+    
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }else{
+
+          $('.alert-success').remove();
+
+          $('.alert-danger').remove();
+
+          $('#the-message').append(
+            '<div class="alert alert-danger text-center">' +
+            '<span class="icon fa fa-hand-stop-o"></span>' +
+            '<span>' +
+            ' This transaction is fully paid!' +
+            '</span>' +
+            '</div>'
+          );
+        }
       }
-    )
+    });
+  });
+  //end of script for payments
+  //Script for updating the transaction details
+  $('#updateTransactionDetails').submit(function(e){
+    e.preventDefault();
 
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
+    var transactionDetails = $(this);
+    var cNum = $('#contactNumber').val();
+    var address = $('#address').val();
+    var yNs = $('#yNs').val();
+    var school = $('#school').val();
+    var idType = $('#idType').val();
+    var depositAmt = $('#depositAmt').val();
+    var totalAmount = $('#totalAmount').val();
+    var time = $('#newTime').val();
+    var date = $('#newDate').val();
+    $.ajax({
+      type: 'POST',
+      url: transactionDetails.attr('action'),
+      data: transactionDetails.serialize(),
+      dataType: 'json',
+      success: function(response){
 
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
+        if (response.success == true) {
+          $('.alert-success').remove();
 
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
+          // if success we would show message
+          // and also remove the error class
 
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
-  })
-</script>
+          $('#updateConfirmation').append(
+            '<div class="alert alert-success text-center">' +
+              '<span class="glyphicon glyphicon-ok"></span>' +
+              '<span>Updates saved.</span>' +
+            '</div>'
+          );
 
-<script type="text/javascript">
+          $('.form-group').removeClass('has-error')
+                .removeClass('has-success');
+          $('.text-danger').remove();
+          // reset the form
+          transactionDetails[0].reset();
+          // close the message after seconds
+          if (response.contactNumber == true) {
+            $('#contactNumber').val(cNum);
+          }
+          if (response.address == true) {
+            $('#address').val(address);
+          }
+          if (response.yNs == true) {
+            $('#yNs').val(yNs);
+          }
+          if (response.school == true) {
+            $('#school').val(school);
+          }
+          if (response.idType == true) {
+            $('#idType').val(idType);
+          }
+          if (response.depositAmt == true) {
+            $('#depositAmt').val(depositAmt);  
+          }
+          if (response.totalAmount == true) {
+            $('#totalAmount').val(totalAmount);
+          }
+          if (response.newDate == true) {
+            $('#time').val(time);
+          }
+          if (response.newTime == true) {
+            $('#date').val(date);
+          }
+
+          $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
   
-    + function($) {
-    'use strict';
+        }else{
+          $.each(response.messages, function(key, value) {
+            var element = $('#' + key);
+            
+            element.closest('div.form-group')
+            .removeClass('has-error')
+            .addClass(value.length > 0 ? 'has-error' : 'has-success')
+            .find('.text-danger')
+            .remove();
+            
+            element.after(value);
+          });
+        }
+      }
+    });
+  });
+  //end of transaction details update
+  //script for adding of appointments
+  $('#addNewAppointment').submit(function(e){
+    e.preventDefault();
 
+    var appointmentDetails = $(this);
+    var agenda = $('#agenda').val();
+    var time = $('#appointmentTime').val();
+    var date = $('#appointmentDate').val();
 
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
+    $.ajax({
+      type: 'POST',
+      url: appointmentDetails.attr('action'),
+      data: appointmentDetails.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if (response.success == true) {
+          // if success we would show message
+          // and also remove the error class
+          $('#the-message').append('<div class="alert alert-success text-center">' +
+          '<span class="glyphicon glyphicon-ok"></span>' +
+          ' New appointment has been saved.' +
+          '</div>');
 
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone';
-
-        startUpload(e.dataTransfer.files)
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone';
-        return false;
-    }
-
-}
+          $('#appTable').prepend(
+            '<tr>'+
+            '<td>' + date + '</td>' +
+            '<td>' + time + '</td>' +
+            '<td>' + agenda + '</td>' +
+            '</tr>'
+          );
+          
+          $('.form-group').removeClass('has-error')
+                .removeClass('has-success');
+          $('.text-danger').remove();
+          // reset the form
+          appointmentDetails[0].reset();
+          // close the message after seconds
+          $('.alert-success').delay(500).show(10, function() {
+          $(this).delay(3000).hide(10, function() {
+            $(this).remove();
+          });
+          })
+        }else{
+          $.each(response.messages, function(key, value) {
+            var element = $('#' + key);
+            
+            element.closest('div.form-group')
+            .removeClass('has-error')
+            .addClass(value.length > 0 ? 'has-error' : 'has-success')
+            .find('.text-danger')
+            .remove();
+            
+            element.after(value);
+          });
+        }
+      }
+    });
+  });
+  //end of adding of appointments
 </script>
+

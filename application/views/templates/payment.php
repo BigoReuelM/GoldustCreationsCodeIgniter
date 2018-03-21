@@ -109,7 +109,7 @@
               </div>
             </div>
           <?php endif ?>
-        </div>
+          </div>
         </div>
         <div class="modal-body">
           <div class="form-group">

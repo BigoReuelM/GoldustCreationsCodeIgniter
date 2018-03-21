@@ -62,6 +62,7 @@
 
                           foreach ($ongoingTransactions as $transac) { 
                           $tranID = $transac['transactionID'];
+                          $clientID = $transac['clientID'];
                             
                         ?> 
                             
@@ -75,6 +76,7 @@
 
                                 <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">
                                   <input type="text" value="<?php echo($tranID) ?>" name="transInfo" hidden>
+                                  <input type="hidden" name="clientID" value="<?php echo($clientID) ?>">
                                   <button class="btn btn-block" type="submit">View Info <i class="fa fa-fw fa-info"></i></button>
                                 </form>
 

@@ -150,6 +150,37 @@
 			$this->db->insert('appointments', $data);
 		}
 
+		//script for adding transaction payment and also for validation porpuses
+		public function addTransactionPayment($cID, $eID, $ctID, $date, $time, $amount){
+			$data = array(
+				'clientID' => $cID,
+				'transactionID' => $ctID,
+				'employeeID' => $eID,
+				'date' => $date,
+				'time' => $time,
+				'amount' => $amount
+			 );
+
+			$this->db->insert('payments', $data);
+
+			return $this->db->insert_id();
+		}
+
+		public function totalAmount($tID){
+			$query = $this->db->query("SELECT totalAmount 
+				from transactions
+				where transactionID = $tID");
+			return $query->row();
+		}
+
+		public function totalAmountPaid($tID){
+			$query = $this->db->query("SELECT sum(amount) as total
+				from payments
+				where transactionID = $tID");
+			return $query->row();	
+		}
+		//end of payment scripts
+
 		public function getTransactionAppointments($transID){
 			$query=$this->db->query("
 				SELECT appointments.date, appointments.time, agenda
@@ -168,15 +199,6 @@
 			return $query->result_array();
 		}
 
-		public function totalAmountPaid($transID){
-			$query = $this->db->query("
-				SELECT sum(amount) as total
-				from payments
-				where transactionID = $transID
-			");
-
-			return $query->row();
-		}
 
 		public function getdecors(){
 			$this->db->select('*');
