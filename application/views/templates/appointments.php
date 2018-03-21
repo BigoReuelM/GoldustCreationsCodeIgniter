@@ -77,28 +77,21 @@
           <div id="the-message">
           </div>
           <div class="box-body">
-          
             <div class="form-group">
-              <label class="col-lg-3 control-label">Client Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" disabled>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Agenda</label>
+              <label class="col-lg-3 control-label">Agenda:</label>
               <div class="col-lg-9">
                 <textarea class="form-control" rows="5" placeholder="Enter Agenda..." name="agenda" id="agenda"></textarea>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Date:</label>
-              <div class="col-lg-9">
+              <label class="col-lg-4 control-label">Date of appointment:</label>
+              <div class="col-lg-8">
                 <input class="form-control" type="date" id="appointmentDate" name="appointmentDate">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3">Time</label>
-              <div class="col-lg-9">
+              <label class="col-lg-4 control-label">Time of appointment:</label>
+              <div class="col-lg-8">
                 <input type="time" class="form-control" name="appointmentTime" id="appointmentTime">
               </div>
             </div>
