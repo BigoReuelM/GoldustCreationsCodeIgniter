@@ -332,6 +332,8 @@
 			);
 
 			$this->db->insert('appointments', $data);
+
+			return $this->db->insert_id();
 		}
 
 		public function insertNewEvent($clientID, $employeeID){

@@ -15,7 +15,9 @@
               <h3 class="box-title">List of Appointments</h3>    
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button> 
+              <?php if ($this->session->userdata('role') === "handler"): ?>
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button> 
+              <?php endif ?>
             </div>
           </div>
         </div>
@@ -28,18 +30,11 @@
               <th>Date</th>
               <th>Time</th>
               <th>Agenda</th>
-              <?php
-                $empRole = $this->session->userdata('role');  
-                if ($empRole === 'admin') {
-                  echo "<th>Event Name</th>";
-                  echo '<th>Handler</th>';
-                }
-              ?>
               
             </tr>
 
             </thead>
-            <tbody>
+            <tbody id="appTable">
               <?php 
                 if (!empty($appointments)) {
                   foreach ($appointments as $appointment) {                
@@ -48,15 +43,6 @@
                 <td><?php echo $appointment['date'] ?></td>
                 <td><?php echo $appointment['time'] ?></td>
                 <td><?php echo $appointment['agenda'] ?></td>
-                <?php
-                  $empRole = $this->session->userdata('role');  
-                  if ($empRole === 'admin') {
-                ?>
-                <td><?php echo $appointment['eventName'] ?></td>
-                <td><?php echo $appointment['employeeName'] ?></td>
-                <?php 
-                  }
-                ?>
               </tr>
               <?php  
                   }
@@ -201,6 +187,9 @@
       e.preventDefault();
 
       var appointmentDetails = $(this);
+      var agenda = $('#agenda').val();
+      var time = $('#appointmentTime').val();
+      var date = $('#appointmentDate').val();
 
       $.ajax({
         type: 'POST',
@@ -215,6 +204,15 @@
             '<span class="glyphicon glyphicon-ok"></span>' +
             ' New payment has been saved.' +
             '</div>');
+
+            $('#appTable').prepend(
+              '<tr>'+
+              '<td>' + date + '</td>' +
+              '<td>' + time + '</td>' +
+              '<td>' + agenda + '</td>' +
+              '</tr>'
+            );
+            
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();

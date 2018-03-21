@@ -381,7 +381,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$ceID = $this->session->userdata('currentEventID');
 
-			$data = array('success' => false, 'messages' => array());
+			$data = array('success' => false, 'messages' => array(), 'appointmentID' => null);
 
 			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
 			$this->form_validation->set_rules('appointmentDate', 'Appointment Date', 'required');
@@ -393,7 +393,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$time = $this->input->post('appointmentTime');
 				$agenda = $this->input->post('agenda');
 
-				$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+
+				$data['appointmentID'] = $newAppID;
 
 				$data['success'] = true;	
 			}else{
