@@ -179,11 +179,6 @@
 			return $query->row();	
 		}
 
-		public function balance($eID){
-			$query = $this->db->query("SELECT TOTAL.totalAmount-sum(amount) AS balance FROM (select events.eventID, payments.amount, events.totalAmount from events join payments USING(eventID))AS TOTAL WHERE eventID=$eID;");
-			return $query->row();
-		}
-
 		public function servcTransac($eID){
 			$this->db->select('*');
 			$this->db->from('eventservices');

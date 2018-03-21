@@ -1,9 +1,5 @@
 <?php
   $empRole = $this->session->userdata('role');
-  $tAmount = $totalAmount->totalAmount; 
-  $totalAmountPaid = $totalPayments->total;
-  $totalBudget = $tAmount * .30;
-  $eventBalance = $balance->balance;
   
 ?>
 
@@ -37,7 +33,7 @@
             <div class="box-body">
               <div>
                 <?php 
-                  echo '<h3>Balance: </h3> <h1>Php ' . $eventBalance . '</h1>';
+                  echo '<h3>Balance: </h3> <h1>Php ' . $balance . '</h1>';
                  ?>
                 
               </div>
@@ -73,8 +69,8 @@
 
             <div class="">
               <?php
-                echo '<h3>Total Amount: Php ' . $tAmount . '</h3>';
-                echo '<h3>Total Amount Paid: Php' . $totalAmountPaid . '</h3>';
+                echo '<h3>Total Amount: Php ' . $totalAmount->totalAmount . '</h3>';
+                echo '<h3>Total Amount Paid: Php' . $totalPayments->total . '</h3>';
                ?>
               
             </div>
@@ -94,12 +90,26 @@
         $attributes = array("name" => "addNewPayment", "id" => "addNewPayment", "class" => "form-horizontal");
         echo form_open("events/addPayment", $attributes);
       ?>
-      <div id="the-message">
-        
-      </div>
+      
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Payment</h4>
+          <div id="the-message">
+          <?php if ($balance <= 0): ?>
+            <div class="alert alert-danger text-center">
+              <span class="icon fa fa-hand-stop-o"></span>
+              <span>This event is fully paid!</span>
+            </div>
+          <?php endif ?>
+          <?php if ($balance > 0): ?>
+            <div class="alert alert-success text-center">
+              <span>Remaining Balance</span>
+              <div>
+                <strong><?php echo $balance ?></strong>
+              </div>
+            </div>
+          <?php endif ?>
+        </div>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -194,48 +204,75 @@
         data: paymentDetails.serialize(),
         dataType: 'json',
         success: function(response){
-          if (response.success == true) {
+          if(response.balance == true){
+            if (response.success == true) {
 
-            var paymentID = response.paymentID;
-            // if success we would show message
-            // and also remove the error class
-            $('#the-message').append('<div class="alert alert-success text-center">' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New payment has been saved.' +
-            '</div>');
+              var paymentID = response.paymentID;
+              var eventBalance = response.balanceAmount - amount;
 
-            $('#paymentTableBody').prepend(
-              '<tr>' +
-                '<td>' + paymentID + '</td>' +
-                '<td>' + amount + '</td>' +
-                '<td>' + date + '</td>' +
-                '<td>' + time + '</td>' +
-              '</tr>'
-            );
+              $('.alert-success').remove();
 
-            $('.form-group').removeClass('has-error')
-                  .removeClass('has-success');
-            $('.text-danger').remove();
-            // reset the form
-            paymentDetails[0].reset();
-            // close the message after seconds
-            $('.alert-success').delay(500).show(10, function() {
-              $(this).delay(3000).hide(10, function() {
-                $(this).remove();
+              // if success we would show message
+              // and also remove the error class
+
+              $('#the-message').append(
+                '<div class="alert alert-success text-center">' +
+                  '<span class="glyphicon glyphicon-ok"></span>' +
+                  '<span>New payment has been saved.</span>' +
+                  '<div class="row">' +
+                    '<div class="col-lg-6">' +
+                      '<span>New Balance: </span>' +
+                    '</div>' +
+                    '<div class="col-lg-6">' +
+                      '<strong>' + eventBalance + '</strong>'+
+                    '</div>' +
+                  '</div>' +
+                '</div>'
+              );
+
+              $('#paymentTableBody').prepend(
+                '<tr>' +
+                  '<td>' + paymentID + '</td>' +
+                  '<td>' + amount + '</td>' +
+                  '<td>' + date + '</td>' +
+                  '<td>' + time + '</td>' +
+                '</tr>'
+              );
+
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+              // reset the form
+              paymentDetails[0].reset();
+              // close the message after seconds
+      
+            }else{
+              $.each(response.messages, function(key, value) {
+                var element = $('#' + key);
+                
+                element.closest('div.form-group')
+                .removeClass('has-error')
+                .addClass(value.length > 0 ? 'has-error' : 'has-success')
+                .find('.text-danger')
+                .remove();
+                
+                element.after(value);
               });
-            })
+            }
           }else{
-            $.each(response.messages, function(key, value) {
-              var element = $('#' + key);
-              
-              element.closest('div.form-group')
-              .removeClass('has-error')
-              .addClass(value.length > 0 ? 'has-error' : 'has-success')
-              .find('.text-danger')
-              .remove();
-              
-              element.after(value);
-            });
+
+            $('.alert-success').remove();
+
+            $('.alert-danger').remove();
+
+            $('#the-message').append(
+              '<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-hand-stop-o"></span>' +
+              '<span>' +
+              ' This event is fully paid!' +
+              '</span>' +
+              '</div>'
+            );
           }
         }
       });

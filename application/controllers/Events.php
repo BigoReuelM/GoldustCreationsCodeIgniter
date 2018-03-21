@@ -194,9 +194,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$cid = $this->session->userdata('clientID');
 			$data['payments']=$this->events_model->getPayments($currentEvent);
-			$data['totalPayments']=$this->events_model->totalAmountPaid($currentEvent);
-			$data['totalAmount']=$this->events_model->totalAmount($currentEvent);			
-			$data['balance']=$this->events_model->balance($currentEvent);
+			$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
+			$totalAmount = $this->events_model->totalAmount($currentEvent);
+			$data['totalPayments'] = $totalPayments;
+			$data['totalAmount'] = $totalAmount;		
+			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 			$data['clientName']=$this->events_model->getClientName($cid);
 			
 			
@@ -272,10 +274,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addPayment(){
+			$eventID = $this->session->userdata('currentEventID');
+			$empID = $this->session->userdata('employeeID');
+			$clientID = $this->session->userdata('clientID');
 
-			$data = array('success' => false, 'messages' => array(), 'paymentID' => null);
+			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
 
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
+			$totalAmount = $this->events_model->totalAmount($eventID);
+			$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
+
+			$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
+
+			if ($eventBalance > 0) {
+				$data['balance'] = true;
+				$data['balanceAmount'] = $eventBalance;
+			}
+
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $eventBalance . ']');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
 			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -284,11 +299,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$date = $this->input->post('date');
 				$time = $this->input->post('time');
 				$amount = $this->input->post('amount');
-				$currentEventID = $this->session->userdata('currentEventID');
-
-				$empID = $this->session->userdata('employeeID');
-				$clientID = $this->session->userdata('clientID');
-				$paymentID = $this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+				
+				$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
 				$data['paymentID'] = $paymentID;
 
