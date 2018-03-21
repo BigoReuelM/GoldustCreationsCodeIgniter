@@ -50,7 +50,7 @@
                     <th>Time</th>
                   </tr>
                 </thead>
-                <tbody> 
+                <tbody id="paymentTableBody"> 
                   <?php
                     if(!empty($payments)){
                       foreach ($payments as $payment) {
@@ -185,7 +185,9 @@
       e.preventDefault();
 
       var paymentDetails = $(this);
-
+      var time = $('#time').val();
+      var date = $('#date').val();
+      var amount = $('#amount').val();
       $.ajax({
         type: 'POST',
         url: paymentDetails.attr('action'),
@@ -193,12 +195,24 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
+
+            var paymentID = response.paymentID;
             // if success we would show message
             // and also remove the error class
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
             ' New payment has been saved.' +
             '</div>');
+
+            $('#paymentTableBody').prepend(
+              '<tr>' +
+                '<td>' + paymentID + '</td>' +
+                '<td>' + amount + '</td>' +
+                '<td>' + date + '</td>' +
+                '<td>' + time + '</td>' +
+              '</tr>'
+            );
+
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();
@@ -206,9 +220,9 @@
             paymentDetails[0].reset();
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
             })
           }else{
             $.each(response.messages, function(key, value) {

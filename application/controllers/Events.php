@@ -273,9 +273,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addPayment(){
 
-			$data = array('success' => false, 'messages' => array());
+			$data = array('success' => false, 'messages' => array(), 'paymentID' => null);
 
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
 			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -288,7 +288,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$empID = $this->session->userdata('employeeID');
 				$clientID = $this->session->userdata('clientID');
-				$this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+				$paymentID = $this->events_model->addEventPayment($clientID, $empID, $currentEventID, $date, $time, $amount);
+
+				$data['paymentID'] = $paymentID;
 
 				$data['success'] = true;
 					

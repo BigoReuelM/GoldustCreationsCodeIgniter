@@ -302,9 +302,8 @@
 			 );
 
 			$this->db->insert('payments', $data);
-			/*
-			$this->db->insert("INSERT INTO payments(clientID, eventID, employeeID, date, time, amount) values ($cID,$ceID,$eID,$date,$time,$amount);");	
-			*/
+
+			return $this->db->insert_id();
 		}
 
 
@@ -561,31 +560,6 @@
 			$this->db->where('designID', $desID);
 			$this->db->update('eventdesigns', $data);
 		}
-
-		/*public function getRole(){
-			$results = array();
-			$query = $this->db->get('role')->result_array();
-			if( is_query($results) && count($query) > 0 ) {
-				$results[''] = 'Choose Role';
-				foreach($query as $row) {
-					$result;[$row['designID']] === $row['nagan'];
-				}
-			}
-			return $results;
-		}*/
-		/*
-		public function getRole(){
-			$this->db->select('role');
-			$query = $this->db->get('entourage'); //,ali ata to
-
-			if ($query->num_rows() > 0){
-				foreach($query->result() as $row) {
-				$data[] = $row;
-				}
-				return $data;
-			}
-		}
-		*/
 
 		public function getEntourageRole(){
 			$eventID = $this->session->userdata('currentEventID');
