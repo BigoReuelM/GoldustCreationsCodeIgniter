@@ -100,25 +100,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function updateServiceDetails(){
+
 			$tid = $this->session->userdata('currentTransactionID');
-			$serviceID = $this->input->post('serviceID');
-			$quantity = $this->input->post('quantity');
-			$amount = $this->input->post('amount');
 			$action = $this->input->post('action');
-			
-			if ($action === "remove") {
-				$this->transactions_model->removeService($tid, $serviceID);
+			$serviceID = $this->input->post('serviceID');
+
+			$data = array('success' => false, 'messages' => array(), 'action' => "");
+
+			$this->form_validation->set_rules('serviceQuantity', 'Quantity', 'trim|numeric');
+			$this->form_validation->set_rules('serviceAmount', 'Amount', 'trim|numeric');
+
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$quantity = $this->input->post('serviceQuantity');
+				$amount = $this->input->post('serviceAmount');
+				
+				
+				if ($action === "remove") {
+					$this->transactions_model->removeService($tid, $serviceID);
+					$data['action'] = "remove";
+				}
+
+				if ($action === "update") {
+					$data['action'] = "update";
+					if (!empty($quantity)) {
+						$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
+					}
+					if (!empty($amount)) {
+						$this->transactions_model->updateAmount($tid, $serviceID, $amount);
+					}
+				}
+
+				$data['success'] = true;	
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
 
-			if ($action === "update") {
-				if (!empty($quantity)) {
-					$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
-				}
-				if (!empty($amount)) {
-					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
-				}
-			}
-			redirect('transactions/transactionDetails');
+			echo json_encode($data);
 		}
 
 		public function addTransactionAppointments(){
