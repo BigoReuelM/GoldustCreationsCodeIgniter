@@ -84,7 +84,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$tID = $this->session->userdata('currentTransactionID');
 
-			$data = array('success' => false, 'availdServices' => array());
+			$data = array('success' => false, 'availedServices' => array());
 			
 			if (!empty($this->input->post('services[]'))) {
 				foreach ($this->input->post('services[]') as $key => $service) {
