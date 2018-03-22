@@ -807,6 +807,92 @@
     });
   });
   //end of script for adding od services
+  //script for updating transaction services details
+
+  $('#addNewPayment').submit(function(e){
+    e.preventDefault();
+
+    var paymentDetails = $(this);
+    
+    $.ajax({
+      type: 'POST',
+      url: paymentDetails.attr('action'),
+      data: paymentDetails.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if(response.balance == true){
+          if (response.success == true) {
+
+            var paymentID = response.paymentID;
+            var eventBalance = response.balanceAmount - amount;
+
+            $('.alert-success').remove();
+
+            // if success we would show message
+            // and also remove the error class
+
+            $('#the-message').append(
+              '<div class="alert alert-success text-center">' +
+                '<span class="glyphicon glyphicon-ok"></span>' +
+                '<span>New payment has been saved.</span>' +
+                '<div class="row">' +
+                  '<div class="col-lg-6">' +
+                    '<span>New Balance: </span>' +
+                  '</div>' +
+                  '<div class="col-lg-6">' +
+                    '<strong>' + eventBalance + '</strong>'+
+                  '</div>' +
+                '</div>' +
+              '</div>'
+            );
+
+            $('#paymentTableBody').prepend(
+              '<tr>' +
+                '<td>' + paymentID + '</td>' +
+                '<td>' + amount + '</td>' +
+                '<td>' + date + '</td>' +
+                '<td>' + time + '</td>' +
+              '</tr>'
+            );
+
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            paymentDetails[0].reset();
+            // close the message after seconds
+    
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }else{
+
+          $('.alert-success').remove();
+
+          $('.alert-danger').remove();
+
+          $('#the-message').append(
+            '<div class="alert alert-danger text-center">' +
+            '<span class="icon fa fa-hand-stop-o"></span>' +
+            '<span>' +
+            ' This event is fully paid!' +
+            '</span>' +
+            '</div>'
+          );
+        }
+      }
+    });
+  });
 
 </script>
 
