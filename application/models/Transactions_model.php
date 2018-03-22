@@ -227,6 +227,11 @@
 			return $query->result_array();
 		}
 
+		public function getService($service){
+			$query=$this->db->query("SELECT * FROM services WHERE serviceID = $service");
+			return $query->row();
+		}
+
 		public function viewEventRentals(){
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');

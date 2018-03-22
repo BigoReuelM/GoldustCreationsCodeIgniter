@@ -81,15 +81,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addsvc(){
-			//$addSvc = $this->input->post('add_servc_chkbox');
+
 			$tID = $this->session->userdata('currentTransactionID');
-			if (!empty($this->input->post('services[]'))) {
-				foreach ($this->input->post('services[]') as $service) {
-					$this->transactions_model->addServcs($tID, $service);
-				}
-			}
+
+			$data = array('success' => false, 'availdServices' => array());
 			
-			redirect('transactions/transactionDetails');
+			if (!empty($this->input->post('services[]'))) {
+				foreach ($this->input->post('services[]') as $key => $service) {
+					$this->transactions_model->addServcs($tID, $service);
+					$data['availedServices'][$key] = $this->transactions_model->getService($service);
+				}
+
+				$data['success'] = true;
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function updateServiceDetails(){

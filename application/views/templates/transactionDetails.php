@@ -179,22 +179,25 @@
                     </tr>
                   </thead>
                   
-                    <tbody>
+                    <tbody id="serviceTableBody">
                       <?php if ($transServices){
                         foreach ($transServices as $service) {
                           $serviceID = $service['serviceID'];
                       ?>
                         <tr>
-                          <form role="form" method="post" action="<?php echo base_url('transactions/updateServiceDetails') ?>">
+                          <?php 
+                            $attributes = array("name" => "updateServiceDetails", "id" => "updateServiceDetails", "class" => "form-horizontal");
+                            echo form_open("transactions/updateServiceDetails", $attributes);
+                          ?>
                             <td><?php echo $service['serviceName'] ?></td>
-                            <td><input class="form-control" name="quantity" type="text" placeholder="<?php echo $service['quantity'] ?>"></td>
-                            <td><input class="form-control" name="amount" type="text" placeholder="<?php echo $service['amount'] ?>"></td>
+                            <td><input class="form-control" id="quantity" name="quantity" type="text" placeholder="<?php echo $service['quantity'] ?>"></td>
+                            <td><input class="form-control" id="serviceAmount" name="serviceAmount" type="text" placeholder="<?php echo $service['amount'] ?>"></td>
                             <td>
-                              <input type="text" name="serviceID" value="<?php echo $serviceID ?>" hidden>
+                              <input type="text" id="servi" name="serviceID" value="<?php echo $serviceID ?>" hidden>
                               <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>
                               <button class="btn btn-block btn-default" type="submit" name="action" value="update">Update</button>
                             </td>
-                          </form>
+                          <?php echo form_close(); ?>
                         </tr>
                       <?php }}?>
                     </tbody>
@@ -305,7 +308,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Appointment</h4>
-        <div id="the-message">
+        <div id="appointConfirm">
         </div>
       </div>
       <?php 
@@ -425,9 +428,14 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Add Service/s</h4>
+        <div id="serviceConfirm">
+        </div>
       </div>
-      <form role="form" method="post" action="<?php echo base_url('transactions/addsvc') ?>">
-      <div class="modal-body">
+      <?php 
+        $attributes = array("name" => "addService", "id" => "addService", "class" => "form-horizontal");
+        echo form_open("transactions/addsvc", $attributes);
+      ?>
+        <div class="modal-body">
           <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
             <thead>
               <tr>
@@ -435,19 +443,17 @@
                 <th>Description</th>
               </tr>
             </thead>
-            <tbody>
-              
+            <tbody id="serviceTable"> 
                 <?php
                   if (!empty($servcs)) {
                     foreach ($servcs as $svc) { ?>
                       <tr>                   
                           <td>
-                            <div class="checkbox"><label><input type="checkbox" name="services[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
-                            <?php 
-                              if (isset($_POST['add_servc_chkbox']) && $_POST['add_servc_chkbox'] == 'on') {
-                                
-                              }
-                            ?>
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="services[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?>
+                              </label>
+                            </div>
                           </td>
                           <td><?php echo $svc['description'] ?></td>
                       </tr>
@@ -457,12 +463,12 @@
               
             </tbody>            
           </table> 
-      </div>
-      <div class="modal-footer">                 
-        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-        <button class="btn btn-default" type="submit">Add</button>
-      </div>
-      </form>
+        </div>
+        <div class="modal-footer">                 
+          <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+          <button class="btn btn-default" type="submit">Add</button>
+        </div>
+      <?php echo form_close(); ?>
     </div>
 
   </div>
@@ -707,7 +713,7 @@
         if (response.success == true) {
           // if success we would show message
           // and also remove the error class
-          $('#the-message').append('<div class="alert alert-success text-center">' +
+          $('#appointConfirm').append('<div class="alert alert-success text-center">' +
           '<span class="glyphicon glyphicon-ok"></span>' +
           ' New appointment has been saved.' +
           '</div>');
@@ -748,5 +754,59 @@
     });
   });
   //end of adding of appointments
+  //script for adding services
+    $('#addService').submit(function(e){
+    e.preventDefault();
+
+    var services = $(this);
+
+
+    $.ajax({
+      type: 'POST',
+      url: services.attr('action'),
+      data: services.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if (response.success == true) {
+
+          $('.alert-success').remove();
+
+          $('#serviceConfirm').append('<div class="alert alert-success text-center">' +
+          '<span class="glyphicon glyphicon-ok"></span>' +
+          ' Service/s saved.' +
+          '</div>');
+
+          $.each(response.availedServices, function(key, value){
+            $('#serviceTableBody').prepend(
+              '<tr>' +
+                '<form method="post" name="updateServiceDetails" id="updateServiceDetails" class="form-horizontal" action="<?php echo base_url('transactions/updateServiceDetails'); ?>">' +
+                  '<td>' + value.serviceName + '</td>' +
+                  '<td><input class="form-control" id="quantity" name="quantity" type="text">' +
+                  '<td><input class="form-control" id="serviceAmount" name="serviceAmount" type="text"></td>' +
+                  '<td>' +
+                    '<input type="text" id="servi" name="serviceID" value="' + value.serviceID + '">' +
+                    '<button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>' +
+                    '<button class="btn btn-block btn-default" type="submit" name="action" value="update">Update</button>' +
+                  '</td>' +
+                '</form>' +
+              '</tr>'
+            );
+          });
+
+          services[0].reset();
+          // close the message after seconds
+          $('.alert-success').delay(500).show(10, function() {
+          $(this).delay(3000).hide(10, function() {
+            $(this).remove();
+          });
+          })
+        }else{
+          
+        }
+      }
+    });
+  });
+  //end of script for adding od services
+
 </script>
 
