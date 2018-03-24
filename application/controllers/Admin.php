@@ -29,6 +29,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			
 
 			$this->load->view("templates/head.php");
 			$this->load->view("templates/adminHeader.php", $notif);

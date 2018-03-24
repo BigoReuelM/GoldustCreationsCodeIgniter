@@ -55,6 +55,28 @@
                   <?php
                   }
                   ?>
+                  <?php if (!empty($overTRent)){
+                    $overTCount = count($overTRent);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overTCount ?> Overdue Rental
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($overERent)){
+                    $overECount = count($overERent);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overECount ?> Overdue Event Rental
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <!-- end notification -->
                 </ul>
               </li>
