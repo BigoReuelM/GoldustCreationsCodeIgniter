@@ -30,62 +30,31 @@
             ?>
           </h1>        
       </div>
-      <?php if ($eventDetail->eventStatus === "on-going"): ?>
-        <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">
-          <div class="col-lg-3">
-            <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <button type="submit" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-          </div>
-        </form>
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
-        </div>
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-        </div>     
-      <?php endif ?>
-
-      <?php if ($eventDetail->eventStatus === "cancelled"): ?>
-        <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
-          <div class="col-lg-3">
-            <button type="submit" class="btn btn-block btn-primary btn-lg">Continue Event</button>
-          </div>
-        </form>
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-        </div>
-      <?php endif ?>
-
-      <?php if ($eventDetail->eventStatus === "finished"): ?>
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-        </div>
-      <?php endif ?>
-            
     </div>
   </section>
   <div class="row">
+    <div class="box box-primary">
+      <div class="box-body">
         <div class="col-lg-4">
-      <div class="box box-primary">
-        <form role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
-          <div class="box-header">
-            <h3>Select Event Handler</h3>
-            <?php  
-              if ($empRole === 'admin') {
-                echo "<label>Select</label>";
-                echo "<select class='form-control' name='handler'>";
-                echo "<option selected disabled hidden>Choose Handler</option>";
+          <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
+            <div class="box-header">
+              <h3>Select Event Handler</h3>
+              <?php  
+                if ($empRole === 'admin') {
+                  echo "<label>Select</label>";
+                  echo "<select class='form-control' name='handler'>";
+                  echo "<option selected disabled hidden>Choose Handler</option>";
 
-                foreach ($handlers as $handler) {
-                  echo "<option value='" . $handler['employeeID'] . "'>" . $handler['employeeName'] . "</option>";
+                  foreach ($handlers as $handler) {
+                    echo "<option value='" . $handler['employeeID'] . "'>" . $handler['employeeName'] . "</option>";
+                  }
+
+                  echo "</select>";
                 }
-
-                echo "</select>";
-              }
-            ?>
-          </div>
-          <div class="box-body box-profile">
-            
+              ?>
+            </div>
+            <div class="box-body box-profile">
+              
               <div class="form-group">
 
                 <?php 
@@ -116,21 +85,12 @@
                   }
                 ?>
               </div>
-              <div>
-                <?php
-                  if ($empRole === 'admin') {
-                     echo '<button type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
-                   } 
-                ?>               
-              </div>
-          </div>
-        </form>
-      </div>
-    </div> 
-    <div class="col-lg-8">
-      <div class="box box-primary">
-        <div class="box-body">
-          <form role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>">
+            </div>
+          </form>      
+        </div>
+        <div class="col-lg-8">
+          
+          <form id="updateDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>">
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
@@ -188,7 +148,10 @@
                 <label>Theme</label>
                 <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
               </div>
-
+              <div class="form-group">
+                <label>Total Amount Due</label>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $serviceTotal->total ?>" disabled>
+              </div>
               <div class="form-group">
                 
                 <div class="col-lg-4">
@@ -213,245 +176,69 @@
                 
               </div>
             </div>
-            <button type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-          </form>
-        </div>
-      </div>
-      
-    </div>
-    
-  </div>
-
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="box box-primary">
-      
-        <div class="box-header">
-          <h3>Total Due For Services:</h3>
-        </div>
-
-        <div class="box-body">
-          <div class="row">
-            <div class="form-group">
-              <label class="col-lg-2 control-label">Amount</label>
-
-              <div class="col-lg-10">
-                <input type="text" class="form-control" placeholder="PHP 30,000.00" disabled value="<?php echo "Php " . $serviceTotal->total ?>">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="box-footer">
-          
-        </div>
-      </div>
-    </div>
-    
-    <div class="col-lg-6">
-      <div class="box box-primary">
-      
-        <div class="box-header">
-          <h3>Total Amount Due:</h3>
-        </div>
-
-        <div class="box-body">
-          <div class="row">
-            <form action="">
-              <div class="form-group">
-                <label class="col-lg-2 control-label">Amount</label>
-
-                <div class="col-lg-10">
-                  <input type="text" class="form-control" placeholder="Enter Total Amount...." value="<?php echo 'Php ' . $eventDetail->totalAmount ?>"> 
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="box-footer">
-          <div class="form-group">
-            <label class="col-lg-8">
-              Click Update Amount Button when sure..
-            </label>
-            <div class="col-lg-4">
-              <button type="submit" class="btn btn-block btn-primary">Update Amount</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>  
-  </div>
-
-  <div class="row">
-    <!--service table-->
-    <div class="col-lg-6">
-      <div class="box box-primary">
-        <div class="box-header">
-          <h3 class="box-title">Services</h3>
-        </div>
-        <div class="box-body">
-          
-          <table id="serviceTable" class="table table-striped table-bordered table-responsive">
-            <thead>
-              <tr>
-                <th>Services</th>
-                <th>Quantity</th>
-                <th>Amount</th>
-                <th>Action</th>
-              </tr>
-            </thead>
             
-            <tbody>
-              
-              <?php
-                if (!empty($avlServcs)) {
-                  foreach ($avlServcs as $avlSvc) { 
-                      $svcID = $avlSvc['serviceID'];
-                    ?>
+          </form>
 
-                    <tr>
-                      <form id="svcform" role="form" method="post" action="<?php echo base_url('events/upSvcQtyAmt') ?>">
-                        <!-- service name -->
-                        <td>
-                          <?php echo $avlSvc['serviceName'] ?>
-                        </td>
-                        <!-- quantity -->                
-                        <td>
-                          <input class="form-control" type="text" name="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
-                        </td>
-                        <!-- amount -->
-                        <td>
-                          <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $avlSvc['amount'] ?>">
-                        </td>
-                        <td>  
-                          <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">                    
-                          <button class="btn btn-link" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove <i class="fa fa-remove"></i></button>
-                          <button class="btn btn-link" id="updtsvcbtn" name="btn" type="submit" value="updt">Update <i class="fa fa-remove"></i></button>   
-                        </td> 
-                      </form>
-                    </tr>
-                  <?php }
-                    }
-                  ?>
-
-            </tbody>
-
-          </table> 
-                
-            <div class= "col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addServc" id="butt2">Add Services</button> 
-            </div>                 
         </div>
-      </div>     
-    </div>
-
-    <!--end of service col-->
-
-    <!--start of staff col-->
-    <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
-    <div class="col-lg-6">
-      <div class="box box-primary">
-        <div class="box-header">
-          <h3 class="box-title">Staff</h3>
-        </div>
-        <div class="box-body">
-          <table id="staffTable" class="table table-bordered table-striped">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Contact Number</th>
-                <th>Action </th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php  
-                  if (!empty($eventStaff)) {
-                    foreach ($eventStaff as $staff) {  
-                      $svcstaff = $staff['empId'];
-                ?>
-                  <tr>
-                    <form role="form" action="<?php echo base_url('events/upEvtStaff') ?>" method="post" id="staff_form">
-                      <td><?php echo $staff['name']; ?></td>
-                      <td><input type="text" name="staffRole" placeholder="<?php echo $staff['role']; ?>" class="form-control" style="border: none;"></td>
-                      <td><?php echo $staff['num']; ?></td>
-                      <td>
-                        <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
-                          <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
-                          <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="fa fa-remove"></i></button>
-                      </td>
-                    </form>
-                  </tr>
-              <?php 
-                  }
-                }
-              ?>
-            </tbody>
-          </table>
-          <div class="row">
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addStaff">Add Staff </button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff</button>
-            </div>
+      </div>
+      <div class="box-footer">
+        <div class="row">
+          <div class="col-lg-4">
+            <?php
+              if ($empRole === 'admin') {
+                 echo '<button form="updateEventHandler" type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
+               } 
+            ?>
+          </div>
+          <div class="col-lg-8">
+            <button form="updateDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </div>
         </div>
       </div>
     </div>
-    <!--end staff col-->
-
   </div>
 
-<div class="control-sidebar-bg"></div> 
+
+  <div class="row">
+    <?php if ($eventDetail->eventStatus === "on-going"): ?>
+      <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">
+        <div class="col-lg-3">
+          <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+          <button type="submit" class="btn btn-block btn-primary btn-lg">Finish Event</button>
+        </div>
+      </form>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
+      </div>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      </div>     
+    <?php endif ?>
+
+    <?php if ($eventDetail->eventStatus === "cancelled"): ?>
+      <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
+        <div class="col-lg-3">
+          <button type="submit" class="btn btn-block btn-primary btn-lg">Continue Event</button>
+        </div>
+      </form>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      </div>
+    <?php endif ?>
+
+    <?php if ($eventDetail->eventStatus === "finished"): ?>
+      <div class="col-lg-3">
+        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      </div>
+    <?php endif ?>
+          
+  </div>
+
+  <div class="control-sidebar-bg"></div> 
 </section>
-<!-- /.content-wrapper -->
-  <!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
     
 </div>
-<!-- modals... -->
-<!-- add service modal -->
-<div class="modal fade" role="dialog" id="addServc">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Service/s</h4>
-      </div>
-      <div class="modal-body">
-        <form id="addsvcform" role="form" method="post" action="<?php echo base_url('events/addsvc') ?>">
-          <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
-            <thead>
-              <tr>
-                <th>Service Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>              
-                <?php
-                  if (!empty($servcs)) {
-                    foreach ($servcs as $svc) { ?>
-                      <tr>                   
-                          <td>
-                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
-                          </td>
-                          <td><?php echo $svc['description'] ?></td>
-                      </tr>
-                <?php }
-                  }
-                ?>             
-            </tbody>            
-          </table> 
-      </div>
-      <div class="modal-footer">                 
-        <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-        <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button>
-      </div>
-      </form>
-    </div>
 
-  </div>
-</div>
 
   <!-- Cancel event Modal -->
 <div class="modal fade" id="cancellEvent" role="dialog">
@@ -500,106 +287,6 @@
 </div>
 <!-- End of cancel event modal -->
 
-<!-- Add staff Modal -->
-<div class="modal fade" role="dialog" id="addStaff">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- pwede ditu form -->
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Staff</h4>
-      </div>
-      <div class="modal-body">
-        <form id="addstaffform" role="form" method="post" action="<?php echo base_url('events/addStaff') ?>">
-          <table class="table table-hover table-responsive table-bordered" id="modalStaffTbl">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Contact Number</th>
-              </tr>
-            </thead>
-            <tbody>
-                <?php
-                  if (!empty($allStaff)) {
-                    foreach ($allStaff as $s) { ?>
-                      <tr>                   
-                        <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['empId'] ?>" multiple><?php echo $s['name'] ?></label></div>
-                        </td>
-                        <td><?php echo $s['num'] ?></td>
-                      </tr>
-                <?php }
-                  }
-                ?> 
-            </tbody>            
-          </table>
-          <div class="modal-footer">                 
-            <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-            <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
-          </div>
-        </form>
-      </div>     
-    </div>
-  </div>
-</div>
-<!-- End of Add staff modal -->
-
-<!-- Modal for add on-call Staff -->
-<div class="modal fade" id="addoncallstaff" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add On-Call Staff</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container" id="con1">
-          <form action="/action_page.php">
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">On-Call Staff ID</label>
-              </div>
-              <div class="col-75">
-                <div id="GovID" > ****** </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Staff Name</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Staff Name">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Role</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Role">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Contact Number</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Contact Number">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-   </div> 
-  </div>
-</div>
-<!-- End modal for on-call Staff -->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>

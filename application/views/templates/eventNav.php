@@ -21,17 +21,19 @@
             
           </div>
 
+          <div>
+            <a href="<?php echo base_url('events/ongoingEvents') ?>" id="icon">
+              <span class="glyphicon glyphicon-circle-arrow-left" ></span>
+            </a>  
+          </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav navbar-centered collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <li>
-                <a href="<?php echo base_url('events/ongoingEvents') ?>" id="icon">
-                  <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-                </a> 
-              </li>
               <li><a href="<?php echo base_url('events/eventDetails') ?>">Details</a></li>
+              <li><a href="<?php echo base_url('events/eventServices') ?>">Services</a></li>
               <li><a href="<?php echo base_url('events/eventEntourage') ?>">Entourage</a></li>
-              <li><a href="<?php echo base_url('events/eventDecors') ?>">Decors</a></li>
               <li><a href="<?php echo base_url('events/payment') ?>">Payments</a></li>
+              <li><a href="<?php echo base_url('events/eventDecors') ?>">Decors</a></li>
+              <li><a href="<?php echo base_url('events/eventStaff') ?>">Staff</a></li>
               <li><a href="<?php echo base_url('events/appointments') ?>">Appointments</a></li>
             </ul>
         </div><!-- /.container-fluid -->

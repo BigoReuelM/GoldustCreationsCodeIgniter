@@ -105,33 +105,68 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$id = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
 			$data['eventName'] =$this->events_model->getEventName($id);
-			// get ALL available services for modal (add service)
-			$data['servcs'] = $this->events_model->getServices();
-			// get services availed for an event ONLY
-			$data['avlServcs'] = $this->events_model->servcTransac($id);
 			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 			$data['handlers'] = $this->events_model->getHandlers();
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
-			// get staff assigned to an event ONLY
-			$data['eventStaff'] = $this->events_model->getStaff($id);
 			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
-			// get ALL staff from the database
-			$data['allStaff'] = $this->events_model->showAllStaff();
-			 
+	 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
 				
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php", $data);
+				$this->load->view("templates/eventNav.php");
 				
 			}else{
 				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);			
+				$this->load->view("templates/eventNav.php");			
 			}
 			$this->load->view("templates/eventDetails.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function eventStaff(){
+			$empRole = $this->session->userdata('role');
+			$id = $this->session->userdata('currentEventID');
+			$data['eventStaff'] = $this->events_model->getStaff($id);
+			$data['allStaff'] = $this->events_model->showAllStaff();
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/eventNav.php");
+				
+			}else{
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");			
+			}
+			$this->load->view("templates/eventStaff.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function eventServices(){
+			$id = $this->session->userdata('currentEventID');
+			$empRole = $this->session->userdata('role');
+			$data['servcs'] = $this->events_model->getServices();
+			$data['avlServcs'] = $this->events_model->servcTransac($id);
+			
+			$this->load->view("templates/head.php");
+			if ($empRole === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/eventNav.php");
+				
+			}else{
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/eventNav.php");			
+			}
+			$this->load->view("templates/eventServices.php", $data);
+			$this->load->view("templates/footer.php");
+
 		}
 
 		public function eventEntourage(){
@@ -459,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->events_model->addServcs($eID, $svc);
 				}
 			}
-			$this->eventDetails();
+			redirect('events/eventServices');
 		}
 
 		// add staff
@@ -471,7 +506,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->events_model->addStaff($eID, $s);
 				}
 			}
-			$this->eventDetails();
+			redirect('events/eventStaff');
 		}
 
 		// update staff table (event details)
@@ -519,7 +554,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($btnval === "rmv") {
 				$this->events_model->deleteEvntSvc($srvcID, $eID);
 			}		
-			$this->eventDetails();
+			redirect('events/eventServices');
 		}
 
 		public function updateEventDetails(){
