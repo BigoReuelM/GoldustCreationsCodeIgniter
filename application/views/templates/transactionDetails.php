@@ -665,10 +665,10 @@
           if (response.totalAmount == true) {
             $('#totalAmount').val(totalAmount);
           }
-          if (response.newDate == true) {
+          if (response.newTime == true) {
             $('#time').val(time);
           }
-          if (response.newTime == true) {
+          if (response.newDate == true) {
             $('#date').val(date);
           }
 

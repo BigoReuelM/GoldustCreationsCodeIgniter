@@ -5,13 +5,6 @@
   padding-top: 15px;
 }
 
-
-#respass {
-  width: 400px;
-  margin-left:35%;
-  padding-top: 15px;
-  background: #3c8dbc;
-}
 #img5 {
   width:250px;
   height:250px;
@@ -36,22 +29,26 @@
 
                     <h3 class="profile-username text-center"></h3>
 
-                    <p class="text-muted text-center">Event Handler</p>
+                    <?php if ($this->session->userdata('role')  === "admin"): ?>
+                      <p class="text-muted text-center">Admin</p>
+                    <?php endif ?>
 
-                    <ul class="list-group list-group-unbordered">
-                      <li class="list-group-item" id="list6">
-                        <b>Handled Events</b> <a class="pull-right">1,322</a>
-                      </li>
-                      <li class="list-group-item" id="list6">
-                        <b>Events Currently Handling</b> <a class="pull-right">50</a>
-                      </li>
-                      <li class="list-group-item" id="list6">
-                        <b>Transactions</b> <a class="pull-right">543</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="form-group">
-                    <button type="button" class="btn btn-block btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
+                    <?php if ($this->session->userdata('role')  === "handler"): ?>
+                      <p class="text-muted text-center">Event Handler</p>
+
+                      <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item" id="list6">
+                          <b>Handled Events</b> <a class="pull-right">1,322</a>
+                        </li>
+                        <li class="list-group-item" id="list6">
+                          <b>Events Currently Handling</b> <a class="pull-right">50</a>
+                        </li>
+                        <li class="list-group-item" id="list6">
+                          <b>Transactions</b> <a class="pull-right">543</a>
+                        </li>
+                      </ul>                      
+                    <?php endif ?>
+
                   </div>
                 </div>
                   <div class="form-group">

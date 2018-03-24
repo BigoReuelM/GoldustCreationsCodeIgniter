@@ -140,7 +140,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->form_validation->set_rules('expenseName', 'Expense Name', 'trim|required');
 			$this->form_validation->set_rules('expenseDate', 'Expenses Date', 'required');
-			$this->form_validation->set_rules('expenseAmount', 'Amount', 'trim|required');
+			$this->form_validation->set_rules('expenseAmount', 'Amount', 'trim|required|numeric');
 			$this->form_validation->set_rules('expenseReceipt', 'Receipt No.', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
