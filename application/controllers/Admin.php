@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('admin_model');
 			$this->load->model('events_model');
+			$this->load->model('notifications_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -26,9 +27,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 			$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 
 			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
+			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/adminHome.php", $data);
 			$this->load->view("templates/footer.php");

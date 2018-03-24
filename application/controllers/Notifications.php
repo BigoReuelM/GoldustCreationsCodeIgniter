@@ -16,7 +16,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->library('session', 'form_validation');
 		}
 
-		public function overdueRentals(){
+		public function overdueTransactionRentals(){
+
+		}
+
+		public function overdueEventRentals(){
 
 		}
 
@@ -24,8 +28,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function eventsToday(){
+
+		}
+
 		public function incommingAppointments(){
 			
+		}
+
+		public function appointmentsToday(){
+
+			
+
 		}
 	}
 

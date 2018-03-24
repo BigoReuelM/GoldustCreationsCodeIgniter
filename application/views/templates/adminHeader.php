@@ -30,15 +30,31 @@
               <span class="label label-warning">10</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
+                  <?php if (!empty($appToday)){
+                    $appCount = count($appToday);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $appCount ?> Appointments Today
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($eventsToday)){
+                    $eventCount = count($eventsToday);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $eventCount ?> Events Today
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <!-- end notification -->
                 </ul>
               </li>
