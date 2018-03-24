@@ -193,25 +193,19 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <div class="col-sm-3">
-                <label for="firstname" class="control-label">First Name</label>
-              </div>
+              <label for="firstname" class="col-lg-3 control-label">First Name</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-3">
-                <label for="middlename" class="control-label">Middle Name</label>
-              </div>
+              <label for="middlename" class="col-lg-3 control-label">Middle Name</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
               </div>
             </div>
             <div class="form-group">
-              <div class="col-sm-3"> 
-                <label for="lastname" class="control-label">Last Name</label>
-              </div>
+              <label for="lastname" class="col-sm-3 control-label">Last Name</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter Last Name ... ">
               </div>
@@ -249,7 +243,7 @@
             <div class="form-group">
               <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
               <div class="col-sm-7">
-                <input type="file" class="form-control" name="employeeImage" id="employeeImage" multiple>
+                <input type="file" name="employeeImage" id="employeeImage" multiple>
               </div>
             </div>
           </div>

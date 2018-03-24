@@ -104,7 +104,7 @@
             <div class="form-group">
               <label for="expensePhoto" class="control-label col-lg-3">Receipt Photo</label>
               <div class="col-lg-9">
-                <input type="file" name="expensePhoto" id="expensePhoto" >
+                <input type="file" name="expensePhoto" id="expensePhoto">
               </div>
             </div>  
           </div>

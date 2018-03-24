@@ -105,31 +105,31 @@
 		    <div class="modal-body">
 		    	<div class="box-body">
             <div class="form-group">
-              <label class="col-lg-3 control-label">First Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" id="firstname" name="firstname">
+              <label class="control-label col-sm-3">First Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter first name ..">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Middle Name</label>
+              <label class="control-label col-lg-3">Middle Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="middlename" name="middlename">
+                <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter middle name ..">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Last Name</label>
+              <label class="control-label col-lg-3">Last Name</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="lastname" name="lastname">
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Enter last name ..">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Contact Number</label>
+              <label class="control-label col-lg-3">Contact Number</label>
               <div class="col-lg-9">
-                <input type="text" class="form-control" id="contact" name="contact">
+                <input type="text" class="form-control" id="contact" name="contact" placeholder="Enter contact Number ..">
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Date Registerd:</label>
+              <label class="control-label col-lg-3">Date Registerd:</label>
               <div class="col-lg-9">
                 <input type="date" class="form-control" id="adddate" name="adddate">
               </div>
@@ -137,14 +137,8 @@
 		    	</div>
 		    </div>
 		    <div class="modal-footer">
-		      <div class="row">
-		        <div class="col-lg-6">
-		          <button type="submit" class="btn btn-default">Add New Client</button>
-		        </div>
-		        <div class="col-lg-6">
-		          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-		        </div>
-		      </div>
+          <button type="submit" class="btn btn-default">Add New Client</button>
+          <button class="btn btn-default" data-dismiss="modal">Cancel</button>
 		    </div>
 			  <?php echo form_close(); ?>
 		</div>
@@ -196,9 +190,9 @@
             clientDetails[0].reset();
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
+             $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
             })
           }else{
             $.each(response.messages, function(key, value) {

@@ -28,7 +28,7 @@
 
 		public function getProfile($empID){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE employeeID = $empID
 			");
