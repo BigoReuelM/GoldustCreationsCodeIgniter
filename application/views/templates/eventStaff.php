@@ -17,7 +17,14 @@
     <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
       <div class="box box-primary">
         <div class="box-header">
-          <h3 class="box-title">Staff</h3>
+          <div class="row">
+            <div class="col-lg-6">
+              <h3 class="box-title">Staff</h3>
+            </div>
+            <div class="col-lg-6">
+              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addStaff">Add Staff </button>
+            </div>
+          </div>
         </div>
         <div class="box-body">
           <table id="staffTable" class="table table-bordered table-striped">
@@ -53,14 +60,6 @@
               ?>
             </tbody>
           </table>
-          <div class="row">
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addStaff">Add Staff </button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addoncallstaff">Add On-Call Staff</button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -119,63 +118,6 @@
   </div>
 </div>
 <!-- End of Add staff modal -->
-
-<!-- Modal for add on-call Staff -->
-<div class="modal fade" id="addoncallstaff" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add On-Call Staff</h4>
-      </div>
-      <div class="modal-body">
-        <div class="container" id="con1">
-          <form action="/action_page.php">
-            <div class="row">
-              <div class="col-25">
-                <label for="fname">On-Call Staff ID</label>
-              </div>
-              <div class="col-75">
-                <div id="GovID" > ****** </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Staff Name</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Staff Name">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Role</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Role">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-25">
-                <label for="lname">Contact Number</label>
-              </div>
-              <div class="col-75">
-                <input type="text" id="lname" name="lastname" placeholder="Contact Number">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Add</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-   </div> 
-  </div>
-</div>
-<!-- End modal for on-call Staff -->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
