@@ -186,7 +186,7 @@
                       ?>
                         <tr id="<?php echo $serviceID;?>">
                           <?php 
-                            $attributes = array("name" => "updateServiceDetails", "id" => "", "class" => "form-horizontal updateServiceDetails");
+                            $attributes = array("name" => "updateServiceDetails", "id" => "updateServiceDetails", "class" => "form-horizontal");
                             echo form_open("transactions/updateServiceDetails", $attributes);
                           ?>
                             <td><?php echo $service['serviceName'] ?></td>
@@ -779,7 +779,7 @@
           $.each(response.availedServices, function(key, value){
             $('#serviceTableBody').prepend(
               '<tr id="' + value.serviceID + '">' +
-                '<form method="post" name="updateServiceDetails" class="updateServiceDetails form-horizontal" action="<?php echo base_url('transactions/updateServiceDetails'); ?>">' +
+                '<form method="post" name="updateServiceDetails" id="updateServiceDetails" class="form-horizontal" action="<?php echo base_url('transactions/updateServiceDetails'); ?>">' +
                   '<td>' + value.serviceName + '</td>' +
                   '<td><input class="form-control" id="serviceQuantity" name="serviceQuantity" type="text">' +
                   '<td><input class="form-control" id="serviceAmount" name="serviceAmount" type="text"></td>' +

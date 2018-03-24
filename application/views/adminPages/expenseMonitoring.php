@@ -78,18 +78,6 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <label class="control-label col-lg-3">Client Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" disabled>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-lg-3">Event Name</label>
-              <div class="col-lg-9">
-                <input type="text" class="form-control" disabled>
-              </div>
-            </div>
-            <div class="form-group">
               <label for="expenseName" class="control-label col-lg-3">Expense Name</label>
               <div class="col-lg-9">
                 <input type="text" name="expenseName" id="expenseName" placeholder="Enter Expense Name..." class="form-control">
@@ -116,7 +104,7 @@
             <div class="form-group">
               <label for="expensePhoto" class="control-label col-lg-3">Receipt Photo</label>
               <div class="col-lg-9">
-                <input type="file" name="expensePhoto" id="expensePhoto" class="form-control">
+                <input type="file" name="expensePhoto" id="expensePhoto" >
               </div>
             </div>  
           </div>
