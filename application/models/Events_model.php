@@ -172,6 +172,14 @@
 			return $query->row();
 		}
 
+		public function updateTotalAmount($amount, $evtID){
+			$data = array(
+				'totalAmount' => $amount
+			);
+			$this->db->where('eventID', $evtID);
+			$this->db->update('events', $data);
+		}
+
 		public function totalAmountPaid($eID){
 			$query = $this->db->query("SELECT sum(amount) as total
 				from payments

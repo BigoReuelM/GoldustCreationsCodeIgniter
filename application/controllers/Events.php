@@ -108,7 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 			$data['handlers'] = $this->events_model->getHandlers();
 			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
-			$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
+			$data['totalAmount'] = $this->events_model->totalAmount($id);
 	 
 			$empRole = $this->session->userdata('role');
 			$this->load->view("templates/head.php");
@@ -124,6 +124,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			$this->load->view("templates/eventDetails.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function addAdditionalCharges(){
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if($this->form_validation->run()){
+				$amount = $this->input->post('additionalCharge');
+				$eID = $this->input->post('eventID');
+
+				$totalAmount = $this->events_model->totalAmount($eID);
+				$newTotalAmount = $totalAmount->totalAmount + $amount;
+				$this->events_model->updateTotalAmount($newTotalAmount, $eID);
+
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+
 		}
 
 		public function eventStaff(){
@@ -553,7 +579,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if ($btnval === "rmv") {
 				$this->events_model->deleteEvntSvc($srvcID, $eID);
-			}		
+			}
+			$total = $this->events_model->getServiceTotal($eID);
+			$this->events_model->updateTotalAmount($total->total, $eID);	
 			redirect('events/eventServices');
 		}
 

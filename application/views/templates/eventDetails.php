@@ -1,12 +1,5 @@
 <?php 
   $empRole = $this->session->userdata('role');
-
-  /*if(!$this->session->has_userdata('currentSvcID')){
-      echo "awan";
-  }else{
-    $svcid = $this->session->userdata('currentSvcID');
-    echo $svcid;
-  }*/
  ?>
  <style type="text/css">
    #butt5 {
@@ -148,9 +141,9 @@
                 <label>Theme</label>
                 <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
               </div>
-              <div class="form-group">
+              <div class="form-group">   
                 <label>Total Amount Due</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $serviceTotal->total ?>" disabled>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
               </div>
               <div class="form-group">
                 
@@ -190,8 +183,11 @@
                } 
             ?>
           </div>
-          <div class="col-lg-8">
+          <div class="col-lg-4">
             <button form="updateDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+          </div>
+          <div class="col-lg-4">
+            <button class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#addAdditionalChargesModal">Additional Charges</button>
           </div>
         </div>
       </div>
@@ -288,6 +284,59 @@
 <!-- End of cancel event modal -->
 
 
+<!-- Add additional charges Modal -->
+<div class="modal fade" id="addAdditionalChargesModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Additional Charges</h4>
+        </div>
+        <?php 
+          $attributes = array("name" => "addAdditionalCharges", "id" => "addAdditionalCharges", "class" => "form-horizontal");
+          echo form_open("events/addAdditionalCharges", $attributes);
+        ?>
+          <div id="the-message">
+          
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Client Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="<?php echo $eventDetail->clientName ?>" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Total Amount</label>
+              <div class="col-sm-10">
+                <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Additional Charge</label>
+              <div class="col-sm-10">
+                <input type="text" id="additionalCharge" name="additionalCharge" class="form-control" placeholder="Enter amount .. ">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-block btn-primary btn-lg">Add</button>
+            </div>
+            <div class="col-lg-6">
+              <button type="button" class="btn btn-block btn-default btn-lg" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        <?php echo form_close(); ?>
+      </div>   
+  </div>
+</div>
+<!-- End of add additional charges modal -->
+
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -316,34 +365,6 @@
       $('input:checkbox').prop('checked', false);
     }
   </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-  $(".search").keyup(function () {
-    var searchTerm = $(".search").val();
-    var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-    
-  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-    }
-  });
-    
-  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','false');
-  });
-
-  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','true');
-  });
-
-  var jobCount = $('.results tbody tr[visible="true"]').length;
-    $('.counter').text(jobCount + ' item');
-
-  if(jobCount == '0') {$('.no-result').show();}
-    else {$('.no-result').hide();}
-      });
-});
-  </script>
 
 <style>
   @media screen and (min-with: 768px){
@@ -364,3 +385,49 @@
     width: 70%;
   }
 </style>
+
+<script>
+    $('#addAdditionalCharges').submit(function(e){
+      e.preventDefault();
+
+      var chargeDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: chargeDetails.attr('action'),
+        data: chargeDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="icon fa fa-ckeck"></span>' +
+            ' Additional Charges Applied.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            chargeDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+  </script>
