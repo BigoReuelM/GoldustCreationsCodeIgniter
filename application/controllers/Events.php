@@ -759,17 +759,18 @@ class Events extends CI_Controller
 			$entAttireQty = $this->input->post('quantity');
 			$designName = $this->input->post('designName');
 
-			if (!empty($entRole)) {
-				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}
+			
 			if (!empty($entAttireQty)) {
 				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
+			}
+			if (!empty($entRole)) {
+				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
 			}
 			if (!empty($designName)) {
 				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
 			}
 
-			redirect('events/eventEntourage');
+			$this->eventEntourage();
 		}
 	}
 
