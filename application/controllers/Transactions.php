@@ -158,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$tID = $this->session->userdata('currentTransactionID');
 
-			$data = array('success' => false, 'availedServices' => array());
+
 			
 			if (!empty($this->input->post('services[]'))) {
 				foreach ($this->input->post('services[]') as $key => $service) {
@@ -166,13 +166,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$data['availedServices'][$key] = $this->transactions_model->getService($service);
 				}
 
-				$data['success'] = true;
 			}
 
-			echo json_encode($data);
+			redirect('transactions/transactionServices');
 			
 		}
-
+		/*
 		public function updateServiceDetails(){
 
 			$tid = $this->session->userdata('currentTransactionID');
@@ -206,6 +205,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					}
 				}
 
+				$this->transactions_model->updateTotalAmount($tid);
+
 				$data['success'] = true;	
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -214,6 +215,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 			echo json_encode($data);
+		}
+		*/
+
+		public function updateServiceDetails(){
+
+			$tid = $this->session->userdata('currentTransactionID');
+			$action = $this->input->post('action');
+			$serviceID = $this->input->post('serviceID');
+
+
+			$quantity = $this->input->post('serviceQuantity');
+			$amount = $this->input->post('serviceAmount');
+			
+			
+			if ($action === "remove") {
+				$this->transactions_model->removeService($tid, $serviceID);
+				$data['action'] = "remove";
+			}
+
+			if ($action === "update") {
+				$data['action'] = "update";
+				if (!empty($quantity)) {
+					$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
+				}
+				if (!empty($amount)) {
+					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
+
+				}
+			}
+			$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
+			$this->transactions_model->updateTotalAmount($tid, $totalOfServices->total);
+
+			redirect('transactions/transactionServices');
+
+		}
+
+		public function addAdditionalCharges(){
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if($this->form_validation->run()){
+				$amount = $this->input->post('additionalCharge');
+				$tID = $this->session->userdata('currentTransactionID');
+
+				$totalAmount = $this->transactions_model->totalAmount($tID);
+				$newTotalAmount = $totalAmount->totalAmount + $amount;
+				$this->transactions_model->updateTotalAmount($tID, $newTotalAmount);
+
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+
 		}
 
 		public function addTransactionAppointments(){
@@ -304,10 +365,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$transID = $this->session->userdata('currentTransactionID');
 			$clientID = $this->session->userdata('clientID');
 
-			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'totalAmount' => false, 'newDate' => false, 'newTime' => false);
+			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
 
 			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric');
-			$this->form_validation->set_rules('totalAmount', 'Total Amount', 'trim|numeric');
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
@@ -318,7 +378,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$school = $this->input->post('school');
 				$idType = $this->input->post('idType');
 				$depositAmount = $this->input->post('depositAmt');
-				$totalAmount = $this->input->post('totalAmount');
 				$date = $this->input->post('newDate');
 				$time = $this->input->post('newTime');
 
@@ -345,10 +404,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if (!empty($depositAmount)) {
 					$this->transactions_model->upDepositAmount($depositAmount, $transID);	
 					$data['depositAmt'] = true;	
-				}
-				if (!empty($totalAmount)) {
-					$this->transactions_model->upTotalAmount($totalAmount, $transID);
-					$data['totalAmount'] = true;	
 				}
 				if (!empty($date)) {
 					$this->transactions_model->upDate($date, $transID);

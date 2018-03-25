@@ -166,6 +166,8 @@
     $('#servicesTable').DataTable()
     $('#modalServcTbl').DataTable()
   });
+
+  /*
   //script for adding services
     $('#addService').submit(function(e){
     e.preventDefault();
@@ -220,49 +222,7 @@
   });
   //end of script for adding od services
   //script for updating transaction services details
-
-  $('.updateServiceDetails').submit(function(e){
-    e.preventDefault();
-
-    var updateDetails = $(this);
-
-    $.ajax({
-      type: 'POST',
-      url: updateDetails.attr('action'),
-      data: updateDetails.serialize(),
-      dataType: 'json',
-      success: function(response){
-        if (response.success == true) {
-          if (response.action === "update") {
-          }else{
-
-          }
-          /*
-          $('.form-group').removeClass('has-error')
-                .removeClass('has-success');
-          $('.text-danger').remove();
-          */
-          // reset the form
-          updateDetails[0].reset();
-          // close the message after seconds
-  
-        }else{
-          /*
-          $.each(response.messages, function(key, value) {
-            var element = $('#' + key);
-            
-            element.closest('div.form-group')
-            .removeClass('has-error')
-            .addClass(value.length > 0 ? 'has-error' : 'has-success')
-            .find('.text-danger')
-            .remove();
-            
-            element.after(value);
-          }); */
-        }
-      }
-    });
-  });
+  */
 
 </script>
 
