@@ -3,18 +3,6 @@
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       
       <ul class="sidebar-menu tree" data-widget="tree">
@@ -59,7 +47,7 @@
         </li>
         <li>
           <a href="<?php echo base_url('clients/clients') ?>">
-            <i class="glyphicon glyphicon-user"></i>
+            <i class="glyphicon glyphicon-sunglasses"></i>
             <span>Clients</span>
           </a>
         </li>

@@ -103,7 +103,7 @@ $photo = $this->session->userdata('photo');
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incomming Events
+                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incoming Events
                       </a>
                     </li>
                   <?php
@@ -114,7 +114,7 @@ $photo = $this->session->userdata('photo');
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incomming Appointments
+                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incoming Appointments
                       </a>
                     </li>
                   <?php
