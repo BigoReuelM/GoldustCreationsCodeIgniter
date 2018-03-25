@@ -67,24 +67,37 @@
         <h4 class="modal-title">Upload Gowns</h4>
       </div>
       <div class="modal-body">
-        <p>Select files from your computer</p>
-        <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-            <div class="form-inline">
+        <form action="<?php echo base_url('items/uploadImg') ?>" method="post" role="form" enctype="multipart/form-data" id="js-upload-form">
+        <!--<?php //echo form_open_multipart('items/uploadImg') ?>-->  
+          <div class="row">
+            <div class="col-md-6">
               <div class="form-group">
-                <input type="file" name="files[]" id="js-upload-files" multiple>
+                <label>Design Name</label>
+                <input type="text" name="gown_name" class="form-control">
               </div>
             </div>
-          </form>
-        <!-- drop zone -->
-        <br>
-        <p>Or drag and drop files below</p>
-          <div class="upload-drop-zone" id="drop-zone">
-            Just drag and drop files here
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Color</label>
+                <input type="text" name="gown_color" class="form-control">
+              </div>
+            </div>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-      </div>
+          <div class="form-group">
+            <label>Select files from your computer</label>
+            <input type="file" name="files[]" id="js-upload-files" multiple>
+          </div>         
+          <!-- drop zone -->
+          <br>
+          <p>Or drag and drop files below</p>
+            <div class="upload-drop-zone" id="drop-zone">
+              Just drag and drop files here
+            </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+          </div>  
+        </form>  
+      </div>    
     </div>
 
   </div>
@@ -145,44 +158,4 @@
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
-<script type="text/javascript">
-    + function($) {
-    'use strict';
-
-    // UPLOAD CLASS DEFINITION
-    // ======================
-
-    var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('js-upload-form');
-
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-    dropZone.ondrop = function(e) {
-        e.preventDefault();
-        this.className = 'upload-drop-zone';
-
-        startUpload(e.dataTransfer.files)
-    }
-
-    dropZone.ondragover = function() {
-        this.className = 'upload-drop-zone drop';
-        return false;
-    }
-
-    dropZone.ondragleave = function() {
-        this.className = 'upload-drop-zone';
-        return false;
-    }
-
-}(jQuery);
-  </script>
-  </body>
+</body>

@@ -137,10 +137,22 @@
                 <label>Motif</label>
                 <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
-              <div class="form-group">
+              <!--<div class="form-group">
                 <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
+                <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
+              </div>-->
+
+              <div class="input-group">
+                <label>Theme/s</label>               
+                <input type="text" class="form-control" placeholder="Theme" disabled>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addtheme">Choose</button>
+                </span>
+                <!--<div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                </div>-->
               </div>
+
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
@@ -169,7 +181,6 @@
                 
               </div>
             </div>
-            
           </form>
 
         </div>
@@ -194,7 +205,6 @@
     </div>
   </div>
 
-
   <div class="row">
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
       <div class="col-lg-3">
@@ -212,7 +222,7 @@
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
       <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
         <div class="col-lg-3">
-          <button type="submit" class="btn btn-block btn-primary btn-lg">Continue Event</button>
+          <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
         </div>
       </form>
       <div class="col-lg-3">
@@ -233,6 +243,46 @@
     
 </div>
 
+
+<!-- Themes modal -->
+<div class="modal fade" id="addtheme" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Themes</h4>
+        </div>
+        <form role="form" method="post" action="" class="form-horizontal">
+          <div class="modal-body">
+            <table class="table table-hover table-responsive table-bordered" id="modalthemetbl">
+            <thead>
+              <tr>
+                <th>Choose theme...</th>
+              </tr>
+            </thead>
+            <tbody>              
+                <?php
+                  if (!empty($servcs)) {
+                    foreach ($servcs as $svc) { ?>
+                      <tr>                   
+                        <td>
+                          <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
+                        </td>
+                      </tr>
+                <?php }
+                  }
+                ?>             
+            </tbody>            
+          </table>
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        </form>
+      </div>   
+  </div>
+</div>
 
   <!-- Cancel event Modal -->
 <div class="modal fade" id="cancellEvent" role="dialog">
@@ -359,6 +409,31 @@
   </div>
 </div>
 <!--end of fisnish event modal-->
+<!-- Finish event modal -->
+<div id="continueEventModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Continue Event</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
+            <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+            <p>Are you sure you want to continue?</p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--end of fisnish event modal-->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -382,6 +457,7 @@
       $('#staffTable').DataTable()
       $('#modalServcTbl').DataTable()
       $('#modalStaffTbl').DataTable()
+      $('#modalthemetbl').DataTable()
     })
 
     function reset_chkbx() {
