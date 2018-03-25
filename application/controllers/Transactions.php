@@ -57,13 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['totalPayments'] = $totalPayments;
 			$data['totalAmount'] = $totalAmount;		
 			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
-
-			$data['servcs'] = $this->transactions_model->getServices();
-
-			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
-			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
-			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
-			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);		
 
 			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
 
@@ -72,12 +66,92 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php");
 				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
 			}else{
 
 				$this->load->view("templates/header.php");
+				$this->load->view("templates/transactionNav.php");
 			}
 			$this->load->view("templates/transactionDetails.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function transactionServices(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+
+			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
+			$data['servcs'] = $this->transactions_model->getServices();
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+
+			$this->load->view("templates/head.php");
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionServices.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function transactionAppointments(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+
+			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+
+			$this->load->view("templates/head.php");
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionAppointments.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function transactionPayments(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+
+			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
+			$totalAmount = $this->transactions_model->totalAmount($tranID);
+			$data['totalPayments'] = $totalPayments;
+			$data['totalAmount'] = $totalAmount;		
+			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
+			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+
+			$this->load->view("templates/head.php");
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php");
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionPayments.php", $data);
+			$this->load->view("templates/footer.php");
+
 		}
 
 		public function addsvc(){
