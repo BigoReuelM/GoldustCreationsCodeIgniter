@@ -33,7 +33,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$headdata['pagename'] = "Home | Admin";			
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Home | Admin';	
+			}else{
+				$headdata['pagename'] = 'Home | Handler';
+			}			
 
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -49,11 +53,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
-			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments(); 
 			$data['employee'] = $this->admin_model->getEmpDetails($employeeID);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Employee Details | Admin';	
+			}else{
+				$headdata['pagename'] = 'Employee Details | Handler';
+			}
 
-			$this->load->view("templates/head.php");
+			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/employeeDetails.php", $data);
@@ -72,7 +80,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$this->load->view("templates/head.php");
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Manage Employee | Admin';	
+			}else{
+				$headdata['pagename'] = 'Manage Employee | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/adminEmployee.php", $data);
@@ -123,7 +136,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$this->load->view("templates/head.php");
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Services | Admin';	
+			}else{
+				$headdata['pagename'] = 'Services | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/adminServices.php", $data);
@@ -160,8 +179,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Expenses | Admin';	
+			}else{
+				$headdata['pagename'] = 'Expenses | Handler';
+			}
 
-			$this->load->view("templates/head.php");
+			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/expenseMonitoring.php", $data);
@@ -228,6 +252,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			echo json_encode($data);
 			
+		}
+
+		public function resetEmployeePassword(){
+
+			$pin = $this->generatePIN();
+			$empID = $this->input->post('empID');
+
+			$data['pin'] = $pin;
+
+			$this->admin_model->returnPassToDefault($pin, $empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data);
+		}
+
+		public function generatePIN(){
+			$digits = 4;
+			$i = 0;
+			$pin = "";
+			while($i < $digits){
+		        //generate a random number between 0 and 9.
+		        $pin .= mt_rand(0, 9);
+		        $i++;
+		    }
+		   
+		    return $pin;
 		}
 
 

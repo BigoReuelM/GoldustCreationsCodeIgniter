@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			parent::__construct();
 			$this->load->helper('url');
 			$this->load->model('user_model');
+			$this->load->model('notifications_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -19,49 +20,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//WILL LOAD THE REGISTRATION VIEW
 		public function index()
 		{
-			$this->load->view("templates/head.php");
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Welcome | Admin';	
+			}else{
+				$headdata['pagename'] = 'Welcome | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("login.php");
 		}
 		
 		//method for user to login to his/her account
 		function login_user(){
-		  	$user_login=array(
-		 
-		  		'username'=>$this->input->post('username'),
-		  		'password'=>$this->input->post('password')
-		 
-		    );
-		 
-		    $data=$this->user_model->login_user($user_login['username'],$user_login['password']);
-		      	if($data)
-		      	{
-		        	$this->session->set_userdata('employeeID',$data['employeeID']);
-		        	$this->session->set_userdata('employeeName',$data['employeeName']);
-		        	$this->session->set_userdata('address',$data['address']);
-		        	$this->session->set_userdata('email',$data['email']);
-		        	$this->session->set_userdata('photo',$data['photo']);
-		 			$this->session->set_userdata('username',$data['username']);
-		 			$this->session->set_userdata('password',$data['password']);
-		 			$this->session->set_userdata('employeeContactNumber',$data['employeeContactNumber']);
-		 			$this->session->set_userdata('role',$data['role']);
+			$user_login=array(
 
-		 			if ($data['role'] === "admin") {
-		 				$this->session->set_userdata('sidebarControl', "0");
-		 				redirect('admin');
-		 			}else{
-		 				redirect('handler');
-		 			}
-		 
-		      	}
-		      	else{
-		        	$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-		        	$this->load->view("templates/head.php");
-		       		$this->load->view("login.php");
-		 
-		      	}
+				'username'=>$this->input->post('username'),
+				'password'=>$this->input->post('password')
+
+			);
+
+			$data=$this->user_model->login_user($user_login['username'],$user_login['password']);
+			if($data)
+			{
+				$this->session->set_userdata('employeeID',$data['employeeID']);
+				$this->session->set_userdata('employeeName',$data['employeeName']);
+				$this->session->set_userdata('address',$data['address']);
+				$this->session->set_userdata('email',$data['email']);
+				$this->session->set_userdata('photo',$data['photo']);
+				$this->session->set_userdata('username',$data['username']);
+				$this->session->set_userdata('password',$data['password']);
+				$this->session->set_userdata('employeeContactNumber',$data['employeeContactNumber']);
+				$this->session->set_userdata('role',$data['role']);
+
+				if ($data['role'] === "admin") {
+					$this->session->set_userdata('sidebarControl', "0");
+					redirect('admin');
+				}else{
+					redirect('handler');
+				}
+
+			}
+			else{
+				$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
+				$this->load->view("templates/head.php");
+				$this->load->view("login.php");
+
+			}
 
 
-		 
+
 		}
 		//user-profile loader
 		
@@ -70,27 +76,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$userID = $this->session->userdata("employeeID");
 			$empRole = $this->session->userdata('role');
 			$data['employee'] = $this->user_model->getProfile($userID);
-
-			$this->load->view("templates/head.php");
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'User Profile| Admin';	
+			}else{
+				$headdata['pagename'] = 'User Profile | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
 			if ($empRole === 'admin') {
 				
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 				
 			}else{
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 				
 			}
 			$this->load->view("templates/profile.php", $data);
 			$this->load->view("templates/footer.php");
- 
+
 		}
 		
 		//user logout, session destroy
 		public function user_logout(){
- 
-  			$this->session->sess_destroy();
-  			redirect('user/index', 'refresh');
+
+			$this->session->sess_destroy();
+			redirect('user/index', 'refresh');
 		}
 
 		public function updateProfile(){
@@ -174,7 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required');
+			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required|is_unique[employees.username]');
 			$this->form_validation->set_rules('usernameConfirmation', 'Username Confirmation', 'trim|required|matches[newUsername]');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
@@ -198,8 +213,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$password = $this->user_model->getPassword($empID);
 
 			if ($password->password !== $pass){
-			    $this->form_validation->set_message('password_matches', 'The password you supplied does not match your existing password. ');
-			    return FALSE;
+				$this->form_validation->set_message('password_matches', 'The password you supplied does not match your existing password. ');
+				return FALSE;
 			}
 
 			return TRUE;
@@ -207,4 +222,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	}
 	
-?>
+	?>

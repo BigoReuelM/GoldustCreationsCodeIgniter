@@ -266,7 +266,7 @@
 				");
 			}else{
 				$query = $this->db->query("
-				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
+				SELECT eventID, clientID, eventStatus, eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
 				FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') 
 				AS event 
 				LEFT JOIN eventservices using (eventID) 

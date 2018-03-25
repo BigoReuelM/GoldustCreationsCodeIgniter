@@ -197,12 +197,10 @@
 
   <div class="row">
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
-      <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">
-        <div class="col-lg-3">
-          <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-          <button type="submit" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-        </div>
-      </form>
+      <div class="col-lg-3">
+          <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
+      </div>
+
       <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
       </div>
@@ -336,6 +334,31 @@
   </div>
 </div>
 <!-- End of add additional charges modal -->
+<!-- Finish event modal -->
+<div id="finishEventModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Finished Events</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
+            <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+            <p>Are you sure you want to proceed?</p>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Proceed</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--end of fisnish event modal-->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
