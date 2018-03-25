@@ -682,6 +682,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->events_model->changeEvtStatus();
 			$this->ongoingEvents();
 		}
+
+		public function updateEntourageDetails(){
+			$eventID = $this->session->userdata('currentEventID');
+			$entID = $this->session->userdata('currentEntourageID');
+			$desID = $this->session->userdata('currentDesignID');
+
+			$entRole = $this->input->post('role');
+			$entAttireQty = $this->input->post('quantity');
+			$designName = $this->input->post('designName');
+
+			if (!empty($entRole)) {
+				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
+			}
+			if (!empty($entAttireQty)) {
+				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
+			}
+			if (!empty($designName)) {
+				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
+			}
+
+			redirect('events/eventEntourage');
+		}
 	}
 
 ?>

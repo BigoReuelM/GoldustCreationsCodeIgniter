@@ -154,6 +154,8 @@
 
 			$query = $this->db->get();
 			return $query->result_array();
+
+
 		}
 
 		public function getEntourage($currentEventID){
@@ -597,6 +599,58 @@
 			$this->db->where('eventID', $eID);
 			$this->db->update('events', $data);
 		}
+
+		public function updateAttireQty($evID, $desID, $qty){
+				$eID = $this->session->userdata('currentEventID');
+				$desID = $this->session->userdata('currentDesignID');
+				$query = $this->db->query("
+					UPDATE eventdesign
+					SET quantity = $qty
+					WHERE eventID = $eID
+					AND designID = $desID
+				");
+
+				//UPDATE eventdesign set quantity=5 where eventID=’0001’ and designID=’002’
+		}
+
+		public function updateAttireDesign($evID, $entID, $designName){
+				$data = array(
+					'designName' => $designName
+				);
+
+				$this->db->where('eventID', $evID);
+				$this->db->where('entourageID', $entID);
+				$this->db->update('eventEntourage', $data);
+			
+		}
+
+		public function updateAttireRole($evID, $entID, $entRole){
+				$eID = $this->session->userdata('currentEventID');
+				$entID = $this->session->userdata('currentEntourageID');
+				$desID = $this->session->userdata('currentDesignID');
+
+				$query = $this->db->query("
+					UPDATE entourage 
+					JOIN entouragedetails USING ($entID)
+					SET entouragedetails.designID = $desID
+					WHERE entourage.eventID = $eID
+					AND entourage.role = $entRole
+				");
+				//UPDATE entourage JOIN entouragedetails using(entourageID) SET entouragedetails.designID ='001' WHERE entourage.eventID='001' and entourage.role='Brides Maid'
+		}
+
+		/*public function getEntourageDet($currentEventID, $currentDesignID, $currentEntourageID) {
+			$evID = $this->session->userdata('$currentEventID');
+			$enID = $this->session->userdata('$currentEntourageID');
+			$desID = $this->session->userdata('$currentDesignID');
+
+			$query= $this->db->query("
+				SELECT designID, designName, quantity, role FROM (SELECT designID, role FROM `entouragedetails` join entourage using($enID) where eventID='$evID') AS entourage join designs using ($desID) join eventdesigns USING(currentDesignID) where eventID='$evID' group by role");
+			
+			return $query->result_array();
+		}*/
+
+
 	}
 
 
