@@ -113,6 +113,46 @@
 
 			return $query->result_array();
 		}
+
+		public function getIncommingEvents(){
+			$emID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			if ($empRole === "handler") {
+				$query = $this->db->query("
+					SELECT *
+					FROM events
+					WHERE eventDate > CURDATE();
+				");
+			}else{
+				$query = $this->db->query("
+					SELECT *
+					FROM events
+					WHERE eventDate > CURDATE();
+				");
+			}
+
+			return $query->result_array();
+		}
+
+		public function getIncommingAppointments(){
+			$emID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			if ($empRole === "handler") {
+				$query = $this->db->query("
+					SELECT *
+					FROM appointments
+					WHERE appointments.date > CURDATE();
+				");
+			}else{
+				$query = $this->db->query("
+					SELECT *
+					FROM appointments
+					WHERE appointments.date > CURDATE();
+				");
+			}
+
+			return $query->result_array();
+		}
 		
 	}
 ?>

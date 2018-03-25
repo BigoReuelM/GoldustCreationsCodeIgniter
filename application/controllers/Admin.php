@@ -31,6 +31,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			
 
 			$this->load->view("templates/head.php");

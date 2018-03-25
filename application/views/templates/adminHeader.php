@@ -77,6 +77,28 @@
                   <?php
                   }
                   ?>
+                  <?php if (!empty($incEvents)){
+                    $incECount = count($incEvents);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incomming Events
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($incAppointment)){
+                    $incACount = count($incAppointment);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incomming Appointments
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <!-- end notification -->
                 </ul>
               </li>
