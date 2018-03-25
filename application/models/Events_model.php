@@ -204,6 +204,7 @@
 				FROM employees
 				WHERE role like 'handler' and status like 'active'
 			");
+			
 			return $query->result_array();	
 		}
 

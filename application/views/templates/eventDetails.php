@@ -345,13 +345,13 @@
         <h4 class="modal-title">Finished Events</h4>
       </div>
       <div class="modal-body">
-        <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
+        <form id="finishEvent" role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
             <p>Are you sure you want to proceed?</p>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Proceed</button>
+        <button form="finishEvent" type="submit" class="btn btn-primary">Proceed</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
