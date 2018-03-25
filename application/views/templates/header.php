@@ -51,20 +51,80 @@ $photo = $this->session->userdata('photo');
                 <span class="label label-warning">10</span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
-                <li>
-                  <!-- Inner Menu: contains the notifications -->
-                  <ul class="menu">
+              <li>
+                <!-- Inner Menu: contains the notifications -->
+                <ul class="menu">
+                  <?php if (!empty($appToday)){
+                    $appCount = count($appToday);
+                  ?>
                     <li><!-- start notification -->
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                        <i class="fa fa-users text-aqua"></i><?php echo $appCount ?> Appointments Today
                       </a>
                     </li>
-                    <!-- end notification -->
-                  </ul>
-                </li>
-                <li class="footer"><a href="#">View all</a></li>
-              </ul>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($eventsToday)){
+                    $eventCount = count($eventsToday);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $eventCount ?> Events Today
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($overTRent)){
+                    $overTCount = count($overTRent);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overTCount ?> Overdue Rental
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($overERent)){
+                    $overECount = count($overERent);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overECount ?> Overdue Event Rental
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($incEvents)){
+                    $incECount = count($incEvents);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incomming Events
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <?php if (!empty($incAppointment)){
+                    $incACount = count($incAppointment);
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incomming Appointments
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  <!-- end notification -->
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
             </li>
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">

@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('transactions_model');
 			$this->load->model('events_model');
+			$this->load->model('notifications_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -23,6 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function transactions(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['services']=$this->events_model->getServices();
 
 			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
@@ -35,12 +42,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php");
 			
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 
 			}else{
 
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 
 			}
 			$this->load->view("templates/transactions.php", $data);
@@ -51,7 +58,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
-
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
 			$totalAmount = $this->transactions_model->totalAmount($tranID);
 			$data['totalPayments'] = $totalPayments;
@@ -70,11 +82,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php");
 			
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 			}else{
 
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 			}
 			$this->load->view("templates/transactionDetails.php", $data);
 			$this->load->view("templates/footer.php");
@@ -172,16 +184,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function ongoing_rentals(){
 			$empRole = $this->session->userdata('role');
-			
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
 			$data['evredata'] = $this->transactions_model->viewEventRentals();
 			
 			$this->load->view("templates/head.php");
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 			}else{
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 			}
 			$this->load->view('templates/ongoingRentals', $data);
 
@@ -328,7 +345,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data['paymentID'] = $paymentID;
 
 				$data['success'] = true;
-					
+				
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
@@ -340,4 +357,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		
 	}
- ?>
+	?>
