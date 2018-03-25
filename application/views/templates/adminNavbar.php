@@ -59,7 +59,7 @@
         </li>
         <li>
           <a href="<?php echo base_url('clients/clients') ?>">
-            <i class="glyphicon glyphicon-user"></i>
+            <i class="glyphicon glyphicon-sunglasses"></i>
             <span>Clients</span>
           </a>
         </li>
