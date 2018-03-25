@@ -5,306 +5,429 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
 * 
 */
-	class Events extends CI_Controller
+class Events extends CI_Controller
+{
+
+	
+	public function __construct()
 	{
+		parent::__construct();
+		$this->load->helper('url');
+		$this->load->model('events_model');
+		$this->load->model('notifications_model');
+		$this->load->library('session');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+	}
+
+	public function newEvents(){
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$status = "new";
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'New Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'New Events | Handler';
+		}
+
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
+		$data['services']=$this->events_model->getServices();
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
+			
+		}
+		$this->load->view("templates/newEvents.php", $data);
+		$this->load->view("templates/footer.php");
 
 		
-		public function __construct()
-		{
-			parent::__construct();
-			$this->load->helper('url');
-			$this->load->model('events_model');
-			$this->load->library('session');
-			$this->load->helper('form');
-			$this->load->library('form_validation');
+	}
+
+	public function ongoingEvents(){
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$status = "on-going";
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
+		$data['services']=$this->events_model->getServices();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Ongoing Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Ongoing Events | Handler';
 		}
 
-		public function newEvents(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$status = "new";
-			$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
-			$data['services']=$this->events_model->getServices();
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				
-			}
-			$this->load->view("templates/newEvents.php", $data);
-			$this->load->view("templates/footer.php");
-
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
 			
 		}
+		$this->load->view("templates/ongoingEvents.php", $data);
+		$this->load->view("templates/footer.php");
 
-		public function ongoingEvents(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$status = "on-going";
-			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
-			$data['services']=$this->events_model->getServices();
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				
-			}
-			$this->load->view("templates/ongoingEvents.php", $data);
-			$this->load->view("templates/footer.php");
+		
+	}
 
+	public function finishedEvents(){
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$status = "finished";
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Finished Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Finished Events | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
 			
 		}
+		$this->load->view("templates/finishedEvents.php", $data);
+		$this->load->view("templates/footer.php");
+	}
 
-		public function finishedEvents(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$status = "finished";
-			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				
-			}
-			$this->load->view("templates/finishedEvents.php", $data);
-			$this->load->view("templates/footer.php");
+	public function canceledEvents(){
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$status = "cancelled";
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Cancelled Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Cancelled Events | Handler';
 		}
-
-		public function canceledEvents(){
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$status = "cancelled";
-			$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				
-			}
-			$this->load->view("templates/canceledEvents.php", $data);
-			$this->load->view("templates/footer.php");
-		}
-
-		public function eventDetails(){
-			$id = $this->session->userdata('currentEventID');
-			$clientID = $this->session->userdata('clientID');
-			$data['eventName'] =$this->events_model->getEventName($id);
-			$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
-			$data['handlers'] = $this->events_model->getHandlers();
-			$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
-			$data['totalAmount'] = $this->events_model->totalAmount($id);
-	 
-			$empRole = $this->session->userdata('role');
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");			
-			}
-			$this->load->view("templates/eventDetails.php", $data);
-			$this->load->view("templates/footer.php");
-		}
-
-		public function addAdditionalCharges(){
-
-			$data = array('success' => false, 'messages' => array());
-
-			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-
-			if($this->form_validation->run()){
-				$amount = $this->input->post('additionalCharge');
-				$eID = $this->input->post('eventID');
-
-				$totalAmount = $this->events_model->totalAmount($eID);
-				$newTotalAmount = $totalAmount->totalAmount + $amount;
-				$this->events_model->updateTotalAmount($newTotalAmount, $eID);
-
-				$data['success'] = true;
-			}else{
-				foreach ($_POST as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
-			}
-
-			echo json_encode($data);
-
-		}
-
-		public function eventStaff(){
-			$empRole = $this->session->userdata('role');
-			$id = $this->session->userdata('currentEventID');
-			$data['eventStaff'] = $this->events_model->getStaff($id);
-			$data['allStaff'] = $this->events_model->showAllStaff();
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");			
-			}
-			$this->load->view("templates/eventStaff.php", $data);
-			$this->load->view("templates/footer.php");
-
-		}
-
-		public function eventServices(){
-			$id = $this->session->userdata('currentEventID');
-			$empRole = $this->session->userdata('role');
-			$data['servcs'] = $this->events_model->getServices();
-			$data['avlServcs'] = $this->events_model->servcTransac($id);
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
 			
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php");
-				
-			}else{
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php");			
-			}
-			$this->load->view("templates/eventServices.php", $data);
-			$this->load->view("templates/footer.php");
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
+			
+		}
+		$this->load->view("templates/canceledEvents.php", $data);
+		$this->load->view("templates/footer.php");
+	}
 
+	public function eventDetails(){
+		$id = $this->session->userdata('currentEventID');
+		$clientID = $this->session->userdata('clientID');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventName'] =$this->events_model->getEventName($id);
+		$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
+		$data['handlers'] = $this->events_model->getHandlers();
+		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
+		$data['totalAmount'] = $this->events_model->totalAmount($id);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Details | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Details | Handler';
+		}
+		
+		$empRole = $this->session->userdata('role');
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php");			
+		}
+		$this->load->view("templates/eventDetails.php", $data);
+		$this->load->view("templates/footer.php");
+	}
+
+	public function addAdditionalCharges(){
+
+		$data = array('success' => false, 'messages' => array());
+
+		$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+		if($this->form_validation->run()){
+			$amount = $this->input->post('additionalCharge');
+			$eID = $this->input->post('eventID');
+
+			$totalAmount = $this->events_model->totalAmount($eID);
+			$newTotalAmount = $totalAmount->totalAmount + $amount;
+			$this->events_model->updateTotalAmount($newTotalAmount, $eID);
+
+			$data['success'] = true;
+		}else{
+			foreach ($_POST as $key => $value) {
+				$data['messages'][$key] = form_error($key);
+			}
 		}
 
-		public function eventEntourage(){
-			$id = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($id);
-			$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
-			$data['entourage'] = $this->events_model->getEntourage($id);
-			$empRole = $this->session->userdata('role');
-			$currentEvent = $this->session->userdata('currentEventID');
-			$data['designs']=$this->events_model->getDesigns($currentEvent);
-			$data['entourageRole'] = $this->events_model->getEntourageRole();
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}else{
-				
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}
-			$this->load->view("templates/eventEntourage.php", $data);
-			$this->load->view("templates/footer.php");
+		echo json_encode($data);
+
+	}
+
+	public function eventStaff(){
+		$empRole = $this->session->userdata('role');
+		$id = $this->session->userdata('currentEventID');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventStaff'] = $this->events_model->getStaff($id);
+		$data['allStaff'] = $this->events_model->showAllStaff();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Staff | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Staff | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php");			
+		}
+		$this->load->view("templates/eventStaff.php", $data);
+		$this->load->view("templates/footer.php");
+
+	}
+
+	public function eventServices(){
+		$id = $this->session->userdata('currentEventID');
+		$empRole = $this->session->userdata('role');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['servcs'] = $this->events_model->getServices();
+		$data['avlServcs'] = $this->events_model->servcTransac($id);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Services | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Services | Handler';
+		}
+		
+		$this->load->view("templates/head.php",$headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php");
+			
+		}else{
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php");			
+		}
+		$this->load->view("templates/eventServices.php", $data);
+		$this->load->view("templates/footer.php");
+
+	}
+
+	public function eventEntourage(){
+		$id = $this->session->userdata('currentEventID');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventName'] =$this->events_model->getEventName($id);
+		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
+		$data['entourage'] = $this->events_model->getEntourage($id);
+		$empRole = $this->session->userdata('role');
+		$currentEvent = $this->session->userdata('currentEventID');
+		$data['designs']=$this->events_model->getDesigns($currentEvent);
+		$data['entourageRole'] = $this->events_model->getEntourageRole();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Entourage | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Entourage | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}else{
+			
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}
+		$this->load->view("templates/eventEntourage.php", $data);
+		$this->load->view("templates/footer.php");
+	}
+
+	public function eventDecors(){
+		$eventid = $this->session->userdata('currentEventID');
+		$decorid = $this->session->userdata('currentDecorID');
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventName'] =$this->events_model->getEventName($eventid);
+		$data['eventDecors'] =$this->events_model->getDecors($eventid);
+		$this->load->model('items_model');
+		$data['allDecors'] = $this->items_model->getAllDecors();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Decorations | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Decorations | Handler';
+		}
+		
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}else{
+			
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}
+		$data['eventdecors'] = $this->events_model->getDecors($eventid);
+		$this->load->view("templates/eventDecors.php", $data);
+		$this->load->view("templates/footer.php");
+	}
+
+	public function payment(){
+		$currentEvent = $this->session->userdata('currentEventID');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventName'] =$this->events_model->getEventName($currentEvent);
+		$empRole = $this->session->userdata('role');
+		$cid = $this->session->userdata('clientID');
+		$data['payments']=$this->events_model->getPayments($currentEvent);
+		$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
+		$totalAmount = $this->events_model->totalAmount($currentEvent);
+		$data['totalPayments'] = $totalPayments;
+		$data['totalAmount'] = $totalAmount;		
+		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
+		$data['clientName']=$this->events_model->getClientName($cid);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Payments | Admin';	
+		}else{
+			$headdata['pagename'] = 'Payments | Handler';
+		}
+		
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}else{
+			
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}
+		$this->load->view("templates/payment.php", $data);
+		$this->load->view("templates/footer.php");
+	}
+
+	public function appointments(){
+		$currentEvent = $this->session->userdata('currentEventID');
+		$empRole = $this->session->userdata('role');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
+
+		$data['eventName'] = $this->events_model->getEventName($currentEvent);
+		$data['appointments'] = $this->events_model->getAppointments($currentEvent);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Appointments | Admin';	
+		}else{
+			$headdata['pagename'] = 'Appointments | Handler';
 		}
 
-		public function eventDecors(){
-			$eventid = $this->session->userdata('currentEventID');
-			$decorid = $this->session->userdata('currentDecorID');
-			$empID = $this->session->userdata('employeeID');
-			$empRole = $this->session->userdata('role');
-			$data['eventName'] =$this->events_model->getEventName($eventid);
-			$data['eventDecors'] =$this->events_model->getDecors($eventid);
-			$this->load->model('items_model');
-			$data['allDecors'] = $this->items_model->getAllDecors();
+		
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
 			
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}else{
-				
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}
-			$data['eventdecors'] = $this->events_model->getDecors($eventid);
-			$this->load->view("templates/eventDecors.php", $data);
-			$this->load->view("templates/footer.php");
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNav.php", $data);
+			
+		}else{
+			
+			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNav.php", $data);
+			
 		}
-
-		public function payment(){
-			$currentEvent = $this->session->userdata('currentEventID');
-			$data['eventName'] =$this->events_model->getEventName($currentEvent);
-			$empRole = $this->session->userdata('role');
-			$cid = $this->session->userdata('clientID');
-			$data['payments']=$this->events_model->getPayments($currentEvent);
-			$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
-			$totalAmount = $this->events_model->totalAmount($currentEvent);
-			$data['totalPayments'] = $totalPayments;
-			$data['totalAmount'] = $totalAmount;		
-			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
-			$data['clientName']=$this->events_model->getClientName($cid);
-			
-			
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}else{
-				
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}
-			$this->load->view("templates/payment.php", $data);
-			$this->load->view("templates/footer.php");
-		}
-
-		public function appointments(){
-			$currentEvent = $this->session->userdata('currentEventID');
-			$empRole = $this->session->userdata('role');
-
-
-			$data['eventName'] = $this->events_model->getEventName($currentEvent);
-			$data['appointments'] = $this->events_model->getAppointments($currentEvent);
-			
-			
-			$this->load->view("templates/head.php");
-			if ($empRole === 'admin') {
-				
-				$this->load->view("templates/adminHeader.php");
-				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}else{
-				
-				$this->load->view("templates/header.php");
-				$this->load->view("templates/eventNav.php", $data);
-				
-			}
-			$this->load->view("templates/appointments.php", $data);
-			$this->load->view("templates/footer.php");
-		}
+		$this->load->view("templates/appointments.php", $data);
+		$this->load->view("templates/footer.php");
+	}
 
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
@@ -321,74 +444,74 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			it will then call the evenDetails function to display the event details page
 		*/
 
-		public function setEventID(){
-			$currentEventID = $this->input->post('eventInfo');
-			$currentClientID = $this->input->post('clientID');
-			$currentEventStatus = $this->input->post('eventStatus');
-			$empRole = $this->session->userdata('role');
-			$this->session->set_userdata('currentEventID', $currentEventID);
-			$this->session->set_userdata('clientID', $currentClientID);
-			if ($currentEventStatus === "new" & $empRole === "handler") {
-				$this->events_model->updateEventStatus($currentEventID);
-			}
-			redirect('events/eventDetails');
-		}
-
-		public function addPayment(){
-			$eventID = $this->session->userdata('currentEventID');
-			$empID = $this->session->userdata('employeeID');
-			$clientID = $this->session->userdata('clientID');
-
-			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
-
-			$totalAmount = $this->events_model->totalAmount($eventID);
-			$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
-
-			$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
-
-			if ($eventBalance > 0) {
-				$data['balance'] = true;
-				$data['balanceAmount'] = $eventBalance;
-			}
-
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $eventBalance . ']');
-			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
-			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-
-			if ($this->form_validation->run()) {
-				$date = $this->input->post('date');
-				$time = $this->input->post('time');
-				$amount = $this->input->post('amount');
-				
-				$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
-
-				$data['paymentID'] = $paymentID;
-
-				$data['success'] = true;
-					
-			}else{
-				foreach ($_POST as $key => $value) {
-					$data['messages'][$key] = form_error($key);
+			public function setEventID(){
+				$currentEventID = $this->input->post('eventInfo');
+				$currentClientID = $this->input->post('clientID');
+				$currentEventStatus = $this->input->post('eventStatus');
+				$empRole = $this->session->userdata('role');
+				$this->session->set_userdata('currentEventID', $currentEventID);
+				$this->session->set_userdata('clientID', $currentClientID);
+				if ($currentEventStatus === "new" & $empRole === "handler") {
+					$this->events_model->updateEventStatus($currentEventID);
 				}
+				redirect('events/eventDetails');
 			}
 
-			echo json_encode($data);
-			
-		}
+			public function addPayment(){
+				$eventID = $this->session->userdata('currentEventID');
+				$empID = $this->session->userdata('employeeID');
+				$clientID = $this->session->userdata('clientID');
+
+				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+
+				$totalAmount = $this->events_model->totalAmount($eventID);
+				$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
+
+				$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
+
+				if ($eventBalance > 0) {
+					$data['balance'] = true;
+					$data['balanceAmount'] = $eventBalance;
+				}
+
+				$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $eventBalance . ']');
+				$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
+				$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
+				$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+				if ($this->form_validation->run()) {
+					$date = $this->input->post('date');
+					$time = $this->input->post('time');
+					$amount = $this->input->post('amount');
+					
+					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
+
+					$data['paymentID'] = $paymentID;
+
+					$data['success'] = true;
+					
+				}else{
+					foreach ($_POST as $key => $value) {
+						$data['messages'][$key] = form_error($key);
+					}
+				}
+
+				echo json_encode($data);
+				
+			}
 
 
 		// set and delete selected decor...
-		public function setCurrentDecorID(){
-			$currentDecorID = $this->input->post('decorID');
-			$this->session->set_userdata('currentDecorID', $currentDecorID);
-			
-			$decId = $this->session->userdata('currentDecorID');
-			$eId = $this->session->userdata('currentEventID');
-			$this->events_model->deleteEvntDecor($decId, $eId);
+			public function setCurrentDecorID(){
+				$currentDecorID = $this->input->post('decorID');
+				$this->session->set_userdata('currentDecorID', $currentDecorID);
+				
+				$decId = $this->session->userdata('currentDecorID');
+				$eId = $this->session->userdata('currentEventID');
+				$this->events_model->deleteEvntDecor($decId, $eId);
 
-			$this->eventDecors();			
-		}
+				$this->eventDecors();			
+			}
 		/*
 		public function setEntourageID(){
 			$currentEntId = $this->input->post('entInfo');
@@ -657,16 +780,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}*/
 
 		public function showEntourageRole(){
-		 	$data = array();
-		 	$this->load->model('events_model');
-		 	$query = $this->events_model->getRole();
-		 	if ($query){
-		 		$data['roles'] = $query; 
-		 	}
-		 	$this->load->view('eventEntourage', $data);
-		 }
+			$data = array();
+			$this->load->model('events_model');
+			$query = $this->events_model->getRole();
+			if ($query){
+				$data['roles'] = $query; 
+			}
+			$this->load->view('eventEntourage', $data);
+		}
 
-		 public function showDesignName(){
+		public function showDesignName(){
 			$data = array();
 			$this->load->model('events_model');
 			$query = $this->events_model->getDesignName();
@@ -706,5 +829,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 	}
 
-?>
+	?>
 

@@ -114,7 +114,7 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-4 control-label">Click to save updates</label>
+                    <label class="col-sm-4 control-label">Click to Save updates</label>
                     <div class="col-lg-5">
                       <button type="submit" class="btn btn-default btn-primary form-control">Save Updates</button>
                     </div>
@@ -122,8 +122,8 @@
                 <?php echo form_close(); ?>
               </div>
               <div class="box-footer">
-                <button class="btn btn-default" data-toggle="modal" data-target="#changeUsername">Change Username</button>
-                <button class="btn btn-default" data-toggle="modal" data-target="#changePass">Change Password</button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
+                <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
               </div>     
             </div>
           </div>
