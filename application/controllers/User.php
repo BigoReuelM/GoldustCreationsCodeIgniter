@@ -37,6 +37,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				'password'=>$this->input->post('password')
 
 			);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Login Error! | Admin';	
+			}else{
+				$headdata['pagename'] = 'Login Error! | Handler';
+			}
 
 			$data=$this->user_model->login_user($user_login['username'],$user_login['password']);
 			if($data)
@@ -61,7 +66,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			else{
 				$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
-				$this->load->view("templates/head.php");
+				$this->load->view("templates/head.php", $headdata);
 				$this->load->view("login.php");
 
 			}
