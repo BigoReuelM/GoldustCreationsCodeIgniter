@@ -614,13 +614,16 @@
 		}
 
 		public function updateAttireDesign($evID, $entID, $designName){
-				$data = array(
+				/*$data = array(
 					'designName' => $designName
 				);
 
 				$this->db->where('eventID', $evID);
 				$this->db->where('entourageID', $entID);
-				$this->db->update('eventEntourage', $data);
+				$this->db->update('Entourage', $data);*/
+
+				
+
 			
 		}
 

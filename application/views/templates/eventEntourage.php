@@ -38,6 +38,7 @@
                 if (!empty($designs)) {
                    foreach ($designs as $design) {
                     $desID = $design['designID'];
+                    $desName = $design['designName'];
                      
               ?>
               <tr>
@@ -68,7 +69,7 @@
                   </div-->
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntourageDetails') ?>">
-                      <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value="updt"> Update <i class="fa fa-exchange" > </i>
+                      <button class="btn btn-block" id="designName" name="designName" type="submit" value="<?php echo($desName)?>"> Update <i class="fa fa-exchange" > </i>
                       </button>
                     </form>
                   </div>
@@ -147,7 +148,7 @@
                       
                       <div class="col-md-3 col-sm-4">
                         <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntourageDetails') ?>">
-                          <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value=""> Update <i class="fa fa-exchange" > </i>
+                          <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value="<?php echo($entID)?>"> Update <i class="fa fa-exchange" > </i>
                           </button>
                         </form>
                       </div>
