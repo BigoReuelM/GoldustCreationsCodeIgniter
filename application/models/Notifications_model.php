@@ -5,8 +5,8 @@
 	class Notifications_model extends CI_model
 	{
 
-		/*
-		public function view_home_ongoing_rentals(){
+		
+		public function overdueTransactionRentals(){
 			$eID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
@@ -22,7 +22,8 @@
 				WHERE
 				    s.serviceName LIKE '%rental%'
 				        AND t.transactionstatus LIKE 'on%going'
-				        AND t.employeeID = $eID"
+				        AND t.employeeID = $eID
+				        AND t.dateAvail + 5 < CURDATE();"
 				);
 			}else{
 				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
@@ -36,14 +37,15 @@
 	                transactiondetails ts
 				WHERE
 				    s.serviceName LIKE '%rental%'
-				        AND t.transactionstatus LIKE 'on%going'"
+				        AND t.transactionstatus LIKE 'on%going'
+				        AND t.dateAvail + 5 < CURDATE();"
 				); 
 			}
 			
 			return $query->result_array();
 		}
 
-		public function viewEventRentals(){
+		public function overdueEventRentals(){
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if($empRole === "handler"){
@@ -54,7 +56,8 @@
 				LEFT JOIN eventservices using (eventID) 
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
-				WHERE serviceName LIKE '%rental%';
+				WHERE serviceName LIKE '%rental%'
+						AND event.eventDate + 5 < CURDATE();
 				");
 			}else{
 				$query = $this->db->query("
@@ -64,12 +67,13 @@
 				LEFT JOIN eventservices using (eventID) 
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
-				WHERE serviceName LIKE '%rental%';
+				WHERE serviceName LIKE '%rental%'
+					AND event.eventID + 5 < CURDATE();
 				");
 			}
 			return $query->result_array();
 		}
-		*/
+		
 		public function getAppointmentsToday(){
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -104,6 +108,46 @@
 					SELECT *
 					FROM events
 					WHERE eventDate = CURDATE();
+				");
+			}
+
+			return $query->result_array();
+		}
+
+		public function getIncommingEvents(){
+			$emID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			if ($empRole === "handler") {
+				$query = $this->db->query("
+					SELECT *
+					FROM events
+					WHERE eventDate > CURDATE();
+				");
+			}else{
+				$query = $this->db->query("
+					SELECT *
+					FROM events
+					WHERE eventDate > CURDATE();
+				");
+			}
+
+			return $query->result_array();
+		}
+
+		public function getIncommingAppointments(){
+			$emID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			if ($empRole === "handler") {
+				$query = $this->db->query("
+					SELECT *
+					FROM appointments
+					WHERE appointments.date > CURDATE();
+				");
+			}else{
+				$query = $this->db->query("
+					SELECT *
+					FROM appointments
+					WHERE appointments.date > CURDATE();
 				");
 			}
 

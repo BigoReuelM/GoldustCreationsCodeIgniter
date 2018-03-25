@@ -179,6 +179,25 @@
 				where transactionID = $tID");
 			return $query->row();	
 		}
+
+		public function totalAmountForServices($tid){
+			$query = $this->db->query("
+				SELECT sum(amount) as total
+				FROM transactiondetails
+				WHERE transactionID = $tid;
+			");
+
+			return $query->row();
+		}
+
+		public function updateTotalAmount($tid, $amount){	
+			$data = array(
+				'totalAmount' => $amount
+			);
+
+			$this->db->where('transactionID', $tid);
+			$this->db->update('transactions', $data);
+		}
 		//end of payment scripts
 
 		public function getTransactionAppointments($transID){
@@ -247,7 +266,7 @@
 				");
 			}else{
 				$query = $this->db->query("
-				SELECT eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
+				SELECT eventID, clientID, eventStatus, eventName, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, serviceName 
 				FROM (SELECT * FROM events LEFT JOIN clients USING(clientID) WHERE eventStatus='on-going') 
 				AS event 
 				LEFT JOIN eventservices using (eventID) 

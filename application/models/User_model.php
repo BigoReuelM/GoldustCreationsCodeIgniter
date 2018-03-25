@@ -26,31 +26,117 @@
 			}
 		}
 
+		public function getPassword($empID){
+			$query = $this->db->query("
+				SELECT password
+				FROM employees
+				WHERE employeeID = $empID;
+			");
+
+			return $query->row();
+		}
+
+
 		public function getProfile($empID){
 			$query=$this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				SELECT *
 				FROM employees
 				WHERE employeeID = $empID
 			");
 
 			return $query->row();
 		}
-		//check if email already registered
+
 		/*
-		public function email_check($email){
- 
-  			$this->db->select('*');
-  			$this->db->from('user');
-  			$this->db->where('user_email',$email);
-  			$query=$this->db->get();
- 
-  			if($query->num_rows()>0){
-    			return false;
-  				}else{
-    				return true;
-  				}
- 
+			This is where update for profile is done
+		*/
+
+		public function updateUserFirstname($empID, $fname){
+			$data = array(
+				'firstName' => $fname
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
 		}
+
+		public function updateUserMiddlename($empID, $mname){
+			$data = array(
+				'midName' => $mname 
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+
+		public function updateUserLastname($empID, $lname){
+			$data = array(
+				'lastName' => $lname 
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+
+		public function updateUserCnum($empID, $cnum){
+			$data = array(
+				'contactNumber' => $cnum 
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+
+		public function updateUserEmail($empID, $email){
+			$data = array(
+				'email' => $email 
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+
+		public function updateUserHomeadd($empID, $homeadd){
+			$data = array(
+				'address' => $homeadd 
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+
+		/*
+			End of update for profile
+		*/
+
+		/**
+			Change Password of user
+		*/
+		public function updateUserPassword($empID, $newPass){
+			$data = array(
+				'password' => $newPass
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+		/*
+		*	End of password change
+		*/
+
+		/*
+		* Change username
+		*/
+		public function updateuserUsername($empID, $newUsername){
+			$data = array(
+				'username' => $newUsername
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
+		}
+		/*
+			end of change username
 		*/
 		
 	}

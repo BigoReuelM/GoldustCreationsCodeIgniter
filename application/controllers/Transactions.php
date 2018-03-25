@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('transactions_model');
 			$this->load->model('events_model');
+			$this->load->model('notifications_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -23,6 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function transactions(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['services']=$this->events_model->getServices();
 
 			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
@@ -31,16 +38,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['ongoingTransactions']=$this->transactions_model->ongoingTransactions($empID, $empRole);
 			$data['finishedTransactions']=$this->transactions_model->finishedTransactions($empID, $empRole);
 			$data['cancelledTransactions']=$this->transactions_model->cancelledTransactions($empID, $empRole);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions | Handler';
+			}
 
-			$this->load->view("templates/head.php");
+			$this->load->view("templates/head.php", $headdata);
 			
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 
 			}else{
 
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 
 			}
 			$this->load->view("templates/transactions.php", $data);
@@ -51,40 +63,154 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
-
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
 			$totalAmount = $this->transactions_model->totalAmount($tranID);
 			$data['totalPayments'] = $totalPayments;
 			$data['totalAmount'] = $totalAmount;		
 			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
-
-			$data['servcs'] = $this->transactions_model->getServices();
-
-			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
-			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
-			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
-			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);		
 
 			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions Details| Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions Details | Handler';
+			}
 
-			$this->load->view("templates/head.php");
+			$this->load->view("templates/head.php", $headdata);
 			
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
 			}else{
 
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transactionNav.php");
 			}
 			$this->load->view("templates/transactionDetails.php", $data);
 			$this->load->view("templates/footer.php");
+		}
+
+		public function transactionServices(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
+			$data['servcs'] = $this->transactions_model->getServices();
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions Services | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions Services | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionServices.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function transactionAppointments(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions Appointments | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions Appointments | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionAppointments.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function transactionPayments(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$tranID = $this->session->userdata('currentTransactionID');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
+			$totalAmount = $this->transactions_model->totalAmount($tranID);
+			$data['totalPayments'] = $totalPayments;
+			$data['totalAmount'] = $totalAmount;		
+			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
+			$data['payments'] = $this->transactions_model->getTransactionPayments($tranID);
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions Payments | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions Payments | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transactionNav.php");
+			}else{
+
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transactionNav.php");
+			}
+			$this->load->view("templates/transactionPayments.php", $data);
+			$this->load->view("templates/footer.php");
+
 		}
 
 		public function addsvc(){
 
 			$tID = $this->session->userdata('currentTransactionID');
 
-			$data = array('success' => false, 'availedServices' => array());
+
 			
 			if (!empty($this->input->post('services[]'))) {
 				foreach ($this->input->post('services[]') as $key => $service) {
@@ -92,13 +218,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$data['availedServices'][$key] = $this->transactions_model->getService($service);
 				}
 
-				$data['success'] = true;
 			}
 
-			echo json_encode($data);
+			redirect('transactions/transactionServices');
 			
 		}
-
+		/*
 		public function updateServiceDetails(){
 
 			$tid = $this->session->userdata('currentTransactionID');
@@ -132,6 +257,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					}
 				}
 
+				$this->transactions_model->updateTotalAmount($tid);
+
 				$data['success'] = true;	
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -140,6 +267,66 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 			echo json_encode($data);
+		}
+		*/
+
+		public function updateServiceDetails(){
+
+			$tid = $this->session->userdata('currentTransactionID');
+			$action = $this->input->post('action');
+			$serviceID = $this->input->post('serviceID');
+
+
+			$quantity = $this->input->post('serviceQuantity');
+			$amount = $this->input->post('serviceAmount');
+			
+			
+			if ($action === "remove") {
+				$this->transactions_model->removeService($tid, $serviceID);
+				$data['action'] = "remove";
+			}
+
+			if ($action === "update") {
+				$data['action'] = "update";
+				if (!empty($quantity)) {
+					$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
+				}
+				if (!empty($amount)) {
+					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
+
+				}
+			}
+			$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
+			$this->transactions_model->updateTotalAmount($tid, $totalOfServices->total);
+
+			redirect('transactions/transactionServices');
+
+		}
+
+		public function addAdditionalCharges(){
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if($this->form_validation->run()){
+				$amount = $this->input->post('additionalCharge');
+				$tID = $this->session->userdata('currentTransactionID');
+
+				$totalAmount = $this->transactions_model->totalAmount($tID);
+				$newTotalAmount = $totalAmount->totalAmount + $amount;
+				$this->transactions_model->updateTotalAmount($tID, $newTotalAmount);
+
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+
 		}
 
 		public function addTransactionAppointments(){
@@ -172,16 +359,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		
 		public function ongoing_rentals(){
 			$empRole = $this->session->userdata('role');
-			
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
 			$data['evredata'] = $this->transactions_model->viewEventRentals();
-			
-			$this->load->view("templates/head.php");
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Ongoing Rentals | Admin';	
+			}else{
+				$headdata['pagename'] = 'Ongoing Rentals | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
 			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 			}else{
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 			}
 			$this->load->view('templates/ongoingRentals', $data);
 
@@ -230,10 +426,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$transID = $this->session->userdata('currentTransactionID');
 			$clientID = $this->session->userdata('clientID');
 
-			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'totalAmount' => false, 'newDate' => false, 'newTime' => false);
+			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
 
 			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric');
-			$this->form_validation->set_rules('totalAmount', 'Total Amount', 'trim|numeric');
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
@@ -244,7 +439,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$school = $this->input->post('school');
 				$idType = $this->input->post('idType');
 				$depositAmount = $this->input->post('depositAmt');
-				$totalAmount = $this->input->post('totalAmount');
 				$date = $this->input->post('newDate');
 				$time = $this->input->post('newTime');
 
@@ -271,10 +465,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if (!empty($depositAmount)) {
 					$this->transactions_model->upDepositAmount($depositAmount, $transID);	
 					$data['depositAmt'] = true;	
-				}
-				if (!empty($totalAmount)) {
-					$this->transactions_model->upTotalAmount($totalAmount, $transID);
-					$data['totalAmount'] = true;	
 				}
 				if (!empty($date)) {
 					$this->transactions_model->upDate($date, $transID);
@@ -328,7 +518,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data['paymentID'] = $paymentID;
 
 				$data['success'] = true;
-					
+				
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
@@ -340,4 +530,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		
 	}
- ?>
+	?>
