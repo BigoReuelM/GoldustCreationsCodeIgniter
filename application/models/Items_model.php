@@ -34,5 +34,9 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		/*public function uploadGown(){
+			$this->db->insert();
+		}*/
 	}
 ?>
