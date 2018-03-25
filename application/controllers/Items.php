@@ -26,7 +26,12 @@ class Items extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$empRole = $this->session->userdata('role');
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Gowns | Admin';	
+		}else{
+			$headdata['pagename'] = 'Gowns | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -51,7 +56,12 @@ class Items extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['allDecors'] = $this->items_model->getAllDecors();
 		$empRole = $this->session->userdata('role');
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Decorations | Admin';	
+		}else{
+			$headdata['pagename'] = 'Decorations | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -82,8 +92,13 @@ class Items extends CI_Controller
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
 		$this->load->model('items_model');
 		$data['allDecors'] = $this->items_model->getAllDecors();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Decorations | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Decorations | Handler';
+		}
 		
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -135,7 +150,12 @@ class Items extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['allCostumes'] = $this->items_model->getAllCostumes();
 		$empRole = $this->session->userdata('role');
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Costumes | Admin';	
+		}else{
+			$headdata['pagename'] = 'Costumes | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -160,7 +180,12 @@ class Items extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['allSuits'] = $this->items_model->getAllSuits();
 		$empRole = $this->session->userdata('role');
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Suits | Admin';	
+		}else{
+			$headdata['pagename'] = 'Suits | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);

@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			parent::__construct();
 			$this->load->helper('url');
 			$this->load->model('user_model');
+			$this->load->model('notifications_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -70,15 +71,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$userID = $this->session->userdata("employeeID");
 			$empRole = $this->session->userdata('role');
 			$data['employee'] = $this->user_model->getProfile($userID);
-
-			$this->load->view("templates/head.php");
+						$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+						if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'User Profile| Admin';	
+			}else{
+				$headdata['pagename'] = 'User Profile | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
 			if ($empRole === 'admin') {
 				
-				$this->load->view("templates/adminHeader.php");
+				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
 				
 			}else{
-				$this->load->view("templates/header.php");
+				$this->load->view("templates/header.php", $notif);
 				
 			}
 			$this->load->view("templates/profile.php", $data);

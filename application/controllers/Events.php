@@ -24,6 +24,12 @@ class Events extends CI_Controller
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "new";
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'New Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'New Events | Handler';
+		}
+
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -32,7 +38,7 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
 		$data['services']=$this->events_model->getServices();
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -60,7 +66,13 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 		$data['services']=$this->events_model->getServices();
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Ongoing Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Ongoing Events | Handler';
+		}
+
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -87,7 +99,12 @@ class Events extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Finished Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Finished Events | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -112,7 +129,12 @@ class Events extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Cancelled Events | Admin';	
+		}else{
+			$headdata['pagename'] = 'Cancelled Events | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -140,9 +162,14 @@ class Events extends CI_Controller
 		$data['handlers'] = $this->events_model->getHandlers();
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Details | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Details | Handler';
+		}
 		
 		$empRole = $this->session->userdata('role');
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -194,7 +221,12 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventStaff'] = $this->events_model->getStaff($id);
 		$data['allStaff'] = $this->events_model->showAllStaff();
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Staff | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Staff | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -221,8 +253,13 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['servcs'] = $this->events_model->getServices();
 		$data['avlServcs'] = $this->events_model->servcTransac($id);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Services | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Services | Handler';
+		}
 		
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php",$headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -253,7 +290,12 @@ class Events extends CI_Controller
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['designs']=$this->events_model->getDesigns($currentEvent);
 		$data['entourageRole'] = $this->events_model->getEntourageRole();
-		$this->load->view("templates/head.php");
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Entourage | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Entourage | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -285,8 +327,13 @@ class Events extends CI_Controller
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
 		$this->load->model('items_model');
 		$data['allDecors'] = $this->items_model->getAllDecors();
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Event Decorations | Admin';	
+		}else{
+			$headdata['pagename'] = 'Event Decorations | Handler';
+		}
 		
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -322,9 +369,13 @@ class Events extends CI_Controller
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 		$data['clientName']=$this->events_model->getClientName($cid);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Payments | Admin';	
+		}else{
+			$headdata['pagename'] = 'Payments | Handler';
+		}
 		
-		
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -354,9 +405,14 @@ class Events extends CI_Controller
 
 		$data['eventName'] = $this->events_model->getEventName($currentEvent);
 		$data['appointments'] = $this->events_model->getAppointments($currentEvent);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Appointments | Admin';	
+		}else{
+			$headdata['pagename'] = 'Appointments | Handler';
+		}
+
 		
-		
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		if ($empRole === 'admin') {
 			
 			$this->load->view("templates/adminHeader.php", $notif);

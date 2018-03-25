@@ -31,8 +31,13 @@ class Handler extends CI_Controller
 		$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 		$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
 		$data['todoItems'] = $this->handler_model->toDoList($empID);
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Home | Admin';	
+		}else{
+			$headdata['pagename'] = 'Home | Handler';
+		}
 
-		$this->load->view("templates/head.php");
+		$this->load->view("templates/head.php", $headdata);
 		$this->load->view("templates/header.php", $notif);
 		$this->load->view("handlerPages/home.php", $data);
 		$this->load->view("templates/footer.php");
