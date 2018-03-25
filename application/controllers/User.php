@@ -174,7 +174,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required');
+			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required|is_unique[employees.username]');
 			$this->form_validation->set_rules('usernameConfirmation', 'Username Confirmation', 'trim|required|matches[newUsername]');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 

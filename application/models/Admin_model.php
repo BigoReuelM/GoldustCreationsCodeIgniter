@@ -32,6 +32,7 @@
 		}
 
 		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image){
+
 			$data = array(
 				'firstName' => $fname,
 				'midName' => $mname,
@@ -41,12 +42,21 @@
 				'email' => $email,
 				'role' => $role,
 				'photo' => $image,
-				'username' => $fname,
-				'password' => "pwd",
 				'status' => "active"
 			);
 
 			$this->db->insert('employees', $data);
+
+			$newEmpID = $this->db->insert_id();
+			$username = $newEmpID . $fname;
+			$second = array(
+				'username' => $username,
+				'password' => "goldust"
+			);
+
+			$this->db->where('employeeID', $newEmpID);
+			$this->db->update('employees', $second);
+
 		}
 
 		public function getEmpDetails($empID){
@@ -135,6 +145,17 @@
 			);
 
 			$this->db->insert('services', $data);
+		}
+
+		public function returnPassToDefault($pin, $empID){
+			$newPass = "goldust" . $pin;
+
+			$data = array(
+				'password' => $newPass
+			);
+
+			$this->db->where('employeeID', $empID);
+			$this->db->update('employees', $data);
 		}
 		
 	}

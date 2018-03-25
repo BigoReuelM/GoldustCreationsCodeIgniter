@@ -203,6 +203,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 		}
 
+		public function resetEmployeePassword(){
+
+			$pin = $this->generatePIN();
+			$empID = $this->input->post('empID');
+
+			$data['pin'] = $pin;
+
+			$this->admin_model->returnPassToDefault($pin, $empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data);
+		}
+
+		public function generatePIN(){
+			$digits = 4;
+			$i = 0;
+			$pin = "";
+			while($i < $digits){
+		        //generate a random number between 0 and 9.
+		        $pin .= mt_rand(0, 9);
+		        $i++;
+		    }
+		   
+		    return $pin;
+		}
+
 
 
 
