@@ -137,10 +137,22 @@
                 <label>Motif</label>
                 <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
-              <div class="form-group">
+              <!--<div class="form-group">
                 <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $eventDetail->theme ?>" value="">
+                <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
+              </div>-->
+
+              <div class="input-group">
+                <label>Theme/s</label>               
+                <input type="text" class="form-control" placeholder="Theme" disabled>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addtheme">Choose</button>
+                </span>
+                <!--<div class="input-group-append">
+                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                </div>-->
               </div>
+
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
@@ -169,7 +181,6 @@
                 
               </div>
             </div>
-            
           </form>
 
         </div>
@@ -193,7 +204,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="row">
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
@@ -233,6 +243,46 @@
     
 </div>
 
+
+<!-- Themes modal -->
+<div class="modal fade" id="addtheme" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Themes</h4>
+        </div>
+        <form role="form" method="post" action="" class="form-horizontal">
+          <div class="modal-body">
+            <table class="table table-hover table-responsive table-bordered" id="modalthemetbl">
+            <thead>
+              <tr>
+                <th>Choose theme...</th>
+              </tr>
+            </thead>
+            <tbody>              
+                <?php
+                  if (!empty($servcs)) {
+                    foreach ($servcs as $svc) { ?>
+                      <tr>                   
+                        <td>
+                          <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
+                        </td>
+                      </tr>
+                <?php }
+                  }
+                ?>             
+            </tbody>            
+          </table>
+          </div>
+          <div class="modal-footer">
+            
+          </div>
+        </form>
+      </div>   
+  </div>
+</div>
 
   <!-- Cancel event Modal -->
 <div class="modal fade" id="cancellEvent" role="dialog">
@@ -407,6 +457,7 @@
       $('#staffTable').DataTable()
       $('#modalServcTbl').DataTable()
       $('#modalStaffTbl').DataTable()
+      $('#modalthemetbl').DataTable()
     })
 
     function reset_chkbx() {

@@ -15,6 +15,14 @@ class Items extends CI_Controller
 		$this->load->library('session');
 	}
 
+		public function __construct()
+		{
+			parent::__construct();
+			$this->load->helper('url');
+			$this->load->helper('form');
+			$this->load->model('handler_model');
+			$this->load->library('session');
+		}
 
 	public function gowns(){
 		$this->load->model('items_model');
@@ -76,7 +84,6 @@ class Items extends CI_Controller
 		$this->load->view("templates/footer.php");
 	}
 
-		// nasa events controller din tu
 	public function eventDecors(){
 		$eventid = $this->session->userdata('currentEventID');
 		$decorid = $this->session->userdata('currentDecorID');
@@ -224,6 +231,27 @@ class Items extends CI_Controller
 			$this->gowns();
 		}*/
 
-		
+		public function uploadImg(){
+			$config['upload_path'] = '/uploads';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('gown_name', 'New Gown Name', 'required');
+			$this->form_validation->set_rules('gown_color', 'New Gown Color', 'required');		
+
+			$field_name = 'files';
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload($field_name);
+				$data = array('upload_data' => $this->upload->data());
+				$this->input->post('gown_name');
+				$this->input->post('gown_color');
+				// upload to database
+				//$this->load->model('items_model');
+				//$this->items_model->uploadGown();
+				$this->gowns();
+			}
+		}
 	} 
 	?>
