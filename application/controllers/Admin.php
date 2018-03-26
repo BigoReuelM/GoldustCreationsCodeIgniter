@@ -45,6 +45,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("adminPages/adminHome.php", $data);
 			$this->load->view("templates/footer.php");
 		}
+		public function viewReports(){
+			$this->load->view("templates/head.php");
+			$this->load->view("templates/adminHeader.php");
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/statistics.php");
+			$this->load->view("templates/footer.php");
+		}
 
 		public function employeeDetails(){
 			$employeeID = $this->input->post('employeeID');
