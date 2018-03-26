@@ -654,7 +654,13 @@
 			return $query->result_array();
 		}*/
 
-
+		// all themes
+		public function getThemes(){
+			$this->db->select('*');
+			$this->db->from('theme');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
 

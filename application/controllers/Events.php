@@ -159,6 +159,7 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventName'] =$this->events_model->getEventName($id);
 		$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
+		$data['themes'] = $this->events_model->getThemes();
 		$data['handlers'] = $this->events_model->getHandlers();
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
@@ -828,6 +829,7 @@ class Events extends CI_Controller
 
 			$this->eventEntourage();
 		}
+
 	}
 
 	?>
