@@ -104,6 +104,12 @@
             <span>Expenses</span>
           </a>
         </li>
+        <li>
+          <a href="<?php echo base_url('admin/adminTheme') ?>">
+            <i class="fa fa-leaf"></i>
+            <span>Themes</span>
+          </a>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

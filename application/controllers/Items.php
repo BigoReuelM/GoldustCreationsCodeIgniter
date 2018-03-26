@@ -15,15 +15,6 @@ class Items extends CI_Controller
 		$this->load->library('session');
 	}
 
-		public function __construct()
-		{
-			parent::__construct();
-			$this->load->helper('url');
-			$this->load->helper('form');
-			$this->load->model('handler_model');
-			$this->load->library('session');
-		}
-
 	public function gowns(){
 		$this->load->model('items_model');
 		$data['allGowns'] = $this->items_model->getAllGowns();

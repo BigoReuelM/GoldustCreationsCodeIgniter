@@ -157,6 +157,14 @@
 			$this->db->where('employeeID', $empID);
 			$this->db->update('employees', $data);
 		}
+
+		public function addTheme($tName, $tDesc){
+			$data = array(
+				'themeName' => $tName,
+				'themeDesc' => $tDesc
+			);
+			$this->db->insert('theme', $data);
+		}
 		
 	}
  ?>
