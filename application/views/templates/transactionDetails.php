@@ -4,6 +4,10 @@
   font-size: 50px;
 
 }
+
+  #but8 {
+    width:30px;
+  }
 </style>
 
 
@@ -19,18 +23,12 @@
 
       <?php if ($details->transactionstatus === "on-going"): ?>
         
-          <form method="post" action="<?php echo base_url('transactions/markFinish') ?>">
             <div class="col-lg-3">
-              <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Finish</button>
+              <button type="submit" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#finish">Finish</button>
             </div>
-          </form>
-          <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
             <div class="col-lg-3">
-              <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-              <button type="submit" class="btn btn-block btn-danger btn-lg">Cancel</button>
+              <button type="submit" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancel">Cancel</button>
             </div>
-          </form>
                
       <?php endif ?>
     </div>
@@ -201,6 +199,58 @@
   </div>
 </div>
 
+<!-- Finish Modal -->
+        <div class="modal fade" id="finish">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Finish Transaction</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to end this Transaction?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <form id="finishTransaction" method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+                  <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+<!-- /Finish modal -->
+<!-- Cancel Modal -->
+      <div class="modal fade" id="cancel">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Cancel Transaction</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to cancel?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+                  <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </form>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+<!-- /Cancel Modal -->
 <!-- jQuery 3 -->
 <script src="<?php echo base_url(); ?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

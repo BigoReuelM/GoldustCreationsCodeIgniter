@@ -190,12 +190,12 @@
           <div class="col-lg-4">
             <?php
               if ($empRole === 'admin') {
-                 echo '<button form="updateEventHandler" type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
+                 echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
                } 
             ?>
           </div>
           <div class="col-lg-4">
-            <button form="updateDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+            <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#update-details">Update Details</button>
           </div>
           <div class="col-lg-4">
             <button class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#addAdditionalChargesModal">Additional Charges</button>
@@ -434,7 +434,52 @@
   </div>
 </div>
 <!--end of fisnish event modal-->
+<!-- Select handler Modal -->
+<div class="modal fade" id="select-handler">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Handler</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to select this handler?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button form="#updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
 
+<!-- End of Selecting handler modal -->
+<!-- Update Details Modal -->
+<div class="modal fade" id="update-details">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Update Details</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to update?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+<!-- End of Update Details -->
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->

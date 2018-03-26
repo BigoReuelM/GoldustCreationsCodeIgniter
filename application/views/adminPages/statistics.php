@@ -290,3 +290,4 @@
     barChart.Bar(barChartData, barChartOptions)
   })
 </script>
+
