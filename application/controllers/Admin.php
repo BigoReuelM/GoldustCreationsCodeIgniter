@@ -94,7 +94,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
+			$config['upload_path'] = './uploads/userImage';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$this->load->library('upload', $config);
 
+			if ($this->upload->do_upload('userfile')) {
+				$this->upload->data();
+			}
+			
 
 			$data = array('success' => false, 'messages' => array());
 
@@ -114,9 +121,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$email = $this->input->post('email');
 				$address = $this->input->post('address');
 				$role = $this->input->post('role');
-				$picture = $this->input->post('employeeImage');
 
-				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $picture);
+				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -205,16 +211,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 
-
 			if ($this->form_validation->run()) {
+
 				$date = $this->input->post('expenseDate');
 				$amount = $this->input->post('expenseAmount');
 				$name = $this->input->post('expenseName');
-				$image = $this->input->post('expensePhoto');
 				$rNum = $this->input->post('expenseReceipt');
 				
 				
-				$this->admin_model->addExpenses($empID, $name, $date, $amount, $rNum, $image);
+				$this->admin_model->addExpenses($empID, $name, $date, $amount, $rNum);
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
