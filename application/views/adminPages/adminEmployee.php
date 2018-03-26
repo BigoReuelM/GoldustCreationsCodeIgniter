@@ -193,13 +193,13 @@
         <div class="modal-body">
           <div class="box-body">
             <div class="form-group">
-              <label for="firstname" class="col-lg-3 control-label">First Name</label>
+              <label for="firstname" class="col-sm-3 control-label">First Name</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter First Name ... ">
               </div>
             </div>
             <div class="form-group">
-              <label for="middlename" class="col-lg-3 control-label">Middle Name</label>
+              <label for="middlename" class="col-sm-3 control-label">Middle Name</label>
               <div class="col-sm-9">
                 <input type="text" class="form-control" id="middlename" name="middlename" placeholder="Enter Middle Name ... ">
               </div>
@@ -240,23 +240,11 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-sm-5 control-label" for="exampleInputFile">Select Employee Image</label>
-              <div class="col-sm-7">
-                <input type="file" name="employeeImage" id="employeeImage" multiple>
-              </div>
-            </div>
           </div>
         </div>
         <div class="modal-footer">
-          <div class="row">
-            <div class="col-lg-6">
-              <button id="submit" type="submit" class="btn btn-block btn-default">Add</button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-          </div>   
+          <button id="submit" type="submit" class="btn btn-default">Add</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
         </div>
       <?php echo form_close(); ?>
     </div>       

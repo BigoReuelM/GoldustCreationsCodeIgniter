@@ -31,7 +31,7 @@
 			return $query->result_array();
 		}
 
-		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role, $image){
+		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role){
 
 			$data = array(
 				'firstName' => $fname,
@@ -41,7 +41,6 @@
 				'address' => $address,
 				'email' => $email,
 				'role' => $role,
-				'photo' => $image,
 				'status' => "active"
 			);
 
@@ -96,14 +95,13 @@
 		}
 
 		
-		public function addExpenses($empID, $expName, $date, $amount, $num, $image){
+		public function addExpenses($empID, $expName, $date, $amount, $num){
 			$data = array(
 				'employeeID' => $empID,
 				'expensesName' => $expName,
 				'expensesAmount' => $amount,
 				'expenseDate' => $date,
 				'receiptNum' => $num,
-				'receiptImage' => $image
 			);
 
 			$this->db->insert('expenses', $data);

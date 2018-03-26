@@ -1,11 +1,5 @@
- <head>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!-- Include the above in your HEAD tag -->
  </head>
  <style type="text/css">
    #img {
@@ -67,7 +61,7 @@
         <h4 class="modal-title">Upload Gowns</h4>
       </div>
       <div class="modal-body">
-        <form action="<?php echo base_url('items/uploadImg') ?>" method="post" role="form" enctype="multipart/form-data" id="js-upload-form">
+        <form action="<?php echo base_url('items/uploadImg') ?>" method="post" role="form" enctype="multipart/form-data">
         <!--<?php //echo form_open_multipart('items/uploadImg') ?>-->  
           <div class="row">
             <div class="col-md-6">
@@ -85,16 +79,11 @@
           </div>
           <div class="form-group">
             <label>Select files from your computer</label>
-            <input type="file" name="files[]" id="js-upload-files" multiple>
+            <input type="file" name="userfile" >
           </div>         
-          <!-- drop zone -->
-          <br>
-          <p>Or drag and drop files below</p>
-            <div class="upload-drop-zone" id="drop-zone">
-              Just drag and drop files here
-            </div>
+  
           <div class="modal-footer">
-            <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+            <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
           </div>  
         </form>  
       </div>    

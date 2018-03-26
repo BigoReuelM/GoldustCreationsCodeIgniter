@@ -66,7 +66,7 @@
     <div class="modal-content">
       <?php 
         $attributes = array("name" => "addExpenses", "id" => "addExpenses", "class" => "form-horizontal");
-        echo form_open("admin/addExpenses", $attributes);
+        echo form_open_multipart("admin/addExpenses", $attributes);
       ?>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -100,17 +100,11 @@
               <div class="col-lg-9">
                 <input type="text" name="expenseReceipt" id="expenseReceipt" class="form-control" placeholder="Enter Receipt No. Here..">
               </div>
-            </div>
-            <div class="form-group">
-              <label for="expensePhoto" class="control-label col-lg-3">Receipt Photo</label>
-              <div class="col-lg-9">
-                <input type="file" name="expensePhoto" id="expensePhoto">
-              </div>
-            </div>  
+            </div> 
           </div>
         </div>
         <div class="modal-footer">
-          <button id="submit" type="submit" class="btn btn-default">Add</button>
+          <button name="upload" type="submit" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       <?php echo form_close(); ?>

@@ -1,3 +1,10 @@
+<style type="text/css">
+  #reps {
+    text-decoration: underline;
+    font-size: 20px;
+    margin-left: 92%;
+  }
+</style>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +16,7 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-
+    <a href = "<?php echo base_url('admin/viewReports') ?>" id="reps"> Reports </a>
         <div class="row">
           <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-red">
