@@ -294,7 +294,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
+		public function adminTheme(){
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['themes'] = $this->events_model->getThemes();
 
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Themes | Admin';	
+			}else{
+				$headdata['pagename'] = 'Themes | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/theme.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function addNewTheme(){
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('themeName', 'New Theme Name', 'required');
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$name = $this->input->post('themeName');
+				$desc = $this->input->post('themeDesc');
+				$this->admin_model->addTheme($name, $desc);
+				$this->adminTheme();
+			}
+		}
 
 
 	}

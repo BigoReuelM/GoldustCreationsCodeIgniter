@@ -223,7 +223,7 @@ class Items extends CI_Controller
 		}*/
 
 		public function uploadImg(){
-			$config['upload_path'] = './uploads/';
+			$config['upload_path'] = './uploads/gowns/';
 			$config['allowed_types'] = 'jpg|png|jpeg';
 			
 			$this->load->library('form_validation');

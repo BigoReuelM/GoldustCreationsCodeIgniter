@@ -1,7 +1,4 @@
 
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -113,7 +110,9 @@
   </div>
 </div>
 
-
+<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Slimscroll -->

@@ -141,12 +141,11 @@
                 <label>Theme</label>
                 <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
               </div>-->
-
-              <div class="input-group">
-                <label>Theme/s</label>               
+              <label>Theme/s</label>
+              <div class="input-group">               
                 <input type="text" class="form-control" placeholder="Theme" disabled>
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addtheme">Choose</button>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
                 <!--<div class="input-group-append">
                   <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addtheme">Choose</button>
@@ -255,29 +254,37 @@
         </div>
         <form role="form" method="post" action="" class="form-horizontal">
           <div class="modal-body">
-            <table class="table table-hover table-responsive table-bordered" id="modalthemetbl">
+            <div class="table table-responsive">
+            <table id="themes" class="table table-bordered table-condensed table-hover text-center">
             <thead>
               <tr>
-                <th>Choose theme...</th>
+                <th>Theme Name</th>
+                <th>Descriptions</th>
               </tr>
             </thead>
-            <tbody>              
-                <?php
-                  if (!empty($servcs)) {
-                    foreach ($servcs as $svc) { ?>
-                      <tr>                   
-                        <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
-                        </td>
-                      </tr>
-                <?php }
+            <tbody>
+              <?php 
+                if (!empty($themes)) {
+                  foreach ($themes as $th) {
+                    $themeID = $th['themeID'];
+              ?>
+              <tr>
+                <td>
+                  <div class="checkbox"><label><input type="checkbox" name="themes[]" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?></label></div>
+                </td>
+                <td><?php echo $th['themeDesc']; ?></td>
+              </tr>
+              <?php 
                   }
-                ?>             
-            </tbody>            
-          </table>
+                }
+              ?>       
+            </tbody>
+            </table>
+          </div>
           </div>
           <div class="modal-footer">
-            
+            <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+            <button form="" id="" name="" class="btn btn-default" type="submit">Add</button>
           </div>
         </form>
       </div>   

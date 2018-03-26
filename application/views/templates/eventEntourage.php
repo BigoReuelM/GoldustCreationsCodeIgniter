@@ -38,7 +38,7 @@
                 if (!empty($designs)) {
                    foreach ($designs as $design) {
                     $desID = $design['designID'];
-                    $desName = $design['designName'];
+                    
                      
               ?>
               <tr>
@@ -69,7 +69,7 @@
                   </div-->
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntourageDetails') ?>">
-                      <button class="btn btn-block" id="designName" name="designName" type="submit" value="<?php echo($desName)?>"> Update <i class="fa fa-exchange" > </i>
+                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($desID)?>"> Update <i class="fa fa-exchange" > </i>
                       </button>
                     </form>
                   </div>
@@ -196,7 +196,6 @@
                           <th>Muscle</th>
                           <th>Pants Length</th>
                           <th>Baston</th>
-                          <th>Design Photo</th>
                           <th>Action</th>
                         </tr>
                         </thead>
@@ -207,27 +206,23 @@
                                $entId = $det['entourageID'];     
                           ?>
                           <tr>
-                            <td><?php echo $det['entourageName'] ?></td>
-                            <td><?php echo $det['role'] ?></td>
-                            <td><?php echo $det['shoulder'] ?></td>
-                            <td><?php echo $det['chest'] ?></td>
-                            <td><?php echo $det['stomach'] ?></td>
-                            <td><?php echo $det['waist'] ?></td>
-                            <td><?php echo $det['armLength'] ?></td>
-                            <td><?php echo $det['armHole'] ?></td>
-                            <td><?php echo $det['muscle'] ?></td>
-                            <td><?php echo $det['pantsLength'] ?></td>
-                            <td><?php echo $det['baston'] ?></td>
-                            <td><?php echo '<a data-target="#modal-photo" data-toggle="modal"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($det['designImage']) . '"/></a>' ?></td>
+                            <td><input class="form-control" type="text" id="entName" name="entName" placeholder="<?php echo $det['entourageName'] ?>" disabled></td>
+                            <td><input class="form-control" type="text" id="role" name="role" placeholder="<?php echo $det['role'] ?>"></td>
+                            <td><input class="form-control" type="text" id="shoulder" name="shoulder" placeholder="<?php echo $det['shoulder'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="chest" name="chest" placeholder="<?php echo $det['chest'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="stomach" name="stomach" placeholder="<?php echo $det['stomach'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="waist" name="waist" placeholder="<?php echo $det['waist'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="armLength" name="armLength" placeholder="<?php echo $det['armLength'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="armHole" name="armHole" placeholder="<?php echo $det['armHole'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="muscle" name="muscle" placeholder="<?php echo $det['muscle'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="pantsLength" name="pantsLength" placeholder="<?php echo $det['pantsLength'] ?>" size="3"></td>
+                            <td><input class="form-control" type="text" id="baston" name="baston" placeholder="<?php echo $det['baston'] ?>" size="3"></td>
                             <td>
                               <div class="col-md-3 col-sm-4">
-                                </div>
-                              <!--
-                              <div class="col-md-3 col-sm-4">
-                                <form role="form" method="post" action="<?php //echo base_url('events/setEntourageID') ?>">
-                                  <button class="btn-link" id="entInfo" name="entInfo" type="submit" value="<?php //echo($entId) ?>"><i class="fa fa-fw fa-exchange"></i></button>
+                                <form role="form" method="post" action="">
+                                  <button class="btn-link" id="entInfo" name="entInfo" type="submit"><i class="fa fa-fw fa-exchange"></i></button>
                                 </form>
-                              </div>-->
+                              </div>
                             </td>
                           </tr>
                           <?php 
