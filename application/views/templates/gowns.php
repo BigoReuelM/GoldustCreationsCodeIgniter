@@ -37,16 +37,15 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="box-header">
-                <div class="row">
-                  <div class="col-md-9">
-                     <h3>Gowns Selection</h3>
-                  </div>
-                  <div class="col-md-3">
-                    <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addgowns">Add Gowns</button>  
-                  </div>
-                </div>
-                
-             </div>
+        <div class="row">
+          <div class="col-md-9">
+            <h3>Gowns Selection</h3>
+          </div>
+          <div class="col-md-3">
+            <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addgowns">Add Gowns</button>  
+          </div>
+        </div>             
+      </div>
     </section>
     <!-- Main content -->
     <section class="content container-fluid">

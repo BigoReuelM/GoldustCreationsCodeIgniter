@@ -316,10 +316,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addNewTheme(){
-			$name = $this->input->post('themeName');
-			$desc = $this->input->post('themeDesc');
-			$this->admin_model->addTheme($name, $desc);
-			$this->adminTheme();
+			$config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('themeName', 'New Theme Name', 'required');
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$name = $this->input->post('themeName');
+				$desc = $this->input->post('themeDesc');
+				$this->admin_model->addTheme($name, $desc);
+				$this->adminTheme();
+			}
 		}
 
 
