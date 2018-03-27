@@ -150,6 +150,21 @@
 			$this->db->where('password like binary', "goldust" . $pin);
 			$this->db->update('employees', $data);
 		}
+
+		public function checkUsernameAvailability($username){
+			$this->db->select('count(employeeID) as count');
+			$this->db->from('employees');
+			$this->db->where('username like binary',$username);
+
+			$query=$this->db->get();
+			$data = $query->row();
+
+			if( $data->count > 0 )
+			{
+				return false;
+			}
+			return true;
+		}
 		
 	}
 ?>

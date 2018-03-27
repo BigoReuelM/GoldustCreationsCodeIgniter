@@ -85,6 +85,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$userID = $this->session->userdata("employeeID");
 			$empRole = $this->session->userdata('role');
 			$data['employee'] = $this->user_model->getProfile($userID);
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
@@ -198,7 +199,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required|is_unique[employees.username]');
+			$this->form_validation->set_rules('newUsername', 'Username', 'trim|required|callback_usernameMatches');
 			$this->form_validation->set_rules('usernameConfirmation', 'Username Confirmation', 'trim|required|matches[newUsername]');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
@@ -215,6 +216,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 			}
 			echo json_encode($data);
+		}
+
+		public function usernameMatches($username){
+			if(!$this->user_model->checkUsernameAvailability($username)){
+				$this->form_validation->set_message('usernameMatches', 'This username is already taken.');
+				return false;
+			}
+			return true;
 		}
 
 		public function password_matches($pass, $empID){

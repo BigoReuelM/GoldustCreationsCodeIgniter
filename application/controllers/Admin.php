@@ -101,14 +101,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addEmployee(){
-			$config['upload_path'] = './uploads/userImage';
-			$config['allowed_types'] = 'jpg|png|jpeg';
-			$this->load->library('upload', $config);
-
-			if ($this->upload->do_upload('userfile')) {
-				$this->upload->data();
-			}
-			
 
 			$data = array('success' => false, 'messages' => array());
 
