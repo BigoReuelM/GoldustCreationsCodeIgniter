@@ -59,17 +59,6 @@
 
                 <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
 
-                <p class="text-muted text-center">Event Handler</p>
-
-                <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                    <b>Events</b> <a class="pull-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Transactions</b> <a class="pull-right">543</a>
-                  </li>
-                </ul>
-
                 <?php 
                   }else{
                     echo "
@@ -443,49 +432,49 @@
 <!--end of fisnish event modal-->
 <!-- Select handler Modal -->
 <div class="modal fade" id="select-handler">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Select Handler</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to select this handler?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <button form="#updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select Handler</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to select this handler?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
         <!-- /.modal -->
 
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
 <div class="modal fade" id="update-details">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update Details</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to update?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 <!-- End of Update Details -->
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -524,16 +513,19 @@
     }
   }
 
-  #add-event .modal-dialog {
-    width:90%;
+  #finishEventModal .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addServc .modal-dialog {
-    width:70%;
+  #select-handler .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addStaff .modal-dialog {
-    width: 70%;
+  #update-details .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 </style>
 

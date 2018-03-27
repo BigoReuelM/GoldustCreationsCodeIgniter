@@ -45,13 +45,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if($data)
 			{
 				$this->session->set_userdata('employeeID',$data['employeeID']);
-				$this->session->set_userdata('employeeName',$data['employeeName']);
+				$this->session->set_userdata('firstName',$data['firstName']);
+				$this->session->set_userdata('midName',$data['midName']);
+				$this->session->set_userdata('lastName',$data['lastName']);
 				$this->session->set_userdata('address',$data['address']);
 				$this->session->set_userdata('email',$data['email']);
 				$this->session->set_userdata('photo',$data['photo']);
 				$this->session->set_userdata('username',$data['username']);
 				$this->session->set_userdata('password',$data['password']);
-				$this->session->set_userdata('employeeContactNumber',$data['employeeContactNumber']);
+				$this->session->set_userdata('contactNumber',$data['contactNumber']);
 				$this->session->set_userdata('role',$data['role']);
 
 				if ($data['role'] === "admin") {

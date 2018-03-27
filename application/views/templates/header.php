@@ -1,6 +1,9 @@
 <?php
 $employeeID = $this->session->userdata('employeeID');
-$employeeName = $this->session->userdata('employeeName');
+$firstName = $this->session->userdata('firstName');
+$midName = $this->session->userdata('midName');
+$lastName = $this->session->userdata('lastName');
+$employeeName =  $firstName . " " . $midName . " " . $lastName;
 $photo = $this->session->userdata('photo');
 $appCount = count($appToday);
 $eventCount = count($eventsToday);
@@ -154,7 +157,10 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                   <img class="img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
 
                   <p>
-                    <?php echo($employeeName)?> - Event Handler
+                    <?php echo($employeeName)?>
+                  </p>
+                  <p>
+                    Event Handler
                   </p>
                 </li>
                 <!-- Menu Footer-->

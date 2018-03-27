@@ -46,8 +46,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 		public function viewReports(){
-			$this->load->view("templates/head.php");
-			$this->load->view("templates/adminHeader.php");
+			$headdata['pagename'] = 'Admin | Reports';
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/statistics.php");
 			$this->load->view("templates/footer.php");
