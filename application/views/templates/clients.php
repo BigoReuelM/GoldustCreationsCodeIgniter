@@ -100,7 +100,7 @@
 		      <h4 class="modal-title">Add New Client</h4>
 		    </div>
         <?php 
-          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal");
+          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("clients/addClient", $attributes);
         ?>
         <div id="the-message">
