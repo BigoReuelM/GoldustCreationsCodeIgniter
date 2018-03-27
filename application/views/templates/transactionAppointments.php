@@ -48,8 +48,19 @@
                   foreach ($transAppointments as $appointment) {
               ?>
                 <tr>
-                  <td><?php echo $appointment['date'] ?></td>
-                  <td><?php echo $appointment['time'] ?></td>
+                  <td>
+                    <?php
+                      $date = date_create($appointment['date']);
+                      $newDate = date_format($date, "M-d-Y"); 
+                      echo $newDate; 
+                    ?>
+                  </td>
+                  <td>
+                    <?php
+                      $newTime = date("g:i a", strtotime($appointment['time']));
+                      echo $newTime;  
+                    ?>
+                  </td>
                   <td><?php echo $appointment['agenda'] ?></td>
                 </tr>  
               <?php

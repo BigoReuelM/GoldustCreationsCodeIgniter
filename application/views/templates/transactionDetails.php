@@ -20,16 +20,17 @@
               <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
       </div>
-
-      <?php if ($details->transactionstatus === "on-going"): ?>
-        
-            <div class="col-lg-3">
-              <button type="submit" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#finish">Finish</button>
-            </div>
-            <div class="col-lg-3">
-              <button type="submit" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancel">Cancel</button>
-            </div>
-               
+      <?php if ($this->session->userdata('role') === "admin"): ?>
+        <?php if ($details->transactionstatus === "on-going"): ?>
+          
+              <div class="col-lg-3">
+                <button type="submit" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#finish">Finish</button>
+              </div>
+              <div class="col-lg-3">
+                <button type="submit" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancel">Cancel</button>
+              </div>
+                 
+        <?php endif ?>
       <?php endif ?>
     </div>
   </section>
@@ -95,13 +96,19 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Total Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" id="totalAmount" name="totalAmount" class="form-control" placeholder="<?php echo $details->totalAmount ?>" disabled>
+                    <?php  
+                      $formatedTotal = number_format($details->totalAmount, 2);
+                    ?>
+                    <input type="text" id="totalAmount" name="totalAmount" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Balance</label>
                   <div class="col-sm-10">
-                    <input type="text" id="balance" name="balance" class="form-control" placeholder="<?php echo $balance; ?>" value="" disabled>
+                    <?php  
+                      $formatedBalance = number_format($balance, 2);
+                    ?>
+                    <input type="text" id="balance" name="balance" class="form-control" placeholder="<?php echo $formatedBalance ?>" value="" disabled>
                   </div>
                 </div>
                 <div class="form-group">
@@ -112,15 +119,19 @@
                 </div>
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-lg-5">
-                      <label class="col-sm-4 control-label">Date Availed</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo $details->dateAvail ?>" disabled>
+                    <div class="col-lg-6">
+                      <label class="col-sm-5 control-label">Date Availed</label>
+                      <div class="col-sm-7">
+                        <?php
+                          $date = date_create($details->dateAvail);
+                          $newDate = date_format($date, "M-d-Y"); 
+                        ?>
+                        <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>
                       </div>
                     </div>
-                    <div class="col-lg-7">
-                      <label class="col-sm-4 control-label">Change Date Availed</label>
-                      <div class="col-sm-8">
+                    <div class="col-lg-6">
+                      <label class="col-sm-5 control-label">Change Date Availed</label>
+                      <div class="col-sm-7">
                         <input type="date" id="newDate" name="newDate" class="form-control" value="">
                       </div>
                     </div>
@@ -128,15 +139,18 @@
                 </div>
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-lg-5">
-                      <label class="col-sm-4 control-label">Time Availed</label>
-                      <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo $details->time ?>" disabled>
+                    <div class="col-lg-6">
+                      <label class="col-sm-5 control-label">Time Availed</label>
+                      <div class="col-sm-7">
+                        <?php 
+                          $newTime = date("g:i a", strtotime('$detail->time'));
+                        ?>
+                        <input type="text" class="form-control" value="<?php echo $newTime ?>" disabled>
                       </div>
                     </div>
-                    <div class="col-lg-7">
-                      <label class="col-sm-4 control-label">Change Time Availed</label>
-                      <div class="col-sm-8">
+                    <div class="col-lg-6">
+                      <label class="col-sm-5 control-label">Change Time Availed</label>
+                      <div class="col-sm-7">
                         <input type="time" id="newTime" name="newTime" class="form-control" value="">
                       </div>
                     </div>
@@ -146,9 +160,11 @@
             </div>
             <?php echo form_close(); ?>                  
           </div>
-          <div class="box-footer">
+          <div class="box-footer">  
             <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-            <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addCharges">Additional Payments</button>
+            <?php if ($this->session->userdata('role') === "admin"): ?>
+              <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addCharges">Additional Payments</button>
+            <?php endif ?>
           </div>
       </div>
      <div class="control-sidebar-bg"></div>             

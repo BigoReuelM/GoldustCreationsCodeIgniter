@@ -209,6 +209,7 @@
   </div>
 
   <div class="row">
+      
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
       <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
@@ -237,8 +238,7 @@
       <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
       </div>
-    <?php endif ?>
-          
+    <?php endif ?>        
   </div>
 
   <div class="control-sidebar-bg"></div> 
