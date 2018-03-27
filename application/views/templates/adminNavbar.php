@@ -52,7 +52,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">
+          <a href="<?php echo base_url('admin/adminEmployees') ?>">
             <i class="glyphicon glyphicon-user"></i>
             <span>Employees</span>
           </a>
@@ -81,7 +81,7 @@
           </ul>
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/transactions') ?>">
+          <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">
             <i class="glyphicon glyphicon-credit-card"></i> 
             <span>Transactions</span>
           </a>

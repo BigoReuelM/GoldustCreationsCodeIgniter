@@ -21,7 +21,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->library('form_validation');
 		}
 
-		public function transactions(){
+		public function ongoingTransactions(){
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -30,14 +30,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['services']=$this->events_model->getServices();
-
-			$data['transactionsDetails']=$this->transactions_model->getTransactionDetails($empID, $empRole);
-			$data['decors'] = $this->transactions_model->getDecors();
-			$data['designs'] = $this->transactions_model->getDesigns();
+			
 			$data['ongoingTransactions']=$this->transactions_model->ongoingTransactions($empID, $empRole);
-			$data['finishedTransactions']=$this->transactions_model->finishedTransactions($empID, $empRole);
-			$data['cancelledTransactions']=$this->transactions_model->cancelledTransactions($empID, $empRole);
+			
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Transactions | Admin';	
 			}else{
@@ -49,13 +44,84 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transNav.php");
 
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transNav.php");
 
 			}
-			$this->load->view("templates/transactions.php", $data);
+			$this->load->view("templates/ongoingTransactions.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function finishedTransactions(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['finishedTransactions']=$this->transactions_model->finishedTransactions($empID, $empRole);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transNav.php");
+
+			}else{
+
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transNav.php");
+
+			}
+			$this->load->view("templates/finishedTransactions.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function cancelledTransactions(){
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['cancelledTransactions']=$this->transactions_model->cancelledTransactions($empID, $empRole);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Transactions | Admin';	
+			}else{
+				$headdata['pagename'] = 'Transactions | Handler';
+			}
+
+			$this->load->view("templates/head.php", $headdata);
+			
+			if ($empRole === 'admin') {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				$this->load->view("templates/transNav.php");
+
+			}else{
+
+				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/transNav.php");
+
+			}
+			$this->load->view("templates/cancelledTransactions.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 

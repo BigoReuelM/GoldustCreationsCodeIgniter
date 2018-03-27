@@ -84,9 +84,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 
-		public function adminEmployeeManagement(){
+		public function adminEmployees(){
 			$data['admin'] = $this->admin_model->getAdminEmployees();
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Manage Employee | Admin';	
+			}else{
+				$headdata['pagename'] = 'Manage Employee | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/employeeNav.php");
+			$this->load->view("adminPages/adminEmployees.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+		public function handlerEmployees(){
 			$data['handler'] = $this->admin_model->getHandlerEmployees();
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Manage Employee | Admin';	
+			}else{
+				$headdata['pagename'] = 'Manage Employee | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/employeeNav.php");
+			$this->load->view("adminPages/handlerEmployees.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
+
+		public function staffEmployees(){
 			$data['staff'] = $this->admin_model->getStaffEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -102,10 +145,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/adminEmployee.php", $data);
+			$this->load->view("templates/employeeNav.php");
+			$this->load->view("adminPages/staffEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
 		}
+
+
+		public function oncallstaffEmployees(){
+			$data['oncallStaff'] = $this->admin_model->getOncallStaffEmployees();
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Manage Employee | Admin';	
+			}else{
+				$headdata['pagename'] = 'Manage Employee | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/employeeNav.php");
+			$this->load->view("adminPages/oncallStaffEmployees.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
 
 		public function addEmployee(){
 
@@ -115,7 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
 			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required');
-			$this->form_validation->set_rules('email', 'Email', 'trim|required');
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
 			$this->form_validation->set_rules('role', 'Role', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
