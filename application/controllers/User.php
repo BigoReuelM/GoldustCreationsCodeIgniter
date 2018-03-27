@@ -69,6 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 		//user-profile loader
+
+		public function changePassword(){
+			$username = $this->input->post('username');
+			$pin = $this->input->post('pin');
+
+			$this->user_model->resetPasstoDefault($username, $pin);
+
+			$this->session->set_flashdata('success_msg', 'Password reset to default.');
+			redirect('user/index');
+		}
 		
 		public function user_profile(){
 

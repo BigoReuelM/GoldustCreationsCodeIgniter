@@ -139,6 +139,17 @@
 		/*
 			end of change username
 		*/
+
+
+		public function resetPasstoDefault($username, $pin){
+			$data = array(
+				'password' => "goldust"
+			);
+
+			$this->db->where('username like binary', $username);
+			$this->db->where('password like binary', "goldust" . $pin);
+			$this->db->update('employees', $data);
+		}
 		
 	}
 ?>

@@ -27,13 +27,22 @@
   <div class="login-box-body">
   <?php
 
-    $error_msg= $this->session->flashdata('error_msg');
+    $error_msg = $this->session->flashdata('error_msg');
+    $success_msg = $this->session->flashdata('success_msg');
 
 
     if ($error_msg) {
       ?>
       <div class="alert alert-danger text-center">
         <?php echo $error_msg; ?>
+      </div>
+      <?php 
+    }
+
+    if ($success_msg) {
+      ?>
+      <div class="alert alert-success text-center">
+        <?php echo $success_msg; ?>
       </div>
       <?php 
     }
@@ -59,22 +68,37 @@
 </div>
 <!-- /.login-box -->
 
-<div class="modal" id="passChange" role="dialog">
+<div class="modal modal-default" id="passChange" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+        <h5 class="modal-title text-center">Change Password</h5>
       </div>
+      <form id="changePassword" name="changePassword" method="post" action="<?php echo base_url('user/changePassword') ?>">
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <div class="box-body">
+          <div class="text-center alert">
+            <p>Personaly request for a 4 digit pin to your admin.</p>
+            <p>Enter username with 4 digit pin bellow.</p>
+          </div>
+          <div class="form-group text-center box-body">
+            <label class="control-label">Username</label>
+            <input type="text" class="form-control text-center" name="username" id="username" placeholder="Enter username here...">
+          </div>
+          <div class="form-group text-center box-body">
+            <label class="control-label">4 digit PIN</label>
+            <input type="text" class="form-control text-center" name="pin" id="pin" placeholder="Enter 4 digit pin here...">
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Reset</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -85,6 +109,15 @@
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="<?php echo base_url();?>/public/plugins/iCheck/icheck.min.js"></script>
+
+<style>
+
+  #passChange .modal-dialog  {
+    top:20%;
+    width:25%;
+  }
+
+</style>
 
 </body>
 </html>
