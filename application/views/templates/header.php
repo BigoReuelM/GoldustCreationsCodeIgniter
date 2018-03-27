@@ -48,8 +48,7 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown messages-menu">
+          
             <!-- Notifications Menu -->
             <li class="dropdown notifications-menu">
               <!-- Menu toggle button -->
@@ -63,10 +62,16 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                 <ul class="menu">
                   <?php if (!empty($appToday)){
                   ?>
-                    <li><!-- start notification -->
-                      <a href="#">
+                    <li class="dropdown"><!-- start notification -->
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-users text-aqua"></i><?php echo $appCount ?> Appointments Today
                       </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li>test</li>
+                        <li>test</li>
+                        <li>test</li>
+                        <li>test</li>
+                      </ul>
                     </li>
                   <?php
                   }
@@ -129,6 +134,7 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
               <li class="footer"><a href="#">View all</a></li>
             </ul>
             </li>
+          
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->

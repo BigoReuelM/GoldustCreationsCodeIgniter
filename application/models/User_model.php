@@ -14,8 +14,8 @@
 	 
 			$this->db->select('*');
 			$this->db->from('employees');
-			$this->db->where('username',$username);
-			$this->db->where('password',$pass);
+			$this->db->where('username like binary',$username);
+			$this->db->where('password like binary',$pass);
 
 			if($query=$this->db->get())
 			{
@@ -25,6 +25,7 @@
 				return false;
 			}
 		}
+
 
 		public function getPassword($empID){
 			$query = $this->db->query("

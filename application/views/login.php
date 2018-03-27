@@ -18,15 +18,26 @@
 
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
   <div class="login-logo">
     <p><b>Goldust </b>Creations</p>
   </div>
-  <div id="message">
-    
-  </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+  <?php
+
+    $error_msg= $this->session->flashdata('error_msg');
+
+
+    if ($error_msg) {
+      ?>
+      <div class="alert alert-danger text-center">
+        <?php echo $error_msg; ?>
+      </div>
+      <?php 
+    }
+  ?>
     <p class="login-box-msg">Sign in to start your session</p>
 
     <form id="loginForm" role="form" method="post" action="<?php echo base_url('user/login_user'); ?>" autocomplete="off">

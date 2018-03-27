@@ -28,48 +28,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//method for user to login to his/her account
 		function login_user(){
 
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
 
-			$data = array('success' => false, 'messages' => array());
-
-			$this->form_validation->set_rules('username', 'Username', 'trim|required');
-			$this->form_validation->set_rules('password', 'Password', 'trim|required');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			if ($this->form_validation->run()) {
-
-				$username = $this->input->post('username');
-				$password = $this->input->post('password');
-
-				$data=$this->user_model->login_user($username, $password);
-
-				if($data)
-				{
-					$this->session->set_userdata('employeeID',$data['employeeID']);
-					$this->session->set_userdata('firstName',$data['firstName']);
-					$this->session->set_userdata('midName',$data['midName']);
-					$this->session->set_userdata('lastName',$data['lastName']);
-					$this->session->set_userdata('address',$data['address']);
-					$this->session->set_userdata('email',$data['email']);
-					$this->session->set_userdata('photo',$data['photo']);
-					$this->session->set_userdata('username',$data['username']);
-					$this->session->set_userdata('password',$data['password']);
-					$this->session->set_userdata('contactNumber',$data['contactNumber']);
-					$this->session->set_userdata('role',$data['role']);
-
-					if ($data['role'] === "admin") {
-						$this->session->set_userdata('sidebarControl', "0");
-						redirect('admin');
-					}else{
-						redirect('handler');
-					}
-				}
-				
-			}else{
-				foreach ($_POST as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
+			if (empty($username)) {
+				$this->session->set_flashdata('error_msg', 'Username field should not be empty!');
+				redirect('user/index');
 			}
 
-			echo json_encode($data);
+			if (empty($password)) {
+				$this->session->set_flashdata('error_msg', 'Password field should not be empty!');
+				redirect('user/index');
+			}
+
+			$data=$this->user_model->login_user($username,$password);
+			if($data)
+			{
+				$this->session->set_userdata('employeeID',$data['employeeID']);
+				$this->session->set_userdata('employeeName',$data['employeeName']);
+				$this->session->set_userdata('address',$data['address']);
+				$this->session->set_userdata('email',$data['email']);
+				$this->session->set_userdata('photo',$data['photo']);
+				$this->session->set_userdata('username',$data['username']);
+				$this->session->set_userdata('password',$data['password']);
+				$this->session->set_userdata('employeeContactNumber',$data['employeeContactNumber']);
+				$this->session->set_userdata('role',$data['role']);
+
+				if ($data['role'] === "admin") {
+					$this->session->set_userdata('sidebarControl', "0");
+					redirect('admin');
+				}else{
+					redirect('handler');
+				}
+
+			}
+			else{
+				$this->session->set_flashdata('error_msg', 'Error occured,Try again.');
+				redirect('user/index');
+			}
 
 		}
 		//user-profile loader
