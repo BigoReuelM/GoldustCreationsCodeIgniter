@@ -42,7 +42,13 @@
                 	?>
                 	<tr>
 	                    <td><?php echo $client['clientName'] ?></td>
-	                    <td><?php echo $client['registrationDate'] ?></td>
+	                    <td>
+                        <?php
+                          $date = date_create($client['registrationDate']); 
+                          $formatedDateAndTime = date_format($date, "M-d-Y g:i a");
+                          echo $formatedDateAndTime ;
+                        ?>
+                      </td>
 	                    <td><?php echo $client['contactNumber'] ?></td>
 	                    <td>
                         <?php if ($this->session->userdata('role') === "admin"): ?>
