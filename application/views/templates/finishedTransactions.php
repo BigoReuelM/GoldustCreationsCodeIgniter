@@ -23,10 +23,10 @@
           <table id ="rentalTable" class="table table-bordered table-condensed">
             <thead>
               <tr>
-                <th>Transaction ID</th>
                 <th>Client Name</th>
                 <th>Contact Number</th>
                 <th>Total Amount</th>
+                <th>Date Finished</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -40,11 +40,15 @@
               ?> 
                   
                   <tr>
-
-                    <td><?php echo $ftransac['transactionID']; ?></td>
                     <td><?php echo $ftransac['clientName']; ?></td>
                     <td><?php echo $ftransac['contactNumber']; ?></td>
-                    <td><?php echo $ftransac['totalAmount']; ?></td>
+                    <td>
+                      <?php
+                        $trasacAmountReformated = number_format($ftransac['totalAmount'], 2); 
+                        echo $trasacAmountReformated; 
+                      ?>
+                    </td>
+                    <td><p>to be added to data base</p></td>
                     <td>
 
                       <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">
