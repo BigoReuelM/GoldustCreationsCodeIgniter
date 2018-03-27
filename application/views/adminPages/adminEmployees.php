@@ -111,13 +111,13 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Contact Number</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
+                <input type="tel" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Email</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="email" name="email" placeholder="email@gmail.com">
+                <input type="email" class="form-control" id="email" name="email" placeholder="email@gmail.com">
               </div>
             </div>
             <div class="form-group">

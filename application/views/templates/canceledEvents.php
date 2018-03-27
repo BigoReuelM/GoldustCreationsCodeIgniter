@@ -58,7 +58,12 @@
                               echo $newDate; 
                             ?>
                           </td>
-                          <td><?php echo $event['refundedAmount']; ?></td>
+                          <td>
+                            <?php
+                              $refundedAmountFormated = number_format($event['refundedAmount'], 2); 
+                              echo $refundedAmountFormated; 
+                            ?>
+                          </td>
                           <td>
                             <div class="col-md-6 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
