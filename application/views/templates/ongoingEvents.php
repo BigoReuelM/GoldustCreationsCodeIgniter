@@ -29,8 +29,7 @@
                         <th>Client Name</th>
                         <th>Event Type</th>
                         <th>Package Type</th>
-                        <th>Event Date</th>
-                        <th>Event Time</th>
+                        <th>Event Date and Time</th>
                         <th>Event Location</th>
                         <th>Actions</th>
                       </tr>
@@ -48,8 +47,14 @@
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
                           <td><?php echo $event['packageType']; ?></td>
-                          <td><?php echo $event['eventDate']; ?></td>
-                          <td><?php echo $event['eventTime']; ?></td>
+                          <td>
+                            <?php
+                              $date = date_create($event['eventDate']);
+                              $newDate = date_format($date, "M-d-Y");
+                              $newTime = date("g:i a", strtotime($event['eventTime'])); 
+                              echo $newDate . " at " . $newTime; 
+                            ?>
+                          </td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
                             <!--

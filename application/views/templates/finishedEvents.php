@@ -47,8 +47,20 @@
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
                           <td><?php echo $event['packageType']; ?></td>
-                          <td><?php echo $event['eventDate']; ?></td>
-                          <td><p>place in database</p></td>
+                          <td>
+                            <?php
+                              $date = date_create($event['eventDate']);
+                              $newDate = date_format($date, "M-d-Y"); 
+                              echo $newDate; 
+                            ?>
+                          </td>
+                          <td>
+                            <?php
+                              $date = date_create($event['finishedDate']);
+                              $newDate = date_format($date, "M-d-Y"); 
+                              echo $newDate; 
+                            ?>
+                          </td>
                           <td><?php echo $event['eventLocation']; ?></td>
                           <td>
                             <div class="col-md-3 col-sm-4">

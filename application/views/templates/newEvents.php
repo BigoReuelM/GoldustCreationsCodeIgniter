@@ -54,8 +54,14 @@
                       <td><?php echo $event['clientName']; ?></td>
                       <td><?php echo $event['eventType']; ?></td>
                       <td><?php echo $event['packageType']; ?></td>
-                      <td><?php echo $event['eventDate']; ?></td>
-                      <td><?php echo $event['eventTime']; ?></td>
+                      <td>
+                        <?php
+                          $date = date_create($event['eventDate']);
+                          $newDate = date_format($date, "M-d-Y");
+                          $newTime = date("g:i a", strtotime($event['eventTime'])); 
+                          echo $newDate . " at " . $newTime; 
+                        ?>
+                      </td>
                       <td><?php echo $event['eventLocation']; ?></td>
                       <td>
                         <!--

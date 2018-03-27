@@ -378,6 +378,7 @@ class Events extends CI_Controller
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 		$data['clientName']=$this->events_model->getClientName($cid);
+		$data['receiver']=$this->events_model->getPaymentReceiver($currentEvent);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Payments | Admin';	
 		}else{

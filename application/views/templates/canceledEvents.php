@@ -27,10 +27,9 @@
                         <th>Event Name</th>
                         <th>Client Name</th>
                         <th>Event Type</th>
-                        <th>Event Date</th>                        
-                        <th>Event Location</th>
+                        <th>Event Date</th>
+                        <th>Date Cancelled</th>                        
                         <th>Refunded Amount</th>
-                        <th>Date Cancelled</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -45,10 +44,21 @@
                           <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
-                          <td><?php echo $event['eventDate']; ?></td>
-                          <td><?php echo $event['eventLocation']; ?></td>
+                          <td>
+                            <?php
+                              $date = date_create($event['eventDate']);
+                              $newDate = date_format($date, "M-d-Y"); 
+                              echo $newDate; 
+                            ?>
+                          </td>
+                          <td>
+                            <?php
+                              $date = date_create($event['cancelledDate']);
+                              $newDate = date_format($date, "M-d-Y"); 
+                              echo $newDate; 
+                            ?>
+                          </td>
                           <td><?php echo $event['refundedAmount']; ?></td>
-                          <td><?php echo $event['cancelledDate']; ?></td>
                           <td>
                             <div class="col-md-6 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">

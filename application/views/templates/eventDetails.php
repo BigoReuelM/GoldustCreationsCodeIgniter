@@ -92,14 +92,18 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
+                <?php
+                  $date = date_create($eventDetail->dateAssisted);
+                  $dateAvailed = date_format($date, "M-d-Y");  
+                ?>
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $dateAvailed ?>" value="">
               </div>
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Package Availed</label>
                   <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
@@ -143,26 +147,37 @@
 
               <div class="form-group">   
                 <label>Total Amount Due</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
+                <?php 
+                  $formatedTotal = number_format($totalAmount->totalAmount, 2);
+                ?>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
               </div>
               <div class="form-group">
                 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Date</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventDate ?>" disabled>  
+                  <?php
+                    $date = date_create($eventDetail->eventDate);
+                    $newDate = date_format($date, "M-d-Y"); 
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Date</label>
                   <input type="date" class="form-control" name="eventDate">
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Time</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventTime ?>" disabled>
+                  <?php 
+                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime')); 
+                    
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Time</label>
                   <input type="time" class="form-control" name="eventTime">
                 </div>
