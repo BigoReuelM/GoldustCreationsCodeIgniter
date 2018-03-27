@@ -2,8 +2,15 @@
 $employeeID = $this->session->userdata('employeeID');
 $employeeName = $this->session->userdata('employeeName');
 $photo = $this->session->userdata('photo');
+$appCount = count($appToday);
+$eventCount = count($eventsToday);
+$overTCount = count($overTRent);
+$overECount = count($overERent);
+$incECount = count($incEvents);
+$incACount = count($incAppointment);
 
- ?>
+$notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECount + $incACount;
+?>
 <header class="main-header">
     <nav class="navbar navbar-static-top">
         <div class="navbar-header">
@@ -48,14 +55,13 @@ $photo = $this->session->userdata('photo');
               <!-- Menu toggle button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span class="label label-warning"><?php echo $notifTotalCount ?></span>
               </a>
               <ul class="dropdown-menu">
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
                   <?php if (!empty($appToday)){
-                    $appCount = count($appToday);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -66,7 +72,6 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($eventsToday)){
-                    $eventCount = count($eventsToday);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -77,7 +82,6 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($overTRent)){
-                    $overTCount = count($overTRent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -88,7 +92,6 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($overERent)){
-                    $overECount = count($overERent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -99,7 +102,7 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($incEvents)){
-                    $incECount = count($incEvents);
+                    
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -110,7 +113,7 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($incAppointment)){
-                    $incACount = count($incAppointment);
+                    
                   ?>
                     <li><!-- start notification -->
                       <a href="#">

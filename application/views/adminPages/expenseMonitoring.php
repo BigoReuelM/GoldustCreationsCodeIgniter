@@ -25,7 +25,6 @@
                   <th>Amount</th>
                   <th>Description</th>
                   <th>Date</th>
-                  <th>Proof</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +38,6 @@
                   <td><?php  echo $expense['expensesAmount']; ?></td>
                   <td><?php  echo $expense['expensesName']; ?></td>
                   <td><?php  echo $expense['expenseDate']; ?></td>
-                  <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
                 </tr>
                 <?php
                     }
