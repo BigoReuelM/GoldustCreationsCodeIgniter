@@ -27,24 +27,21 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo base_url('events/newEvents') ?>">New Events</a></li>
-                <li><a href="<?php echo base_url('events/ongoingEvents') ?>">Ongoing Events</a></li>
-                <li><a href="<?php echo base_url('events/finishedEvents') ?>">Finished Events</a></li>
-                <li><a href="<?php echo base_url('events/canceledEvents') ?>">Canceled Events</a></li>
-              </ul>
+            <li>
+              <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo base_url('transactions/transactions') ?>">Service Transactions</a></li>
-                <li><a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a></li>
-              </ul>
+            <li>
+              <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Service Transactions</a>
             </li>
-            <li><a href="<?php echo base_url('items/gowns') ?>">Gallery</a></li>
-            <li><a href="<?php echo base_url('clients/clients') ?>">Clients</a></li>
+            <li>
+              <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('items/gowns') ?>">Gallery</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('clients/clients') ?>">Clients</a>
+            </li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->

@@ -79,10 +79,11 @@
 
 		public function getExpenses(){
 
-
-			$this->db->select('*');
-			$this->db->from('expenses');
-			$query = $this->db->get();
+			$query = $this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM expenses
+				NATURAL JOIN employees
+			");
 			return $query->result_array();
 		}
 

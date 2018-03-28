@@ -43,9 +43,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/newEvents.php", $data);
@@ -77,9 +79,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/ongoingEvents.php", $data);
@@ -109,9 +113,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/finishedEvents.php", $data);
@@ -139,9 +145,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/canceledEvents.php", $data);
@@ -370,6 +378,7 @@ class Events extends CI_Controller
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 		$data['clientName']=$this->events_model->getClientName($cid);
+		$data['receiver']=$this->events_model->getPaymentReceiver($currentEvent);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Payments | Admin';	
 		}else{
@@ -780,7 +789,7 @@ class Events extends CI_Controller
 			$this->load->view('entourage', $data);
 		}*/
 
-		public function showEntourageRole(){
+		/*public function showEntourageRole(){
 			$data = array();
 			$this->load->model('events_model');
 			$query = $this->events_model->getRole();
@@ -788,7 +797,7 @@ class Events extends CI_Controller
 				$data['roles'] = $query; 
 			}
 			$this->load->view('eventEntourage', $data);
-		}
+		}*/
 
 		public function showDesignName(){
 			$data = array();
@@ -812,7 +821,7 @@ class Events extends CI_Controller
 			$entID = $this->session->userdata('currentEntourageID');
 			$desID = $this->session->userdata('currentDesignID');
 
-			$entRole = $this->input->post('role');
+			//$entRole = $this->input->post('role');
 			$entAttireQty = $this->input->post('quantity');
 			$designName = $this->input->post('designName');
 
@@ -820,9 +829,9 @@ class Events extends CI_Controller
 			if (!empty($entAttireQty)) {
 				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
 			}
-			if (!empty($entRole)) {
+			/*if (!empty($entRole)) {
 				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}
+			}*/
 			if (!empty($designName)) {
 				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
 			}

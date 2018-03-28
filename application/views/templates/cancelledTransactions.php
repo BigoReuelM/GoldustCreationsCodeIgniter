@@ -23,10 +23,10 @@
               <table id ="rentalTable" class="table table-bordered table-condensed">
                 <thead>
                   <tr>
-                    <th>Transaction ID</th>
                     <th>Client Name</th>
                     <th>Contact Number</th>
                     <th>Total Amount</th>
+                    <th>Cancelled Date</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -40,11 +40,21 @@
                   ?> 
                       
                       <tr>
-
-                        <td><?php echo $ctransac['transactionID']; ?></td>
                         <td><?php echo $ctransac['clientName']; ?></td>
                         <td><?php echo $ctransac['contactNumber']; ?></td>
-                        <td><?php echo $ctransac['totalAmount']; ?></td>
+                        <td>
+                          <?php
+                            $trasacAmountReformated = number_format($ctransac['totalAmount'], 2); 
+                            echo $trasacAmountReformated; 
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            $date = date_create($ctransac['cancelledDate']);
+                            $newDate = date_format($date, "M-d-Y");
+                            echo $newDate; 
+                          ?>
+                        </td>
                         <td>
 
                           <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">

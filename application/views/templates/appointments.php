@@ -27,10 +27,9 @@
             <thead>
             
             <tr>
-              <th>Date</th>
-              <th>Time</th>
+              <th>Status</th>
+              <th>Date and Time</th>
               <th>Agenda</th>
-              
             </tr>
 
             </thead>
@@ -40,8 +39,15 @@
                   foreach ($appointments as $appointment) {                
               ?>
               <tr>
-                <td><?php echo $appointment['date'] ?></td>
-                <td><?php echo $appointment['time'] ?></td>
+                <td><?php echo $appointment['status'] ?></td>
+                <td>
+                  <?php
+                    $date = date_create($appointment['date']);
+                    $newDate = date_format($date, "M-d-Y");
+                    $newTime = date("g:i a", strtotime($appointment['time'])); 
+                    echo $newDate . " at " . $newTime; 
+                  ?>
+                </td>
                 <td><?php echo $appointment['agenda'] ?></td>
               </tr>
               <?php  

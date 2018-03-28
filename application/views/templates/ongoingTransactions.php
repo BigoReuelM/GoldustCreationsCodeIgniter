@@ -20,10 +20,10 @@
             <table id ="rentalTable" class="table table-bordered table-condensed">
               <thead>
                 <tr>
-                  <th>Transaction ID</th>
                   <th>Client Name</th>
                   <th>Contact Number</th>
                   <th>Total Amount</th>
+                  <th>Date and Time Availed</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -38,11 +38,22 @@
                 ?> 
                     
                     <tr>
-
-                      <td><?php echo $transac['transactionID']; ?></td>
                       <td><?php echo $transac['clientName']; ?></td>
                       <td><?php echo $transac['contactNumber']; ?></td>
-                      <td><?php echo $transac['totalAmount']; ?></td>
+                      <td>
+                        <?php
+                          $transacAmountReformated = number_format($transac['totalAmount'], 2);
+                          echo $transacAmountReformated; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php
+                          $date = date_create($transac['dateAvail']);
+                          $newDate = date_format($date, "M-d-Y");
+                          $newTime = date("g:i a", strtotime($transac['time'])); 
+                          echo $newDate . " at " . $newTime; 
+                        ?>
+                      </td>
                       <td>
 
                         <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">

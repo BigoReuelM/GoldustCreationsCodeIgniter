@@ -88,14 +88,18 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
+                <?php
+                  $date = date_create($eventDetail->dateAssisted);
+                  $dateAvailed = date_format($date, "M-d-Y");  
+                ?>
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $dateAvailed ?>" value="">
               </div>
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Package Availed</label>
                   <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
@@ -139,26 +143,37 @@
 
               <div class="form-group">   
                 <label>Total Amount Due</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
+                <?php 
+                  $formatedTotal = number_format($totalAmount->totalAmount, 2);
+                ?>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
               </div>
               <div class="form-group">
                 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Date</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventDate ?>" disabled>  
+                  <?php
+                    $date = date_create($eventDetail->eventDate);
+                    $newDate = date_format($date, "M-d-Y"); 
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Date</label>
                   <input type="date" class="form-control" name="eventDate">
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Time</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventTime ?>" disabled>
+                  <?php 
+                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime')); 
+                    
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Time</label>
                   <input type="time" class="form-control" name="eventTime">
                 </div>
@@ -190,11 +205,10 @@
   </div>
 
   <div class="row">
+      
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-          <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
-          <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>    
-    <?php endif ?>
+      </div>         <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
       <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
@@ -205,8 +219,7 @@
 
     <?php if ($eventDetail->eventStatus === "finished"): ?>
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-    <?php endif ?>
-          
+    <?php endif ?>        
   </div>
 
   <div class="control-sidebar-bg"></div> 
@@ -452,6 +465,64 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="printDetails">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <form id="printEventDetails" method="post" action="<?php echo base_url('printDetailsAndReports/create_pdf') ?>">
+          <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="eventDetails">
+            <label class="control-label">Event Details</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="payment">
+            <label class="control-label">Event Payments</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="entourage">
+            <label class="control-label">Event Entourage</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="decors">
+            <label class="control-label">Event Decors</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="services">
+            <label class="control-label">Event Services</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="staff">
+            <label class="control-label">Event Staff</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="appointments">
+            <label class="control-label">Event Appointments</label>
+          </div>  
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="printEventDetails" type="submit" class="btn btn-primary">Confirm</button>
       </div>
     </div>
     <!-- /.modal-content -->

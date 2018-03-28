@@ -42,7 +42,13 @@
                 	?>
                 	<tr>
 	                    <td><?php echo $client['clientName'] ?></td>
-	                    <td><?php echo $client['registrationDate'] ?></td>
+	                    <td>
+                        <?php
+                          $date = date_create($client['registrationDate']); 
+                          $formatedDateAndTime = date_format($date, "M-d-Y g:i a");
+                          echo $formatedDateAndTime ;
+                        ?>
+                      </td>
 	                    <td><?php echo $client['contactNumber'] ?></td>
 	                    <td>
                         <?php if ($this->session->userdata('role') === "admin"): ?>
@@ -94,7 +100,7 @@
 		      <h4 class="modal-title">Add New Client</h4>
 		    </div>
         <?php 
-          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal");
+          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("clients/addClient", $attributes);
         ?>
         <div id="the-message">

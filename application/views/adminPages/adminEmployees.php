@@ -50,7 +50,7 @@
                   <td><?php echo $a['contactNumber'] ?></td>
                   <td><?php echo $a['role'] ?></td>
                   <td>                   
-                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post" autocomplete="off">
                       <input type="text" name="employeeID" value="<?php echo $adminID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
@@ -78,7 +78,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "enctype" => "multipart/form-data");
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "enctype" => "multipart/form-data", "autocomplete" => "off");
         echo form_open("admin/addEmployee", $attributes);
       ?>
         <div class="modal-header">
@@ -111,13 +111,13 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Contact Number</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
+                <input type="tel" class="form-control" id="cNumber" name="cNumber" placeholder="Enter Contact Number ... ">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Email</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control" id="email" name="email" placeholder="email@gmail.com">
+                <input type="email" class="form-control" id="email" name="email" placeholder="email@gmail.com">
               </div>
             </div>
             <div class="form-group">
