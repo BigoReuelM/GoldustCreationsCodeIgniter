@@ -173,6 +173,11 @@
 			);
 			$this->db->insert('theme', $data);
 		}
+
+		public function getDecorTypes(){
+			$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
+			return $query->result_array();
+		}
 		
 	}
  ?>

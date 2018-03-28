@@ -669,6 +669,40 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		public function getThemeDecors($currentThemeID){
+			$currentThemeID = $this->session->userdata('currentTheme');
+			$query = $this->db->query("
+				SELECT * FROM themedecor JOIN decors ON themedecor.decorID = decors.decorsID WHERE themeID = $currentThemeID"
+			);
+			/*$this->db->select('*');
+			$this->db->from('themedecor');
+			$this->db->join('decors', 'themedecor.decorID = decors.decorsID');
+			$this->db->where('themeID', $currentThemeID);
+			$query = $this->db->get();*/
+			return $query->result_array();
+		}
+
+		public function getThemeDesigns($currentThemeID){
+			/*$this->db->select('*');
+			$this->db->from('themedesign');
+			$query = $this->db->get();
+			return $query->result_array();*/
+			$currentThemeID = $this->session->userdata('currentTheme');
+			$query = $this->db->query("
+				SELECT * FROM themedesign JOIN designs ON themedesign.designID = designs.designID WHERE themeID = $currentThemeID"
+			);
+			return $query->result_array();
+		}
+
+		public function getThemeDetails($currentThemeID){
+			$currentThemeID = $this->session->userdata('currentTheme');
+			$query = $this->db->query("
+				SELECT * FROM theme WHERE themeID = $currentThemeID;
+				");
+			//$query = $this->db->get();
+			return $query->row();
+		}
 	}
 
 
