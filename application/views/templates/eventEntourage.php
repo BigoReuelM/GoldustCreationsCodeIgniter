@@ -28,7 +28,7 @@
               <th>Design ID</th>
               <th>Name</th>
               <th>Quantity</th>
-              <th>Role</th>
+              <!--th>Role</th-->
               <th>Image</th>
               <th>Action</th>
             </tr>
@@ -47,12 +47,13 @@
                 <!--td><?php echo $design['quantity'] ?></td-->
                 <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $design['quantity'] ?>"></td>
                 <td>
-                  <!--?php echo form_dropdown('nagan', $data['results']) ?-->
+                  <!--?php echo form_dropdown('nagan', $data['results']) ?
                   <select name="role">
                     <option selected hidden>Please Choose</option>
                     <?php if(!empty($entourageRole)){ 
                       foreach($entourageRole as $role) { ?>
-                    <option value="<?php echo $role['role'] ?>" id="role"><?php echo $role['role'] ?></option>
+                    <option value="<?php echo $role['role'] ?>" id="role"><?php echo $role['role'] ?></option>-->
+
                     <?php } 
                       }else{ 
                         echo "no role"; 
@@ -206,7 +207,7 @@
                                $entId = $det['entourageID'];     
                           ?>
                           <tr>
-                            <td><input class="form-control" type="text" id="entName" name="entName" placeholder="<?php echo $det['entourageName'] ?>" disabled></td>
+                            <td><input class="form-control" type="text" id="entName" name="entName" placeholder="<?php echo $det['entourageName'] ?>" ></td>
                             <td><input class="form-control" type="text" id="role" name="role" placeholder="<?php echo $det['role'] ?>"></td>
                             <td><input class="form-control" type="text" id="shoulder" name="shoulder" placeholder="<?php echo $det['shoulder'] ?>" size="3"></td>
                             <td><input class="form-control" type="text" id="chest" name="chest" placeholder="<?php echo $det['chest'] ?>" size="3"></td>
@@ -239,7 +240,6 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
                 </div>
               </div>
               <!-- /.modal-content -->
@@ -353,15 +353,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Design Photo </label>
-                        <img src="">
-                        </div>
-                    </div>
-                    </div>
- 
                         <!-- /.box-body -->
                   </div>
                   </div>
