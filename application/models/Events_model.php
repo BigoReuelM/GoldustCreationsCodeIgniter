@@ -567,7 +567,7 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
-		public function getEntourageRole(){
+		/*public function getEntourageRole(){
 			$eventID = $this->session->userdata('currentEventID');
 			$query = $this->db->query("
 				SELECT entourage.role
@@ -577,7 +577,7 @@
 			");
 
 			return $query->result_array();
-		}
+		}*/
 
 		public function getDesignName(){
 			$eventID = $this->session->userdata('currentEventID');
@@ -628,7 +628,7 @@
 			
 		}
 
-		public function updateAttireRole($evID, $entID, $entRole){
+		/*public function updateAttireRole($evID, $entID, $entRole){
 				$eID = $this->session->userdata('currentEventID');
 				$entID = $this->session->userdata('currentEntourageID');
 				$desID = $this->session->userdata('currentDesignID');
@@ -641,7 +641,7 @@
 					AND entourage.role = $entRole
 				");
 				//UPDATE entourage JOIN entouragedetails using(entourageID) SET entouragedetails.designID ='001' WHERE entourage.eventID='001' and entourage.role='Brides Maid'
-		}
+		}*/
 
 		/*public function getEntourageDet($currentEventID, $currentDesignID, $currentEntourageID) {
 			$evID = $this->session->userdata('$currentEventID');
