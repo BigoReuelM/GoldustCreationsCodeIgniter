@@ -7,16 +7,9 @@
 </style>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Home
-      </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
-    <a href = "<?php echo base_url('admin/viewReports') ?>" id="reps"> Reports </a>
         <div class="row">
           <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-red">

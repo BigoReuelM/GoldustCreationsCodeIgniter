@@ -10,8 +10,6 @@
 <!-- Main content -->
 <section class="content container-fluid">
   <section class="content-header">
-    <div class="row">
-      <div class="col-lg-3">
           <h1>
             <?php
             //foreach ($eventName as $name) {
@@ -21,9 +19,7 @@
             //}
               
             ?>
-          </h1>        
-      </div>
-    </div>
+          </h1>
   </section>
   <div class="row">
     <div class="box box-primary">
@@ -195,33 +191,20 @@
 
   <div class="row">
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
-      <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-      </div>
-
-      <div class="col-lg-3">
-        <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
-      </div>
-      <div class="col-lg-3">
-        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>     
+          <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
+          <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>    
     <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
       <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
-        <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
-        </div>
       </form>
-      <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>
     <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "finished"): ?>
-      <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>
     <?php endif ?>
           
   </div>
