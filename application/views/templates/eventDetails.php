@@ -219,7 +219,7 @@
         <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
       </div>
       <div class="col-lg-3">
-        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+        <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#printDetails">Print Event Details</button>
       </div>     
     <?php endif ?>
 
@@ -484,6 +484,64 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="printDetails">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <form id="printEventDetails" method="post" action="<?php echo base_url('printDetailsAndReports/create_pdf') ?>">
+          <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="eventDetails">
+            <label class="control-label">Event Details</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="payment">
+            <label class="control-label">Event Payments</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="entourage">
+            <label class="control-label">Event Entourage</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="decors">
+            <label class="control-label">Event Decors</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="services">
+            <label class="control-label">Event Services</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="staff">
+            <label class="control-label">Event Staff</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="appointments">
+            <label class="control-label">Event Appointments</label>
+          </div>  
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="printEventDetails" type="submit" class="btn btn-primary">Confirm</button>
       </div>
     </div>
     <!-- /.modal-content -->
