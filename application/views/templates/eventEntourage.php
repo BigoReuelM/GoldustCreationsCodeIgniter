@@ -25,8 +25,9 @@
           <table id="designTable" class="table table-bordered table-striped text-center">
             <thead>
             <tr>
-              <th>Design ID</th>
+              <!--<th>Design ID</th-->
               <th>Name</th>
+              <th>Role</th>
               <th>Quantity</th>
               <th>Image</th>
               <th>Action</th>
@@ -41,14 +42,26 @@
                      
               ?>
               <tr>
-                <td><?php echo $design['designID'] ?></td>
+                <!--td><?php echo $design['designID'] ?></td-->
                 <td><?php echo $design['designName'] ?></td>
                 <!--td><?php echo $design['quantity'] ?></td-->
+                <td>
+                  <select name="role">
+                    <option selected hidden>Please Choose</option>
+                    <?php if(!empty($entourageRole)){ 
+                      foreach($entourageRole as $role) { ?>
+                    <option value="<?php echo $role['role'] ?>" id="role"><?php echo $role['role'] ?></option>
+                    <?php } 
+                      }else{ 
+                        echo "no role"; 
+                        } 
+                      ?>
+                  </select></td>
                 <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $design['quantity'] ?>"></td>
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4">
-                    <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntourageDetails') ?>">
+                    <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateDesignName') ?>">
                       <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($desID)?>"> Update <i class="fa fa-exchange" > </i>
                       </button>
                     </form>
@@ -127,7 +140,7 @@
                     <td>
                       
                       <div class="col-md-3 col-sm-4">
-                        <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntourageDetails') ?>">
+                        <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateAttireQty') ?>">
                           <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value="<?php echo($entID)?>"> Update <i class="fa fa-exchange" > </i>
                           </button>
                         </form>

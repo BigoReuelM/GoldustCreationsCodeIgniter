@@ -623,17 +623,14 @@
 		}
 
 		public function updateAttireDesign($evID, $entID, $designName){
-				/*$data = array(
-					'designName' => $designName
-				);
+			$evID = $this->session->userdata('$currentEventID');
+			$enID = $this->session->userdata('$currentEntourageID');
+			$desID = $this->session->userdata('$currentDesignID');
 
-				$this->db->where('eventID', $evID);
-				$this->db->where('entourageID', $entID);
-				$this->db->update('Entourage', $data);*/
-
-				
-
+			$query= $this->db->query("
+				SELECT designID, designName, quantity, role FROM (SELECT designID, role FROM `entouragedetails` join entourage using($enID) where eventID='$evID') AS entourage join designs using ($desID) join eventdesigns USING(currentDesignID) where eventID='$evID' group by role");
 			
+			return $query->result_array();
 		}
 
 		/*public function updateAttireRole($evID, $entID, $entRole){
