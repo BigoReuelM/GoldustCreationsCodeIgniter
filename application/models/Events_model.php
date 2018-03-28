@@ -139,6 +139,15 @@
 			return $query->row();
 		}
 
+		public function getPaymentReceiver($ceid){
+			$query = $this->db->query("
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName 
+				FROM employees NATURAL JOIN payments
+				WHERE payments.eventID = $ceid 
+			");
+			return $query->row();
+		}
+
 		public function getClientName($cid){
 			$query = $this->db->query("SELECT concat(firstName, ' ', middleName, ' ', lastName) as clientName FROM clients where clientID = $cid");
 			return $query->row();
@@ -269,11 +278,9 @@
 
 		public function getAppointments($ceid){
 			$query = $this->db->query("
-				SELECT eventName, appointments.date, appointments.time, agenda, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				SELECT *
 				FROM appointments
-				NATURAL JOIN events
-				NATURAL JOIN employees
-				WHERE appointments.eventID = $ceid
+				WHERE eventID = $ceid
 			");
 
 			return $query->result_array();
@@ -333,7 +340,8 @@
 				'date' => $adate,
 				'time' => $time,
 				'agenda' => $agenda,
-				'employeeID' => $employeeID
+				'employeeID' => $employeeID,
+				'status' => "ongoing"
 			);
 
 			$this->db->insert('appointments', $data);

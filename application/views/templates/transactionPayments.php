@@ -37,10 +37,9 @@
         <table id="paymentTable" class="table table-bordered">
           <thead>
             <tr>
-              <th>Payment ID</th>
+              <th>Receiver</th>
+              <th>Date and Time</th>
               <th>Amount</th>
-              <th>Date</th>
-              <th>Time</th>
             </tr>
           </thead>
           <tbody id="paymentTableBody"> 
@@ -48,10 +47,21 @@
               foreach ($payments as $payment) {
             ?>
               <tr>
-                <td><?php echo $payment['paymentID'] ?></td>
-                <td><?php echo $payment['amount'] ?></td>
-                <td><?php echo $payment['date'] ?></td>
-                <td><?php echo $payment['time'] ?></td>
+                <td><?php echo $payment['employeeName'] ?></td>
+                <td>
+                  <?php
+                    $date = date_create($payment['date']);
+                    $newDate = date_format($date, "M-d-Y");
+                    $newTime = date("g:i a", strtotime($payment['time']));
+                    echo $newDate . " at " . $newTime; 
+                  ?>
+                </td>
+                <td>
+                  <?php 
+                    $formatedPaymentAmount = number_format($payment['amount'], 2);
+                    echo $formatedPaymentAmount; 
+                  ?>
+                </td>
               </tr>
             <?php 
                 }

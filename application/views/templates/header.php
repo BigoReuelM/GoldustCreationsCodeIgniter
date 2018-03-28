@@ -1,9 +1,19 @@
 <?php
 $employeeID = $this->session->userdata('employeeID');
-$employeeName = $this->session->userdata('employeeName');
+$firstName = $this->session->userdata('firstName');
+$midName = $this->session->userdata('midName');
+$lastName = $this->session->userdata('lastName');
+$employeeName =  $firstName . " " . $midName . " " . $lastName;
 $photo = $this->session->userdata('photo');
+$appCount = count($appToday);
+$eventCount = count($eventsToday);
+$overTCount = count($overTRent);
+$overECount = count($overERent);
+$incECount = count($incEvents);
+$incACount = count($incAppointment);
 
- ?>
+$notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECount + $incACount;
+?>
 <header class="main-header">
     <nav class="navbar navbar-static-top">
         <div class="navbar-header">
@@ -17,56 +27,56 @@ $photo = $this->session->userdata('photo');
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Events <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo base_url('events/newEvents') ?>">New Events</a></li>
-                <li><a href="<?php echo base_url('events/ongoingEvents') ?>">Ongoing Events</a></li>
-                <li><a href="<?php echo base_url('events/finishedEvents') ?>">Finished Events</a></li>
-                <li><a href="<?php echo base_url('events/canceledEvents') ?>">Canceled Events</a></li>
-              </ul>
+            <li>
+              <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
             </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Services <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php echo base_url('transactions/transactions') ?>">Service Transactions</a></li>
-                <li><a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a></li>
-              </ul>
+            <li>
+              <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Service Transactions</a>
             </li>
-            <li><a href="<?php echo base_url('items/gowns') ?>">Gallery</a></li>
-            <li><a href="<?php echo base_url('clients/clients') ?>">Clients</a></li>
+            <li>
+              <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('items/gowns') ?>">Gallery</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('clients/clients') ?>">Clients</a>
+            </li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <!-- Messages: style can be found in dropdown.less-->
-            <li class="dropdown messages-menu">
+          
             <!-- Notifications Menu -->
             <li class="dropdown notifications-menu">
               <!-- Menu toggle button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span class="label label-warning"><?php echo $notifTotalCount ?></span>
               </a>
               <ul class="dropdown-menu">
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
                   <?php if (!empty($appToday)){
-                    $appCount = count($appToday);
                   ?>
-                    <li><!-- start notification -->
-                      <a href="#">
+                    <li class="dropdown"><!-- start notification -->
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-users text-aqua"></i><?php echo $appCount ?> Appointments Today
                       </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li>test</li>
+                        <li>test</li>
+                        <li>test</li>
+                        <li>test</li>
+                      </ul>
                     </li>
                   <?php
                   }
                   ?>
                   <?php if (!empty($eventsToday)){
-                    $eventCount = count($eventsToday);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -77,7 +87,6 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($overTRent)){
-                    $overTCount = count($overTRent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -88,7 +97,6 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($overERent)){
-                    $overECount = count($overERent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -99,7 +107,7 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($incEvents)){
-                    $incECount = count($incEvents);
+                    
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -110,7 +118,7 @@ $photo = $this->session->userdata('photo');
                   }
                   ?>
                   <?php if (!empty($incAppointment)){
-                    $incACount = count($incAppointment);
+                    
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -126,6 +134,7 @@ $photo = $this->session->userdata('photo');
               <li class="footer"><a href="#">View all</a></li>
             </ul>
             </li>
+          
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <!-- Menu Toggle Button -->
@@ -145,7 +154,10 @@ $photo = $this->session->userdata('photo');
                   <img class="img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
 
                   <p>
-                    <?php echo($employeeName)?> - Event Handler
+                    <?php echo($employeeName)?>
+                  </p>
+                  <p>
+                    Event Handler
                   </p>
                 </li>
                 <!-- Menu Footer-->

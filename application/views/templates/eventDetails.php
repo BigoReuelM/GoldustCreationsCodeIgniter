@@ -59,17 +59,6 @@
 
                 <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
 
-                <p class="text-muted text-center">Event Handler</p>
-
-                <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                    <b>Events</b> <a class="pull-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Transactions</b> <a class="pull-right">543</a>
-                  </li>
-                </ul>
-
                 <?php 
                   }else{
                     echo "
@@ -103,14 +92,18 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
+                <?php
+                  $date = date_create($eventDetail->dateAssisted);
+                  $dateAvailed = date_format($date, "M-d-Y");  
+                ?>
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $dateAvailed ?>" value="">
               </div>
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Package Availed</label>
                   <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
@@ -154,26 +147,37 @@
 
               <div class="form-group">   
                 <label>Total Amount Due</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
+                <?php 
+                  $formatedTotal = number_format($totalAmount->totalAmount, 2);
+                ?>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
               </div>
               <div class="form-group">
                 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Date</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventDate ?>" disabled>  
+                  <?php
+                    $date = date_create($eventDetail->eventDate);
+                    $newDate = date_format($date, "M-d-Y"); 
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Date</label>
                   <input type="date" class="form-control" name="eventDate">
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Time</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventTime ?>" disabled>
+                  <?php 
+                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime')); 
+                    
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Time</label>
                   <input type="time" class="form-control" name="eventTime">
                 </div>
@@ -205,6 +209,7 @@
   </div>
 
   <div class="row">
+      
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
       <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
@@ -233,8 +238,7 @@
       <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
       </div>
-    <?php endif ?>
-          
+    <?php endif ?>        
   </div>
 
   <div class="control-sidebar-bg"></div> 
@@ -443,49 +447,49 @@
 <!--end of fisnish event modal-->
 <!-- Select handler Modal -->
 <div class="modal fade" id="select-handler">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Select Handler</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to select this handler?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <button form="#updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select Handler</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to select this handler?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
         <!-- /.modal -->
 
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
 <div class="modal fade" id="update-details">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Update Details</h4>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to update?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                  <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 <!-- End of Update Details -->
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -524,16 +528,19 @@
     }
   }
 
-  #add-event .modal-dialog {
-    width:90%;
+  #finishEventModal .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addServc .modal-dialog {
-    width:70%;
+  #select-handler .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addStaff .modal-dialog {
-    width: 70%;
+  #update-details .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 </style>
 

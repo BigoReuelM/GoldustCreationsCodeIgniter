@@ -59,7 +59,10 @@
                       </td>
                       <!-- amount -->
                       <td>
-                        <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $avlSvc['amount'] ?>">
+                        <?php 
+                          $serviceTotal = number_format($avlSvc['amount'], 2);
+                        ?>
+                        <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
                       </td>
                       <td>  
                         <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">                    

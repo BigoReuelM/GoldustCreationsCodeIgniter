@@ -21,11 +21,10 @@
           <table id="expenseTable" class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Expenses ID</th>
+                  <th>Recorder</th>
                   <th>Amount</th>
                   <th>Description</th>
                   <th>Date</th>
-                  <th>Proof</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,11 +34,21 @@
           
                 ?>
                 <tr>
-                  <td><?php  echo $expense['expensesID']; ?></td>
-                  <td><?php  echo $expense['expensesAmount']; ?></td>
+                  <td><?php  echo $expense['employeeName']; ?></td>
+                  <td>
+                    <?php
+                      $formatedExpenseAmount = number_format($expense['expensesAmount'], 2);  
+                      echo $formatedExpenseAmount; 
+                    ?>
+                  </td>
                   <td><?php  echo $expense['expensesName']; ?></td>
-                  <td><?php  echo $expense['expenseDate']; ?></td>
-                  <td><button href="#" data-toggle="modal" data-target="#modal-photo">View Photo</button></td>
+                  <td>
+                    <?php
+                      $date = date_create($expense['expenseDate']); 
+                      $formatedExpenseDate = date_format($date, "M-d-Y"); 
+                      echo $formatedExpenseDate; 
+                    ?>
+                  </td>
                 </tr>
                 <?php
                     }
@@ -62,7 +71,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addExpenses", "id" => "addExpenses", "class" => "form-horizontal");
+        $attributes = array("name" => "addExpenses", "id" => "addExpenses", "class" => "form-horizontal", "autocomplete" => "off");
         echo form_open_multipart("admin/addExpenses", $attributes);
       ?>
         <div class="modal-header">

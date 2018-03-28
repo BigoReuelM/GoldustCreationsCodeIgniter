@@ -14,8 +14,8 @@
 	 
 			$this->db->select('*');
 			$this->db->from('employees');
-			$this->db->where('username',$username);
-			$this->db->where('password',$pass);
+			$this->db->where('username like binary',$username);
+			$this->db->where('password like binary',$pass);
 
 			if($query=$this->db->get())
 			{
@@ -25,6 +25,7 @@
 				return false;
 			}
 		}
+
 
 		public function getPassword($empID){
 			$query = $this->db->query("
@@ -138,6 +139,32 @@
 		/*
 			end of change username
 		*/
+
+
+		public function resetPasstoDefault($username, $pin){
+			$data = array(
+				'password' => "goldust"
+			);
+
+			$this->db->where('username like binary', $username);
+			$this->db->where('password like binary', "goldust" . $pin);
+			$this->db->update('employees', $data);
+		}
+
+		public function checkUsernameAvailability($username){
+			$this->db->select('count(employeeID) as count');
+			$this->db->from('employees');
+			$this->db->where('username like binary',$username);
+
+			$query=$this->db->get();
+			$data = $query->row();
+
+			if( $data->count > 0 )
+			{
+				return false;
+			}
+			return true;
+		}
 		
 	}
 ?>

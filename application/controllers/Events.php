@@ -43,9 +43,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/newEvents.php", $data);
@@ -77,9 +79,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/ongoingEvents.php", $data);
@@ -109,9 +113,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/finishedEvents.php", $data);
@@ -139,9 +145,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/eventNavigation.php");
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
+			$this->load->view("templates/eventNavigation.php");
 			
 		}
 		$this->load->view("templates/canceledEvents.php", $data);
@@ -370,6 +378,7 @@ class Events extends CI_Controller
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
 		$data['clientName']=$this->events_model->getClientName($cid);
+		$data['receiver']=$this->events_model->getPaymentReceiver($currentEvent);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Payments | Admin';	
 		}else{

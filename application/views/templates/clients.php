@@ -42,27 +42,31 @@
                 	?>
                 	<tr>
 	                    <td><?php echo $client['clientName'] ?></td>
-	                    <td><?php echo $client['registrationDate'] ?></td>
+	                    <td>
+                        <?php
+                          $date = date_create($client['registrationDate']); 
+                          $formatedDateAndTime = date_format($date, "M-d-Y g:i a");
+                          echo $formatedDateAndTime ;
+                        ?>
+                      </td>
 	                    <td><?php echo $client['contactNumber'] ?></td>
 	                    <td>
-	                    	<div class="row">
-	                    		<form role="form" method="post" action="<?php echo base_url('transactions/addTransaction') ?>">
-		                    		<div class="col-lg-6">
-                              <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
-		                    			<button type="submit" class="btn btn-block btn-default">
-		                    				Add Transaction
-		                    			</button>
-		                    		</div>
-	                    		</form>
+                        <?php if ($this->session->userdata('role') === "admin"): ?>
+                          <form role="form" method="post" action="<?php echo base_url('transactions/addTransaction') ?>">
+                            <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
+                            <button type="submit" class="btn btn-block btn-default">
+                              Add Transaction
+                            </button>
+                          </form>  
+                        <?php endif ?>
+                    		<?php if ($this->session->userdata('role') === "handler"): ?>
                           <form role="form" method="post" action="<?php echo base_url('events/addEvent') ?>">
-  	                    		<div class="col-lg-6">
-                              <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
-    	                    			<button type="submit" class="btn btn-block btn-default">
-    	                    				Add Event
-    	                    			</button>
-  	                    		</div>
+                            <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
+                            <button type="submit" class="btn btn-block btn-default">
+                              Add Event
+                            </button>
                           </form>
-	                    	</div>
+                        <?php endif ?>	                    	
 	                    </td>
                 	</tr>
 
@@ -96,7 +100,7 @@
 		      <h4 class="modal-title">Add New Client</h4>
 		    </div>
         <?php 
-          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal");
+          $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("clients/addClient", $attributes);
         ?>
         <div id="the-message">
