@@ -14,30 +14,9 @@ class PrintDetailsAndReports extends CI_Controller {
         $clientID = null;
         $data['eventDetails'] = $this->events_model->getEventDetails($eventID, $clientID);
         $data['currentHandler'] = $this->events_model->getCurrentHandler($eventID);
+        $data['appointments'] = $this->events_model->getAppointments($eventID);
         if (!empty($this->input->post('printItem[]'))) {
-            foreach ($this->input->post('printItem[]') as $item) {
-                if ($item = "eventDetails") {
-                    $this->load->view('printViews/eventDetailsToPDF.php', $data);
-                }
-                if ($item = "payment") {
-                    $this->load->view('printViews/eventPaymentsToPDF.php', $data);
-                }
-                if ($item = "entourage") {
-                    $this->load->view('printViews/eventEntourageToPDF.php', $data);
-                }
-                if ($item = "decors") {
-                    $this->load->view('printViews/eventDecorsToPDF.php', $data);
-                }
-                if ($item = "services") {
-                    $this->load->view('printViews/eventServicesToPDF.php', $data);
-                }
-                if ($item = "staff") {
-                    $this->load->view('printViews/eventStaffToPDF.php', $data);
-                }
-                if ($item = "appointments") {
-                    $this->load->view('printViews/eventAppointmentsToPDF.php', $data);
-                }
-            }
+            $this->load->view('printViews/eventDetailsToPDF.php', $data);    
         }
     }
 }
