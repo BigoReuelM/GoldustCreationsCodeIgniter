@@ -209,9 +209,9 @@
 
 		public function getHandlers(){
 			$query = $this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
-				FROM employees
-				WHERE role like 'handler' and status like 'active'
+				select DISTINCT employeeID, det.employeeName, det.employeeID 
+				from (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
+				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or '2019-01-01' not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
 			");
 			
 			return $query->result_array();	

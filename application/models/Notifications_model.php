@@ -23,7 +23,7 @@
 				    s.serviceName LIKE '%rental%'
 				        AND t.transactionstatus LIKE 'on%going'
 				        AND t.employeeID = $eID
-				        AND t.dateAvail + 5 < CURDATE();"
+				        AND DATE_ADD(t.dateAvail, INTERVAL 5 day) > CURDATE();"
 				);
 			}else{
 				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
@@ -38,7 +38,7 @@
 				WHERE
 				    s.serviceName LIKE '%rental%'
 				        AND t.transactionstatus LIKE 'on%going'
-				        AND t.dateAvail + 5 < CURDATE();"
+				        AND DATE_ADD(t.dateAvail, INTERVAL 5 day) > CURDATE();"
 				); 
 			}
 			
@@ -57,7 +57,7 @@
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
 				WHERE serviceName LIKE '%rental%'
-						AND event.eventDate + 5 < CURDATE();
+						AND DATE_ADD(event.eventDate, INTERVAL 5 day) > CURDATE();
 				");
 			}else{
 				$query = $this->db->query("
@@ -68,7 +68,7 @@
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
 				WHERE serviceName LIKE '%rental%'
-					AND event.eventID + 5 < CURDATE();
+					AND DATE_ADD(event.eventDate, INTERVAL 5 day) > CURDATE();
 				");
 			}
 			return $query->result_array();
