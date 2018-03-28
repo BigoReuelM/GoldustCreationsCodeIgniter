@@ -382,6 +382,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function adminThemeDetails(){
+			$currentThemeID = $this->input->post('themeID');
+			$this->session->set_userdata('currentTheme', $currentThemeID);
+
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
+			$themeID = $this->session->userdata('currentTheme');
+			$data['themeDet'] = $this->events_model->getThemeDetails($themeID);
+			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);
+			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
+			$data['decorTypes'] = $this->admin_model->getDecorTypes();
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Themes | Admin';	
+			}else{
+				$headdata['pagename'] = 'Themes | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/themeDetails.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
 		public function addNewTheme(){
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'jpg|png|jpeg';
@@ -400,8 +429,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->adminTheme();
 			}
 		}
-
-
 	}
 
 	?>

@@ -208,7 +208,10 @@
       
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-      </div>         <?php endif ?>
+          <button type="button" data-toggle="modal" data-target="#cancellEvent" class="btn btn-block btn-danger btn-lg">Cancel Event</button>
+          <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+
+    <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
       <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
