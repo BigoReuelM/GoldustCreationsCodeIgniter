@@ -211,8 +211,9 @@
 
 		public function getTransactionPayments($transID){
 			$query=$this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM payments
+				NATURAL JOIN employees
 				WHERE transactionID = $transID
 			");
 			return $query->result_array();

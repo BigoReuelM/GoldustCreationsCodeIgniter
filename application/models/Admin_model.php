@@ -31,6 +31,15 @@
 			return $query->result_array();
 		}
 
+		public function getOncallStaffEmployees(){
+			$query=$this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM employees
+				where role = 'on-call staff'
+			");
+			return $query->result_array();
+		}
+
 		public function insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role){
 
 			$data = array(
@@ -70,10 +79,11 @@
 
 		public function getExpenses(){
 
-
-			$this->db->select('*');
-			$this->db->from('expenses');
-			$query = $this->db->get();
+			$query = $this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM expenses
+				NATURAL JOIN employees
+			");
 			return $query->result_array();
 		}
 

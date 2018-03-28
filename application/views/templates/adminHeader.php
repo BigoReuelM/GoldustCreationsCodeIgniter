@@ -1,6 +1,18 @@
 <?php 
-  $name = $this->session->userdata('employeeName');
   $photo = $this->session->userdata('photo');
+  $firstName = $this->session->userdata('firstName');
+  $midName = $this->session->userdata('midName');
+  $lastName = $this->session->userdata('lastName');
+  $employeeName =  $firstName . " " . $midName . " " . $lastName;
+  $photo = $this->session->userdata('photo');
+  $appCount = count($appToday);
+  $eventCount = count($eventsToday);
+  $overTCount = count($overTRent);
+  $overECount = count($overERent);
+  $incECount = count($incEvents);
+  $incACount = count($incAppointment);
+
+  $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECount + $incACount;
 ?>
   <header class="main-header">
 
@@ -23,18 +35,22 @@
       
         <ul class="nav navbar-nav">
           <!-- Notifications Menu -->
+          <li>
+           <a href = "<?php echo base_url('admin/viewReports') ?>">
+            <i class="fa fa-line-chart" style="font-size:18px"></i>
+          </a>
+          </li>
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning"><?php echo $notifTotalCount ?></span>
             </a>
             <ul class="dropdown-menu">
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
                   <?php if (!empty($appToday)){
-                    $appCount = count($appToday);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -45,7 +61,6 @@
                   }
                   ?>
                   <?php if (!empty($eventsToday)){
-                    $eventCount = count($eventsToday);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -56,7 +71,6 @@
                   }
                   ?>
                   <?php if (!empty($overTRent)){
-                    $overTCount = count($overTRent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -67,7 +81,6 @@
                   }
                   ?>
                   <?php if (!empty($overERent)){
-                    $overECount = count($overERent);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -78,7 +91,6 @@
                   }
                   ?>
                   <?php if (!empty($incEvents)){
-                    $incECount = count($incEvents);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -89,7 +101,6 @@
                   }
                   ?>
                   <?php if (!empty($incAppointment)){
-                    $incACount = count($incAppointment);
                   ?>
                     <li><!-- start notification -->
                       <a href="#">
@@ -112,7 +123,7 @@
               <!-- The user image in the navbar-->
               <img class="user-image" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs"><?php echo $name ?></span>
+              <span class="hidden-xs"><?php echo $employeeName ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -120,7 +131,10 @@
                 <img class="img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($_SESSION['photo']); ?>" alt="user">
                 
                 <p>
-                  <?php echo $name ?> - Admin
+                  <?php echo $employeeName ?>
+                </p>
+                <p>
+                  Admin
                 </p>
               </li>
               <!-- Menu Footer-->

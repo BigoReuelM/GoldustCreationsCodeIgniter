@@ -11,29 +11,12 @@
         <li>
           <a href="<?php echo base_url('admin/index') ?>"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="<?php echo base_url('events/newEvents') ?>">
             <i class="glyphicon glyphicon-calendar"></i> 
             <span>Event</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-rigth"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="<?php echo base_url('events/newEvents') ?>"><i class=""></i>New Events</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('events/ongoingEvents') ?>"><i class=""></i>Ongoing Events</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('events/finishedEvents') ?>"><i class=""></i>Finished Events</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('events/canceledEvents') ?>"><i class=""></i>Canceled Events</a>
-            </li>
-            <li>
-          </ul>
 
         </li>
         <li>
@@ -52,7 +35,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>">
+          <a href="<?php echo base_url('admin/adminEmployees') ?>">
             <i class="glyphicon glyphicon-user"></i>
             <span>Employees</span>
           </a>
@@ -81,7 +64,7 @@
           </ul>
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/transactions') ?>">
+          <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">
             <i class="glyphicon glyphicon-credit-card"></i> 
             <span>Transactions</span>
           </a>

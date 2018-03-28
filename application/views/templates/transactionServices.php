@@ -55,7 +55,12 @@
                       ?>
                         <td><?php echo $service['serviceName'] ?></td>
                         <td><input class="form-control" id="serviceQuantity" name="serviceQuantity" type="text" placeholder="<?php echo $service['quantity'] ?>"></td>
-                        <td><input class="form-control" id="serviceAmount" name="serviceAmount" type="text" placeholder="<?php echo $service['amount'] ?>"></td>
+                        <td>
+                          <?php  
+                            $formatedServiceAmount = number_format($service['amount'], 2);
+                          ?>
+                          <input class="form-control" id="serviceAmount" name="serviceAmount" type="text" placeholder="<?php echo $formatedServiceAmount ?>">
+                        </td>
                         <td>
                           <input type="text" id="servi" name="serviceID" value="<?php echo $serviceID ?>" hidden>
                           <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>

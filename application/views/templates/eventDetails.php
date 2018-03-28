@@ -10,8 +10,6 @@
 <!-- Main content -->
 <section class="content container-fluid">
   <section class="content-header">
-    <div class="row">
-      <div class="col-lg-3">
           <h1>
             <?php
             //foreach ($eventName as $name) {
@@ -21,9 +19,7 @@
             //}
               
             ?>
-          </h1>        
-      </div>
-    </div>
+          </h1>
   </section>
   <div class="row">
     <div class="box box-primary">
@@ -59,17 +55,6 @@
 
                 <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
 
-                <p class="text-muted text-center">Event Handler</p>
-
-                <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                    <b>Events</b> <a class="pull-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Transactions</b> <a class="pull-right">543</a>
-                  </li>
-                </ul>
-
                 <?php 
                   }else{
                     echo "
@@ -103,14 +88,18 @@
               </div>
               <div class="form-group">
                 <label>Date Availed</label>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $eventDetail->dateAssisted ?>" value="">
+                <?php
+                  $date = date_create($eventDetail->dateAssisted);
+                  $dateAvailed = date_format($date, "M-d-Y");  
+                ?>
+                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $dateAvailed ?>" value="">
               </div>
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Package Availed</label>
                   <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
@@ -154,26 +143,37 @@
 
               <div class="form-group">   
                 <label>Total Amount Due</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>        
+                <?php 
+                  $formatedTotal = number_format($totalAmount->totalAmount, 2);
+                ?>
+                <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
               </div>
               <div class="form-group">
                 
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Date</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventDate ?>" disabled>  
+                  <?php
+                    $date = date_create($eventDetail->eventDate);
+                    $newDate = date_format($date, "M-d-Y"); 
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Date</label>
                   <input type="date" class="form-control" name="eventDate">
                 </div>
               </div>
 
               <div class="form-group">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
                   <label>Event Time</label>
-                  <input type="text" class="form-control" value="<?php echo $eventDetail->eventTime ?>" disabled>
+                  <?php 
+                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime')); 
+                    
+                  ?>
+                  <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                   <label>Change Time</label>
                   <input type="time" class="form-control" name="eventTime">
                 </div>
@@ -189,12 +189,12 @@
           <div class="col-lg-4">
             <?php
               if ($empRole === 'admin') {
-                 echo '<button form="updateEventHandler" type="submit" class="btn btn-block btn-primary btn-lg">Select Handler</button>';
+                 echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
                } 
             ?>
           </div>
           <div class="col-lg-4">
-            <button form="updateDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+            <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#update-details">Update Details</button>
           </div>
           <div class="col-lg-4">
             <button class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#addAdditionalChargesModal">Additional Charges</button>
@@ -205,36 +205,21 @@
   </div>
 
   <div class="row">
+      
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
-      <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-      </div>
-
-      <div class="col-lg-3">
-        <button type="button" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancellEvent">Cancel Event</button>
-      </div>
-      <div class="col-lg-3">
-        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>     
-    <?php endif ?>
+      </div>         <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
       <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
-        <div class="col-lg-3">
           <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
-        </div>
       </form>
-      <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>
     <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "finished"): ?>
-      <div class="col-lg-3">
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-      </div>
-    <?php endif ?>
-          
+    <?php endif ?>        
   </div>
 
   <div class="control-sidebar-bg"></div> 
@@ -441,7 +426,110 @@
   </div>
 </div>
 <!--end of fisnish event modal-->
+<!-- Select handler Modal -->
+<div class="modal fade" id="select-handler">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select Handler</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to select this handler?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+        <!-- /.modal -->
 
+<!-- End of Selecting handler modal -->
+<!-- Update Details Modal -->
+<div class="modal fade" id="update-details">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="printDetails">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Update Details</h4>
+      </div>
+      <div class="modal-body">
+        <form id="printEventDetails" method="post" action="<?php echo base_url('printDetailsAndReports/create_pdf') ?>">
+          <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="eventDetails">
+            <label class="control-label">Event Details</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="payment">
+            <label class="control-label">Event Payments</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="entourage">
+            <label class="control-label">Event Entourage</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="decors">
+            <label class="control-label">Event Decors</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="services">
+            <label class="control-label">Event Services</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="staff">
+            <label class="control-label">Event Staff</label>
+          </div>
+          <div class="form-group">
+            
+            <input type="checkbox" name="printItem[]" value="appointments">
+            <label class="control-label">Event Appointments</label>
+          </div>  
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <button form="printEventDetails" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- End of Update Details -->
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -479,16 +567,19 @@
     }
   }
 
-  #add-event .modal-dialog {
-    width:90%;
+  #finishEventModal .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addServc .modal-dialog {
-    width:70%;
+  #select-handler .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 
-  #addStaff .modal-dialog {
-    width: 70%;
+  #update-details .modal-dialog{
+    top:20%;
+    width: 30%;
   }
 </style>
 
