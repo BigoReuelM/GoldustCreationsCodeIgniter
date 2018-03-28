@@ -97,7 +97,7 @@ $tbl_footer = '</table>';
 $tbl = '';
 
 foreach ($appointments as $appointment) {
-	$tbl = '
+	$tbl .= '
 		<tr>
 			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['agenda'] . '</td>
 			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['date'] . '</td>
