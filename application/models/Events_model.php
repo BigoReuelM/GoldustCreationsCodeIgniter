@@ -575,7 +575,7 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
-		/*public function getEntourageRole(){
+		public function getEntourageRole(){
 			$eventID = $this->session->userdata('currentEventID');
 			$query = $this->db->query("
 				SELECT entourage.role
@@ -585,7 +585,7 @@
 			");
 
 			return $query->result_array();
-		}*/
+		}
 
 		public function getDesignName(){
 			$eventID = $this->session->userdata('currentEventID');
