@@ -38,7 +38,7 @@
                 <td><?php echo $th['themeName']; ?></td>
                 <td><?php echo $th['themeDesc']; ?></td>
                 <td>
-                  <form role="form" method="post" action="<?php echo base_url('admin/adminThemeDetails') ?>">
+                  <form role="form" method="post" action="<?php echo base_url('admin/setCurrentThemeID') ?>">
                     <input type="hidden" name="themeID" value="<?php echo $th['themeID'] ?>">
                     <button type="submit" class="btn btn-link" name="editThemeBtn">Edit</button> 
                   </form>                  

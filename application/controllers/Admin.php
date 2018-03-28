@@ -382,10 +382,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
-		public function adminThemeDetails(){
+		public function setCurrentThemeID(){
 			$currentThemeID = $this->input->post('themeID');
 			$this->session->set_userdata('currentTheme', $currentThemeID);
+			redirect('admin/adminThemeDetails');
+		}
 
+		public function adminThemeDetails(){
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -398,6 +401,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);
 			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
 			$data['decorTypes'] = $this->admin_model->getDecorTypes();
+			$data['designTypes'] = $this->admin_model->getDesignTypes();
 
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Themes | Admin';	
@@ -410,7 +414,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("adminPages/themeDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
-
+		// ediiiitttt
 		public function addNewTheme(){
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'jpg|png|jpeg';
@@ -427,6 +431,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$desc = $this->input->post('themeDesc');
 				$this->admin_model->addTheme($name, $desc);
 				$this->adminTheme();
+			}
+		}
+
+		public function addNewThemeDecor(){
+			$themeID = $this->session->userdata('currentTheme');
+			$config['upload_path'] = './uploads/decors/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('decor_name', 'New Decor Name', 'required');
+			$this->form_validation->set_rules('decor_color', 'New Decor Color', 'required');	
+			$this->form_validation->set_rules('decor_type', 'New Decor Type', 'required');
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$name = $this->input->post('decor_name');
+				$color = $this->input->post('decor_color');
+				$type = $this->input->post('decor_type');
+				$decID = $this->admin_model->addNewDecor($themeID, $name, $color, $type);
+				$this->admin_model->addNewThemeDecor($themeID, $decID);
+				$this->adminThemeDetails();
+			}
+		}
+
+		public function addNewThemeDesign(){
+			$themeID = $this->session->userdata('currentTheme');
+			$config['upload_path'] = './uploads/designs/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('design_name', 'New Design Name', 'required');
+			$this->form_validation->set_rules('design_color', 'New Design Color', 'required');	
+			$this->form_validation->set_rules('design_type', 'New Design Type', 'required');
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$name = $this->input->post('design_name');
+				$color = $this->input->post('design_color');
+				$type = $this->input->post('design_type');
+				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
+				$this->admin_model->addNewThemeDesign($themeID, $desID);
+				$this->adminThemeDetails();
 			}
 		}
 	}

@@ -82,7 +82,7 @@
                     <h4>Designs</h4>
                   </div>
                   <div class="col-md-3">
-                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#">Add Design</button>
+                    <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#addDesignModal" type="button">Add Design</button>
                   </div>
                 </div>
               </div>
@@ -133,6 +133,7 @@
               <h4 class="modal-title">Add Decor</h4>
             </div>
             <div class="modal-body">
+              <form action="<?php echo base_url('admin/addNewThemeDecor') ?>" method="post" role="form" enctype="multipart/form-data">
               <div class="form-group">
                 <label>Name</label>
                 <input type="text" name="decor_name" class="form-control">
@@ -143,7 +144,7 @@
               </div>
               <div class="form-group">
                 <label>Type</label>
-                <select class="form-control" name="" id="">
+                <select class="form-control" name="decor_type" id="decor_type">
                   <?php
                     if (!empty('decorTypes')) {
                       foreach ($decorTypes as $dt) { ?>
@@ -153,13 +154,67 @@
                   ?>
                 </select>
               </div>
+              <div class="form-group">
+                <label>Image</label>
+                <div class="form-group">
+                  <label>Select files from your computer</label>
+                  <input type="file" name="userfile" >
+                </div>
+              </div>
             </div>
             <div class="modal-footer">
-              
+              <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="addDesignModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Design</h4>
+            </div>
+            <div class="modal-body">
+              <form action="<?php echo base_url('admin/addNewThemeDesign') ?>" method="post" role="form" enctype="multipart/form-data">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="design_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Color</label>
+                <input type="text" name="design_color" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select class="form-control" name="design_type" id="decor_type">
+                  <?php
+                    if (!empty('designTypes')) {
+                      foreach ($designTypes as $dt) { ?>
+                    <option><?php echo $dt['designType']?></option>
+                  <?php }
+                    }
+                  ?>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Image</label>
+                <div class="form-group">
+                  <label>Select files from your computer</label>
+                  <input type="file" name="userfile" >
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </section>
   </div>
 
