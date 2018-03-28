@@ -110,6 +110,25 @@ EOD;
 // Print text using writeHTMLCell()
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 
+$tbl_header = '<table style="width: 638px;" cellspacing="0">';
+$tbl_footer = '</table>';
+$tbl = '';
+
+foreach ($appointments as $appointment) {
+	$tbl .= '
+		<tr>
+			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['agenda'] . '</td>
+			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['date'] . '</td>
+			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['time'] . '</td>
+		</tr>
+	';
+}
+
+
+
+// Print text using writeHTMLCell()
+$pdf->writeHTML($tbl_header . $tbl . $tbl_footer, true, false, false, false, '');
+
 // ---------------------------------------------------------
 
 // Close and output PDF document
