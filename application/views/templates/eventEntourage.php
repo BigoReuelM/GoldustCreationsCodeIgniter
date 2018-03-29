@@ -1,5 +1,4 @@
 
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -27,8 +26,8 @@
             <tr>
               <!--<th>Design ID</th-->
               <th>Name</th>
-              <th>Role</th>
               <th>Quantity</th>
+              <th>Role</th>
               <th>Image</th>
               <th>Action</th>
             </tr>
@@ -45,6 +44,7 @@
                 <!--td><?php echo $design['designID'] ?></td-->
                 <td><?php echo $design['designName'] ?></td>
                 <!--td><?php echo $design['quantity'] ?></td-->
+                <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $design['quantity'] ?>"></td>
                 <td>
                   <select name="role">
                     <option selected hidden>Please Choose</option>
@@ -57,7 +57,7 @@
                         } 
                       ?>
                   </select></td>
-                <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $design['quantity'] ?>"></td>
+                
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4">

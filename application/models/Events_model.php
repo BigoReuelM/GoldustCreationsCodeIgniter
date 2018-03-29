@@ -349,6 +349,7 @@
 			return $this->db->insert_id();
 		}
 
+
 		public function insertNewEvent($clientID, $employeeID){
 			$data = array(
 				'clientID' => $clientID,
@@ -699,6 +700,18 @@
 				");
 			//$query = $this->db->get();
 			return $query->row();
+		}
+
+		public function addEventTheme($currentEventID, $currentThemeID){
+			$data = array(
+				'eventID' => $currentEventID,
+				'themeID' => $currentThemeID
+			);
+
+			$this->db->insert('eventthemes', $data);
+
+			return $this->db->insert_id();
+
 		}
 	}
 

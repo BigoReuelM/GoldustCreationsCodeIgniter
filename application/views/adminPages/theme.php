@@ -78,11 +78,6 @@
               <label>Theme Description</label>
               <textarea class="form-control" rows="3" name="themeDesc"></textarea>
             </div>
-            <div class="form-group">
-              <label>Select files from your computer</label>
-              <input type="file" name="userfile" >
-            </div>
-
             <div class="modal-footer">
               <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
               <button name="addbtn" class="btn btn-default" type="submit">Add</button>  
@@ -123,63 +118,4 @@
   function reset_chkbx() {
     $('input:checkbox').prop('checked', false);
   }
-</script>
-
-<script>
-  $('#addNewService').submit(function(e){
-    e.preventDefault();
-
-    var serviceDetails = $(this);
-
-    $.ajax({
-      type: 'POST',
-      url: serviceDetails.attr('action'),
-      data: serviceDetails.serialize(),
-      dataType: 'json',
-      success: function(response){
-        if (response.success == true) {
-          $('#the-message').append('<div class="alert alert-success text-center">' +
-          '<span class="icon fa fa-check"></span>' +
-          ' New expense has been saved.' +
-          '</div>');
-          $('.form-group').removeClass('has-error')
-                .removeClass('has-success');
-          $('.text-danger').remove();
-          // reset the form
-          serviceDetails[0].reset();
-          // close the message after seconds
-          $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
-          })
-        }else{
-          $.each(response.messages, function(key, value) {
-            var element = $('#' + key);
-            
-            element.closest('div.form-group')
-            .removeClass('has-error')
-            .addClass(value.length > 0 ? 'has-error' : 'has-success')
-            .find('.text-danger')
-            .remove();
-            
-            element.after(value);
-          });
-        }
-
-        if (response.alert == true) {
-          $('#the-message').append('<div class="alert alert-warning text-center">' +
-          '<span class="icon fa-fa-warning"></span>' +
-          ' Service name already exist!' +
-          '</div>');
-
-          $('.alert-warning').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
-          })
-        }
-      }
-    });
-  });
 </script>

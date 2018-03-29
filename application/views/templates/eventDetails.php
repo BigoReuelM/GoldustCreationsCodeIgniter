@@ -242,7 +242,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Themes</h4>
         </div>
-        <form role="form" method="post" action="" class="form-horizontal">
+        <form role="form" method="post" action="<?php echo base_url('events/addEventTheme') ?>" class="form-horizontal">
           <div class="modal-body">
             <div class="table table-responsive">
             <table id="themes" class="table table-bordered table-condensed table-hover text-center">
@@ -260,21 +260,25 @@
               ?>
               <tr>
                 <td>
-                  <div class="checkbox"><label><input type="checkbox" name="themes[]" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?></label></div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" placeholder="<?php echo $th['themeName'] ?>" multiple><?php echo $th['themeName']; ?>
+                    </label>
+                  </div>
                 </td>
                 <td><?php echo $th['themeDesc']; ?></td>
               </tr>
               <?php 
                   }
                 }
-              ?>       
+              ?>   
             </tbody>
             </table>
           </div>
           </div>
           <div class="modal-footer">
             <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-            <button form="" id="" name="" class="btn btn-default" type="submit">Add</button>
+            <button type="submit" class="btn btn-default" type="submit">Add</button>
           </div>
         </form>
       </div>   
