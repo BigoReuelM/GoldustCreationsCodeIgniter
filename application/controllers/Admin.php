@@ -416,16 +416,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		// ediiiitttt
 		public function addNewTheme(){
-			$config['upload_path'] = './uploads/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
+			//$config['upload_path'] = './uploads/';
+			//$config['allowed_types'] = 'jpg|png|jpeg';
 			
 			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
+			//$this->load->library('upload', $config);
 
 			$this->form_validation->set_rules('themeName', 'New Theme Name', 'required');
 
 			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
+				//$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
 				$name = $this->input->post('themeName');
 				$desc = $this->input->post('themeDesc');
@@ -436,22 +436,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addNewThemeDecor(){
 			$themeID = $this->session->userdata('currentTheme');
-			$config['upload_path'] = './uploads/decors/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
-			
-			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
+						
+			$this->load->library('form_validation');			
 
 			$this->form_validation->set_rules('decor_name', 'New Decor Name', 'required');
 			$this->form_validation->set_rules('decor_color', 'New Decor Color', 'required');	
 			$this->form_validation->set_rules('decor_type', 'New Decor Type', 'required');
 
-			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
+			if ($this->form_validation->run()) {				
 				$name = $this->input->post('decor_name');
 				$color = $this->input->post('decor_color');
 				$type = $this->input->post('decor_type');
+
+				$config['upload_path'] = './uploads/decors/' . $type . '/';
+					$config['allowed_types'] = 'jpg|png|jpeg';
+					$this->load->library('upload', $config);
+					$this->upload->do_upload('userfile');
+					$data = array('upload_data' => $this->upload->data());
+				
 				$decID = $this->admin_model->addNewDecor($themeID, $name, $color, $type);
 				$this->admin_model->addNewThemeDecor($themeID, $decID);
 				$this->adminThemeDetails();
@@ -460,22 +462,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addNewThemeDesign(){
 			$themeID = $this->session->userdata('currentTheme');
-			$config['upload_path'] = './uploads/designs/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
 			
 			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
 
 			$this->form_validation->set_rules('design_name', 'New Design Name', 'required');
 			$this->form_validation->set_rules('design_color', 'New Design Color', 'required');	
 			$this->form_validation->set_rules('design_type', 'New Design Type', 'required');
 
 			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
 				$name = $this->input->post('design_name');
 				$color = $this->input->post('design_color');
 				$type = $this->input->post('design_type');
+				$config['upload_path'] = './uploads/designs/' . $type . '/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+
 				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
 				$this->admin_model->addNewThemeDesign($themeID, $desID);
 				$this->adminThemeDetails();
