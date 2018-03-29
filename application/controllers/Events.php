@@ -816,12 +816,11 @@ class Events extends CI_Controller
 			$this->ongoingEvents();
 		}
 
-		public function updateEntourageDetails(){
+		public function updateAttireQty(){
 			$eventID = $this->session->userdata('currentEventID');
 			$entID = $this->session->userdata('currentEntourageID');
 			$desID = $this->session->userdata('currentDesignID');
 
-			//$entRole = $this->input->post('role');
 			$entAttireQty = $this->input->post('quantity');
 			$designName = $this->input->post('designName');
 
@@ -831,12 +830,34 @@ class Events extends CI_Controller
 			}
 			/*if (!empty($entRole)) {
 				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
+			}
+			if (!empty($designName)) {
+				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
+			}*/
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+			redirect('events/eventEntourage');
+		}
+
+		public function updateDesignName(){
+			$eventID = $this->session->userdata('currentEventID');
+			$entID = $this->session->userdata('currentEntourageID');
+			$desID = $this->session->userdata('currentDesignID');
+
+			$entAttireQty = $this->input->post('quantity');
+			$designName = $this->input->post('designName');
+
+			
+			/*if (!empty($entAttireQty)) {
+				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
+			}
+			if (!empty($entRole)) {
+				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
 			}*/
 			if (!empty($designName)) {
 				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
 			}
-
-			$this->eventEntourage();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+			redirect('events/eventEntourage');
 		}
 
 	}
