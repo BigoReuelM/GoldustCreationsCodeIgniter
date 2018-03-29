@@ -165,7 +165,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-		$data['eventName'] =$this->events_model->getEventName($id);
+		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 		$data['themes'] = $this->events_model->getThemes();
 		$data['handlers'] = $this->events_model->getHandlers();
@@ -292,12 +292,12 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-		$data['eventName'] =$this->events_model->getEventName($id);
+		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
 		$data['entourage'] = $this->events_model->getEntourage($id);
 		$empRole = $this->session->userdata('role');
 		$currentEvent = $this->session->userdata('currentEventID');
-		$data['designs']=$this->events_model->getDesigns($currentEvent);
+		$data['designs']= $this->events_model->getDesigns($currentEvent);
 		$data['entourageRole'] = $this->events_model->getEntourageRole();
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Entourage | Admin';	
@@ -438,6 +438,9 @@ class Events extends CI_Controller
 		$this->load->view("templates/appointments.php", $data);
 		$this->load->view("templates/footer.php");
 	}
+		public function getThemeID(){
+
+		}
 
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
@@ -858,6 +861,28 @@ class Events extends CI_Controller
 			}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 			redirect('events/eventEntourage');
+		}
+
+		public function addEventTheme(){
+			/*$evID = $this->session->userdata('currentEventID');
+			$themeID = $this->input->post('themeID');
+			//$themeID = $this->session->userdata('currentThemeID');
+
+			$eventTheme = $this->events_model->addEventTheme($evID, $themeID);
+
+			redirect('events/eventDetails');*/
+
+			$evID = $this->session->userdata('currentEventID');
+			$themeID = $this->input->post('themes');
+
+			if (!empty($themeID)) {
+				foreach ($this->input->post('themes[]') as $th) {
+					$this->events_model->addEventTheme($evID, $th);
+				}
+			}
+
+			redirect('events/eventDetails');
+
 		}
 
 	}
