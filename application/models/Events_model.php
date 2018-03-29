@@ -204,17 +204,18 @@
 
 		public function getHandlers(){
 			$date = $this->getEventDate();
-			if (!empty($date)) {
-				$query = $this->db->query("
-					SELECT DISTINCT employeeID, det.employeeName, det.employeeID 
-					FROM (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
-					WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or $date not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
-				");
-				
-				return $query->result_array();	
-			}else{
+			
+			$eventDate = $date->eventDate;
+			if ($eventDate == null) {
 				return false;
 			}
+			$query = $this->db->query("
+				SELECT DISTINCT employeeID, det.employeeName, det.employeeID 
+				FROM (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
+				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or $eventDate not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
+			");
+			
+			return $query->result_array();	
 				
 		}
 

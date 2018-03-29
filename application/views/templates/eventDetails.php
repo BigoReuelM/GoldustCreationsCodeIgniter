@@ -154,8 +154,12 @@
                 <div class="col-lg-6">
                   <label>Event Date</label>
                   <?php
-                    $date = date_create($eventDetail->eventDate);
-                    $newDate = date_format($date, "M-d-Y"); 
+                    $newDate = "";
+                    if (!empty($eventDetail->eventDate)) {
+                      $date = date_create($eventDetail->eventDate);
+                      $newDate = date_format($date, "M-d-Y");  
+                    }
+                     
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
@@ -168,9 +172,12 @@
               <div class="form-group">
                 <div class="col-lg-6">
                   <label>Event Time</label>
-                  <?php 
-                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime')); 
-                    
+                  <?php
+                    $newTime = "";
+                    if (!empty($eventDetail->eventTime)) {
+                      $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
+                    } 
+                                        
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
                 </div>
