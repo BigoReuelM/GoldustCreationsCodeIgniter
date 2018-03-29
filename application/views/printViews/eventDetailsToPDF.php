@@ -76,14 +76,14 @@ $pdf->SetFont('helvetica', '', 14, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
-$pdf->AddPage('P', 'A4');
+
 
 // set text shadow effect
 $pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 // Set some content to print
 if (in_array("eventDetails", $printItems)) {
-
+$pdf->AddPage('P', 'A4');
 //manipulate data format
 $totalAmount = number_format($eventDetails->totalAmount, 2);
 $date = date_create($eventDetails->eventDate);
@@ -191,23 +191,33 @@ $pdf->writeHTML($staff_tbl_header . $staff_tbl . $staff_tbl_footer, true, false,
 
 if (in_array("entourageAndDesigns", $printItems)) {
 //print 
-$tbl_header = '<table style="width: 638px;" cellspacing="0">';
-$tbl_footer = '</table>';
-$tbl = '';
+$pdf->AddPage('L', 'A4');
+$entourage_tbl_header = '<table style="width: 638px;" cellspacing="0">';
+$entourage_tbl_footer = '</table>';
+$entourage_tbl = '';
 
-foreach ($appointments as $appointment) {
-	$tbl .= '
+foreach ($entourage as $ent) {
+	$entourage_tbl .= '
 		<tr>
-			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['agenda'] . '</td>
-			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['date'] . '</td>
-			<td style="border: 1px solid #000000; width: 150px;">' . $appointment['time'] . '</td>
+			<td>' . $ent['entourageName'] . '</td>
+			<td>' . $ent['role'] . '</td>
+			<td>' . $ent['shoulder'] . '</td>
+			<td>' . $ent['chest'] . '</td>
+			<td>' . $ent['stomach'] . '</td>
+			<td>' . $ent['waist'] . '</td>
+			<td>' . $ent['armLength'] . '</td>
+			<td>' . $ent['armHole'] . '</td>
+			<td>' . $ent['muscle'] . '</td>
+			<td>' . $ent['pantsLength'] . '</td>
+			<td>' . $ent['baston'] . '</td>
+			<td>' . $ent['status'] . '</td>
 		</tr>
 	';
 }
 
 
 // Print text using writeHTMLCell()
-$pdf->writeHTML($tbl_header . $tbl . $tbl_footer, true, false, false, false, '');
+$pdf->writeHTML($entourage_tbl_header . $entourage_tbl . $entourage_tbl_footer, true, false, false, false, '');
 
 }
 
