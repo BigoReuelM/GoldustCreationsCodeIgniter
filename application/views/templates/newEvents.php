@@ -34,9 +34,9 @@
                     <th>Client Name</th>
                     <th>Event Type</th>
                     <th>Package Type</th>
-                    <th>Event Date</th>
-                    <th>Event Time</th>
+                    <th>Event Date and Time</th>
                     <th>Event Location</th>
+                    <th>Current Handler</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -63,6 +63,7 @@
                         ?>
                       </td>
                       <td><?php echo $event['eventLocation']; ?></td>
+                      <td><?php echo $event['employeeName'] ?></td>
                       <td>
                         <!--
                           Bellow is the code for displaying the event details page.
