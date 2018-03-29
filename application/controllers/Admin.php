@@ -447,15 +447,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$name = $this->input->post('decor_name');
 				$color = $this->input->post('decor_color');
 				$type = $this->input->post('decor_type');
-
-				$config['upload_path'] = './uploads/decors/' . $type . '/';
-					$config['allowed_types'] = 'jpg|png|jpeg';
-					$this->load->library('upload', $config);
-					$this->upload->do_upload('userfile');
-					$data = array('upload_data' => $this->upload->data());
 				
 				$decID = $this->admin_model->addNewDecor($themeID, $name, $color, $type);
 				$this->admin_model->addNewThemeDecor($themeID, $decID);
+
+				$config['upload_path'] = './uploads/decors/' . $type . '/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				// rename file
+				$config['file_name'] = $decID;
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data()); 
+
 				$this->adminThemeDetails();
 			}
 		}
@@ -473,14 +476,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$name = $this->input->post('design_name');
 				$color = $this->input->post('design_color');
 				$type = $this->input->post('design_type');
+
+				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
+				$this->admin_model->addNewThemeDesign($themeID, $desID);
+
 				$config['upload_path'] = './uploads/designs/' . $type . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['file_name'] = $desID;
 				$this->load->library('upload', $config);
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
 
-				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
-				$this->admin_model->addNewThemeDesign($themeID, $desID);
 				$this->adminThemeDetails();
 			}
 		}
