@@ -41,6 +41,7 @@
                       if(!empty($events)){
                       foreach ($events as $event) { 
                         $empID = $event['eventID'];
+                        $clientID = $event['clientID'];
                         ?> 
                         <tr>
                           <td><?php echo $event['eventName']; ?></td>
@@ -65,6 +66,7 @@
                           <td>
                             <div class="col-md-3 col-sm-4">
                               <form role="form" method="post" action="<?php echo base_url('events/setEventID') ?>">
+                                <input type="text" name="clientID" value="<?php echo($clientID) ?>" hidden>
                                 <button class="btn btn-block" id="butt5" name="eventInfo" type="submit" value="<?php echo($empID) ?>">View Info
                                   <i class="fa fa-fw fa-info"></i>
                                 </button>  
