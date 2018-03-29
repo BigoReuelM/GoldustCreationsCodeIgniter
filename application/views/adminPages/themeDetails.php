@@ -45,7 +45,6 @@
                         <th>Color</th>
                         <th>Type</th>
                         <th>Image</th>
-                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -61,9 +60,6 @@
                           <?php 
                           echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>'; 
                           ?>
-                        </td>
-                        <td>
-                          <button class="btn btn-link">Replace</button>
                         </td>
                       </tr>
                       <?php 
