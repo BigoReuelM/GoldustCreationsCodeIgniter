@@ -8,19 +8,20 @@
 
  </style>
 <!-- Main content -->
-<section class="content container-fluid">
-  <section class="content-header">
-          <h1>
-            <?php
-            //foreach ($eventName as $name) {
-              $name = $eventName->eventName; 
-              echo '<p>' . $name . '</p>';
+<section class="content-header">
+  <h1>
+    <?php
+    //foreach ($eventName as $name) {
+      $name = $eventName->eventName; 
+      echo '<p>' . $name . '</p>';
 
-            //}
-              
-            ?>
-          </h1>
-  </section>
+    //}
+      
+    ?>
+  </h1>
+</section>
+<section class="content container-fluid">
+<div class="content">
   <div class="row">
     <div class="box box-primary">
       <div class="box-body">
@@ -224,6 +225,7 @@
         <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
     <?php endif ?>        
   </div>
+</div>
 
   <div class="control-sidebar-bg"></div> 
 </section>
@@ -498,8 +500,8 @@
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="entourage">
-            <label class="control-label">Event Entourage</label>
+            <input type="checkbox" name="printItem[]" value="entourageAndDesigns">
+            <label class="control-label">Event Entourage and Designs</label>
           </div>
           <div class="form-group">
             

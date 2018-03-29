@@ -230,7 +230,7 @@
 		// get event staff
 		public function getStaff($ceid){
 			$query = $this->db->query("
-				SELECT concat(firstName, ' ', midName, ' ', lastName) as name, employeeRole as role, contactNumber as num, employeeID as empId 
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as name, employeeID as empId 
 				FROM employees
 				NATURAL JOIN eventstaff
 				where eventID = $ceid    
