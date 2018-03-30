@@ -28,8 +28,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//method for user to login to his/her account
 		function login_user(){
 
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
+			$username = html_escape($this->input->post('username'));
+			$password = html_escape($this->input->post('password'));
 
 			if (empty($username)) {
 				$this->session->set_flashdata('error_msg', 'Username field should not be empty!');
@@ -75,8 +75,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//user-profile loader
 
 		public function changePassword(){
-			$username = $this->input->post('username');
-			$pin = $this->input->post('pin');
+			$username = html_escape($this->input->post('username'));
+			$pin = html_escape($this->input->post('pin'));
 
 			$this->user_model->resetPasstoDefault($username, $pin);
 
@@ -136,12 +136,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$fname = $this->input->post('fname');
-				$mname = $this->input->post('mname');
-				$lname = $this->input->post('lname');
-				$cNum = $this->input->post('cNum');
-				$emailAdd = $this->input->post('emailAdd');
-				$homeAdd = $this->input->post('homeAdd');
+				$fname = html_escape($this->input->post('fname'));
+				$mname = html_escape($this->input->post('mname'));
+				$lname = html_escape($this->input->post('lname'));
+				$cNum = html_escape($this->input->post('cNum'));
+				$emailAdd = html_escape($this->input->post('emailAdd'));
+				$homeAdd = html_escape($this->input->post('homeAdd'));
 
 				if (!empty($fname)) {
 					$this->user_model->updateUserFirstname($id, $fname);

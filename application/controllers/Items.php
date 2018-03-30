@@ -116,7 +116,7 @@ class Items extends CI_Controller
 
 	public function changeDecorSetVals(){		
 			// id of the current decor id.. yung papalitan
-		$currentDecorID = $this->input->post('decorID');
+		$currentDecorID =html_escape($this->input->post('decorID'));
 		$this->session->set_userdata('currentDecorID', $currentDecorID);
 
 		
@@ -129,7 +129,7 @@ class Items extends CI_Controller
 		// nasa events din controller tu
 	public function changeDecor(){
 			// id nung decor na ipapalit 
-		$newdecID = $this->input->post('newdecId');
+		$newdecID = html_escape($this->input->post('newdecId'));
 		$eId = $this->session->userdata('currentEventID');
 		$decId = $this->session->userdata('currentDecorID');
 
@@ -235,9 +235,9 @@ class Items extends CI_Controller
 			if ($this->form_validation->run()) {
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
-				$this->input->post('gown_name');
-				$this->input->post('gown_color');
-				$this->gowns();
+				html_escape($this->input->post('gown_name'));
+				html_escape($this->input->post('gown_color'));
+				html_escape($this->gowns());
 			}
 		}
 	} 

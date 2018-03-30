@@ -241,12 +241,12 @@
 
 		// get event staff
 		public function getStaff($ceid){
-			$query = $this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as name, employeeID as empId 
-				FROM employees
-				NATURAL JOIN eventstaff
-				where eventID = $ceid    
-			");
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as name, employees.employeeID as empId');
+			$this->db->from('employees');
+			$this->db->join('eventstaff', 'employees.employeeID = eventstaff.employeeID');
+			$this->db->where('eventID', $ceid);
+
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
@@ -682,6 +682,8 @@
 		}*/
 
 		// all themes
+
+
 		public function getThemes(){
 			$this->db->select('*');
 			$this->db->from('theme');
