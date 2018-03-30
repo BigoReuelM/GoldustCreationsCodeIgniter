@@ -202,8 +202,8 @@ class Events extends CI_Controller
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 		if($this->form_validation->run()){
-			$amount = $this->input->post('additionalCharge');
-			$eID = $this->input->post('eventID');
+			$amount = html_escape($this->input->post('additionalCharge'));
+			$eID = html_escape($this->input->post('eventID'));
 
 			$totalAmount = $this->events_model->totalAmount($eID);
 			$newTotalAmount = $totalAmount->totalAmount + $amount;
@@ -439,11 +439,7 @@ class Events extends CI_Controller
 		$this->load->view("templates/appointments.php", $data);
 		$this->load->view("templates/footer.php");
 	}
-	public function getThemeID(){
-
-	}
-
-
+		
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
 			$eId = $this->session->userdata('currentEventID');
@@ -460,9 +456,9 @@ class Events extends CI_Controller
 		*/
 
 		public function setEventID(){
-				$currentEventID = $this->input->post('eventInfo');
-				$currentClientID = $this->input->post('clientID');
-				$currentEventStatus = $this->input->post('eventStatus');
+				$currentEventID = html_escape($this->input->post('eventInfo'));
+				$currentClientID = html_escape($this->input->post('clientID'));
+				$currentEventStatus = html_escape($this->input->post('eventStatus'));
 				$empRole = $this->session->userdata('role');
 				$this->session->set_userdata('currentEventID', $currentEventID);
 				$this->session->set_userdata('clientID', $currentClientID);
@@ -497,9 +493,9 @@ class Events extends CI_Controller
 				$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 				if ($this->form_validation->run()) {
-					$date = $this->input->post('date');
-					$time = $this->input->post('time');
-					$amount = $this->input->post('amount');
+					$date = html_escape($this->input->post('date'));
+					$time = html_escape($this->input->post('time'));
+					$amount = html_escape($this->input->post('amount'));
 					
 					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
@@ -520,7 +516,7 @@ class Events extends CI_Controller
 
 		// set and delete selected decor...
 			public function setCurrentDecorID(){
-				$currentDecorID = $this->input->post('decorID');
+				$currentDecorID = html_escape($this->input->post('decorID'));
 				$this->session->set_userdata('currentDecorID', $currentDecorID);
 				
 				$decId = $this->session->userdata('currentDecorID');
@@ -548,7 +544,7 @@ class Events extends CI_Controller
 		}*/
 
 		public function removeEntourage(){
-			$currentEntID = $this->input->post('entourageID');
+			$currentEntID = html_escape($this->input->post('entourageID'));
 			$this->session->set_userdata('currentEntID', $currentEntID);
 
 			$entID = $this->session->userdata('currentEntID');
@@ -559,7 +555,7 @@ class Events extends CI_Controller
 		}
 
 		public function removeAttireEntourage(){
-			$desID = $this->input->post('designID');
+			$desID = html_escape($this->input->post('designID'));
 			/*$this->session->set_userdata('currentEventID', $currentEvID);
 
 			$evID = $this->session->userdata('currentEvID');*/
@@ -580,7 +576,7 @@ class Events extends CI_Controller
 
 		public function addEvent(){
 			$employeeID = $this->session->userdata('employeeID');
-			$clientID = $this->input->post('clientID');
+			$clientID = html_escape($this->input->post('clientID'));
 
 			$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID);
 
@@ -604,9 +600,9 @@ class Events extends CI_Controller
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$adate = $this->input->post('appointmentDate');
-				$time = $this->input->post('appointmentTime');
-				$agenda = $this->input->post('agenda');
+				$adate = html_escape($this->input->post('appointmentDate'));
+				$time = html_escape($this->input->post('appointmentTime'));
+				$agenda = html_escape($this->input->post('agenda'));
 
 				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
 
@@ -627,17 +623,17 @@ class Events extends CI_Controller
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = $this->input->post('entourage_name');
-			$eRole = $this->input->post('role');
-			$eShoulder = $this->input->post('shoulder');
-			$eChest = $this->input->post('chest');
-			$eStomach = $this->input->post('stomach');
-			$eWaist = $this->input->post('waist');
-			$eArmL = $this->input->post('armLength');
-			$eArmH = $this->input->post('armHole');
-			$eMuscle = $this->input->post('muscle');
-			$ePantsL = $this->input->post('pantsLength');
-			$eBaston = $this->input->post('baston');
+			$entName = html_escape($this->input->post('entourage_name'));
+			$eRole = html_escape($this->input->post('role'));
+			$eShoulder = html_escape($this->input->post('shoulder'));
+			$eChest = html_escape($this->input->post('chest'));
+			$eStomach = html_escape($this->input->post('stomach'));
+			$eWaist = html_escape($this->input->post('waist'));
+			$eArmL = html_escape($this->input->post('armLength'));
+			$eArmH = html_escape($this->input->post('armHole'));
+			$eMuscle = html_escape($this->input->post('muscle'));
+			$ePantsL = html_escape($this->input->post('pantsLength'));
+			$eBaston = html_escape($this->input->post('baston'));
 
 			$this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
 
@@ -646,13 +642,13 @@ class Events extends CI_Controller
 
 		public function selectEventHandler(){
 			$eId = $this->session->userdata('currentEventID');
-			$handlerID = $this->input->post('handler');
+			$handlerID = html_escape($this->input->post('handler'));
 			$this->events_model->updateEventHandler($eId, $handlerID);
 			redirect('events/eventDetails');
 		}
 
 		public function addsvc(){
-			$addSvc = array($this->input->post('add_servc_chkbox'));
+			$addSvc = html_escape(array($this->input->post('add_servc_chkbox')));
 			$eID = $this->session->userdata('currentEventID');		
 			
 			if (!empty($this->input->post('add_servc_chkbox[]'))) {
@@ -665,7 +661,7 @@ class Events extends CI_Controller
 
 		// add staff
 		public function addstaff(){
-			$addStaff = array($this->input->post('add_staff_chkbox'));
+			$addStaff = html_escape(array($this->input->post('add_staff_chkbox')));
 			$eID = $this->session->userdata('currentEventID');
 			if (!empty($this->input->post('add_staff_chkbox[]'))) {
 				foreach ($this->input->post('add_staff_chkbox[]') as $s) {
@@ -677,14 +673,14 @@ class Events extends CI_Controller
 
 		// update staff table (event details)
 		public function upEvtStaff(){
-			$svcstaffID = $this->input->post('svcstaffid');
+			$svcstaffID = html_escape($this->input->post('svcstaffid'));
 			$this->session->set_userdata('currentSvcStaffID', $svcstaffID);
-			$role = $this->input->post('staffRole');
+			$role = html_escape($this->input->post('staffRole'));
 
 			$empID = $this->session->userdata('currentSvcStaffID');
 			$evtID = $this->session->userdata('currentEventID');
 
-			$btnval = $this->input->post('btn');
+			$btnval = html_escape($this->input->post('btn'));
 
 			if ($btnval === "updt") {
 				if (!empty($role)) {
@@ -699,15 +695,15 @@ class Events extends CI_Controller
 
 		// update service quantity and amount
 		public function upSvcQtyAmt(){
-			$svcID = $this->input->post('svcid');
+			$svcID = ($this->input->post('svcid'));
 			$this->session->set_userdata('currentSvcID', $svcID);
 
 			$eID = $this->session->userdata('currentEventID');
 			$srvcID = $this->session->userdata('currentSvcID');
 
-			$btnval = $this->input->post('btn');
-			$qty = $this->input->post('svcqty');
-			$amt = $this->input->post('svcamt');
+			$btnval = html_escape($this->input->post('btn'));
+			$qty = html_escape($this->input->post('svcqty'));
+			$amt = html_escape($this->input->post('svcamt'));
 			if ($btnval === "updt") {
 				if (!empty($qty)) {
 					$this->events_model->updateSvcQty($eID, $qty, $srvcID);
@@ -728,17 +724,17 @@ class Events extends CI_Controller
 		public function updateEventDetails(){
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
-			$eventName = $this->input->post('eventName');
-			$clientContactNo = $this->input->post('contactNumber');
-			$celebrant = $this->input->post('celebrantName');
-			$dateAvailed = $this->input->post('dateAvailed');
-			$packageType = $this->input->post('package');
-			$eventDate = $this->input->post('eventDate');
-			$eventTime = $this->input->post('eventTime');
-			$location = $this->input->post('location');
-			$type = $this->input->post('type');
-			$motif = $this->input->post('motif');
-			$theme = $this->input->post('theme');
+			$eventName = html_escape($this->input->post('eventName'));
+			$clientContactNo = html_escape($this->input->post('contactNumber'));
+			$celebrant = html_escape($this->input->post('celebrantName'));
+			$dateAvailed = html_escape($this->input->post('dateAvailed'));
+			$packageType = html_escape($this->input->post('package'));
+			$eventDate = html_escape($this->input->post('eventDate'));
+			$eventTime = html_escape($this->input->post('eventTime'));
+			$location = html_escape($this->input->post('location'));
+			$type = html_escape($this->input->post('type'));
+			$motif = html_escape($this->input->post('motif'));
+			$theme = html_escape($this->input->post('theme'));
 
 			if (!empty($eventName)) {
 				$this->events_model->upEventName($eventName, $eventID);		
@@ -775,7 +771,7 @@ class Events extends CI_Controller
 		}
 
 		public function finishEvent(){
-			$eventID = $this->input->post('eventID');
+			$eventID = html_escape($this->input->post('eventID'));
 
 			$this->events_model->markEventFinish($eventID);
 
@@ -783,10 +779,10 @@ class Events extends CI_Controller
 		}
 
 		public function cancelEvent(){
-			$eventID = $this->input->post('eventID');
-			$refundAmount = $this->input->post('refundAmount');
-			$refundDate = $this->input->post('dateRefunded');
-			$cancelDate = $this->input->post('dateCancelled');
+			$eventID = html_escape($this->input->post('eventID'));
+			$refundAmount = html_escape($this->input->post('refundAmount'));
+			$refundDate = html_escape($this->input->post('dateRefunded'));
+			$cancelDate = html_escape($this->input->post('dateCancelled'));
 
 			$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
 
@@ -831,19 +827,13 @@ class Events extends CI_Controller
 			$entID = $this->session->userdata('currentEntourageID');
 			$desID = $this->session->userdata('currentDesignID');
 
-			$entAttireQty = $this->input->post('quantity');
-			$designName = $this->input->post('designName');
+			$entAttireQty = html_escape($this->input->post('quantity'));
+			$designName = html_escape($this->input->post('designName'));
 
 			
 			if (!empty($entAttireQty)) {
 				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
 			}
-			/*if (!empty($entRole)) {
-				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}
-			if (!empty($designName)) {
-				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
-			}*/
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 			redirect('events/eventEntourage');
 		}
@@ -853,16 +843,9 @@ class Events extends CI_Controller
 			$entID = $this->session->userdata('currentEntourageID');
 			$desID = $this->session->userdata('currentDesignID');
 
-			$entAttireQty = $this->input->post('quantity');
-			$designName = $this->input->post('designName');
+			$entAttireQty = html_escape($this->input->post('quantity'));
+			$designName = html_escape($this->input->post('designName'));
 
-			
-			/*if (!empty($entAttireQty)) {
-				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
-			}
-			if (!empty($entRole)) {
-				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}*/
 			if (!empty($designName)) {
 				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
 			}
@@ -871,16 +854,9 @@ class Events extends CI_Controller
 		}
 
 		public function addEventTheme(){
-			/*$evID = $this->session->userdata('currentEventID');
-			$themeID = $this->input->post('themeID');
-			//$themeID = $this->session->userdata('currentThemeID');
-
-			$eventTheme = $this->events_model->addEventTheme($evID, $themeID);
-
-			redirect('events/eventDetails');*/
-
+			
 			$evID = $this->session->userdata('currentEventID');
-			$themeID = $this->input->post('themes');
+			$themeID = html_escape($this->input->post('themes'));
 
 			if (!empty($themeID)) {
 				foreach ($this->input->post('themes[]') as $th) {
@@ -889,6 +865,18 @@ class Events extends CI_Controller
 			}
 
 			redirect('events/eventDetails');
+		}
+
+		public function getEntourageTheme(){
+			/*$themeID = $this->session->userdata('currentTheme');
+			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
+			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
+
+			$themeID = $this->session->userdata('currentTheme');
+			$evID = $this->session->userdata('currentEventID');
+			$data['thevedata'] = $this->events_model->displayEventThemeDesigns($themeID, $currentEvID);
+
+			redirect('events/eventEntourage');
 
 		}
 
