@@ -29,7 +29,10 @@
 			$this->db->join('clients','events.clientID = clients.clientID');
 			$this->db->join('employees','events.employeeID = employees.employeeID');
 			$this->db->where('events.eventStatus', $status);
-
+			if ($role === "handler") {
+				$this->db->where('events.employeeID', $employeeID);
+			}
+			
 			$query=$this->db->get();
 
 			return $query->result_array();
@@ -119,11 +122,7 @@
 
 			$eID = $currentEventID;
 
-			$this->db->select('*');
-			$this->db->from('payments');
-			$this->db->join('events', 'events.eventID = payments.eventID');
-			$this->db->where('events.eventID', $eID);
-			$query = $this->db->get();
+			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, amount, date, time from employees natural join payments where eventID=$eID");
 			return $query->result_array();
 		}
 
@@ -500,6 +499,15 @@
 			$this->db->update('events', $data);
 		}
 
+		public function updateAvailDate($date, $eventID){
+			$data = array(
+				'dateAssisted' => $date
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
 		/*
 
 		Above are the queries for updating each event detail attribute...
@@ -726,8 +734,7 @@
 			return $this->db->insert_id();
 
 		}
-
-		public function displayEventThemeDesigns($currentThemeID, $currentEventID){
+public function displayEventThemeDesigns($currentThemeID, $currentEventID){
 			$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentTheme');
 			$designID = $this->session->userdata('currentDesignID');
@@ -738,7 +745,21 @@
 				");
 			return $query->result_array();
 		}
-	}
+
+		//The following queries is ment for the callendar
+
+		public function getEventDetailsForCalendar(){
+			$this->db->select('eventID, eventDate, eventTime, eventName');
+			$this->db->from('events');
+			$this->db->where('eventStatus', "ongoing");
+			$this->db->where('eventStatus', "new");
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+		}
+
+		//end of calendar queries	}
 
 
  ?>
