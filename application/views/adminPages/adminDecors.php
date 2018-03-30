@@ -12,7 +12,7 @@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">       
-        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post">
+        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post" >
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
@@ -36,6 +36,7 @@
 <!-- Display all items accdg to the type selected -->
         <?php
         // get the filename of the folders...
+        if (!empty($map)) {
         foreach ($map as $key => $m) {
           $currentDecType = $this->session->userdata('currentType');
             // remove characters except letters, dashes, and numbers
@@ -45,8 +46,9 @@
           <!-- submit name of the folder similarly named to the current type selected -->
             <input type="hidden" name="typefolder" value="<?php echo $m_cleanstring ?>">
           <?php
+              }
             }
-        }
+          }
         ?>
         <?php
           // display all images from the folder...

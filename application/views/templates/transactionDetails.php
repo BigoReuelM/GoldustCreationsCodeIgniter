@@ -182,7 +182,7 @@
         </div>
       </div>
       <?php 
-        $attributes = array("name" => "addAdditionalCharges", "id" => "addAdditionalCharges", "class" => "form-horizontal");
+        $attributes = array("name" => "addAdditionalCharges", "id" => "addAdditionalCharges", "class" => "form-horizontal", "autocomplete" => "off");
         echo form_open("transactions/addAdditionalCharges", $attributes);
       ?>
         <div class="modal-body">
