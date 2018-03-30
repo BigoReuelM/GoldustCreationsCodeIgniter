@@ -12,7 +12,7 @@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">       
-        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post">
+        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post" >
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">

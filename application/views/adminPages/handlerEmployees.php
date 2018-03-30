@@ -80,7 +80,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "enctype" => "multipart/form-data");
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "enctype" => "multipart/form-data","autocomplete" => "off");
         echo form_open("admin/addEmployee", $attributes);
       ?>
         <div class="modal-header">
