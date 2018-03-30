@@ -759,7 +759,8 @@ public function displayEventThemeDesigns($currentThemeID, $currentEventID){
 			return $query->result_array();
 		}
 
-		//end of calendar queries	}
+		//end of calendar queries	
+	}
 
 
  ?>
