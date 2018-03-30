@@ -45,8 +45,8 @@
                   <tr>
                     <form role="form" action="<?php echo base_url('events/upEvtStaff') ?>" method="post" id="staff_form">
                       <td><?php echo $staff['name']; ?></td>
-                      <td><input type="text" name="staffRole" placeholder="<?php echo $staff['role']; ?>" class="form-control" style="border: none;"></td>
-                      <td><?php echo $staff['num']; ?></td>
+                      <td><input type="text" name="staffRole" placeholder="<?php echo $staff['employeeRole']; ?>" class="form-control"></td>
+                      <td><?php echo $staff['contactNumber']; ?></td>
                       <td>
                         <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
                           <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
