@@ -24,17 +24,15 @@
 		public function getNewEvents($employeeID, $role, $status)
 		{
 			
-			$this->db->SELECT('*, concat(firstName, " ", middleName, " ", lastName) as clientName');
+			$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
 			$this->db->from('events');
 			$this->db->join('clients','events.clientID = clients.clientID');
-			if ($role === 'handler') {
-				$this->db->where('employeeID', $employeeID);
-			}
+			$this->db->join('employees','events.employeeID = employees.employeeID');
 			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
+			if ($role === "handler") {
+				$this->db->where('events.employeeID', $employeeID);
 			}
-
+			
 			$query=$this->db->get();
 
 			return $query->result_array();
@@ -204,13 +202,31 @@
 		}
 
 		public function getHandlers(){
+			$date = $this->getEventDate();
+			
+			$eventDate = $date->eventDate;
+			if ($eventDate == null) {
+				return false;
+			}
 			$query = $this->db->query("
-				select DISTINCT employeeID, det.employeeName, det.employeeID 
-				from (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
-				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or '2019-01-01' not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
+				SELECT DISTINCT employeeID, det.employeeName, det.employeeID 
+				FROM (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
+				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or $eventDate not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
 			");
 			
 			return $query->result_array();	
+				
+		}
+
+		public function getEventDate(){
+			$id = $this->session->userdata('currentEventID');
+			$query = $this->db->query("
+				SELECT eventDate
+				FROM events
+				WHERE eventID = $id
+			");
+
+			return $query->row();
 		}
 
 		public function getCurrentHandler($ceid){
@@ -483,6 +499,15 @@
 			$this->db->update('events', $data);
 		}
 
+		public function updateAvailDate($date, $eventID){
+			$data = array(
+				'dateAssisted' => $date
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
 		/*
 
 		Above are the queries for updating each event detail attribute...
@@ -709,6 +734,21 @@
 			return $this->db->insert_id();
 
 		}
+
+		//The following queries is ment for the callendar
+
+		public function getEventDetailsForCalendar(){
+			$this->db->select('eventID, eventDate, eventTime, eventName');
+			$this->db->from('events');
+			$this->db->where('eventStatus', "ongoing");
+			$this->db->where('eventStatus', "new");
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+		}
+
+		//end of calendar queries
 	}
 
 

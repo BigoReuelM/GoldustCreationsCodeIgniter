@@ -39,7 +39,7 @@
                       if(!empty($events)){
                       foreach ($events as $event) { 
                         $empID = $event['eventID'];
-                        $clienID = $event('clienID');
+                        $clientID = $event['clientID'];
                         ?> 
                         <tr>
                           <td><?php echo $event['eventName']; ?></td>

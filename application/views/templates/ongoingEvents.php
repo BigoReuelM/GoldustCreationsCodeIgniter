@@ -49,10 +49,14 @@
                           <td><?php echo $event['packageType']; ?></td>
                           <td>
                             <?php
-                              $date = date_create($event['eventDate']);
-                              $newDate = date_format($date, "M-d-Y");
-                              $newTime = date("g:i a", strtotime($event['eventTime'])); 
-                              echo $newDate . " at " . $newTime; 
+                              if (!$event['eventDate'] == null || !$event['eventTime'] == null) {
+                                $date = date_create($event['eventDate']);
+                                $newDate = date_format($date, "M-d-Y");
+                                $newTime = date("g:i a", strtotime($event['eventTime'])); 
+                                echo $newDate . " at " . $newTime;
+                              }else{
+                                echo "not yet set";
+                              } 
                             ?>
                           </td>
                           <td><?php echo $event['eventLocation']; ?></td>
