@@ -219,6 +219,5 @@
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
 		}
-		
 	}
  ?>
