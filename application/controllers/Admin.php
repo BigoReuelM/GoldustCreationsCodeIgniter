@@ -427,15 +427,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if ($this->form_validation->run()) {
 				//$this->upload->do_upload('userfile');
-<<<<<<< HEAD
+
 				$data = array('upload_data' => $this->upload->data());
 				$name = html_escape($this->input->post('themeName'));
 				$desc = html_escape($this->input->post('themeDesc'));
-=======
+
 				//$data = array('upload_data' => $this->upload->data());
-				$name = $this->input->post('themeName');
-				$desc = $this->input->post('themeDesc');
->>>>>>> c731e7d2e584e8163b568b0520782b1c6b1e7287
+				$name = html_escape($this->input->post('themeName'));
+				$desc = html_escape($this->input->post('themeDesc'));
+
 				$this->admin_model->addTheme($name, $desc);
 				$this->adminTheme();
 			}
@@ -480,9 +480,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('design_type', 'New Design Type', 'required');
 
 			if ($this->form_validation->run()) {
-				$name = $this->input->post('design_name');
-				$color = $this->input->post('design_color');
-				$type = $this->input->post('design_type');
+				$name = html_escape($this->input->post('design_name'));
+				$color = html_escape($this->input->post('design_color'));
+				$type = html_escape($this->input->post('design_type'));
 
 				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
 				$this->admin_model->addNewThemeDesign($themeID, $desID);
@@ -516,7 +516,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
 			// get contents of the folder similarly named to the current type selected
-			$decorTypeFoldr = $this->input->post('decor_type');
+			$decorTypeFoldr = html_escape($this->input->post('decor_type'));
 			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
 			$data['type_map'] = directory_map('./uploads/decors/' . $decorTypeFoldr . '/', 1);
 
@@ -579,14 +579,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		// set the currently selected decor type
 		public function setCtDecType(){
-			$cDecType = $this->input->post('decor_type');
+			$cDecType = html_escape($this->input->post('decor_type'));
 			$this->session->set_userdata('currentType', $cDecType);
 			$this->adminDecors();
 		}
 
 		// set the currently selected design type
 		public function setCtDesType(){
-			$cDesType = $this->input->post('design_type');
+			$cDesType = html_escape($this->input->post('design_type'));
 			$this->session->set_userdata('currentType', $cDesType);
 			$this->adminDesigns();
 		}
