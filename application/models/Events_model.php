@@ -122,11 +122,7 @@
 
 			$eID = $currentEventID;
 
-			$this->db->select('*');
-			$this->db->from('payments');
-			$this->db->join('events', 'events.eventID = payments.eventID');
-			$this->db->where('events.eventID', $eID);
-			$query = $this->db->get();
+			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, amount, date, time from employees natural join payments where eventID=$eID");
 			return $query->result_array();
 		}
 
