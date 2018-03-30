@@ -373,7 +373,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+			$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric|greater_than_equal_to[0]');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if($this->form_validation->run()){
@@ -494,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
 
-			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric');
+			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric|greater_than_equal_to[0]');
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
@@ -569,7 +569,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$data['balanceAmount'] = $transactionBalance;
 			}
 
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']');
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
 			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');

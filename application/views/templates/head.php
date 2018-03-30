@@ -1,11 +1,23 @@
   <?php
-  defined('BASEPATH') OR exit('No direct script access allowed');
   $employeeRole = $this->session->userdata('role');
+  
+  if(isset($_SESSION['last_acted_on']) && (time() - $_SESSION['last_acted_on'] > $_SESSION['allowed_idle_time'])){
+    redirect(base_url('user'));
+    exit;
+  }else{
+      $_SESSION['last_acted_on'] = time();
+  }
+
+  if(!isset($_SESSION['employeeID'])){
+    redirect(base_url('user'));
+    exit;
+  }
+
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8">  
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $pagename; ?></title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -24,7 +36,13 @@
   <link rel="stylesheet" href="<?php echo base_url();?>/public/dist/css/skins/skin-blue.css">
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>/public/style.css">
-  <link rel="stylesheet" href="<?php echo base_url();?>/public/plugins/timepicker/bootstrap-timepicker.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/plugins/timepicker/bootstrap-timepicker.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/jvectormap/jquery-jvectormap.css">
+
 
 
 </head>

@@ -55,7 +55,7 @@
                   ?>
                   <tr>
                     <td><?php echo $clientName->clientName; ?></td>
-                    <td><?php echo $receiver->employeeName ?></td>
+                    <td><?php echo $payment['employeeName'] ?></td>
                     <td>
                       <?php 
                         $amount = number_format($payment['amount'], 2);

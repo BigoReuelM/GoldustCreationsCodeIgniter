@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 <?php 
-                  $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal");
+                  $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal", "autocomplete" => "off");
                   echo form_open("user/updateProfile", $attributes);
                 ?>
                 
@@ -149,7 +149,7 @@
           </div>
         </div>
         <?php 
-          $attributes = array("name" => "changePassword", "id" => "changePassword", "class" => "form-horizontal");
+          $attributes = array("name" => "changePassword", "id" => "changePassword", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("user/changeUserPassword", $attributes);
         ?>
           
@@ -157,19 +157,19 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Old password</label>
               <div class="col-sm-10">
-                <input type="text" id="oldPassword" name="oldPassword" class="form-control" placeholder="Enter your old password..">
+                <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Enter your old password..">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">New Password</label>
               <div class="col-sm-10">
-                <input type="text" id="newPassword" name="newPassword" class="form-control" placeholder="Enter new password">
+                <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Enter new password">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Confirm Password</label>
               <div class="col-sm-10">
-                <input type="text" id="passConfirmation" name="passConfirmation" class="form-control" placeholder="Confirm new password">
+                <input type="password" id="passConfirmation" name="passConfirmation" class="form-control" placeholder="Confirm new password">
               </div>
             </div>
           </div>
@@ -203,7 +203,7 @@
           </div>
         </div>
         <?php 
-          $attributes = array("name" => "changeUser", "id" => "changeUser", "class" => "form-horizontal");
+          $attributes = array("name" => "changeUser", "id" => "changeUser", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("user/changeUserUsername", $attributes);
         ?>
           

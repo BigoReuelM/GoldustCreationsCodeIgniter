@@ -23,52 +23,41 @@
         <div class="box-body">
           <table id="designTable" class="table table-bordered table-striped text-center">
             <thead>
-            <tr>
-              <!--<th>Design ID</th-->
-              <th>Name</th>
-              <th>Quantity</th>
-              <th>Role</th>
-              <th>Image</th>
-              <th>Action</th>
-            </tr>
+              <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Image</th>
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody>
               <?php
-                if (!empty($designs)) {
-                   foreach ($designs as $design) {
-                    $desID = $design['designID'];
-                    
-                     
+                if (!empty($thevedata)) {
+                  foreach ($thevedata as $te) {
+                    $themeID = $te['themeID'];
+                    $designID = $te['designID'];
+
               ?>
               <tr>
-                <!--td><?php echo $design['designID'] ?></td-->
-                <td><?php echo $design['designName'] ?></td>
-                <!--td><?php echo $design['quantity'] ?></td-->
-                <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $design['quantity'] ?>"></td>
-                <td>
-                  <select name="role">
-                    <option selected hidden>Please Choose</option>
-                    <?php if(!empty($entourageRole)){ 
-                      foreach($entourageRole as $role) { ?>
-                    <option value="<?php echo $role['role'] ?>" id="role"><?php echo $role['role'] ?></option>
-                    <?php } 
-                      }else{ 
-                        echo "no role"; 
-                        } 
-                      ?>
-                  </select></td>
-                
-                <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($design['designImage']) . '"/></a>' ?></td>
+                <td><?php echo $te['designName']?></td>
+                <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $te['quantity'] ?>"></td>
+                <?php }
+                  } else {
+                    echo "no data"
+                  }
+
+                ?>
+                <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($te['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateDesignName') ?>">
-                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($desID)?>"> Update <i class="fa fa-exchange" > </i>
+                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($designID)?>"> Update <i class="fa fa-exchange" > </i>
                       </button>
                     </form>
                   </div>
                   <div class="col-md-3 col-sm-4">
                     <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
-                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($desID) ?>">
+                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($designID) ?>">
                          Remove <i class="fa fa-remove"></i>
                       </button>
                     </form>

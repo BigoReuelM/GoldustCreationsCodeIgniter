@@ -34,9 +34,9 @@
                     <th>Client Name</th>
                     <th>Event Type</th>
                     <th>Package Type</th>
-                    <th>Event Date</th>
-                    <th>Event Time</th>
+                    <th>Event Date and Time</th>
                     <th>Event Location</th>
+                    <th>Current Handler</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -56,13 +56,18 @@
                       <td><?php echo $event['packageType']; ?></td>
                       <td>
                         <?php
-                          $date = date_create($event['eventDate']);
-                          $newDate = date_format($date, "M-d-Y");
-                          $newTime = date("g:i a", strtotime($event['eventTime'])); 
-                          echo $newDate . " at " . $newTime; 
+                          if (!$event['eventDate'] == null || !$event['eventTime'] == null) {
+                            $date = date_create($event['eventDate']);
+                            $newDate = date_format($date, "M-d-Y");
+                            $newTime = date("g:i a", strtotime($event['eventTime'])); 
+                            echo $newDate . " at " . $newTime;
+                          }else{
+                            echo "not yet set";
+                          }
                         ?>
                       </td>
                       <td><?php echo $event['eventLocation']; ?></td>
+                      <td><?php echo $event['employeeName'] ?></td>
                       <td>
                         <!--
                           Bellow is the code for displaying the event details page.

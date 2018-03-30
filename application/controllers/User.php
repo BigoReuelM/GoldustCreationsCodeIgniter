@@ -55,6 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->session->set_userdata('password',$data['password']);
 				$this->session->set_userdata('contactNumber',$data['contactNumber']);
 				$this->session->set_userdata('role',$data['role']);
+				$this->session->set_userdata('allowed_idle_time', 6000);
+				$this->session->set_userdata('last_acted_on', time());
 
 				if ($data['role'] === "admin") {
 					$this->session->set_userdata('sidebarControl', "0");

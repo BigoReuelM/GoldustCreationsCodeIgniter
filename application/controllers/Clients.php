@@ -60,11 +60,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger"', '</p>');
 
 			if ($this->form_validation->run()) {
-				$firstname = $this->input->post('firstname');
-				$middlename = $this->input->post('middlename');
-				$lastname = $this->input->post('lastname');
-				$contactNo = $this->input->post('contact');
+				$firstname = html_escape($this->input->post('firstname'));
+				$middlename =  html_escape($this->input->post('middlename'));
+				$lastname =  html_escape($this->input->post('lastname'));
+				$contactNo =  html_escape($this->input->post('contact'));
 				$date = $this->input->post('adddate');
+
 				$this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
 
 				$data['success'] = true;
