@@ -29,7 +29,10 @@
 			$this->db->join('clients','events.clientID = clients.clientID');
 			$this->db->join('employees','events.employeeID = employees.employeeID');
 			$this->db->where('events.eventStatus', $status);
-
+			if ($role === "handler") {
+				$this->db->where('events.employeeID', $employeeID);
+			}
+			
 			$query=$this->db->get();
 
 			return $query->result_array();
@@ -500,6 +503,15 @@
 			$this->db->update('events', $data);
 		}
 
+		public function updateAvailDate($date, $eventID){
+			$data = array(
+				'dateAssisted' => $date
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
 		/*
 
 		Above are the queries for updating each event detail attribute...
@@ -726,6 +738,21 @@
 			return $this->db->insert_id();
 
 		}
+
+		//The following queries is ment for the callendar
+
+		public function getEventDetailsForCalendar(){
+			$this->db->select('eventID, eventDate, eventTime, eventName');
+			$this->db->from('events');
+			$this->db->where('eventStatus', "ongoing");
+			$this->db->where('eventStatus', "new");
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+		}
+
+		//end of calendar queries
 	}
 
 

@@ -56,6 +56,7 @@ class Events extends CI_Controller
 		
 	}
 
+
 	public function ongoingEvents(){
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
@@ -197,7 +198,7 @@ class Events extends CI_Controller
 
 		$data = array('success' => false, 'messages' => array());
 
-		$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric');
+		$this->form_validation->set_rules('additionalCharge', 'Amount', 'trim|required|numeric|greater_than_equal_to[0]');
 		$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 		if($this->form_validation->run()){
@@ -487,7 +488,9 @@ class Events extends CI_Controller
 					$data['balanceAmount'] = $eventBalance;
 				}
 
-				$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $eventBalance . ']');
+				$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric|less_than_equal_to[' . $eventBalance . ']|greater_than_equal_to[0]');
+				$this->form_validation->set_message('greater_than_equal_to', 'The amount must be greater than 0.');
+
 				$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
 				$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
 				$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -762,6 +765,9 @@ class Events extends CI_Controller
 			}
 			if (!empty($motif)) {
 				$this->events_model->upMotif($motif, $eventID);
+			}
+			if(!empty($dateAvailed)){
+				$this->events_model->updateAvailDate($dateAvailed, $eventID);
 			}
 
 			redirect('events/eventDetails');

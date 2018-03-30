@@ -69,7 +69,7 @@
         </div>
         <div class="col-lg-8">
           
-          <form id="updateDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>">
+          <form id="updateDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
@@ -88,12 +88,22 @@
                 <input type="text" name="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
               </div>
               <div class="form-group">
-                <label>Date Availed</label>
-                <?php
-                  $date = date_create($eventDetail->dateAssisted);
-                  $dateAvailed = date_format($date, "M-d-Y");  
-                ?>
-                <input type="text" name="dateAvailed" class="form-control" placeholder="<?php echo $dateAvailed ?>" value="">
+                <div class="col-lg-6 col-sm-6">
+                  <label>Date Availed</label>
+                  <?php
+                    if (!$eventDetail->dateAssisted == null) {
+                      $date = date_create($eventDetail->dateAssisted);
+                      $dateAvailed = date_format($date, "M-d-Y");
+                    }else{
+                      $dateAvailed = "not set";
+                    }
+                  ?>
+                  <input type="text" class="form-control" placeholder="<?php echo $dateAvailed ?>" hidden>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label>Change Avail Date</label>
+                  <input type="date" name="dateAvailed" class="form-control">
+                </div>
               </div>
               <div class="form-group">
                 <div class="col-lg-6">
@@ -303,7 +313,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Cancel Event</h4>
         </div>
-        <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal">
+        <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal" autocomplete="off">
           <div class="modal-body">
             <div class="form-group">
               <label class="col-sm-2 control-label">Refund Amount</label>
@@ -352,7 +362,7 @@
           <h4 class="modal-title">Add Additional Charges</h4>
         </div>
         <?php 
-          $attributes = array("name" => "addAdditionalCharges", "id" => "addAdditionalCharges", "class" => "form-horizontal");
+          $attributes = array("name" => "addAdditionalCharges", "id" => "addAdditionalCharges", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("events/addAdditionalCharges", $attributes);
         ?>
           <div id="the-message">
@@ -368,7 +378,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Total Amount</label>
               <div class="col-sm-10">
-                <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>
+                <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>
               </div>
             </div>
             <div class="form-group">
