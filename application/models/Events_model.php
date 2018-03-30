@@ -734,6 +734,17 @@
 			return $this->db->insert_id();
 
 		}
+public function displayEventThemeDesigns($currentThemeID, $currentEventID){
+			$eventID = $this->session->userdata('currentEventID');
+			$themeID = $this->session->userdata('currentTheme');
+			$designID = $this->session->userdata('currentDesignID');
+			$entID = $this->session->userdata('currentEntourageID');
+
+			$query = $this->db->query("
+				SELECT themeID, designID, designName, designImage, quantity FROM (SELECT designID, role FROM `entouragedetails` join entourage using($entID) where eventID='$eventID') AS entourage join designs using ($designID) join eventdesigns USING(currentDesignID) join themedesign USING(designID) WHERE eventID = '$eventID'
+				");
+			return $query->result_array();
+		}
 
 		//The following queries is ment for the callendar
 
@@ -748,7 +759,7 @@
 			return $query->result_array();
 		}
 
-		//end of calendar queries
+		//end of calendar queries	
 	}
 
 

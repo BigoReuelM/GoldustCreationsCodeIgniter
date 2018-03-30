@@ -10,16 +10,6 @@
 	display: block;
 }
 
-/*.modalImg{
-	width: auto;
-	max-height: 100px;
-	padding: 0.5em;
-}*/
-
-/*.modalImg:hover{
-	cursor: pointer;
-}*/
-
 .thumbnail:hover{
 	opacity: 0.8;
 	cursor: pointer;
