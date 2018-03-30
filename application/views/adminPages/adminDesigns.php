@@ -36,6 +36,7 @@
 <!-- Display all items accdg to the type selected -->
         <?php
         // get the filename of the folders...
+        if (!empty($map)) {
         foreach ($map as $key => $m) {
           $currentDesType = $this->session->userdata('currentType');
             // remove characters except letters, dashes, and numbers
@@ -46,6 +47,7 @@
             <input type="hidden" name="typefolder" value="<?php echo $m_cleanstring ?>">
           <?php
             }
+          }
         }
         ?>
         <?php
