@@ -438,9 +438,6 @@ class Events extends CI_Controller
 		$this->load->view("templates/appointments.php", $data);
 		$this->load->view("templates/footer.php");
 	}
-		public function getThemeID(){
-
-		}
 
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
@@ -831,12 +828,6 @@ class Events extends CI_Controller
 			if (!empty($entAttireQty)) {
 				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
 			}
-			/*if (!empty($entRole)) {
-				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}
-			if (!empty($designName)) {
-				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
-			}*/
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 			redirect('events/eventEntourage');
 		}
@@ -849,13 +840,6 @@ class Events extends CI_Controller
 			$entAttireQty = $this->input->post('quantity');
 			$designName = $this->input->post('designName');
 
-			
-			/*if (!empty($entAttireQty)) {
-				$this->events_model->updateAttireQty($eventID, $desID, $entAttireQty);
-			}
-			if (!empty($entRole)) {
-				$this->events_model->updateAttireRole($eventID, $entID, $entRole);
-			}*/
 			if (!empty($designName)) {
 				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
 			}
@@ -864,14 +848,7 @@ class Events extends CI_Controller
 		}
 
 		public function addEventTheme(){
-			/*$evID = $this->session->userdata('currentEventID');
-			$themeID = $this->input->post('themeID');
-			//$themeID = $this->session->userdata('currentThemeID');
-
-			$eventTheme = $this->events_model->addEventTheme($evID, $themeID);
-
-			redirect('events/eventDetails');*/
-
+			
 			$evID = $this->session->userdata('currentEventID');
 			$themeID = $this->input->post('themes');
 
@@ -882,6 +859,18 @@ class Events extends CI_Controller
 			}
 
 			redirect('events/eventDetails');
+		}
+
+		public function getEntourageTheme(){
+			/*$themeID = $this->session->userdata('currentTheme');
+			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
+			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
+
+			$themeID = $this->session->userdata('currentTheme');
+			$evID = $this->session->userdata('currentEventID');
+			$data['thevedata'] = $this->events_model->displayEventThemeDesigns($themeID, $currentEvID);
+
+			redirect('events/eventEntourage');
 
 		}
 
