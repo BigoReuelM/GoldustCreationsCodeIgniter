@@ -439,9 +439,10 @@ class Events extends CI_Controller
 		$this->load->view("templates/appointments.php", $data);
 		$this->load->view("templates/footer.php");
 	}
-		public function getThemeID(){
+	public function getThemeID(){
 
-		}
+	}
+
 
 		/*public function deleteDecor(){
 			$decId = $this->session->userdata('currentDecorID');
@@ -458,7 +459,7 @@ class Events extends CI_Controller
 			it will then call the evenDetails function to display the event details page
 		*/
 
-			public function setEventID(){
+		public function setEventID(){
 				$currentEventID = $this->input->post('eventInfo');
 				$currentClientID = $this->input->post('clientID');
 				$currentEventStatus = $this->input->post('eventStatus');
@@ -693,7 +694,7 @@ class Events extends CI_Controller
 			if ($btnval === "rmv") {
 				$this->events_model->dltEvtStaff($evtID, $svcstaffID);
 			}		
-			$this->eventDetails();
+			redirect('events/eventStaff');
 		}
 
 		// update service quantity and amount
