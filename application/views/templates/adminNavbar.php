@@ -50,10 +50,10 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="<?php echo base_url('admin/adminDecors') ?>">Decors</a>
+              <a href="<?php echo base_url('admin/adminDecorsHome') ?>">Decors</a>
             </li>
             <li>
-              <a href="<?php echo base_url('admin/adminDesigns') ?>">Designs</a>
+              <a href="<?php echo base_url('admin/adminDesignsHome') ?>">Designs</a>
             </li>
             <!--<li>
               <a href="<?php echo base_url('items/gowns') ?>">Gowns</a>
