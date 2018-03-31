@@ -734,19 +734,35 @@
 			return $this->db->insert_id();
 
 		}
-public function displayEventThemeDesigns($currentThemeID, $currentEventID){
+
+		public function displayEventThemeDesigns($currentThemeID, $currentEventID, $currentDesignID){
 			$eventID = $this->session->userdata('currentEventID');
-			$themeID = $this->session->userdata('currentTheme');
+			$themeID = $this->session->userdata('currentThemeID');
 			$designID = $this->session->userdata('currentDesignID');
 			$entID = $this->session->userdata('currentEntourageID');
 
 			$query = $this->db->query("
-				SELECT themeID, designID, designName, designImage, quantity FROM (SELECT designID, role FROM `entouragedetails` join entourage using($entID) where eventID='$eventID') AS entourage join designs using ($designID) join eventdesigns USING(currentDesignID) join themedesign USING(designID) WHERE eventID = '$eventID'
+				SELECT eventID, themeID, designID, designName, designImage, quantity FROM (SELECT designID FROM `entouragedetails` join entourage using($entID) where eventID='$eventID') AS entourage join designs using ($designID) join eventdesigns USING(currentDesignID) join themedesign USING(designID) WHERE eventID = '$eventID'
 				");
 			return $query->result_array();
 		}
 
-		//The following queries is ment for the callendar
+		public function displayEventThemeDecors($currentThemeID, $currentEventID, $currentDecorID){
+			$eventID = $this->session->userdata('currentEventID');
+			$themeID = $this->session->userdata('currentThemeID');
+			$decorID = $this->session->userdata('currentDecorID');
+
+			/*$query = $this->db->query("
+				SELECT themeID, decorID, decorName, decorImage, quantity FROM 
+				");
+			*/
+
+			$query = $this->db->query("
+				SELECT eventID, themeID, decorID, decorName, decorImage, decorType, color, quantity FROM (SELECT decorID FROM `eventdecors` join themedecor using($themeID) where eventID='$eventID') AS eventDecor join decors using ($decorID) join eventthemes USING($themeID) join themedecor USING($decorID) WHERE eventID = '$eventID'
+			");
+		}
+
+		//The following queries is meant for the calendar
 
 		public function getEventDetailsForCalendar(){
 			$this->db->select('eventID, eventDate, eventTime, eventName');

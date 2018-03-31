@@ -872,11 +872,22 @@ class Events extends CI_Controller
 			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
 			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
 
-			$themeID = $this->session->userdata('currentTheme');
+			$themeID = $this->session->userdata('currentThemeID');
 			$evID = $this->session->userdata('currentEventID');
-			$data['thevedata'] = $this->events_model->displayEventThemeDesigns($themeID, $currentEvID);
+			$desID = $this->session->userdata('currentDesignID');
+			$data['themeEvEnt'] = $this->events_model->displayEventThemeDesigns($themeID, $evID, $desID);
 
 			redirect('events/eventEntourage');
+
+		}
+
+		public function getThemeDecors(){
+			$themeID = $this->session->userdata('currentThemeID');
+			$evID = $this->session->userdata('currentEventID');
+			$decorID = $this->session->userdata('currentDecorID');
+			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID, $evID, $decorID);
+
+			redirect('events/eventDecors');
 
 		}
 
