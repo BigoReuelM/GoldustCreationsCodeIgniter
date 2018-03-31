@@ -96,13 +96,16 @@
 		public function getDecors($eventID){
 			//$eID = $this->session->userdata('employeeID');
 			//$evntID = $this->session->userdata('currentEventID');
-			$this->db->select('*');
-			$this->db->from('eventdecors');
-			$this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
-			//$this->db->join('events', 'eventdecors.eventID = events.eventID');
-			//$this->db->where('employeeID', $employeeID);
-			$this->db->where('eventID', $eventID);
-			$query = $this->db->get();
+			// $this->db->select('*');
+			// $this->db->from('eventdecors');
+			// $this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
+			// //$this->db->join('events', 'eventdecors.eventID = events.eventID');
+			// //$this->db->where('employeeID', $employeeID);
+			// $this->db->where('eventID', $eventID);
+			// $query = $this->db->get();
+			// return $query->result_array();
+
+			$query = $this->db->query("SELECT * FROM eventdecors NATURAL JOIN decors where eventID = $currentEventID GROUP BY color ORDER BY decorName");
 			return $query->result_array();
 		}
 
@@ -125,6 +128,15 @@
 			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, amount, date, time from employees natural join payments where eventID=$eID");
 			return $query->result_array();
 		}
+
+		
+		/*public function getPayment($currentEventID){
+
+			$eID = $currentEventID;
+
+			$query = $this->db->query("SELECT * FROM payments NATURAL JOIN employees where eventID = $eID");
+			return $query->result_array();
+		}*/
 
 		
 

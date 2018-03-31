@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="appointmentTable" class="table table-bordered table-striped text-center">
+          <table id="appointmentTable" class="table table-responsive table-bordered table-striped text-center">
             <thead>
             
             <tr>
