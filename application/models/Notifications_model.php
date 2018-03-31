@@ -78,19 +78,17 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date = CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('appointments');
+				$this->db->where('appointments.date = CURDATE()');
+				$this->db->where('employeeID', $emID);
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date = CURDATE();
-				");
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('appointments');
+				$this->db->join('employees', 'appointments.employeeID = employees.employeeID');
+				$this->db->where('appointments.date = CURDATE()');
 			}
-
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
@@ -98,18 +96,18 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE eventDate = CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('events');
+				$this->db->where('eventDate = CURDATE()');
+				$this->db->where('employeeID', $emID);
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE eventDate = CURDATE();
-				");
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('employees', 'events.employeeID = employees.employeeID');
+				$this->db->where('eventDate = CURDATE()');
 			}
+
+			$query = $this->db->get();
 
 			return $query->result_array();
 		}
@@ -138,17 +136,20 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date > CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('appointments');
+				$this->db->where('appointments.date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)');
+				$this->db->where('appointments.employeeID', $emID);
+
+				$query = $this->db->get();
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date > CURDATE();
-				");
+
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('appointments');
+				$this->db->join('employees', 'appointments.employeeID = employees.employeeID');
+				$this->db->where('appointments.date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)');
+
+				$query = $this->db->get();
 			}
 
 			return $query->result_array();

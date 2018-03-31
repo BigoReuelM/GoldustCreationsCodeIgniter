@@ -60,6 +60,16 @@
                   <?php
                   }
                   ?>
+                  <?php if (!empty($incAppointment)){
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#incommingAppointmentModal" data-toggle="modal" data-target="#incommingAppointmentModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incoming Appointments
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <?php if (!empty($eventsToday)){
                   ?>
                     <li><!-- start notification -->
@@ -70,10 +80,20 @@
                   <?php
                   }
                   ?>
+                  <?php if (!empty($incEvents)){
+                  ?>
+                    <li><!-- start notification -->
+                      <a >
+                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incoming Events
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <?php if (!empty($overTRent)){
                   ?>
                     <li><!-- start notification -->
-                      <a href="#">
+                      <a href="" data-toggle="modal" data-target="#incommingAppointmentModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $overTCount ?> Overdue Rental
                       </a>
                     </li>
@@ -90,26 +110,7 @@
                   <?php
                   }
                   ?>
-                  <?php if (!empty($incEvents)){
-                  ?>
-                    <li><!-- start notification -->
-                      <a href="#incommingEventsModal" data-toggle="modal" data-target="#incommingEventsModal">
-                        <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incoming Events
-                      </a>
-                    </li>
-                  <?php
-                  }
-                  ?>
-                  <?php if (!empty($incAppointment)){
-                  ?>
-                    <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incoming Appointments
-                      </a>
-                    </li>
-                  <?php
-                  }
-                  ?>
+                  
                   <!-- end notification -->
                 </ul>
               </li>
@@ -152,17 +153,98 @@
       </div>
   </nav>
 </header>
+
 <div id="appointmentsNotifModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title text-center">Appointments Today</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="appointmentsNotifTable" class="table table-bordered table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>Appointment Name</th>
+                    <th>Appointment Date and Time</th>
+                    <th>Employee</th>
+                  </tr>                  
+                </thead>
+                <tbody>
+                  <?php foreach ($appToday as $app): ?>
+                    <tr>
+                      <td>
+                        <?php
+                          $date = date_create($app['date']);
+                          $newDate = date_format($date, "M-d-Y");
+                          $newTime = date("g:i a", strtotime($app['time'])); 
+                          echo $newDate . " at " . $newTime; 
+                        ?>
+                      </td>
+                      <td><?php echo $app['agenda'] ?></td>
+                      <td><?php echo $app['employeeName'] ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="incommingAppointmentModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Appointments Today</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="appointmentsNotifTable" class="table table-bordered table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>Appointment Name</th>
+                    <th>Appointment Date and Time</th>
+                    <th>Employee</th>
+                  </tr>                  
+                </thead>
+                <tbody>
+                  <?php foreach ($incAppointment as $incApp): ?>
+                    <tr>
+                      <td>
+                        <?php
+                          $date = date_create($incApp['date']);
+                          $newDate = date_format($date, "M-d-Y");
+                          $newTime = date("g:i a", strtotime($incApp['time'])); 
+                          echo $newDate . " at " . $newTime; 
+                        ?>
+                      </td>
+                      <td><?php echo $incApp['agenda'] ?></td>
+                      <td><?php echo $incApp['employeeName'] ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Save changes</button>
@@ -182,24 +264,30 @@
         </button>
       </div>
       <div class="modal-body">
-        <table>
-          <thead>
-            <tr>
-              <th>Event Name</th>
-              <th>Event Date</th>
-              <th>Event Handler</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($incEvents as $event): ?>
-              <tr>
-                <td><?php echo $event['eventName'] ?></td>
-                <td><?php echo $event['eventDate'] ?></td>
-                <td><?php echo $event['employeeID'] ?></td>
-              </tr>              
-            <?php endforeach ?>
-          </tbody>
-        </table>
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="incommingEventsTable" class="table table-bordered table-condensed table-hover">
+                <thead>
+                  <tr>
+                    <th>Event Name</th>
+                    <th>Event Date</th>
+                    <th>Event Handler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($incEvents as $event): ?>
+                    <tr>
+                      <td><?php echo $event['eventName'] ?></td>
+                      <td><?php echo $event['eventDate'] ?></td>
+                      <td><?php echo $event['employeeID'] ?></td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -207,3 +295,10 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(function () {
+    $('#appointmentsNotifTable').DataTable()
+    $('#incommingEventsTable').DataTable()
+  })
+</script>
