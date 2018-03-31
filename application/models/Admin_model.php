@@ -219,5 +219,22 @@
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
 		}
+
+		public function createNewType($name){
+			//$query = $this->db->query("SHOW COLUMNS FROM decors LIKE 'decorType'");
+			$row = $this->db->query("SHOW COLUMNS FROM decors LIKE 'decorType'")->row()->Type;
+			$regex = "/'(.*?)'/";
+		    preg_match_all( $regex , $row, $enum_array );
+		    $enum_fields = $enum_array[1];
+		    //return( $enum_fields );
+
+			$data = array(
+				'decorType' => array(
+					'type' => "ENUM",
+					'constraint' => "'utensils', 'furnishing', 'trinkets', '" . $name . "'"
+				)
+			);
+			$this->dbforge->modify_column('decors', $data);
+		}
 	}
  ?>

@@ -32,21 +32,20 @@
             </thead>
             <tbody>
               <?php
-                if (!empty($thevedata)) {
-                  foreach ($thevedata as $te) {
+                if (!empty($themeEvEnt)) {
+                  foreach ($themeEvEnt as $te) {
                     $themeID = $te['themeID'];
                     $designID = $te['designID'];
-
               ?>
               <tr>
                 <td><?php echo $te['designName']?></td>
                 <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $te['quantity'] ?>"></td>
-                <?php }
+                <!--?php }
                   } else {
-                    echo "no data"
+                    echo "no data";
                   }
 
-                ?>
+                ?-->
                 <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($te['designImage']) . '"/></a>' ?></td>
                 <td>
                   <div class="col-md-3 col-sm-4">
