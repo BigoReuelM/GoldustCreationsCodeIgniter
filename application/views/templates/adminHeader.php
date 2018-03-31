@@ -53,7 +53,7 @@
                   <?php if (!empty($appToday)){
                   ?>
                     <li><!-- start notification -->
-                      <a href="#">
+                      <a href="#appointmentsNotifModal" type="button"  data-toggle="modal" data-target="#appointmentsNotifModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $appCount ?> Appointments Today
                       </a>
                     </li>
@@ -93,7 +93,7 @@
                   <?php if (!empty($incEvents)){
                   ?>
                     <li><!-- start notification -->
-                      <a href="#">
+                      <a href="#incommingEventsModal" data-toggle="modal" data-target="#incommingEventsModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $incECount ?> Incoming Events
                       </a>
                     </li>
@@ -152,3 +152,58 @@
       </div>
   </nav>
 </header>
+<div id="appointmentsNotifModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="incommingEventsModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Incomming Events</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Event Date</th>
+              <th>Event Handler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($incEvents as $event): ?>
+              <tr>
+                <td><?php echo $event['eventName'] ?></td>
+                <td><?php echo $event['eventDate'] ?></td>
+                <td><?php echo $event['employeeID'] ?></td>
+              </tr>              
+            <?php endforeach ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

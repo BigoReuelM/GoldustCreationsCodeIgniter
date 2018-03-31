@@ -10,7 +10,7 @@ class PrintDetailsAndReports extends CI_Controller {
     }
   
     public function create_pdf() {
-        $eventID = $this->input->post('eventID');
+        $eventID =html_escape($this->input->post('eventID'));
         $clientID = null;
         $data['eventDetails'] = $this->events_model->getEventDetails($eventID, $clientID);
         $data['currentHandler'] = $this->events_model->getCurrentHandler($eventID);
@@ -21,7 +21,7 @@ class PrintDetailsAndReports extends CI_Controller {
         $data['entourage'] = $this->events_model->getEntourage($eventID);
         //$data['paymentReceiver'] = $this->event_model->getPaymentReceiver($eventID);
         //$data['clientName'] = $this->event_model->getClientName($eventID);
-        $data['printItems'] = $this->input->post('printItem[]');
+        $data['printItems'] = html_escape($this->input->post('printItem[]'));
 
         if (!empty($this->input->post('printItem[]'))) {
             $this->load->view('printViews/eventDetailsToPDF.php', $data);    

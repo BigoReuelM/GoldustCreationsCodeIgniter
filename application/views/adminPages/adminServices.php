@@ -100,7 +100,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <?php 
-          $attributes = array("name" => "addNewService", "id" => "addNewService", "class" => "form-horizontal");
+          $attributes = array("name" => "addNewService", "id" => "addNewService", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("admin/addNewService", $attributes);
         ?>
           <div class="modal-header">

@@ -143,13 +143,10 @@
               </div>-->
               <label>Theme/s</label>
               <div class="input-group">               
-                <input type="text" class="form-control" placeholder="Theme" disabled>
+                <input type="text" class="form-control" placeholder="ewed pay" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
-                <!--<div class="input-group-append">
-                  <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                </div>-->
               </div>
 
               <div class="form-group">   

@@ -45,11 +45,17 @@
             <i class="glyphicon glyphicon-folder-close"></i> 
             <span>Decors And Design</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-rigth"></i>
+              <i class="fa fa-angle-right pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
             <li>
+              <a href="<?php echo base_url('admin/adminDecorsHome') ?>">Decors</a>
+            </li>
+            <li>
+              <a href="<?php echo base_url('admin/adminDesignsHome') ?>">Designs</a>
+            </li>
+            <!--<li>
               <a href="<?php echo base_url('items/gowns') ?>">Gowns</a>
             </li>
             <li>
@@ -60,7 +66,7 @@
             </li>
             <li>
               <a href="<?php echo base_url('items/decors') ?>">Decors</a>
-            </li>
+            </li>-->
           </ul>
         </li>
         <li>

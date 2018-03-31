@@ -91,7 +91,7 @@
         </div>
       </div>
       <?php 
-        $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal");
+        $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal","autocomplete" => "off");
         echo form_open("transactions/addTransactionAppointments", $attributes);
       ?>
         <div class="modal-body">       

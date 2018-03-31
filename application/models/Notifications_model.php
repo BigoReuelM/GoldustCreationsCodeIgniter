@@ -121,13 +121,13 @@
 				$query = $this->db->query("
 					SELECT *
 					FROM events
-					WHERE eventDate > CURDATE();
+					WHERE DATE_ADD(CURDATE(), INTERVAL 5 day) <= events.eventDate and employeeID = employeeID;
 				");
 			}else{
 				$query = $this->db->query("
 					SELECT *
 					FROM events
-					WHERE eventDate > CURDATE();
+					WHERE DATE_ADD(CURDATE(), INTERVAL 5 day) <= events.eventDate and CURDATE() >= events.eventDate and (eventStatus like 'on-going' or eventStatus like 'new');
 				");
 			}
 

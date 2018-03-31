@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$middlename =  html_escape($this->input->post('middlename'));
 				$lastname =  html_escape($this->input->post('lastname'));
 				$contactNo =  html_escape($this->input->post('contact'));
-				$date = $this->input->post('adddate');
+				$date = html_escape($this->input->post('adddate'));
 
 				$this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
 
