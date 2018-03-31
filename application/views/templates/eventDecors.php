@@ -156,39 +156,39 @@ input[type=submit] {
                   <!--<th>Decor ID</th>
                     <th>Event ID</th>-->
                     <th>Decor Name</th>
+                    <th>Decor Type</th>
+                    <th>Color</th>
                     <th>Quantity</th>
                     <th>Photo</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                  if(!empty($eventdecors)){
-
-                    foreach ($eventdecors as $ed) { 
-                      $decID = $ed['decorID'];
-                      ?>
+                  <?php 
+                    if (!empty($themeDecors)) {
+                      foreach ($$themeDecors as $td) {
+                        $themeID = $td['themeID'];
+                        $decorID = $td['decorID'];
+                    ?>
                       <tr>
-                          <!-- 
-                          <td><?php //echo $ed['decorID']; ?></td>
-                          <td><?php //echo $ed['eventID']; ?></td> 
-                        -->
-                        <td><?php echo $ed['decorName']; ?></td>
-                        <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $ed['quantity']; ?>"></td>
-                        <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $ed['decorImage'] ) . '"/>' ?></td>
+                        <td><?php echo $td['decorName']; ?></td>
+                        <td><?php echo $td['decorType']; ?></td>
+                        <td><?php echo $td['color']; ?></td>
+                        <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $td['quantity']; ?>"></td>
+                        <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?></td>
                         <td>                            
                           <!-- remove decor button -->
                           <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
                           <div class="col-md-3 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
                               <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
-                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-remove"></i> Remove</button> 
+                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>  
                           </div>
                           <!-- change decor button -->
                           <div class="col-md-3 col-sm-4">
                             <form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
-                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
+                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
                             </form>
                           </div>
                         </td>

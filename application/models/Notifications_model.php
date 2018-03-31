@@ -10,38 +10,29 @@
 			$eID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
-				FROM
-				    services s
-				        NATURAL JOIN			  
-				    clients c
-				        NATURAL JOIN
-				    transactions t
-	                	NATURAL JOIN
-	                transactiondetails ts
-				WHERE
-				    s.serviceName LIKE '%rental%'
-				        AND t.transactionstatus LIKE 'on%going'
-				        AND t.employeeID = $eID
-				        AND DATE_ADD(t.dateAvail, INTERVAL 5 day) > CURDATE();"
-				);
+				$this->db->select('concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, transactions.dateAvail, clients.contactNumber, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as employeeName');
+				$this->db->from('transactions');
+				$this->db->join('transactiondetails','transactions.transactionID = transactiondetails.transactionID');
+				$this->db->join('services','transactiondetails.serviceID = services.serviceID');
+				$this->db->join('clients','transactions.clientID = clients.clientID');
+				$this->db->join('employees','transactions.employeeID = employees.employeeID');
+				$this->db->where('services.serviceName like "%rental%"');
+				$this->db->where('transactions.transactionstatus like "on%going"');
+				$this->db->where('CURDATE() >= DATE_ADD(transactions.dateAvail, INTERVAL 3 DAY)');
+				$this->db->where('transactions.employeeID', $eID);
 			}else{
-				$query= $this->db->query("SELECT *, concat(firstName, ' ', middleName, ' ', lastName) as clientName
-				FROM
-				    services s
-				        NATURAL JOIN			  
-				    clients c
-				        NATURAL JOIN
-				    transactions t
-	                	NATURAL JOIN
-	                transactiondetails ts
-				WHERE
-				    s.serviceName LIKE '%rental%'
-				        AND t.transactionstatus LIKE 'on%going'
-				        AND DATE_ADD(t.dateAvail, INTERVAL 5 day) > CURDATE();"
-				); 
+				$this->db->select('concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, transactions.dateAvail, clients.contactNumber, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as employeeName');
+				$this->db->from('transactions');
+				$this->db->join('transactiondetails','transactions.transactionID = transactiondetails.transactionID');
+				$this->db->join('services','transactiondetails.serviceID = services.serviceID');
+				$this->db->join('clients','transactions.clientID = clients.clientID');
+				$this->db->join('employees','transactions.employeeID = employees.employeeID');
+				$this->db->where('services.serviceName like "%rental%"');
+				$this->db->where('transactions.transactionstatus like "on%going"');
+				$this->db->where('CURDATE() >= DATE_ADD(transactions.dateAvail, INTERVAL 3 DAY)');
 			}
 			
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
@@ -78,19 +69,17 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date = CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('appointments');
+				$this->db->where('appointments.date = CURDATE()');
+				$this->db->where('employeeID', $emID);
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date = CURDATE();
-				");
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('appointments');
+				$this->db->join('employees', 'appointments.employeeID = employees.employeeID');
+				$this->db->where('appointments.date = CURDATE()');
 			}
-
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
@@ -98,18 +87,18 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE eventDate = CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('events');
+				$this->db->where('eventDate = CURDATE()');
+				$this->db->where('employeeID', $emID);
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE eventDate = CURDATE();
-				");
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('employees', 'events.employeeID = employees.employeeID');
+				$this->db->where('eventDate = CURDATE()');
 			}
+
+			$query = $this->db->get();	
 
 			return $query->result_array();
 		}
@@ -118,19 +107,17 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE DATE_ADD(CURDATE(), INTERVAL 5 day) <= events.eventDate and employeeID = employeeID;
-				");
+				$this->db->select('*');
+				$this->db->from('events');
+				$this->db->where('events.eventDate > CURDATE() && events.eventDate < DATE_ADD(CURDATE(), INTERVAL 5 DAY)');
+				$this->db->where('events.employeeID', $emID);
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM events
-					WHERE DATE_ADD(CURDATE(), INTERVAL 5 day) <= events.eventDate and CURDATE() >= events.eventDate and (eventStatus like 'on-going' or eventStatus like 'new');
-				");
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('employees', 'events.employeeID = employees.employeeID');
+				$this->db->where('events.eventDate > CURDATE() && events.eventDate < DATE_ADD(CURDATE(), INTERVAL 5 DAY)');
 			}
-
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
@@ -138,17 +125,20 @@
 			$emID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			if ($empRole === "handler") {
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date > CURDATE();
-				");
+				$this->db->select('*');
+				$this->db->from('appointments');
+				$this->db->where('appointments.date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)');
+				$this->db->where('appointments.employeeID', $emID);
+
+				$query = $this->db->get();
 			}else{
-				$query = $this->db->query("
-					SELECT *
-					FROM appointments
-					WHERE appointments.date > CURDATE();
-				");
+
+				$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+				$this->db->from('appointments');
+				$this->db->join('employees', 'appointments.employeeID = employees.employeeID');
+				$this->db->where('appointments.date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)');
+
+				$query = $this->db->get();
 			}
 
 			return $query->result_array();

@@ -19,6 +19,9 @@ class PrintDetailsAndReports extends CI_Controller {
         $data['services'] = $this->events_model->servcTransac($eventID);
         $data['eventStaff'] = $this->events_model->getStaff($eventID);
         $data['entourage'] = $this->events_model->getEntourage($eventID);
+        
+        $data['designs'] = $this->events_model->getDesigns($eventID);
+        $data['decors'] = $this->events_model->getDecors($eventID);
         //$data['paymentReceiver'] = $this->event_model->getPaymentReceiver($eventID);
         //$data['clientName'] = $this->event_model->getClientName($eventID);
         $data['printItems'] = html_escape($this->input->post('printItem[]'));
