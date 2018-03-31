@@ -9,6 +9,28 @@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">       
+        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post" >
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <select class="form-control" name="decor_type" id="decor_type" placeholder="">
+                  <option disabled selected>Choose</option>
+                <?php
+                  if (!empty('decorTypes')) {
+                    foreach ($decorTypes as $dt) { ?>
+                      <option><?php echo $dt['decorType']?></option>
+                <?php }
+                  }
+                ?>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary">Select</button>
+            </div>          
+          </div>
+        </form> 
+<!-- Display all items accdg to the type selected -->
         <?php
           $currentDecType = $this->session->userdata('currentType');
           // display all images from the folder...

@@ -77,7 +77,7 @@
       </div>
       <div class="modal-body">
         <?php 
-          $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal");
+          $attributes = array("name" => "addNewAppointment", "id" => "addNewAppointment", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("events/addNewEventAppointment", $attributes);
         ?>
           <div id="the-message">

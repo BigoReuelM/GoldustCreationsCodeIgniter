@@ -102,7 +102,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addNewPayment", "id" => "addNewPayment", "class" => "form-horizontal");
+        $attributes = array("name" => "addNewPayment", "id" => "addNewPayment", "class" => "form-horizontal","autocomplete" => "off");
         echo form_open("events/addPayment", $attributes);
       ?>
       
