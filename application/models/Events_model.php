@@ -105,7 +105,7 @@
 			// $query = $this->db->get();
 			// return $query->result_array();
 
-			$query = $this->db->query("SELECT * FROM eventdecors NATURAL JOIN decors where eventID = $currentEventID GROUP BY color ORDER BY decorName");
+			$query = $this->db->query("SELECT * FROM eventdecors NATURAL JOIN decors where eventID = $eventID GROUP BY color ORDER BY decorName");
 			return $query->result_array();
 		}
 
