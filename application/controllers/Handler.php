@@ -43,7 +43,5 @@ class Handler extends CI_Controller
 		$this->load->view("templates/footer.php");
 	}
 
-	
-
 } 
 ?>
