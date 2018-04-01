@@ -121,11 +121,11 @@ input[type=submit] {
               <div class="col-lg-3">
                 <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Decors </button>
               </div> 
-              <div class="col-lg-3">
+              <!--<div class="col-lg-3">
                 <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Save </button>
               </div> 
               
-                <!-- Add new decors -->
+                 Add new decors 
                 <div class="modal fade" id="myModal" role="dialog">
                   <div class="modal-dialog">
 
@@ -142,7 +142,7 @@ input[type=submit] {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>-->
 
                 <!-- End -->
       </div>
@@ -166,7 +166,7 @@ input[type=submit] {
                 <tbody>
                   <?php 
                     if (!empty($themeDecors)) {
-                      foreach ($$themeDecors as $td) {
+                      foreach ($themeDecors as $td) {
                         $themeID = $td['themeID'];
                         $decorID = $td['decorID'];
                     ?>
@@ -205,7 +205,7 @@ input[type=submit] {
   </div>
 
         <!-- modals -->
-        <!-- add new decor modal -->
+        <!-- add new decor modal 
         <div class="modal fade" id="addnewdecor" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -221,7 +221,7 @@ input[type=submit] {
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
         <!-- change decor modal -->
         <!--<div class="modal fade" id="changedecor" role="dialog">
           <div class="modal-dialog">

@@ -201,8 +201,10 @@
             // and also remove the error class
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New payment has been saved.' +
+            ' New appointment has been saved.' +
             '</div>');
+
+            $('td.dataTables_empty').remove();
 
             $('#appTable').prepend(
               '<tr>'+

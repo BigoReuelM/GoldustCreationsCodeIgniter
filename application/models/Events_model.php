@@ -779,15 +779,58 @@
 		//The following queries is meant for the calendar
 
 		public function getEventDetailsForCalendar(){
-			$this->db->select('eventID, eventDate, eventTime, eventName');
-			$this->db->from('events');
-			$this->db->where('eventStatus', "ongoing");
-			$this->db->where('eventStatus', "new");
 
-			$query = $this->db->get();
+			$query = $this->db->query("
+				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
+				FROM `events`
+				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going');
+			");
 
 			return $query->result_array();
 		}
+
+		public function getEventDates(){
+
+			$query = $this->db->query("
+				SELECT eventDate
+				from events
+				where eventDate is not null
+				group by eventDate
+			");
+
+			return $query->result_array();
+		}
+
+		public function getEventYear(){
+			$query = $this->db->query("
+				SELECT YEAR(eventDate) as year FROM `events`
+				where eventDate is not null
+				group by year
+			");
+
+			return $query->result_array();
+		}
+
+		public function getEventMonth(){
+			$query = $this->db->query("
+				SELECT MONTH(eventDate) as month FROM `events`
+				where eventDate is not null
+				group by month
+			");
+
+			return $query->result_array();
+		}
+		
+		public function getEventDay(){
+			$query = $this->db->query("
+				SELECT DAY(eventDate) as day FROM `events`
+				where eventDate is not null
+				group by day
+			");
+
+			return $query->result_array();
+		}
+		
 
 		//end of calendar queries
 		
@@ -836,6 +879,18 @@
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
 		}	
+
+		/*public function getThemeName(){
+			$evID = $this->session->userdata('currentEventID');
+
+			//$this->db->select('CONCAT(themeName, ',' , themeName2) as eventThemeName', FALSE);
+			$this->db->select('themeName');
+			$this->db->from('eventthemes');
+			$this->db->where('eventID', $evID);
+			$query = $this->db->get();
+
+			return $query->result();
+		}*/
 	}
 
 
