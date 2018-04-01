@@ -94,7 +94,7 @@
 
 		public function getServices(){
 			$id=$this->session->userdata('currentEventID');
-			$query=$this->db->query("SELECT serviceID, serviceName, description from events left join eventservices using(eventID) left join services using(serviceID) where status='active' and serviceID not in (SELECT EV.serviceID from (SELECT * from events left join eventservices using(eventID) left join services using(serviceID) where status='active') AS EV where eventID='$id')");
+			$query=$this->db->query("SELECT DISTINCT serviceID, serviceName, description from events left join eventservices using(eventID) left join services using(serviceID) where status='active' and serviceID not in (SELECT EV.serviceID from (SELECT * from events left join eventservices using(eventID) left join services using(serviceID) where status='active') AS EV where eventID='$id')");
 			return $query->result_array();
 		}
 

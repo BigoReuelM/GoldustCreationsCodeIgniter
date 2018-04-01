@@ -454,7 +454,26 @@
 </div>
 <!--end of fisnish event modal-->
 
-
+<div class="modal fade" id="select-handler">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select handler</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
 <div class="modal fade" id="update-details">
