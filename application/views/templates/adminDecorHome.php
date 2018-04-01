@@ -17,8 +17,8 @@
                 <?php
                   if (!empty('decorTypes')) {
                     foreach ($decorTypes as $dt) { ?>
-                      <div class="col-md-3">
-                        <button name="decor_type" id="decor_type" type="submit" class="btn btn-primary btn-block" value="<?php echo $dt['decorType']?>"><?php echo $dt['decorType']?></button>
+                      <div class="col-md-3" style="margin-bottom: 10px;">
+                        <button name="decor_type" id="decor_type" type="submit" class="btn btn-primary btn-block" value="<?php echo $dt ?>"><?php echo $dt ?></button>
                       </div>  
                 <?php }
                   }

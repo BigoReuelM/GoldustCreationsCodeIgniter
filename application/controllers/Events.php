@@ -910,7 +910,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['decorTypes'] = $this->events_model->getDecorTypes();
+			$data['decorTypes'] = $this->events_model->getDecorEnum();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -964,7 +964,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['designTypes'] = $this->events_model->getDesignTypes();
+			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
@@ -1052,7 +1052,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['designTypes'] = $this->events_model->getDesignTypes();
+			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			// get all folders inside DESIGN folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
@@ -1158,7 +1158,7 @@ class Events extends CI_Controller
 			$enumVals = $this->events_model->getDesignEnum();
 			$newEnumVal = $this->input->post('type_name');
 			$this->events_model->addDesType($enumVals, $newEnumVal);
-			$this->adminDecorsHome();
+			$this->adminDesignsHome();
 		}
 	}
 
