@@ -834,7 +834,7 @@
 
 		//end of calendar queries
 		
-		public function addNewDecor($themeID, $name, $color, $type){
+		public function addNewDecor($name, $color, $type){
 			$data = array(
 				'decorName' => $name,
 				'color' => $color,
@@ -852,7 +852,7 @@
 			$this->db->insert('themedecor', $data);
 		}
 
-		public function addNewDesign($themeID, $name, $color, $type){
+		public function addNewDesign($name, $color, $type){
 			$data = array(
 				'designName' => $name,
 				'color' => $color,
@@ -879,6 +879,8 @@
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
 		}	
+
+	
 	}
 
 

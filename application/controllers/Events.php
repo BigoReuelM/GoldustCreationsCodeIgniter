@@ -1079,9 +1079,51 @@ class Events extends CI_Controller
 			$cDesType = html_escape($this->input->post('design_type'));
 			$this->session->set_userdata('currentType', $cDesType);
 			$this->adminDesigns();
+		}
+
+		public function uploadDecImg(){
+			$cType = $this->session->userdata('currentType');
+			$config['upload_path'] = './uploads/decors/' . $cType . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('dec_name', 'New Decor Name', 'required');
+			$this->form_validation->set_rules('dec_color', 'New Decor Color', 'required');		
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$decorName = html_escape($this->input->post('dec_name'));
+				$decorColor = html_escape($this->input->post('dec_color'));
+				$this->events_model->addNewDecor($decorName, $decorColor, $cType);
+				$this->adminDecorsHome();
+			}
+		}
+
+		public function uploadDesImg(){
+			$cType = $this->session->userdata('currentType');
+			$config['upload_path'] = './uploads/designs/' . $cType . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('des_name', 'New Design Name', 'required');
+			$this->form_validation->set_rules('des_color', 'New Design Color', 'required');		
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$designName = html_escape($this->input->post('des_name'));
+				$designColor = html_escape($this->input->post('des_color'));
+				$this->events_model->addNewDesign($designName, $designColor, $cType);
+				$this->adminDesignsHome();
+			}
 		}	
 
 	}
 
-	?>
+?>
 
