@@ -9,7 +9,7 @@
         <li class="header"></li>
         <!-- Optionally, you can add icons to the links -->
         <li>
-          <a href="<?php echo base_url('admin/index') ?>"><i class="glyphicon glyphicon-home"></i> <span>Home</span></a>
+          <a href="<?php echo base_url('admin/index') ?>"><i class="glyphicon glyphicon-home"></i><span>Home</span></a>
         </li>
         <li>
           <a href="<?php echo base_url('events/newEvents') ?>">
@@ -50,23 +50,11 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="<?php echo base_url('admin/adminDecorsHome') ?>">Decors</a>
+              <a href="<?php echo base_url('events/adminDecorsHome') ?>">Decors</a>
             </li>
             <li>
-              <a href="<?php echo base_url('admin/adminDesignsHome') ?>">Designs</a>
+              <a href="<?php echo base_url('events/adminDesignsHome') ?>">Designs</a>
             </li>
-            <!--<li>
-              <a href="<?php echo base_url('items/gowns') ?>">Gowns</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('items/suits') ?>">Suits</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('items/costumes') ?>">Costumes</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('items/decors') ?>">Decors</a>
-            </li>-->
           </ul>
         </li>
         <li>

@@ -96,13 +96,16 @@
 		public function getDecors($eventID){
 			//$eID = $this->session->userdata('employeeID');
 			//$evntID = $this->session->userdata('currentEventID');
-			$this->db->select('*');
-			$this->db->from('eventdecors');
-			$this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
-			//$this->db->join('events', 'eventdecors.eventID = events.eventID');
-			//$this->db->where('employeeID', $employeeID);
-			$this->db->where('eventID', $eventID);
-			$query = $this->db->get();
+			// $this->db->select('*');
+			// $this->db->from('eventdecors');
+			// $this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
+			// //$this->db->join('events', 'eventdecors.eventID = events.eventID');
+			// //$this->db->where('employeeID', $employeeID);
+			// $this->db->where('eventID', $eventID);
+			// $query = $this->db->get();
+			// return $query->result_array();
+
+			$query = $this->db->query("SELECT * FROM eventdecors NATURAL JOIN decors where eventID = $eventID GROUP BY color ORDER BY decorName");
 			return $query->result_array();
 		}
 
@@ -125,6 +128,15 @@
 			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, amount, date, time from employees natural join payments where eventID=$eID");
 			return $query->result_array();
 		}
+
+		
+		/*public function getPayment($currentEventID){
+
+			$eID = $currentEventID;
+
+			$query = $this->db->query("SELECT * FROM payments NATURAL JOIN employees where eventID = $eID");
+			return $query->result_array();
+		}*/
 
 		
 
@@ -767,17 +779,106 @@
 		//The following queries is meant for the calendar
 
 		public function getEventDetailsForCalendar(){
-			$this->db->select('eventID, eventDate, eventTime, eventName');
-			$this->db->from('events');
-			$this->db->where('eventStatus', "ongoing");
-			$this->db->where('eventStatus', "new");
 
-			$query = $this->db->get();
+			$query = $this->db->query("
+				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
+				FROM `events`
+				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going');
+			");
 
 			return $query->result_array();
 		}
 
+		public function getEventDates(){
+
+			$query = $this->db->query("
+				SELECT eventDate
+				from events
+				where eventDate is not null
+				group by eventDate
+			");
+
+			return $query->result_array();
+		}
+
+		public function getEventYear(){
+			$query = $this->db->query("
+				SELECT YEAR(eventDate) as year FROM `events`
+				where eventDate is not null
+				group by year
+			");
+
+			return $query->result_array();
+		}
+
+		public function getEventMonth(){
+			$query = $this->db->query("
+				SELECT MONTH(eventDate) as month FROM `events`
+				where eventDate is not null
+				group by month
+			");
+
+			return $query->result_array();
+		}
+		
+		public function getEventDay(){
+			$query = $this->db->query("
+				SELECT DAY(eventDate) as day FROM `events`
+				where eventDate is not null
+				group by day
+			");
+
+			return $query->result_array();
+		}
+		
+
 		//end of calendar queries
+		
+		public function addNewDecor($themeID, $name, $color, $type){
+			$data = array(
+				'decorName' => $name,
+				'color' => $color,
+				'decorType' => $type
+			);
+			$this->db->insert('decors', $data);
+			return $this->db->insert_id();
+		}
+
+		public function addNewThemeDecor($themeID, $decorID){
+			$data = array(
+				'themeID' => $themeID,
+				'decorID' => $decorID
+			);
+			$this->db->insert('themedecor', $data);
+		}
+
+		public function addNewDesign($themeID, $name, $color, $type){
+			$data = array(
+				'designName' => $name,
+				'color' => $color,
+				'designType' => $type
+			);
+			$this->db->insert('designs', $data);
+			return $this->db->insert_id();
+		}
+
+		public function addNewThemeDesign($themeID, $designID){
+			$data = array(
+				'themeID' => $themeID,
+				'designID' => $designID
+			);
+			$this->db->insert('themedesign', $data);
+		}
+
+		public function getDecorTypes(){
+			$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
+			return $query->result_array();
+		}
+
+		public function getDesignTypes(){
+			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
+			return $query->result_array();
+		}	
 
 		/*public function getThemeName(){
 			$evID = $this->session->userdata('currentEventID');

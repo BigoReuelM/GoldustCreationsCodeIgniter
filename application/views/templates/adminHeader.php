@@ -60,31 +60,21 @@
                   <?php
                   }
                   ?>
+                  <?php if (!empty($incAppointment)){
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#incommingAppointmentModal" data-toggle="modal" data-target="#incommingAppointmentModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incoming Appointments
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
                   <?php if (!empty($eventsToday)){
                   ?>
                     <li><!-- start notification -->
-                      <a href="#">
+                      <a href="#eventsTodayModal" data-toggle="modal" data-target="#eventsTodayModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $eventCount ?> Events Today
-                      </a>
-                    </li>
-                  <?php
-                  }
-                  ?>
-                  <?php if (!empty($overTRent)){
-                  ?>
-                    <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $overTCount ?> Overdue Rental
-                      </a>
-                    </li>
-                  <?php
-                  }
-                  ?>
-                  <?php if (!empty($overERent)){
-                  ?>
-                    <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $overECount ?> Overdue Event Rental
                       </a>
                     </li>
                   <?php
@@ -100,16 +90,27 @@
                   <?php
                   }
                   ?>
-                  <?php if (!empty($incAppointment)){
+                  <?php if (!empty($overTRent)){
                   ?>
                     <li><!-- start notification -->
-                      <a href="#">
-                        <i class="fa fa-users text-aqua"></i><?php echo $incACount ?> Incoming Appointments
+                      <a href="#overdueTRentalModal" data-toggle="modal" data-target="#overdueTRentalModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overTCount ?> Overdue Rental
                       </a>
                     </li>
                   <?php
                   }
                   ?>
+                  <?php if (!empty($overERent)){
+                  ?>
+                    <li><!-- start notification -->
+                      <a href="#overdueERentalModal" data-toggle="modal" data-target="#overdueERentalModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overECount ?> Overdue Event Rental
+                      </a>
+                    </li>
+                  <?php
+                  }
+                  ?>
+                  
                   <!-- end notification -->
                 </ul>
               </li>
@@ -152,20 +153,99 @@
       </div>
   </nav>
 </header>
+
 <div id="appointmentsNotifModal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title text-center">Appointments Today</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="appointmentsNotifTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Appointment Agenda</th>
+                    <th>Appointment Date and Time</th>
+                    <th>Employee</th>
+                  </tr>                  
+                </thead>
+                <tbody>
+                  <?php foreach ($appToday as $app): ?>
+                    <tr>
+                      <td><?php echo $app['agenda'] ?></td>
+                      <td>
+                        <?php
+                          $appTodayDate = date_create($app['date']);
+                          $appTodayDateFormated = date_format($appTodayDate, "M-d-Y");
+                          $appTodayTimeFormated = date("g:i a", strtotime($app['time'])); 
+                          echo $appTodayDateFormated . " at " . $appTodayTimeFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $app['employeeName'] ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="incommingAppointmentModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Incoming Appointments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="incomingAppointmentsTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Appointment Agenda</th>
+                    <th>Appointment Date and Time</th>
+                    <th>Handler</th>
+                  </tr>                  
+                </thead>
+                <tbody>
+                  <?php foreach ($incAppointment as $incApp): ?>
+                    <tr>
+                      <td><?php echo $incApp['agenda'] ?></td>
+                      <td>
+                        <?php
+                          $incAppDate = date_create($incApp['date']);
+                          $incAppDateFormated = date_format($incAppDate, "M-d-Y");
+                          $incAppTimeFormated = date("g:i a", strtotime($incApp['time'])); 
+                          echo $incAppDateFormated . " at " . $incAppTimeFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $incApp['employeeName'] ?></td>
+                    </tr>
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -176,30 +256,43 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Incomming Events</h5>
+        <h5 class="modal-title text-center">Incomming Events</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <table>
-          <thead>
-            <tr>
-              <th>Event Name</th>
-              <th>Event Date</th>
-              <th>Event Handler</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($incEvents as $event): ?>
-              <tr>
-                <td><?php echo $event['eventName'] ?></td>
-                <td><?php echo $event['eventDate'] ?></td>
-                <td><?php echo $event['employeeID'] ?></td>
-              </tr>              
-            <?php endforeach ?>
-          </tbody>
-        </table>
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="incommingEventsTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Event Name</th>
+                    <th>Event Date and Time</th>
+                    <th>Event Handler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($incEvents as $event): ?>
+                    <tr>
+                      <td><?php echo $event['eventName'] ?></td>
+                      <td>
+                        <?php
+                          $incEventDate = date_create($event['eventDate']);
+                          $incEventDateFormated = date_format($incEventDate, "M-d-Y");
+                          $incEventTimeFormated = date("g:i a", strtotime($event['eventTime'])); 
+                          echo $incEventDateFormated . " at " . $incEventTimeFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $event['employeeName'] ?></td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -207,3 +300,158 @@
     </div>
   </div>
 </div>
+<div id="eventsTodayModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Events Today</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="eventsTodayTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Event Name</th>
+                    <th>Event Date and Time</th>
+                    <th>Event Handler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($eventsToday as $eve): ?>
+                    <tr>
+                      <td><?php echo $eve['eventName'] ?></td>
+                      <td>
+                        <?php
+                          $eventTodayDate = date_create($eve['eventDate']);
+                          $eventTodayDateFormated = date_format($eventTodayDate, "M-d-Y");
+                          $eventTodayTimeFormated = date("g:i a", strtotime($eve['eventTime'])); 
+                          echo $eventTodayDateFormated . " at " . $eventTodayTimeFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $eve['employeeName'] ?></td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overdueTRentalModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Overdue Rentals</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="overdueTRentalTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Client Name</th>
+                    <th>Date Availed</th>
+                    <th>Contact Number</th>
+                    <th>Handler of Rental</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($overTRent as $tRent): ?>
+                    <tr>
+                      <td><?php echo $tRent['clientName'] ?></td>
+                      <td>
+                        <?php
+                          $tRentalDate = date_create($tRent['dateAvail']);
+                          $tRentalDateFormated = date_format($tRentalDate, "M-d-Y");
+                          echo $tRentalDateFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $tRent['contactNumber'] ?></td>
+                      <td><?php echo $tRent['employeeName'] ?></td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overdueERentalModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Overdue Event Rentals</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="eventsTodayTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Event Name</th>
+                    <th>Event Date and Time</th>
+                    <th>Event Handler</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($overERent as $eRent): ?>
+                    <tr>
+                      <td><?php echo $eRent['eventName'] ?></td>
+                      <td>
+                        <?php
+                          $overERentDate = date_create($eRent['eventDate']);
+                          $overERentDateFormated = date_format($overERentDate, "M-d-Y"); 
+                          echo $overERentDateFormated; 
+                        ?>
+                      </td>
+                      <td><?php echo $eve['employeeName'] ?></td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(function () {
+    $('#appointmentsNotifTable').DataTable()
+    $('#incommingEventsTable').DataTable()
+    $('#incomingAppointmentsTable').DataTable()
+  })
+</script>
+

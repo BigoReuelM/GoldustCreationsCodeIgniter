@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="appointmentTable" class="table table-bordered table-striped text-center">
+          <table id="appointmentTable" class="table table-responsive table-bordered table-striped text-center">
             <thead>
             
             <tr>
@@ -201,8 +201,10 @@
             // and also remove the error class
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New payment has been saved.' +
+            ' New appointment has been saved.' +
             '</div>');
+
+            $('td.dataTables_empty').remove();
 
             $('#appTable').prepend(
               '<tr>'+

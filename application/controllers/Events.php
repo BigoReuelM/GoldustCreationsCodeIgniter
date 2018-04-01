@@ -891,6 +891,196 @@ class Events extends CI_Controller
 
 		}
 
+		public function adminDecorsHome(){
+			$this->load->helper('directory');
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$newStatus = "new";
+			$ongoingStatus = "on-going";
+
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['decorTypes'] = $this->events_model->getDecorTypes();
+
+			// get all folders inside DECOR folder in uploads folder
+			$data['map'] = directory_map('./uploads/decors/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$decorTypeFoldr = html_escape($this->input->post('decor_type'));
+			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
+			$data['type_map'] = directory_map('./uploads/decors/' . $decorTypeFoldr . '/', 1);
+
+			// get all folders inside DESIGN folder in uploads folder
+			$data['map1'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$data['type_map1'] = directory_map('./uploads/designs/' . $decorTypeFoldr . '/', 1);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Decors Home | Admin';	
+			}else{
+				$headdata['pagename'] = 'Decors Home | Handler';
+			}			
+
+			$this->load->view("templates/head.php", $headdata);
+			if ($this->session->userdata('role') === "admin") {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+				$this->load->view("templates/header.php", $notif);
+			}
+			$this->load->view("templates/adminDecorHome.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function adminDesignsHome(){
+			$this->load->helper('directory');
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$newStatus = "new";
+			$ongoingStatus = "on-going";
+
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['designTypes'] = $this->events_model->getDesignTypes();
+
+			// get all folders inside DECOR folder in uploads folder
+			$data['map'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$designTypeFoldr = html_escape($this->input->post('design_type'));
+			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
+			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
+
+			// get all folders inside DESIGN folder in uploads folder
+			$data['map1'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$data['type_map1'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Designs Home | Admin';	
+			}else{
+				$headdata['pagename'] = 'Designs Home | Handler';
+			}			
+
+			$this->load->view("templates/head.php", $headdata);
+			if ($this->session->userdata('role') === "admin") {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+				$this->load->view("templates/header.php", $notif);
+			}
+			$this->load->view("templates/adminDesignsHome.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function adminDecors(){
+			$this->load->helper('directory');
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$currentDecType = $this->session->userdata('currentType');
+			$newStatus = "new";
+			$ongoingStatus = "on-going";
+
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			//$data['decorTypes'] = $this->admin_model->getDecorTypes();
+
+			// get all folders inside DECOR folder in uploads folder
+			$data['map'] = directory_map('./uploads/decors/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$decorTypeFoldr = html_escape($this->input->post('decor_type'));
+			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
+			$data['type_map'] = directory_map('./uploads/decors/' . $decorTypeFoldr . '/', 1);
+
+			// get all folders inside DESIGN folder in uploads folder
+			$data['map1'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$data['type_map1'] = directory_map('./uploads/designs/' . $decorTypeFoldr . '/', 1);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Decors | Admin';	
+			}else{
+				$headdata['pagename'] = 'Decors | Handler';
+			}			
+
+			$this->load->view("templates/head.php", $headdata);
+			if ($this->session->userdata('role') === "admin") {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+				$this->load->view("templates/header.php", $notif);
+			}
+			$this->load->view("templates/adminDecors.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		public function adminDesigns(){
+			$this->load->helper('directory');
+			$empID = $this->session->userdata('employeeID');
+			$empRole = $this->session->userdata('role');
+			$newStatus = "new";
+			$ongoingStatus = "on-going";
+
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['designTypes'] = $this->events_model->getDesignTypes();
+
+			// get all folders inside DESIGN folder in uploads folder
+			$data['map'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$designTypeFoldr = $this->input->post('design_type');
+			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
+
+			// get all folders inside DESIGN folder in uploads folder
+			$data['map1'] = directory_map('./uploads/designs/', 1);
+			// get contents of the folder similarly named to the current type selected
+			$data['type_map1'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
+
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Designs Home | Admin';	
+			}else{
+				$headdata['pagename'] = 'Designs Home | Handler';
+			}			
+
+			$this->load->view("templates/head.php", $headdata);
+			if ($this->session->userdata('role') === "admin") {
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+			}else{
+				$this->load->view("templates/header.php", $notif);
+			}
+			$this->load->view("templates/adminDesigns.php", $data);
+			$this->load->view("templates/footer.php");
+		}
+
+		// set the currently selected decor type
+		public function setCtDecType(){
+			$cDecType = html_escape($this->input->post('decor_type'));
+			$this->session->set_userdata('currentType', $cDecType);
+			$this->adminDecors();
+		}
+
+		// set the currently selected design type
+		public function setCtDesType(){
+			$cDesType = html_escape($this->input->post('design_type'));
+			$this->session->set_userdata('currentType', $cDesType);
+			$this->adminDesigns();
+		}	
+
 		/*public function showThemeName() {
 			$data = array();
 			$this->load->model('events_model');
