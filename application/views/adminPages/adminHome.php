@@ -55,7 +55,7 @@
               <div class="icon">
                 <i class="ion ion-android-calendar"></i>
               </div>
-              <a href="<?php echo base_url('events/ongoingEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url('clients/clients') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
         </div>

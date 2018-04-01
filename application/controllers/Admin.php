@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('admin_model');
 			$this->load->model('events_model');
 			$this->load->model('notifications_model');
+			$this->load->model('transactions_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -24,6 +25,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empRole = $this->session->userdata('role');
 			$newStatus = "new";
 			$ongoingStatus = "on-going";
+
+			$tRentalCount = count($this->transactions_model->view_home_ongoing_rentals());
+			$tEventCount = count($this->transactions_model->viewEventRentals());
+
+			$data['rentalCount'] = $tRentalCount + $tEventCount;
 
 			$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 			$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
