@@ -242,8 +242,16 @@
 			$this->db->insert('transactiondetails', $data);
 		}
 
-		public function getServices(){
-			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
+		public function getServices($tranID){
+			$query=$this->db->query("
+				SELECT DISTINCT serviceID, serviceName, description
+				FROM transactions
+				LEFT JOIN transactiondetails USING(transactionID)
+				LEFT JOIN services USING(serviceID)
+				WHERE STATUS='active' AND serviceID NOT IN(SELECT S.serviceID 
+				FROM (SELECT * FROM transactions LEFT JOIN transactiondetails USING(transactionID) LEFT JOIN services USING(serviceID) WHERE STATUS = 'active') AS S
+				WHERE transactionID = '$tranID')
+			");
 			return $query->result_array();
 		}
 
