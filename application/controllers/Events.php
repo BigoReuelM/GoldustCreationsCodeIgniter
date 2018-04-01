@@ -873,9 +873,9 @@ class Events extends CI_Controller
 			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
 
 			$themeID = $this->session->userdata('currentThemeID');
-			$evID = $this->session->userdata('currentEventID');
-			$desID = $this->session->userdata('currentDesignID');
-			$data['themeEvEnt'] = $this->events_model->displayEventThemeDesigns($themeID, $evID, $desID);
+			//$evID = $this->session->userdata('currentEventID');
+			//$desID = $this->session->userdata('currentDesignID');
+			$data['themeEvEnt'] = $this->events_model->displayEventThemeDesigns($themeID);
 
 			redirect('events/eventEntourage');
 
@@ -883,9 +883,9 @@ class Events extends CI_Controller
 
 		public function getThemeDecors(){
 			$themeID = $this->session->userdata('currentThemeID');
-			$evID = $this->session->userdata('currentEventID');
-			$decorID = $this->session->userdata('currentDecorID');
-			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID, $evID, $decorID);
+			//$evID = $this->session->userdata('currentEventID');
+			//$decorID = $this->session->userdata('currentDecorID');
+			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID);
 
 			redirect('events/eventDecors');
 
@@ -1116,12 +1116,21 @@ class Events extends CI_Controller
 			if ($this->form_validation->run()) {
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
-				$designName = html_escape($this->input->post('des_name'));
+				$designName = html_escape($this->input->post('des_name')); 
 				$designColor = html_escape($this->input->post('des_color'));
 				$this->events_model->addNewDesign($designName, $designColor, $cType);
 				$this->adminDesignsHome();
 			}
 		}	
+
+		public function showThemeName(){
+			$evID = $this->session->userdata('currentEventID');
+			$data['nagan'] = $this->events_model->getThemeName($evID);
+
+			//$this->load->view('eventDetails', $data);
+
+			redirect('events/eventDetails');
+		}
 
 	}
 

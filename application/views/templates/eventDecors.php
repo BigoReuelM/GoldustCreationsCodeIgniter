@@ -223,7 +223,7 @@ input[type=submit] {
           </div>
         </div>-->
         <!-- change decor modal -->
-        <!--<div class="modal fade" id="changedecor" role="dialog">
+        <<div class="modal fade" id="changedecor" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -269,7 +269,7 @@ input[type=submit] {
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <!-- remove decor modal 
         <div class="modal fade" id="rmvdecor" role="dialog">
