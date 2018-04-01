@@ -17,8 +17,8 @@
             <?php
               if (!empty('designTypes')) {
                 foreach ($designTypes as $dt) { ?>
-                  <div class="col-md-3">
-                    <button name="design_type" id="design_type" type="submit" class="btn btn-primary btn-block" value="<?php echo $dt['designType']?>"><?php echo $dt['designType']?></button>
+                  <div class="col-md-3" style="margin-bottom: 10px;">
+                    <button name="design_type" id="design_type" type="submit" class="btn btn-primary btn-block" value="<?php echo $dt ?>"><?php echo $dt ?></button>
                   </div>  
             <?php }
               }
@@ -58,7 +58,7 @@
           <h4 class="modal-title">Add New Design Type</h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url() ?>">
+          <form role="form" method="post" action="<?php echo base_url('events/addNewDesType') ?>">
             <div class="form-group">
               <label>Name</label>
               <input class="form-control" type="text" name="type_name">

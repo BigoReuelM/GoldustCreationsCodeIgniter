@@ -170,7 +170,7 @@
                   <?php
                     if (!empty('decorTypes')) {
                       foreach ($decorTypes as $dt) { ?>
-                    <option><?php echo $dt['decorType']?></option>
+                    <option><?php echo $dt ?></option>
                   <?php }
                     }
                   ?>
@@ -215,7 +215,7 @@
                   <?php
                     if (!empty('designTypes')) {
                       foreach ($designTypes as $dt) { ?>
-                    <option><?php echo $dt['designType']?></option>
+                    <option><?php echo $dt ?></option>
                   <?php }
                     }
                   ?>
