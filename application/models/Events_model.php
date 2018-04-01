@@ -92,11 +92,9 @@
 			
 		}
 
-		public function getServices($id){
-
-			$query=$this->db->query("SELECT * FROM `services` where status like 'active' and serviceID != any(SELECT serviceID from eventservices where eventID = $id)");
-
-			
+		public function getServices(){
+			$id=$this->session->userdata('currentEventID');
+			$query=$this->db->query("SELECT serviceID, serviceName, description from events left join eventservices using(eventID) left join services using(serviceID) where status='active' and serviceID not in (SELECT EV.serviceID from (SELECT * from events left join eventservices using(eventID) left join services using(serviceID) where status='active') AS EV where eventID='$id')");
 			return $query->result_array();
 		}
 
