@@ -13,6 +13,7 @@ class Handler extends CI_Controller
 		$this->load->model('handler_model');
 		$this->load->model('notifications_model');
 		$this->load->model('events_model');
+		$this->load->model('transactions_model');
 		$this->load->library('session');
 	}
 
@@ -30,6 +31,10 @@ class Handler extends CI_Controller
 
 		$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 		$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
+		$tRentalCount = count($this->transactions_model->view_home_ongoing_rentals());
+			$tEventCount = count($this->transactions_model->viewEventRentals());
+
+			$data['rentalCount'] = $tRentalCount + $tEventCount;
 		$data['todoItems'] = $this->handler_model->toDoList($empID);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Home | Admin';	

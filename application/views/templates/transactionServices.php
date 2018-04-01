@@ -11,7 +11,7 @@
   <section class="content-header">
     <div class="row">
       <div class="col-lg-6">
-        <a href="<?php echo base_url('transactions/transactions') ?>" id="icon">
+        <a href="<?php echo base_url('transactions/ongoingTransactions') ?>" id="icon">
               <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
       </div>
