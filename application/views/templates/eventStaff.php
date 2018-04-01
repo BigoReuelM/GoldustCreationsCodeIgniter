@@ -22,7 +22,7 @@
               <h3 class="box-title">Staff</h3>
             </div>
             <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#addStaff">Add Staff </button>
+              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addStaff">Add Staff </button>
             </div>
           </div>
         </div>

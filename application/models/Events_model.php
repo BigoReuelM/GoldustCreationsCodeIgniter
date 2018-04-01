@@ -872,7 +872,7 @@
 			$this->db->insert('themedesign', $data);
 		}
 
-		public function getDecorTypes(){
+		/*public function getDecorTypes(){
 			$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
 			return $query->result_array();
 		}
@@ -880,7 +880,7 @@
 		public function getDesignTypes(){
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
-		}	
+		}*/	
 
 		public function getThemeName($currentEventID){
 			$evID = $this->session->userdata('$currentEventID');
