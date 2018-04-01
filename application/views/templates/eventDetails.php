@@ -447,9 +447,13 @@
         <h4 class="modal-title">Continue Event</h4>
       </div>
       <div class="modal-body text-center">
+        <p>Are you sure you want to continue?</p>
         <form id="continueEvent" method="post" action="<?php echo base_url('events/contEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <p>Are you sure you want to continue?</p>
+            <div class="form-group">
+              <label>Select Resume Date:</label>
+              <input type="date" name="resumeDate">
+            </div>
         </form>
       </div>
       <div class="modal-footer">

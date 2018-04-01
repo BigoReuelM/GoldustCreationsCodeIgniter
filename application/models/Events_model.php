@@ -638,10 +638,11 @@
 		}
 
 		// resume a cancelled event
-		public function changeEvtStatus(){
+		public function changeEvtStatus($date){
 			$eID = $this->session->userdata('currentEventID');
 			$data = array(
-				'eventStatus' => 'on-going'
+				'eventStatus' => 'on-going',
+				'resumeDate' => $date
 			);
 			$this->db->where('eventID', $eID);
 			$this->db->update('events', $data);
