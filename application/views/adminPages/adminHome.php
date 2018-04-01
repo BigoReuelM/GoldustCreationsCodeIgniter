@@ -38,7 +38,7 @@
         <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>10</h3>
+              <h3><?php echo $rentalCount ?></h3>
               <p>Ongoing Rentals</p>
               <div class="icon">
                 <i class="ion ion-bowtie"></i>
@@ -50,12 +50,12 @@
         <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-red">
             <div class="inner">
-              <h3><?php echo $ongoing ?></h3>
-              <p>New Client</p>
+              <h3><?php echo $newClient ?></h3>
+              <p>New Client/s Recorded Within The Past 7 Days</p>
               <div class="icon">
                 <i class="ion ion-android-calendar"></i>
               </div>
-              <a href="<?php echo base_url('events/ongoingEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo base_url('clients/clients') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
         </div>
@@ -453,18 +453,18 @@ data = {
           echo "{";
           echo "int: " . ltrim($day['day'], '0') . ",";
           echo "events: [";
-          foreach ($eventData as $event) {
-            if ($event['year'] == $year['year'] && $event['month'] == $month['month'] && $event['day'] == $day['day']) {
-              echo "{";
-              echo "startTime: '" . $event['eventTime'] . "',";
-              echo "text: '" . $event['eventName'] . "'";
-              echo "},";
-            }else{
-              echo "{";
-              echo "text: " . "'No event Today'";
-              echo "},";
-            }
-          }
+          // foreach ($eventData as $event) {
+          //   if ($event['year'] == $year['year'] && $event['month'] == $month['month'] && $event['day'] == $day['day']) {
+               echo "{";
+          //     echo "startTime: '" . $event['eventTime'] . "',";
+          //     echo "text: '" . $event['eventName'] . "'";
+          //     echo "},";
+          //   }else{
+          //     echo "{";
+          //     echo "text: " . "'No event Today'";
+               echo "},";
+          //   }
+          // }
           echo "]";
           echo "},";
         }

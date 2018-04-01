@@ -23,14 +23,20 @@
 
 		public function getNewEvents($employeeID, $role, $status)
 		{
-			
-			$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
-			$this->db->from('events');
-			$this->db->join('clients','events.clientID = clients.clientID');
-			$this->db->join('employees','events.employeeID = employees.employeeID');
-			$this->db->where('events.eventStatus', $status);
 			if ($role === "handler") {
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
+				
 				$this->db->where('events.employeeID', $employeeID);
+			}else{
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
 			}
 			
 			$query=$this->db->get();
@@ -65,9 +71,7 @@
 				$this->db->where('employeeID', $employeeID);
 			}
 			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
-			}
+			
 
 			$query=$this->db->count_all_results();
 
@@ -89,7 +93,8 @@
 		}
 
 		public function getServices(){
-			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
+			$id=$this->session->userdata('currentEventID');
+			$query=$this->db->query("SELECT DISTINCT serviceID, serviceName, description from events left join eventservices using(eventID) left join services using(serviceID) where status='active' and serviceID not in (SELECT EV.serviceID from (SELECT * from events left join eventservices using(eventID) left join services using(serviceID) where status='active') AS EV where eventID='$id')");
 			return $query->result_array();
 		}
 
@@ -221,9 +226,8 @@
 				return false;
 			}
 			$query = $this->db->query("
-				SELECT DISTINCT employeeID, det.employeeName, det.employeeID 
-				FROM (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
-				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or $eventDate not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
+				SELECT DISTINCT employeeID, concat(firstName,' ', midName,' ', lastName) AS employeeName FROM employees left join events using(employeeID) where role='handler' and status='active' and employeeID NOT IN
+				(SELECT employeeID FROM employees left join events using(employeeID) WHERE role='handler'  and status='active' and '$eventDate' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))
 			");
 			
 			return $query->result_array();	
@@ -285,8 +289,9 @@
 			$this->db->delete('eventstaff');
 		}
 
-		public function showAllStaff(){
-			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as name, role, contactNumber as num, employeeID as empId FROM employees WHERE role like '%staff'");
+		public function showAllStaff($id){
+			$date = $this->getEventDate($id);
+			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees where role like '%staff%' and status='active' and employeeID NOT IN (SELECT emp.employeeID FROM (SELECT * FROM employees left join eventstaff using(employeeID) where role like '%staff%' and status='active')AS emp left join events using(eventID) where '$date->eventDate' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
 			return $query->result_array();
 		}
 
@@ -531,9 +536,10 @@
 		Bellow are the queries for updating event status...
 
 		*/
-		public function markEventFinish($eventID){
+		public function markEventFinish($eventID, $date){
 			$data = array(
-				'eventStatus' => "finished" 
+				'eventStatus' => "finished",
+				'finishedDate' => $date 
 			);
 
 			$this->db->where('eventID', $eventID);
@@ -634,10 +640,11 @@
 		}
 
 		// resume a cancelled event
-		public function changeEvtStatus(){
+		public function changeEvtStatus($date){
 			$eID = $this->session->userdata('currentEventID');
 			$data = array(
-				'eventStatus' => 'on-going'
+				'eventStatus' => 'on-going',
+				'resumeDate' => $date
 			);
 			$this->db->where('eventID', $eID);
 			$this->db->update('events', $data);
@@ -749,31 +756,26 @@
 
 		}
 
-		public function displayEventThemeDesigns($currentThemeID, $currentEventID, $currentDesignID){
-			$eventID = $this->session->userdata('currentEventID');
+		public function displayEventThemeDesigns($currentThemeID){
+			//$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentThemeID');
-			$designID = $this->session->userdata('currentDesignID');
-			$entID = $this->session->userdata('currentEntourageID');
+			//$designID = $this->session->userdata('currentDesignID');
+			//$entID = $this->session->userdata('currentEntourageID');
 
-			$query = $this->db->query("
-				SELECT eventID, themeID, designID, designName, designImage, quantity FROM (SELECT designID FROM `entouragedetails` join entourage using($entID) where eventID='$eventID') AS entourage join designs using ($designID) join eventdesigns USING(currentDesignID) join themedesign USING(designID) WHERE eventID = '$eventID'
-				");
+			$query = $this->db->query("SELECT designID, designName, designImage FROM theme NATURAL JOIN themedesign NATURAL JOIN designs WHERE themeID = $themeID");
+				//SELECT designID, designName, designImage from theme natural join themedesign natural join designs where themeID='0002'
 			return $query->result_array();
 		}
 
-		public function displayEventThemeDecors($currentThemeID, $currentEventID, $currentDecorID){
-			$eventID = $this->session->userdata('currentEventID');
+		public function displayEventThemeDecors($currentThemeID){
+			//$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentThemeID');
-			$decorID = $this->session->userdata('currentDecorID');
+			//$decorID = $this->session->userdata('currentDecorID');
 
-			/*$query = $this->db->query("
-				SELECT themeID, decorID, decorName, decorImage, quantity FROM 
-				");
-			*/
+			$query = $this->db->query("SELECT decorID, decorName, decorImage FROM theme NATURAL JOIN themedecor NATURAL JOIN decors WHERE themeID = $themeID");
+			//SELECT decorID, decorName, decorImage from theme natural join themedecor natural join decors where themeID='0002'
 
-			$query = $this->db->query("
-				SELECT eventID, themeID, decorID, decorName, decorImage, decorType, color, quantity FROM (SELECT decorID FROM `eventdecors` join themedecor using($themeID) where eventID='$eventID') AS eventDecor join decors using ($decorID) join eventthemes USING($themeID) join themedecor USING($decorID) WHERE eventID = '$eventID'
-			");
+			return $query->result_array();
 		}
 
 		//The following queries is meant for the calendar
@@ -783,7 +785,7 @@
 			$query = $this->db->query("
 				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
 				FROM `events`
-				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going');
+				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
 			");
 
 			return $query->result_array();
@@ -834,7 +836,7 @@
 
 		//end of calendar queries
 		
-		public function addNewDecor($themeID, $name, $color, $type){
+		public function addNewDecor($name, $color, $type){
 			$data = array(
 				'decorName' => $name,
 				'color' => $color,
@@ -852,7 +854,7 @@
 			$this->db->insert('themedecor', $data);
 		}
 
-		public function addNewDesign($themeID, $name, $color, $type){
+		public function addNewDesign($name, $color, $type){
 			$data = array(
 				'designName' => $name,
 				'color' => $color,
@@ -879,6 +881,42 @@
 			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
 			return $query->result_array();
 		}	
+
+		public function getThemeName($currentEventID){
+			$evID = $this->session->userdata('$currentEventID');
+			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $evID");
+
+			return $query->result_array();
+
+			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
+		}
+	
+		public function getDecorEnum(){
+			$query = $this->db->query("show columns from decors where Field like 'decorType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
+		}
+
+		public function getDesignEnum(){
+			$query = $this->db->query("show columns from designs where Field like 'designType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
+		}
+
+		public function addDecType($enumVals, $newEnum){
+			// ALTER TABLE decors MODIFY COLUMN decorType enum('utensils', 'furnishing', 'trinkets', 'new_value') NOT NULL AFTER decorImage
+			$enumString = "'" . implode("', '", $enumVals) . "'";
+			$newEnumString = "'" . $newEnum . "'";
+			$this->db->query("ALTER TABLE decors MODIFY COLUMN decorType enum($enumString, $newEnumString)");
+		}
+
+		public function addDesType($enumVals, $newEnum){
+			$enumString = "'" . implode("', '", $enumVals) . "'";
+			$newEnumString = "'" . $newEnum . "'";
+			$this->db->query("ALTER TABLE designs MODIFY COLUMN designType enum($enumString, $newEnumString)");
+		}
 	}
 
 

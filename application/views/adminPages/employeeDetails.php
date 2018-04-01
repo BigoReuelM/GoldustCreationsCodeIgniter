@@ -10,19 +10,20 @@
 }
 
 
-#respass {
+.employeeButton {
+  margin-left: 39%;
   width: 400px;
-  margin-left:35%;
   padding-top: 15px;
   background: #3c8dbc;
 }
+
 </style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="row">
       <div class="col-lg-9">
-        <a href="<?php echo base_url('admin/adminEmployeeManagement') ?>" id="icon">
+        <a href="<?php echo base_url('admin/adminEmployees') ?>" id="icon">
           <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
       </div>
@@ -49,9 +50,19 @@
                     <?php endif ?>
                   </div>
                   <div class="form-group">
-                    <button type="button" class="btn btn-block btn-default"  data-toggle="modal" data-target="#reset" id="respass"> Reset Password</button>
+                      <div class="col-lg-12">
+                    <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
+                    </div>
+                      <div class="col-lg-12">
+                        <?php if ($employee->status === "active"): ?>
+                          <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#disable">Disable Account</button>
+                        <?php endif ?>
+                        <?php if ($employee->status === "inactive"): ?>
+                          <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#enable">Enable Account</button>
+                        <?php endif ?>
+                      </div>
+                    </div>
                   </div>
-                </div>
                   <div class="form-group">
                     <label class="col-sm-4 control-label">Employee ID</label>
                     <div class="col-sm-5">
@@ -137,6 +148,68 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+<!-- Modal for disable -->
+<div class="modal fade" id="disable">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Disable Account</h4>
+        <div id="the-disableMessage">
+          
+        </div>
+      </div>
+      <div class="modal-body">
+      <form role="form" id="disableForm" name="disableAccount" class="form-horizontal" action="<?php echo base_url('admin/disableEmployeeAccount') ?>">
+        <input type="text" name="empIDDisable" id="empIDDisable" value="<?php echo $employee->employeeID ?>" hidden>
+        <div class="box-body text-center">
+          <h1>Disable Account of</h1>
+          <h2><strong><?php echo $employee->employeeName ?></strong></h2>
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button form="disableForm" type="submit" class="btn btn-primary">Disable Account</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- Modal for disable -->
+<div class="modal fade" id="enable">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Enable Account</h4>
+        <div id="the-enableMessage">
+          
+        </div>
+      </div>
+      <div class="modal-body">
+      <form role="form" id="enableForm" name="enableAccount" class="form-horizontal" action="<?php echo base_url('admin/enableEmployeeAccount') ?>">
+        <input type="text" name="empIDEnable" id="empIDEnable" value="<?php echo $employee->employeeID ?>" hidden>
+        <div class="box-body text-center">
+          <h1>Enable Account of</h1>
+          <h2><strong><?php echo $employee->employeeName ?></strong></h2>
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button form="enableForm" type="submit" class="btn btn-primary">Enable Account</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- /.modal -->
 
     <!-- REQUIRED JS SCRIPTS -->
@@ -185,6 +258,72 @@
           '</div>');
           // reset the form
           employeeDetails[0].reset();
+          // close the message after seconds
+          $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
+        }
+      }
+    });
+  });
+  $('#disableForm').submit(function(e){
+    e.preventDefault();
+
+    var employeeDetailsDisable = $(this);
+
+    $.ajax({
+      type: 'POST',
+      url: employeeDetailsDisable.attr('action'),
+      data: employeeDetailsDisable.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if (response.success == true) {
+
+          $('.alert-success').remove();
+          $('.alert-default').remove();
+
+          $('#the-disableMessage').append('<div class="alert alert-success text-center">' +
+          '<span class="icon fa fa-check"></span>' +
+          'The account has been disabled.' +
+          '</div>');
+
+          // reset the form
+          employeeDetailsDisable[0].reset();
+          // close the message after seconds
+          $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+          })
+        }
+      }
+    });
+  });
+  $('#enableForm').submit(function(e){
+    e.preventDefault();
+
+    var employeeDetailsEnable = $(this);
+
+    $.ajax({
+      type: 'POST',
+      url: employeeDetailsEnable.attr('action'),
+      data: employeeDetailsEnable.serialize(),
+      dataType: 'json',
+      success: function(response){
+        if (response.success == true) {
+
+          $('.alert-success').remove();
+          $('.alert-default').remove();
+
+          $('#the-enableMessage').append('<div class="alert alert-success text-center">' +
+          '<span class="icon fa fa-check"></span>' +
+          'The account has been enabled.' +
+          '</div>');
+
+          // reset the form
+          employeeDetailsEnable[0].reset();
           // close the message after seconds
           $('.alert-success').delay(500).show(10, function() {
             $(this).delay(3000).hide(10, function() {

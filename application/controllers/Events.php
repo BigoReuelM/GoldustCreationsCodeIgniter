@@ -230,7 +230,7 @@ class Events extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventStaff'] = $this->events_model->getStaff($id);
-		$data['allStaff'] = $this->events_model->showAllStaff();
+		$data['allStaff'] = $this->events_model->showAllStaff($id);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Staff | Admin';	
 		}else{
@@ -261,8 +261,9 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-		$data['servcs'] = $this->events_model->getServices();
 		$data['avlServcs'] = $this->events_model->servcTransac($id);
+		$data['servcs'] = $this->events_model->getServices($id);
+		
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Services | Admin';	
 		}else{
@@ -772,8 +773,10 @@ class Events extends CI_Controller
 
 		public function finishEvent(){
 			$eventID = html_escape($this->input->post('eventID'));
+			$finishDate = $this->input->post('finishDate');
 
-			$this->events_model->markEventFinish($eventID);
+			//$this->events_model->markEventFinish($eventID);
+			$this->events_model->markEventFinish($eventID, $finishDate);
 
 			redirect('events/finishedEvents');
 		}
@@ -817,9 +820,12 @@ class Events extends CI_Controller
 
 		// this method will resume a cancelled event 
 		public function contEvent(){
-			$this->load->model('events_model');
-			$this->events_model->changeEvtStatus();
-			$this->ongoingEvents();
+			//$this->load->model('events_model');
+			//$this->events_model->changeEvtStatus();
+			//$this->ongoingEvents();
+			$contDate = $this->input->post('resumeDate');
+			$this->events_model->changeEvtStatus($contDate);
+			redirect('events/ongoingEvents');
 		}
 
 		public function updateAttireQty(){
@@ -873,9 +879,9 @@ class Events extends CI_Controller
 			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
 
 			$themeID = $this->session->userdata('currentThemeID');
-			$evID = $this->session->userdata('currentEventID');
-			$desID = $this->session->userdata('currentDesignID');
-			$data['themeEvEnt'] = $this->events_model->displayEventThemeDesigns($themeID, $evID, $desID);
+			//$evID = $this->session->userdata('currentEventID');
+			//$desID = $this->session->userdata('currentDesignID');
+			$data['themeEvEnt'] = $this->events_model->displayEventThemeDesigns($themeID);
 
 			redirect('events/eventEntourage');
 
@@ -883,9 +889,9 @@ class Events extends CI_Controller
 
 		public function getThemeDecors(){
 			$themeID = $this->session->userdata('currentThemeID');
-			$evID = $this->session->userdata('currentEventID');
-			$decorID = $this->session->userdata('currentDecorID');
-			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID, $evID, $decorID);
+			//$evID = $this->session->userdata('currentEventID');
+			//$decorID = $this->session->userdata('currentDecorID');
+			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID);
 
 			redirect('events/eventDecors');
 
@@ -917,6 +923,16 @@ class Events extends CI_Controller
 			$data['map1'] = directory_map('./uploads/designs/', 1);
 			// get contents of the folder similarly named to the current type selected
 			$data['type_map1'] = directory_map('./uploads/designs/' . $decorTypeFoldr . '/', 1);
+
+			// get the enum values of decor types from the database
+			$data['enumVals'] = $this->events_model->getDecorEnum();
+			// pass the existing enum values to query.. then add new enum value...
+
+			/*$enumString = "";
+			foreach ($enumVals as $val) {
+				$enumString .= $enumVals;
+			}
+			$data['enumString'] = $enumString;*/
 
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Decors Home | Admin';	
@@ -993,7 +1009,6 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			//$data['decorTypes'] = $this->admin_model->getDecorTypes();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -1079,9 +1094,73 @@ class Events extends CI_Controller
 			$cDesType = html_escape($this->input->post('design_type'));
 			$this->session->set_userdata('currentType', $cDesType);
 			$this->adminDesigns();
+		}
+
+		public function uploadDecImg(){
+			$cType = $this->session->userdata('currentType');
+			$config['upload_path'] = './uploads/decors/' . $cType . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('dec_name', 'New Decor Name', 'required');
+			$this->form_validation->set_rules('dec_color', 'New Decor Color', 'required');		
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$decorName = html_escape($this->input->post('dec_name'));
+				$decorColor = html_escape($this->input->post('dec_color'));
+				$this->events_model->addNewDecor($decorName, $decorColor, $cType);
+				$this->adminDecorsHome();
+			}
+		}
+
+		public function uploadDesImg(){
+			$cType = $this->session->userdata('currentType');
+			$config['upload_path'] = './uploads/designs/' . $cType . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			
+			$this->load->library('form_validation');
+			$this->load->library('upload', $config);
+
+			$this->form_validation->set_rules('des_name', 'New Design Name', 'required');
+			$this->form_validation->set_rules('des_color', 'New Design Color', 'required');		
+
+			if ($this->form_validation->run()) {
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
+				$designName = html_escape($this->input->post('des_name')); 
+				$designColor = html_escape($this->input->post('des_color'));
+				$this->events_model->addNewDesign($designName, $designColor, $cType);
+				$this->adminDesignsHome();
+			}
 		}	
 
+		public function showThemeName(){
+			$evID = $this->session->userdata('currentEventID');
+			$data['nagan'] = $this->events_model->getThemeName($evID);
+
+			//$this->load->view('eventDetails', $data);
+
+			redirect('events/eventDetails');
+		}
+
+		public function addNewDecType(){
+			$enumVals = $this->events_model->getDecorEnum();
+			$newEnumVal = $this->input->post('type_name');
+			$this->events_model->addDecType($enumVals, $newEnumVal);
+			$this->adminDecorsHome();
+		}
+
+		public function addNewDesType(){
+			$enumVals = $this->events_model->getDesignEnum();
+			$newEnumVal = $this->input->post('type_name');
+			$this->events_model->addDesType($enumVals, $newEnumVal);
+			$this->adminDecorsHome();
+		}
 	}
 
-	?>
+?>
 

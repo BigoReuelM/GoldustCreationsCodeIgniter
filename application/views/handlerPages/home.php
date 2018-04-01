@@ -4,12 +4,7 @@
     <div class="content-wrapper">
       <section class="content container-fluid">
         <div class="row">
-          <div class="col-md-6">
-
-            <div class="box">
-              <!-- /.box-header -->
-              <div class="box-body">
-
+          <div class="col-lg-4"> 
             <div class="small-box bg-yellow">
               <div class="inner">
                 <h3><?php echo $new ?></h3>
@@ -20,93 +15,41 @@
                 <a href="<?php echo base_url('events/newEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo $ongoing ?></h3>
-              <p>Ongoing Events</p>
-              <div class="icon">
-                <i class="ion ion-android-calendar"></i>
-              </div>
-              <a href="<?php echo base_url('events/ongoingEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
-            </div>
           </div>
-          <div class="small-box bg-green">
-            <div class="inner">
-              <p>Ongoing Rentals</p>
-              <div class="icon">
-                <i class="ion ion-bowtie"></i>
-              </div>
-              <a href="<?php echo base_url('transactions/ongoing_rentals') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-       </div>
-</div>
-</div>
-</div>
-            <!-- /.box-body -->
-          <!-- /.box -->
-        <div class="col-md-6" id="box1">
-
-          <div class="box">
-            <!-- /.box-header -->
-            <div class="box-body">
-<!-- dito -->
-
-              <h3 class="box-title">To Do List</h3>
-
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
+          <div class="col-lg-4">
+            <div class="small-box bg-red">
+              <div class="inner">
+                <h3><?php echo $ongoing ?></h3>
+                <p>Ongoing Events</p>
+                <div class="icon">
+                  <i class="ion ion-android-calendar"></i>
+                </div>
+                <a href="<?php echo base_url('events/ongoingEvents') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <?php if ($todoItems){
-                  foreach ($todoItems as $items) {
-                    
-                ?>
-                  <li>
-                    <!-- drag handle -->
-                    <span class="handle">
-                          <i class="fa fa-ellipsis-v"></i>
-                          <i class="fa fa-ellipsis-v"></i>
-                        </span>
-                    <!-- checkbox -->
-                    <input type="checkbox" value="">
-                    <!-- todo text -->
-                    <span class="text"><?php echo $items['agenda'] ?></span>
-                    <!-- Emphasis label -->
-                    <small class="label label-danger"><i class="fa fa-clock-o"></i> 2 mins</small>
-                  </li>
-                <?php
-                    }
-                  }
-                ?>
-              </ul>
-            </div>
-            <!-- /.box-body -->
           </div>
-            </div>
-            <!-- /.box-body -->
-
-          </div>
-          <!-- /.box -->
-          <div class="row">
-            <div class="col-lg-12">
-            <div class="wrapper2">
-            <div id="calendarContainer"></div>
-            <div id="organizerContainer" style="margin-left: 8px;"></div>
-            </div>
+          <div class="col-lg-4">
+            <div class="small-box bg-green">
+              <div class="inner">
+                <h3><?php echo $rentalCount ?></h3>
+                <p>Ongoing Rentals</p>
+                <div class="icon">
+                  <i class="ion ion-bowtie"></i>
+                </div>
+                <a href="<?php echo base_url('transactions/ongoing_rentals') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
+              </div>
             </div>
           </div>
-
-          </section>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+          <div class="wrapper2">
+          <div id="calendarContainer"></div>
+          <div id="organizerContainer" style="margin-left: 8px;"></div>
+          </div>
+          </div>
+        </div>   
+      </section>
           <!-- /.box -->
           
 
@@ -114,10 +57,6 @@
   immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<?php 
-  
-
-?>
 
             
 <script>

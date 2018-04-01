@@ -161,7 +161,7 @@
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>s
+<script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
 <script>
 	$(function () {
@@ -185,7 +185,7 @@
             // and also remove the error class
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New employee has been saved.' +
+            ' New client has been saved.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');

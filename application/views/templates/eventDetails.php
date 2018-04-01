@@ -28,7 +28,7 @@
         <div class="col-lg-4">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header">
-              <h3>Select Event Handler</h3>
+              <h3>Event Handler</h3>
               <?php  
                 if ($empRole === 'admin') {
                   echo "<label>Select</label>";
@@ -142,13 +142,12 @@
                 <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
               </div>-->
               <label>Theme/s</label>
-              <div class="input-group">               
-                <input type="text" class="form-control" placeholder="ewed pay" disabled>
+              <div class="input-group">            
+                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
               </div>
-
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <?php 
@@ -222,21 +221,18 @@
   <div class="row">
       
     <?php if ($eventDetail->eventStatus === "on-going"): ?>
-          <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-          <button type="button" data-toggle="modal" data-target="#cancellEvent" class="btn btn-block btn-danger btn-lg">Cancel Event</button>
-          <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-
+      <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
+      <button type="button" data-toggle="modal" data-target="#cancellEvent" class="btn btn-block btn-danger btn-lg">Cancel Event</button>
+      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
     <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "cancelled"): ?>
-      <form form="form" method="post" action="<?php echo base_url('events/contEvent') ?>">
-          <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
-      </form>
-        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
+      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
     <?php endif ?>
 
     <?php if ($eventDetail->eventStatus === "finished"): ?>
-        <button type="button" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
+      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
     <?php endif ?>        
   </div>
 </div>
@@ -276,7 +272,7 @@
                 <td>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" placeholder="<?php echo $th['themeName'] ?>" multiple><?php echo $th['themeName']; ?>
+                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?>
                     </label>
                   </div>
                 </td>
@@ -407,12 +403,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Finished Events</h4>
+        <h4 class="modal-title">Finish Events</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-center">
+        <p>Are you sure you want to proceed?</p>
         <form id="finishEvent" role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <p>Are you sure you want to proceed?</p>
+            <div class="form-group">
+              <label>Select Finish Date</label>
+              <input type="date" name="finishDate" >
+            </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -434,14 +434,18 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Continue Event</h4>
       </div>
-      <div class="modal-body">
-        <form role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
+      <div class="modal-body text-center">
+        <p>Are you sure you want to continue?</p>
+        <form id="continueEvent" method="post" action="<?php echo base_url('events/contEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <p>Are you sure you want to continue?</p>
+            <div class="form-group">
+              <label>Select Resume Date:</label>
+              <input type="date" name="resumeDate">
+            </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+        <button form="continueEvent" type="submit" class="btn btn-primary">Continue</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -449,29 +453,27 @@
   </div>
 </div>
 <!--end of fisnish event modal-->
-<!-- Select handler Modal -->
+
 <div class="modal fade" id="select-handler">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Select Handler</h4>
+        <h4 class="modal-title">Select handler</h4>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to select this handler?</p>
+        <p>Are you sure you want to update?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+          <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
       </div>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
 </div>
-        <!-- /.modal -->
-
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
 <div class="modal fade" id="update-details">

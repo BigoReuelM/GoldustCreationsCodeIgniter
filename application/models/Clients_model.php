@@ -25,6 +25,15 @@
 
 			$this->db->insert('clients', $data);
 		}
+
+		public function countNewClient(){
+
+			$query = $this->db->query("
+				SELECT * FROM clients WHERE registrationDate between date_sub(CURRENT_TIMESTAMP, INTERVAL 7 day) and CURRENT_TIMESTAMP
+			");
+
+			return count($query->result_array());
+		}
 	}
 
 ?>

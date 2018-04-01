@@ -58,7 +58,7 @@
           <h4 class="modal-title">Add New Design Type</h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url() ?>">
+          <form role="form" method="post" action="<?php echo base_url('events/addNewDesType') ?>">
             <div class="form-group">
               <label>Name</label>
               <input class="form-control" type="text" name="type_name">
