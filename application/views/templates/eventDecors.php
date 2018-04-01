@@ -156,8 +156,6 @@ input[type=submit] {
                   <!--<th>Decor ID</th>
                     <th>Event ID</th>-->
                     <th>Decor Name</th>
-                    <th>Decor Type</th>
-                    <th>Color</th>
                     <th>Quantity</th>
                     <th>Photo</th>
                     <th>Action</th>
@@ -172,8 +170,6 @@ input[type=submit] {
                     ?>
                       <tr>
                         <td><?php echo $td['decorName']; ?></td>
-                        <td><?php echo $td['decorType']; ?></td>
-                        <td><?php echo $td['color']; ?></td>
                         <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $td['quantity']; ?>"></td>
                         <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?></td>
                         <td>                            
@@ -182,8 +178,7 @@ input[type=submit] {
                           <div class="col-md-3 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
                               <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
-                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
-                            </form>  
+                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button>  
                           </div>
                           <!-- change decor button -->
                           <div class="col-md-3 col-sm-4">
@@ -223,7 +218,7 @@ input[type=submit] {
           </div>
         </div>-->
         <!-- change decor modal -->
-        <<div class="modal fade" id="changedecor" role="dialog">
+        <div class="modal fade" id="changedecor" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -252,7 +247,7 @@ input[type=submit] {
                           </form>
                         </td>
                         <td><?php //echo $dec['decorName'] ?></td>
-                        <td><?php //echo $dec['color'] ?></td>
+                        <td><?php /g/echo $dec['color'] ?></td>
                         <td>
                           <?php //echo '<img class = "modalImg img-rounded" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
                         </td>

@@ -535,9 +535,10 @@
 		Bellow are the queries for updating event status...
 
 		*/
-		public function markEventFinish($eventID){
+		public function markEventFinish($eventID, $date){
 			$data = array(
-				'eventStatus' => "finished" 
+				'eventStatus' => "finished",
+				'finishedDate' => $date 
 			);
 
 			$this->db->where('eventID', $eventID);
@@ -638,10 +639,11 @@
 		}
 
 		// resume a cancelled event
-		public function changeEvtStatus(){
+		public function changeEvtStatus($date){
 			$eID = $this->session->userdata('currentEventID');
 			$data = array(
-				'eventStatus' => 'on-going'
+				'eventStatus' => 'on-going',
+				'resumeDate' => $date
 			);
 			$this->db->where('eventID', $eID);
 			$this->db->update('events', $data);
@@ -888,6 +890,11 @@
 			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
 		}
 	
+
+		public function getDecorID(){
+			$query = $this->db->query('SELECT decorsID FROM decors');
+			return $query->result_array();
+		}
 	}
 
 

@@ -361,6 +361,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			echo json_encode($data);
 		}
 
+		public function disableEmployeeAccount(){
+			$empID = html_escape($this->input->post('empIDDisable'));
+
+			$this->admin_model->disableEmpAccount($empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data); 
+		}
+
+		public function enableEmployeeAccount(){
+			$empID = html_escape($this->input->post('empIDEnable'));
+
+			$this->admin_model->enableEmpAccount($empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data); 
+		}
+
 		public function generatePIN(){
 			$digits = 4;
 			$i = 0;
@@ -403,6 +423,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function adminThemeDetails(){
+			$currentDesType = $this->session->userdata('currentType');
+			$this->load->helper('directory');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -417,6 +439,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['decorTypes'] = $this->admin_model->getDecorTypes();
 			$data['designTypes'] = $this->admin_model->getDesignTypes();
 
+			// get all folders (types) inside the design folder
+			$data['designtypesmap'] = directory_map('./uploads/designs/', 1);
+			$data['decortypesmap'] = directory_map('./uploads/decors/', 1);
+
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Themes | Admin';	
 			}else{
@@ -428,24 +454,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("adminPages/themeDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
-		// ediiiitttt
+
 		public function addNewTheme(){
-			//$config['upload_path'] = './uploads/';
-			//$config['allowed_types'] = 'jpg|png|jpeg';
-			
 			$this->load->library('form_validation');
-			//$this->load->library('upload', $config);
 
 			$this->form_validation->set_rules('themeName', 'New Theme Name', 'required');
 
 			if ($this->form_validation->run()) {
-				//$this->upload->do_upload('userfile');
-
-				//$data = array('upload_data' => $this->upload->data());
 				$name = html_escape($this->input->post('themeName'));
 				$desc = html_escape($this->input->post('themeDesc'));
 
-				//$data = array('upload_data' => $this->upload->data());
 				$name = html_escape($this->input->post('themeName'));
 				$desc = html_escape($this->input->post('themeDesc'));
 
@@ -457,7 +475,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function addNewThemeDecor(){
 			$themeID = $this->session->userdata('currentTheme');
 						
-			$this->load->library('form_validation');			
+			$this->load->library('form_validation');
 
 			$this->form_validation->set_rules('decor_name', 'New Decor Name', 'required');
 			$this->form_validation->set_rules('decor_color', 'New Decor Color', 'required');	
@@ -473,8 +491,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$config['upload_path'] = './uploads/decors/' . $type . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
-				// rename file
-				$config['file_name'] = $decID;
+				// rename file 
+				$config['file_name'] = sprintf('%07d', $decID);
 				$this->load->library('upload', $config);
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data()); 
@@ -502,7 +520,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$config['upload_path'] = './uploads/designs/' . $type . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
-				$config['file_name'] = $desID;
+				$config['file_name'] = sprintf('%07d', $desID);
 				$this->load->library('upload', $config);
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());

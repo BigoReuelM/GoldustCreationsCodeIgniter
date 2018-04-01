@@ -166,6 +166,24 @@
 			$this->db->update('employees', $data);
 		}
 
+		public function disableEmpAccount($id){
+			$data = array(
+				'status' => "inactive"
+			);
+
+			$this->db->where('employeeID', $id);
+			$this->db->update('employees', $data);
+		}
+
+		public function enableEmpAccount($id){
+			$data = array(
+				'status' => "active"
+			);
+
+			$this->db->where('employeeID', $id);
+			$this->db->update('employees', $data);
+		}
+
 		public function addTheme($tName, $tDesc){
 			$data = array(
 				'themeName' => $tName,
