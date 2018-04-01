@@ -891,6 +891,11 @@
 
 			return $query->result();
 		}*/
+
+		public function getDecorID(){
+			$query = $this->db->query('SELECT decorsID FROM decors');
+			return $query->result_array();
+		}
 	}
 
 

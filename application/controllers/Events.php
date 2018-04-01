@@ -993,7 +993,6 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			//$data['decorTypes'] = $this->admin_model->getDecorTypes();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -1133,6 +1132,10 @@ class Events extends CI_Controller
 			redirect('events/eventDetails');
 
 		}*/
+
+		public function displayDesImg(){
+			
+		}
 	}
 
 	?>
