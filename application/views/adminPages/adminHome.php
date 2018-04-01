@@ -68,7 +68,9 @@
           </div>
           </div>
         </div>
-      <script>
+
+ 
+<script>
 
 function Calendar(id, size, labelSettings, colors) {
   this.id = id;
@@ -436,128 +438,45 @@ var organizer = new Organizer("organizerContainer", calendar);
 currentDay = calendar.date.getDate(); // used this in order to make anyday today depending on the current today
 // QUERY GOING EVENTS
 data = {
-  years: [
-    {
-      int: 1999,
-      months: [
-        {
-          int: 4,
-          days: [
-            {
-              int: 28,
-              events: [
-                {
-                  startTime: "6:00",
-                  endTime: "6:30",
-                  mTime: "pm",
-                  text: "Weirdo was born"
-                }
-              ]
+<?php 
+  if (!empty($eventData)) {
+    echo "years: [";
+    foreach ($years as $year) {
+      echo "{";
+      echo "int: " . $year['year'] . ",";
+      echo "months: [";
+      foreach ($months as $month) {
+        echo "{";
+        echo "int: " . ltrim($month['month'], '0') . ",";
+        echo "days: [";
+        foreach ($days as $day) {
+          echo "{";
+          echo "int: " . ltrim($day['day'], '0') . ",";
+          echo "events: [";
+          foreach ($eventData as $event) {
+            if ($event['year'] == $year['year'] && $event['month'] == $month['month'] && $event['day'] == $day['day']) {
+              echo "{";
+              echo "startTime: '" . $event['eventTime'] . "',";
+              echo "text: '" . $event['eventName'] . "'";
+              echo "},";
+            }else{
+              echo "{";
+              echo "text: " . "'No event Today'";
+              echo "},";
             }
-          ]
+          }
+          echo "]";
+          echo "},";
         }
-      ]
-    },
-    {
-      int: (new Date().getFullYear()),
-      months: [
-        {
-          int: (new Date().getMonth() + 1),
-          days: [
-            {
-              int: (new Date().getDate()),
-              events: [
-                {
-                  startTime: "6:00",
-                  endTime: "7:00",
-                  mTime: "am",
-                  text: "This is scheduled to show today, anyday."
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "8:00",
-                  endTime: "9:00",
-                  mTime: "pm",
-                  text: "Next spam is for demonstration purposes only"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                }
-              ]
-            }
-          ]
-        }
-      ]
+        echo "]";
+        echo "},";
+      }
+      echo "]";
+      echo "},";
     }
-  ]
+    echo "]";
+  }
+?>  
 };
 
 function showEvents() {

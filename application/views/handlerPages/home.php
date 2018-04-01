@@ -490,7 +490,7 @@ currentDay = calendar.date.getDate(); // used this in order to make anyday today
 data = {
   years: [
     {
-      int: 1999,
+      int: 2018,
       months: [
         {
           int: 4,
@@ -507,108 +507,26 @@ data = {
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      int: (new Date().getFullYear()),
-      months: [
+        },
         {
-          int: (new Date().getMonth() + 1),
+          int: 3,
           days: [
             {
-              int: (new Date().getDate()),
+              int: 28,
               events: [
                 {
                   startTime: "6:00",
-                  endTime: "7:00",
-                  mTime: "am",
-                  text: "This is scheduled to show today, anyday."
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
+                  endTime: "6:30",
                   mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "8:00",
-                  endTime: "9:00",
-                  mTime: "pm",
-                  text: "Next spam is for demonstration purposes only"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
-                },
-                {
-                  startTime: "5:45",
-                  endTime: "7:15",
-                  mTime: "pm",
-                  text: "WIP Library"
-                },
-                {
-                  startTime: "10:00",
-                  endTime: "11:00",
-                  mTime: "pm",
-                  text: "Probably won't fix that (time width)"
+                  text: "Weirdo was born"
                 }
               ]
             }
           ]
         }
       ]
-    }
+    },
+    
   ]
 };
 

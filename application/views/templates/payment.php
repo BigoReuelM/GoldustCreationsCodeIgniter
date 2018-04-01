@@ -245,6 +245,8 @@
                 '</div>'
               );
 
+              $('td.dataTables_empty').remove();
+              
               $('#paymentTableBody').prepend(
                 '<tr>' +
                   '<td>' + paymentID + '</td>' +

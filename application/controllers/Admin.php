@@ -34,6 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['eventData'] = $this->events_model->getEventDetailsForCalendar();
+			$data['eventDates'] = $this->events_model->getEventDates();
+			$data['years'] = $this->events_model->getEventYear();
+			$data['months'] = $this->events_model->getEventMonth();
+			$data['days'] = $this->events_model->getEventDay();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Home | Admin';	
 			}else{
