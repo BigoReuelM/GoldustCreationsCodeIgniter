@@ -38,7 +38,7 @@
         <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>10</h3>
+              <h3><?php echo $rentalCount ?></h3>
               <p>Ongoing Rentals</p>
               <div class="icon">
                 <i class="ion ion-bowtie"></i>
@@ -50,7 +50,7 @@
         <div class="col-lg-3 col-xs-6">
           <div class="small-box bg-red">
             <div class="inner">
-              <h3><?php echo $ongoing ?></h3>
+              <h3><?php echo $newClient ?></h3>
               <p>New Client/s Recorded Within The Past 7 Days</p>
               <div class="icon">
                 <i class="ion ion-android-calendar"></i>
