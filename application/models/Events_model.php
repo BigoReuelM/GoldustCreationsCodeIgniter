@@ -777,7 +777,19 @@
 			return $query->result_array();
 		}
 
-		//end of calendar queries	
+		//end of calendar queries
+
+		/*public function getThemeName(){
+			$evID = $this->session->userdata('currentEventID');
+
+			//$this->db->select('CONCAT(themeName, ',' , themeName2) as eventThemeName', FALSE);
+			$this->db->select('themeName');
+			$this->db->from('eventthemes');
+			$this->db->where('eventID', $evID);
+			$query = $this->db->get();
+
+			return $query->result();
+		}*/
 	}
 
 

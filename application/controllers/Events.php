@@ -891,6 +891,16 @@ class Events extends CI_Controller
 
 		}
 
+		/*public function showThemeName() {
+			$data = array();
+			$this->load->model('events_model');
+			$query = $this->events_model->getThemeName();
+			$currentEventID = html_escape($this->session->userdata(''));
+			$data['eventThemeName'] = $this->events_model->getThemeName();
+
+			redirect('events/eventDetails');
+
+		}*/
 	}
 
 	?>

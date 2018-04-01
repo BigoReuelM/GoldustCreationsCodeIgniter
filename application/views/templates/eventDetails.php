@@ -143,7 +143,7 @@
               </div>-->
               <label>Theme/s</label>
               <div class="input-group">               
-                <input type="text" class="form-control" placeholder="ewed pay" disabled>
+                <input type="text" class="form-control" placeholder="Theme" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
@@ -276,7 +276,7 @@
                 <td>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" placeholder="<?php echo $th['themeName'] ?>" multiple><?php echo $th['themeName']; ?>
+                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?>
                     </label>
                   </div>
                 </td>
