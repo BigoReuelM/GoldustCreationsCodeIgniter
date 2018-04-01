@@ -58,7 +58,7 @@
                         <td><?php echo $td['decorType']; ?></td>
                         <td>
                           <?php 
-                          echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>'; 
+                          //echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>'; 
                           ?>
                         </td>
                       </tr>

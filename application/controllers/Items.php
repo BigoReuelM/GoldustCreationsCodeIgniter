@@ -221,24 +221,5 @@ class Items extends CI_Controller
 
 			$this->gowns();
 		}*/
-
-		public function uploadImg(){
-			$config['upload_path'] = './uploads/gowns/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
-			
-			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
-
-			$this->form_validation->set_rules('gown_name', 'New Gown Name', 'required');
-			$this->form_validation->set_rules('gown_color', 'New Gown Color', 'required');		
-
-			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
-				html_escape($this->input->post('gown_name'));
-				html_escape($this->input->post('gown_color'));
-				html_escape($this->gowns());
-			}
-		}
 	} 
 	?>

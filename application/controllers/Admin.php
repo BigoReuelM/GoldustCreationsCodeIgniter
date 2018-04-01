@@ -428,7 +428,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($this->form_validation->run()) {
 				//$this->upload->do_upload('userfile');
 
-				$data = array('upload_data' => $this->upload->data());
+				//$data = array('upload_data' => $this->upload->data());
 				$name = html_escape($this->input->post('themeName'));
 				$desc = html_escape($this->input->post('themeDesc'));
 
