@@ -886,8 +886,8 @@
 			$evID = $this->session->userdata('$currentEventID');
 			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $evID");
 
-			return $query->result_array();
-
+			//return $query->result_array();
+			return $query->row();
 			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
 		}
 	
