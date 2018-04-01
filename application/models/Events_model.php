@@ -65,9 +65,7 @@
 				$this->db->where('employeeID', $employeeID);
 			}
 			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
-			}
+			
 
 			$query=$this->db->count_all_results();
 
