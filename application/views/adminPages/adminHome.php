@@ -51,7 +51,7 @@
           <div class="small-box bg-red">
             <div class="inner">
               <h3><?php echo $newClient ?></h3>
-              <p>New Client/s Recorded Within The Past 7 Days</p>
+              <p>New Client/s Within The Past 7 Days</p>
               <div class="icon">
                 <i class="ion ion-android-calendar"></i>
               </div>
