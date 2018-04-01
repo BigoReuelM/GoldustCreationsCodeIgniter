@@ -12,16 +12,19 @@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">       
-        <form action="<?php echo base_url('admin/setCtDecType') ?>" role="form" method="post">
-          <div class="row">
-            <div class="col-md-3">
+        <form action="<?php echo base_url('events/setCtDecType') ?>" role="form" method="post">
+          <div class="row">        
                 <?php
                   if (!empty('decorTypes')) {
                     foreach ($decorTypes as $dt) { ?>
-                      <button name="decor_type" id="decor_type" type="submit" class="btn btn-primary" value="<?php echo $dt['decorType']?>"><?php echo $dt['decorType']?></button>
+                      <div class="col-md-3">
+                        <button name="decor_type" id="decor_type" type="submit" class="btn btn-primary btn-block" value="<?php echo $dt['decorType']?>"><?php echo $dt['decorType']?></button>
+                      </div>  
                 <?php }
                   }
-                ?>
+                ?>               
+          </div>
+        </form>      
       <!-- Display all items accdg to the type selected -->
         <?php
         // get the filename of the folders...
@@ -39,9 +42,7 @@
             }
           }
         ?>
-            </div>        
-          </div>
-        </form> 
+             
      </section>
     <!-- /.content -->
   </div> 
