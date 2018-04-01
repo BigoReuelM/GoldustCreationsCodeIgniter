@@ -229,7 +229,7 @@
 			}
 			$query = $this->db->query("
 				SELECT DISTINCT employeeID, concat(firstName,' ', midName,' ', lastName) AS employeeName FROM employees left join events using(employeeID) where role='handler' and status='active' and employeeID NOT IN
-				(SELECT employeeID FROM employees left join events using(employeeID) WHERE role='handler'  and status='active' and $date->eventDate between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))
+				(SELECT employeeID FROM employees left join events using(employeeID) WHERE role='handler'  and status='active' and '$eventDate' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))
 			");
 			
 			return $query->result_array();	
@@ -292,7 +292,8 @@
 		}
 
 		public function showAllStaff(){
-			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees left join events using(employeeID)  left join eventstaff using (employeeID) where role like '%staff%' and status='active' and employeeID NOT IN (SELECT employeeID FROM employees left join events using(employeeID) WHERE role like '%staff%' and status='active' and '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
+			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees where role like '%staff%' and status='active' and employeeID NOT IN
+(SELECT emp.employeeID FROM (SELECT * FROM employees left join eventstaff using(employeeID) where role like '%staff%' and status='active')AS emp left join events using(eventID) where '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
 			return $query->result_array();
 		}
 
