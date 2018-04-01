@@ -23,14 +23,20 @@
 
 		public function getNewEvents($employeeID, $role, $status)
 		{
-			
-			$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
-			$this->db->from('events');
-			$this->db->join('clients','events.clientID = clients.clientID');
-			$this->db->join('employees','events.employeeID = employees.employeeID');
-			$this->db->where('events.eventStatus', $status);
 			if ($role === "handler") {
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
+				
 				$this->db->where('events.employeeID', $employeeID);
+			}else{
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
 			}
 			
 			$query=$this->db->get();
@@ -65,9 +71,7 @@
 				$this->db->where('employeeID', $employeeID);
 			}
 			$this->db->where('events.eventStatus', $status);
-			if ($role === 'admin') {
-				$this->db->where('employeeID', null);
-			}
+			
 
 			$query=$this->db->count_all_results();
 
@@ -221,9 +225,8 @@
 				return false;
 			}
 			$query = $this->db->query("
-				SELECT DISTINCT employeeID, det.employeeName, det.employeeID 
-				FROM (SELECT eventID, eventName, eventDate, concat(employees.firstName,' ', employees.midName,' ', employees.lastName) AS employeeName, employeeID, role, status FROM employees left join events using(employeeID) 
-				WHERE role='handler'  and status='active' order by employeeName) AS det where det.eventID is null or $eventDate not between date_sub(det.eventDate, INTERVAL 5 day) and date_add(det.eventDate, INTERVAL 3 day)
+				SELECT DISTINCT employeeID, concat(firstName,' ', midName,' ', lastName) AS employeeName FROM employees left join events using(employeeID) where role='handler' and status='active' and employeeID NOT IN
+				(SELECT employeeID FROM employees left join events using(employeeID) WHERE role='handler'  and status='active' and '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))
 			");
 			
 			return $query->result_array();	
@@ -286,7 +289,7 @@
 		}
 
 		public function showAllStaff(){
-			$query = $this->db->query("SELECT concat(firstName, ' ', midName, ' ', lastName) as name, role, contactNumber as num, employeeID as empId FROM employees WHERE role like '%staff'");
+			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees left join events using(employeeID)  left join eventstaff using (employeeID) where role like '%staff%' and status='active' and employeeID NOT IN (SELECT employeeID FROM employees left join events using(employeeID) WHERE role like '%staff%' and status='active' and '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
 			return $query->result_array();
 		}
 
@@ -778,7 +781,7 @@
 			$query = $this->db->query("
 				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
 				FROM `events`
-				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going');
+				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
 			");
 
 			return $query->result_array();
