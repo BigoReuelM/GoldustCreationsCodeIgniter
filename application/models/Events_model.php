@@ -534,9 +534,10 @@
 		Bellow are the queries for updating event status...
 
 		*/
-		public function markEventFinish($eventID){
+		public function markEventFinish($eventID, $date){
 			$data = array(
-				'eventStatus' => "finished" 
+				'eventStatus' => "finished",
+				'finishedDate' => $date 
 			);
 
 			$this->db->where('eventID', $eventID);

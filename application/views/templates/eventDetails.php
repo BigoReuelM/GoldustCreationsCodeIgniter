@@ -415,12 +415,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Finished Events</h4>
+        <h4 class="modal-title">Finish Events</h4>
       </div>
       <div class="modal-body text-center">
+        <p>Are you sure you want to proceed?</p>
         <form id="finishEvent" role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <p>Are you sure you want to proceed?</p>
+            <div class="form-group">
+              <label>Select Finish Date</label>
+              <input type="date" name="finishDate" >
+            </div>
         </form>
       </div>
       <div class="modal-footer">

@@ -772,8 +772,9 @@ class Events extends CI_Controller
 
 		public function finishEvent(){
 			$eventID = html_escape($this->input->post('eventID'));
+			$finishDate = $this->input->post('finishDate');
 
-			$this->events_model->markEventFinish($eventID);
+			$this->events_model->markEventFinish($eventID, $finishDate);
 
 			redirect('events/finishedEvents');
 		}
