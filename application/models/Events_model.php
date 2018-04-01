@@ -889,6 +889,11 @@
 			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
 		}
 	
+
+		public function getDecorID(){
+			$query = $this->db->query('SELECT decorsID FROM decors');
+			return $query->result_array();
+		}
 	}
 
 

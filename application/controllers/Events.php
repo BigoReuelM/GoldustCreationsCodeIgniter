@@ -774,6 +774,7 @@ class Events extends CI_Controller
 			$eventID = html_escape($this->input->post('eventID'));
 			$finishDate = $this->input->post('finishDate');
 
+			//$this->events_model->markEventFinish($eventID);
 			$this->events_model->markEventFinish($eventID, $finishDate);
 
 			redirect('events/finishedEvents');
@@ -818,6 +819,9 @@ class Events extends CI_Controller
 
 		// this method will resume a cancelled event 
 		public function contEvent(){
+			//$this->load->model('events_model');
+			//$this->events_model->changeEvtStatus();
+			//$this->ongoingEvents();
 			$contDate = $this->input->post('resumeDate');
 			$this->events_model->changeEvtStatus($contDate);
 			redirect('events/ongoingEvents');
@@ -994,7 +998,6 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			//$data['decorTypes'] = $this->admin_model->getDecorTypes();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -1133,6 +1136,10 @@ class Events extends CI_Controller
 			redirect('events/eventDetails');
 		}
 
+
+		public function displayDesImg(){
+			
+		}
 	}
 
 ?>

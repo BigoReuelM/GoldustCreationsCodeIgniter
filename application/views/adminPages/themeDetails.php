@@ -58,7 +58,20 @@
                         <td><?php echo $td['decorType']; ?></td>
                         <td>
                           <?php 
-                          //echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>'; 
+                          if (!empty($decortypesmap)) {
+                          foreach ($decortypesmap as $dtm) {
+                            // files inside uploads/designs/type/
+                            $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                            foreach ($files as $f) {
+                              $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                              if ($f_no_extension === $td['decorID']) { ?>
+                                <div class="thumbnail">
+                                  <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                </div>
+                            <?php  }
+                              }
+                            }
+                          }
                           ?>
                         </td>
                       </tr>
@@ -104,7 +117,20 @@
                         <td><?php echo $td['designType']; ?></td>
                         <td>
                           <?php 
-                          echo '<img class = "galleryImg" src="data:image/jpeg;base64,' . base64_encode( $td['designImage'] ) . '"/>'; 
+                          if (!empty($designtypesmap)) {
+                          foreach ($designtypesmap as $dtm) {
+                            // files inside uploads/designs/type/
+                            $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                            foreach ($files as $f) {
+                              $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                              if ($f_no_extension === $td['designID']) { ?>
+                                <div class="thumbnail">
+                                  <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                </div>
+                            <?php  }
+                              }
+                            }
+                          }
                           ?>
                         </td>
                       </tr>
