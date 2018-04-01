@@ -417,7 +417,6 @@
                   <tr>
                     <th>Event Name</th>
                     <th>Event Date and Time</th>
-                    <th>Event Handler</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -431,7 +430,6 @@
                           echo $overERentDateFormated; 
                         ?>
                       </td>
-                      <td><?php echo $eve['employeeName'] ?></td>
                     </tr>              
                   <?php endforeach ?>
                 </tbody>

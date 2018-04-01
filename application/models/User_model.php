@@ -16,6 +16,7 @@
 			$this->db->from('employees');
 			$this->db->where('username like binary',$username);
 			$this->db->where('password like binary',$pass);
+			$this->db->where('status', "active");
 
 			if($query=$this->db->get())
 			{

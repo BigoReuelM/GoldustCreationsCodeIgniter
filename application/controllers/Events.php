@@ -172,6 +172,7 @@ class Events extends CI_Controller
 		$data['handlers'] = $this->events_model->getHandlers();
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
+		$data['nagan'] = $this->events_model->getThemeName($id);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Details | Admin';	
 		}else{
@@ -374,13 +375,12 @@ class Events extends CI_Controller
 		$empRole = $this->session->userdata('role');
 		$cid = $this->session->userdata('clientID');
 		$data['payments']=$this->events_model->getPayments($currentEvent);
+		$data['clientName']=$this->events_model->getClientName($cid);
 		$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
 		$totalAmount = $this->events_model->totalAmount($currentEvent);
 		$data['totalPayments'] = $totalPayments;
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
-		$data['clientName']=$this->events_model->getClientName($cid);
-		$data['receiver']=$this->events_model->getPaymentReceiver($currentEvent);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Payments | Admin';	
 		}else{
@@ -473,6 +473,7 @@ class Events extends CI_Controller
 				$eventID = $this->session->userdata('currentEventID');
 				$empID = $this->session->userdata('employeeID');
 				$clientID = $this->session->userdata('clientID');
+				$clientName = $this->events_model->getClientName($clientID);
 
 				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
 
@@ -500,9 +501,18 @@ class Events extends CI_Controller
 					
 					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
-					$data['paymentID'] = $paymentID;
+					$data['amount'] = number_format($amount, 2);
+
+                    $d = date_create($date);
+                    $newDate = date_format($d, "M-d-Y");
+                    $newTime = date("g:i a", strtotime($time));
+
+                    $data['dateTime'] = $newDate . " at " . $newTime;
+
 
 					$data['success'] = true;
+
+					$data['client'] = $clientName->clientName;
 					
 				}else{
 					foreach ($_POST as $key => $value) {
@@ -910,7 +920,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['decorTypes'] = $this->events_model->getDecorTypes();
+			$data['decorTypes'] = $this->events_model->getDecorEnum();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -924,6 +934,16 @@ class Events extends CI_Controller
 			// get contents of the folder similarly named to the current type selected
 			$data['type_map1'] = directory_map('./uploads/designs/' . $decorTypeFoldr . '/', 1);
 
+			// get the enum values of decor types from the database
+			$data['enumVals'] = $this->events_model->getDecorEnum();
+			// pass the existing enum values to query.. then add new enum value...
+
+			/*$enumString = "";
+			foreach ($enumVals as $val) {
+				$enumString .= $enumVals;
+			}
+			$data['enumString'] = $enumString;*/
+
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Decors Home | Admin';	
 			}else{
@@ -936,6 +956,7 @@ class Events extends CI_Controller
 				$this->load->view("templates/adminNavbar.php");
 			}else{
 				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/galleryNavigation.php");
 			}
 			$this->load->view("templates/adminDecorHome.php", $data);
 			$this->load->view("templates/footer.php");
@@ -954,7 +975,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['designTypes'] = $this->events_model->getDesignTypes();
+			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
@@ -980,6 +1001,7 @@ class Events extends CI_Controller
 				$this->load->view("templates/adminNavbar.php");
 			}else{
 				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/galleryNavigation.php");
 			}
 			$this->load->view("templates/adminDesignsHome.php", $data);
 			$this->load->view("templates/footer.php");
@@ -1042,7 +1064,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$data['designTypes'] = $this->events_model->getDesignTypes();
+			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			// get all folders inside DESIGN folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
@@ -1128,20 +1150,27 @@ class Events extends CI_Controller
 			}
 		}	
 
-		public function showThemeName(){
-			$evID = $this->session->userdata('currentEventID');
-			$data['nagan'] = $this->events_model->getThemeName($evID);
-
-			//$this->load->view('eventDetails', $data);
-
-			redirect('events/eventDetails');
+		public function addNewDecType(){
+			$this->load->helper('directory');
+			$enumVals = $this->events_model->getDecorEnum();
+			$newEnumVal = $this->input->post('type_name');
+			if (!is_dir('./uploads/decors/' . $newEnumVal)) {
+				mkdir('./uploads/decors/' . $newEnumVal);
+			}
+			$this->events_model->addDecType($enumVals, $newEnumVal);
+			$this->adminDecorsHome();
 		}
 
-
-		public function displayDesImg(){
-			
+		public function addNewDesType(){
+			$this->load->helper('directory');
+			$enumVals = $this->events_model->getDesignEnum();
+			$newEnumVal = $this->input->post('type_name');
+			if (!is_dir('./uploads/designs/' . $newEnumVal)) {
+				mkdir('./uploads/designs/' . $newEnumVal);
+			}
+			$this->events_model->addDesType($enumVals, $newEnumVal);
+			$this->adminDesignsHome();
 		}
 	}
 
 ?>
-

@@ -36,13 +36,8 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
             <li>
               <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
             </li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Gallery
-              <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url('events/adminDecorsHome') ?>">Decors</a></li>
-                <li><a href="<?php echo base_url('events/adminDesignsHome') ?>">Designs</a></li>
-              </ul>
+            <li>
+              <a href="<?php echo base_url('events/adminDecorsHome') ?>">Gallery</a>
             </li>
             <li>
               <a href="<?php echo base_url('clients/clients') ?>">Clients</a>

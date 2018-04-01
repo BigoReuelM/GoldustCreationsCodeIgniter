@@ -1,6 +1,4 @@
-<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
+
 
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -155,6 +153,7 @@
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
+<script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->

@@ -54,16 +54,20 @@
 			);
 
 			$this->db->insert('employees', $data);
+			
+			if (!$role === "staff" || !$role === "on%call%staff") {
+				
 
-			$newEmpID = $this->db->insert_id();
-			$username = $newEmpID . $fname;
-			$second = array(
-				'username' => $username,
-				'password' => "goldust"
-			);
+				$newEmpID = $this->db->insert_id();
+				$username = $newEmpID . $fname;
+				$second = array(
+					'username' => $username,
+					'password' => "goldust"
+				);
 
-			$this->db->where('employeeID', $newEmpID);
-			$this->db->update('employees', $second);
+				$this->db->where('employeeID', $newEmpID);
+				$this->db->update('employees', $second);
+			}	
 
 		}
 
@@ -229,30 +233,21 @@
 		}
 
 		public function getDecorTypes(){
-			$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
-			return $query->result_array();
+			/*$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
+			return $query->result_array();*/
+			$query = $this->db->query("show columns from decors where Field like 'decorType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
 		}
 
 		public function getDesignTypes(){
-			$query = $this->db->query("SELECT DISTINCT designType FROM designs");
-			return $query->result_array();
-		}
-
-		public function createNewType($name){
-			//$query = $this->db->query("SHOW COLUMNS FROM decors LIKE 'decorType'");
-			$row = $this->db->query("SHOW COLUMNS FROM decors LIKE 'decorType'")->row()->Type;
-			$regex = "/'(.*?)'/";
-		    preg_match_all( $regex , $row, $enum_array );
-		    $enum_fields = $enum_array[1];
-		    //return( $enum_fields );
-
-			$data = array(
-				'decorType' => array(
-					'type' => "ENUM",
-					'constraint' => "'utensils', 'furnishing', 'trinkets', '" . $name . "'"
-				)
-			);
-			$this->dbforge->modify_column('decors', $data);
+			/*$query = $this->db->query("SELECT DISTINCT designType FROM designs");
+			return $query->result_array();*/
+			$query = $this->db->query("show columns from designs where Field like 'designType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
 		}
 	}
  ?>
