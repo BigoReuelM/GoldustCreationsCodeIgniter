@@ -92,8 +92,11 @@
 			
 		}
 
-		public function getServices(){
-			$query=$this->db->query("SELECT * FROM services WHERE status like 'active'");
+		public function getServices($id){
+
+			$query=$this->db->query("SELECT * FROM `services` where status like 'active' and serviceID != any(SELECT serviceID from eventservices where eventID = $id)");
+
+			
 			return $query->result_array();
 		}
 
