@@ -16,7 +16,7 @@
   <section class="content-header">
     <div class="row">
       <div class="col-lg-6">
-        <a href="<?php echo base_url('transactions/transactions') ?>" id="icon">
+        <a href="<?php echo base_url('transactions/ongoingTransactions') ?>" id="icon">
               <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
       </div>
@@ -44,7 +44,7 @@
         </div>
           <div class="box-body">
             <?php 
-              $attributes = array("name" => "updateTransactionDetails", "id" => "updateTransactionDetails", "class" => "form-horizontal");
+              $attributes = array("name" => "updateTransactionDetails", "id" => "updateTransactionDetails", "class" => "form-horizontal", "autocomplete" => "off");
               echo form_open("transactions/updateTransactionDetails", $attributes);
             ?>
             <div class="row">
