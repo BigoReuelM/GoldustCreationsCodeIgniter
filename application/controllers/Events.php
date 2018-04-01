@@ -817,9 +817,9 @@ class Events extends CI_Controller
 
 		// this method will resume a cancelled event 
 		public function contEvent(){
-			$this->load->model('events_model');
+
 			$this->events_model->changeEvtStatus();
-			$this->ongoingEvents();
+			redirect('events/ongoingEvents');
 		}
 
 		public function updateAttireQty(){
