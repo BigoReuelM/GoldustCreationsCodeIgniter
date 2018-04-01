@@ -889,10 +889,31 @@
 			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
 		}
 	
+		public function getDecorEnum(){
+			$query = $this->db->query("show columns from decors where Field like 'decorType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
+		}
 
-		public function getDecorID(){
-			$query = $this->db->query('SELECT decorsID FROM decors');
-			return $query->result_array();
+		public function getDesignEnum(){
+			$query = $this->db->query("show columns from designs where Field like 'designType'")->row(0)->Type;
+			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
+		    $enum = explode("','", $vals[1]);
+		    return $enum;
+		}
+
+		public function addDecType($enumVals, $newEnum){
+			// ALTER TABLE decors MODIFY COLUMN decorType enum('utensils', 'furnishing', 'trinkets', 'new_value') NOT NULL AFTER decorImage
+			$enumString = "'" . implode("', '", $enumVals) . "'";
+			$newEnumString = "'" . $newEnum . "'";
+			$this->db->query("ALTER TABLE decors MODIFY COLUMN decorType enum($enumString, $newEnumString)");
+		}
+
+		public function addDesType($enumVals, $newEnum){
+			$enumString = "'" . implode("', '", $enumVals) . "'";
+			$newEnumString = "'" . $newEnum . "'";
+			$this->db->query("ALTER TABLE designs MODIFY COLUMN designType enum($enumString, $newEnumString)");
 		}
 	}
 

@@ -923,6 +923,16 @@ class Events extends CI_Controller
 			// get contents of the folder similarly named to the current type selected
 			$data['type_map1'] = directory_map('./uploads/designs/' . $decorTypeFoldr . '/', 1);
 
+			// get the enum values of decor types from the database
+			$data['enumVals'] = $this->events_model->getDecorEnum();
+			// pass the existing enum values to query.. then add new enum value...
+
+			/*$enumString = "";
+			foreach ($enumVals as $val) {
+				$enumString .= $enumVals;
+			}
+			$data['enumString'] = $enumString;*/
+
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Decors Home | Admin';	
 			}else{
@@ -1136,9 +1146,18 @@ class Events extends CI_Controller
 			redirect('events/eventDetails');
 		}
 
+		public function addNewDecType(){
+			$enumVals = $this->events_model->getDecorEnum();
+			$newEnumVal = $this->input->post('type_name');
+			$this->events_model->addDecType($enumVals, $newEnumVal);
+			$this->adminDecorsHome();
+		}
 
-		public function displayDesImg(){
-			
+		public function addNewDesType(){
+			$enumVals = $this->events_model->getDesignEnum();
+			$newEnumVal = $this->input->post('type_name');
+			$this->events_model->addDesType($enumVals, $newEnumVal);
+			$this->adminDecorsHome();
 		}
 	}
 
