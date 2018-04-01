@@ -172,6 +172,7 @@ class Events extends CI_Controller
 		$data['handlers'] = $this->events_model->getHandlers();
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
+		$data['nagan'] = $this->events_model->getThemeName($id);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Details | Admin';	
 		}else{
@@ -1147,15 +1148,6 @@ class Events extends CI_Controller
 			}
 		}	
 
-		public function showThemeName(){
-			$evID = $this->session->userdata('currentEventID');
-			$data['nagan'] = $this->events_model->getThemeName($evID);
-
-			//$this->load->view('eventDetails', $data);
-
-			redirect('events/eventDetails');
-		}
-
 		public function addNewDecType(){
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
@@ -1180,4 +1172,3 @@ class Events extends CI_Controller
 	}
 
 ?>
-
