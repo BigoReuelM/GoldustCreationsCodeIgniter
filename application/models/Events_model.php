@@ -749,31 +749,26 @@
 
 		}
 
-		public function displayEventThemeDesigns($currentThemeID, $currentEventID, $currentDesignID){
-			$eventID = $this->session->userdata('currentEventID');
+		public function displayEventThemeDesigns($currentThemeID){
+			//$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentThemeID');
-			$designID = $this->session->userdata('currentDesignID');
-			$entID = $this->session->userdata('currentEntourageID');
+			//$designID = $this->session->userdata('currentDesignID');
+			//$entID = $this->session->userdata('currentEntourageID');
 
-			$query = $this->db->query("
-				SELECT eventID, themeID, designID, designName, designImage, quantity FROM (SELECT designID FROM `entouragedetails` join entourage using($entID) where eventID='$eventID') AS entourage join designs using ($designID) join eventdesigns USING(currentDesignID) join themedesign USING(designID) WHERE eventID = '$eventID'
-				");
+			$query = $this->db->query("SELECT designID, designName, designImage FROM theme NATURAL JOIN themedesign NATURAL JOIN designs WHERE themeID = $themeID");
+				//SELECT designID, designName, designImage from theme natural join themedesign natural join designs where themeID='0002'
 			return $query->result_array();
 		}
 
-		public function displayEventThemeDecors($currentThemeID, $currentEventID, $currentDecorID){
-			$eventID = $this->session->userdata('currentEventID');
+		public function displayEventThemeDecors($currentThemeID){
+			//$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentThemeID');
-			$decorID = $this->session->userdata('currentDecorID');
+			//$decorID = $this->session->userdata('currentDecorID');
 
-			/*$query = $this->db->query("
-				SELECT themeID, decorID, decorName, decorImage, quantity FROM 
-				");
-			*/
+			$query = $this->db->query("SELECT decorID, decorName, decorImage FROM theme NATURAL JOIN themedecor NATURAL JOIN decors WHERE themeID = $themeID");
+			//SELECT decorID, decorName, decorImage from theme natural join themedecor natural join decors where themeID='0002'
 
-			$query = $this->db->query("
-				SELECT eventID, themeID, decorID, decorName, decorImage, decorType, color, quantity FROM (SELECT decorID FROM `eventdecors` join themedecor using($themeID) where eventID='$eventID') AS eventDecor join decors using ($decorID) join eventthemes USING($themeID) join themedecor USING($decorID) WHERE eventID = '$eventID'
-			");
+			return $query->result_array();
 		}
 
 		//The following queries is meant for the calendar
@@ -880,6 +875,14 @@
 			return $query->result_array();
 		}	
 
+		public function getThemeName($currentEventID){
+			$evID = $this->session->userdata('$currentEventID');
+			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $evID");
+
+			return $query->result_array();
+
+			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
+		}
 	
 	}
 

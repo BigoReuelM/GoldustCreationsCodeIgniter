@@ -28,7 +28,7 @@
         <div class="col-lg-4">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header">
-              <h3>Select Event Handler</h3>
+              <h3>Event Handler</h3>
               <?php  
                 if ($empRole === 'admin') {
                   echo "<label>Select</label>";
@@ -142,13 +142,24 @@
                 <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
               </div>-->
               <label>Theme/s</label>
-              <div class="input-group">               
-                <input type="text" class="form-control" placeholder="Theme" disabled>
+              <form type="form" method="post" action="<?php echo base_url('events/showThemeName') ?>">
+              <div class="input-group">
+              <?php
+                if(!empty($nagan)) {
+                  foreach ($nagan as $name) {
+                    $themeName = $name['themeName'];
+              ?>            
+                <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>"  disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
-              </div>
+                <?php
 
+                  }
+                }
+                ?>
+              </div>
+            </form>
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <?php 
