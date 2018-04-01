@@ -17,8 +17,6 @@
 			$this->db->where('username like binary',$username);
 			$this->db->where('password like binary',$pass);
 			$this->db->where('status', "active");
-			$this->db->where('role', "admin");
-			$this->db->or_where('role', "handler");
 
 			if($query=$this->db->get())
 			{

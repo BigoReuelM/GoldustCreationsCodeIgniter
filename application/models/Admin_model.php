@@ -54,16 +54,20 @@
 			);
 
 			$this->db->insert('employees', $data);
+			
+			if (!$role === "staff" || !$role === "on%call%staff") {
+				
 
-			$newEmpID = $this->db->insert_id();
-			$username = $newEmpID . $fname;
-			$second = array(
-				'username' => $username,
-				'password' => "goldust"
-			);
+				$newEmpID = $this->db->insert_id();
+				$username = $newEmpID . $fname;
+				$second = array(
+					'username' => $username,
+					'password' => "goldust"
+				);
 
-			$this->db->where('employeeID', $newEmpID);
-			$this->db->update('employees', $second);
+				$this->db->where('employeeID', $newEmpID);
+				$this->db->update('employees', $second);
+			}	
 
 		}
 
