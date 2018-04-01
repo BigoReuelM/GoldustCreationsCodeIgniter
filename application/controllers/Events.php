@@ -230,7 +230,7 @@ class Events extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventStaff'] = $this->events_model->getStaff($id);
-		$data['allStaff'] = $this->events_model->showAllStaff();
+		$data['allStaff'] = $this->events_model->showAllStaff($id);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Staff | Admin';	
 		}else{

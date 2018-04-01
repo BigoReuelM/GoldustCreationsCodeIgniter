@@ -291,9 +291,9 @@
 			$this->db->delete('eventstaff');
 		}
 
-		public function showAllStaff(){
-			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees where role like '%staff%' and status='active' and employeeID NOT IN
-(SELECT emp.employeeID FROM (SELECT * FROM employees left join eventstaff using(employeeID) where role like '%staff%' and status='active')AS emp left join events using(eventID) where '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
+		public function showAllStaff($id){
+			$date = $this->getEventDate($id);
+			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees where role like '%staff%' and status='active' and employeeID NOT IN (SELECT emp.employeeID FROM (SELECT * FROM employees left join eventstaff using(employeeID) where role like '%staff%' and status='active')AS emp left join events using(eventID) where '$date->eventDate' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
 			return $query->result_array();
 		}
 
