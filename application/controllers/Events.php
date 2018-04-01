@@ -956,6 +956,7 @@ class Events extends CI_Controller
 				$this->load->view("templates/adminNavbar.php");
 			}else{
 				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/galleryNavigation.php");
 			}
 			$this->load->view("templates/adminDecorHome.php", $data);
 			$this->load->view("templates/footer.php");
@@ -1000,6 +1001,7 @@ class Events extends CI_Controller
 				$this->load->view("templates/adminNavbar.php");
 			}else{
 				$this->load->view("templates/header.php", $notif);
+				$this->load->view("templates/galleryNavigation.php");
 			}
 			$this->load->view("templates/adminDesignsHome.php", $data);
 			$this->load->view("templates/footer.php");
