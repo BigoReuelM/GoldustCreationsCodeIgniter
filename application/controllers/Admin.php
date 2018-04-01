@@ -361,6 +361,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			echo json_encode($data);
 		}
 
+		public function disableEmployeeAccount(){
+			$empID = html_escape($this->input->post('empIDDisable'));
+
+			$this->admin_model->disableEmpAccount($empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data); 
+		}
+
+		public function enableEmployeeAccount(){
+			$empID = html_escape($this->input->post('empIDEnable'));
+
+			$this->admin_model->enableEmpAccount($empID);
+
+			$data['success'] = true;
+
+			echo json_encode($data); 
+		}
+
 		public function generatePIN(){
 			$digits = 4;
 			$i = 0;

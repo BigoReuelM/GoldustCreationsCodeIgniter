@@ -184,7 +184,7 @@
         if (response.success == true) {
           $('#the-message').append('<div class="alert alert-success text-center">' +
           '<span class="icon fa fa-check"></span>' +
-          ' New expense has been saved.' +
+          ' New service has been saved.' +
           '</div>');
           $('.form-group').removeClass('has-error')
                 .removeClass('has-success');

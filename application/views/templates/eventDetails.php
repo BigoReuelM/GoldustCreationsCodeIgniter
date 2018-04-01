@@ -142,24 +142,12 @@
                 <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
               </div>-->
               <label>Theme/s</label>
-              <form type="form" method="post" action="<?php echo base_url('events/showThemeName') ?>">
-              <div class="input-group">
-              <?php
-                if(!empty($nagan)) {
-                  foreach ($nagan as $name) {
-                    $themeName = $name['themeName'];
-              ?>            
-                <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>"  disabled>
+              <div class="input-group">            
+                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
-                <?php
-
-                  }
-                }
-                ?>
               </div>
-            </form>
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <?php 
@@ -466,7 +454,26 @@
 </div>
 <!--end of fisnish event modal-->
 
-
+<div class="modal fade" id="select-handler">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Select handler</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
 <div class="modal fade" id="update-details">

@@ -230,7 +230,7 @@ class Events extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventStaff'] = $this->events_model->getStaff($id);
-		$data['allStaff'] = $this->events_model->showAllStaff();
+		$data['allStaff'] = $this->events_model->showAllStaff($id);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Staff | Admin';	
 		}else{
@@ -261,8 +261,9 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-		$data['servcs'] = $this->events_model->getServices();
 		$data['avlServcs'] = $this->events_model->servcTransac($id);
+		$data['servcs'] = $this->events_model->getServices($id);
+		
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Services | Admin';	
 		}else{
