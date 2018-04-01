@@ -185,7 +185,7 @@
             // and also remove the error class
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New employee has been saved.' +
+            ' New client has been saved.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
