@@ -1157,15 +1157,23 @@ class Events extends CI_Controller
 		}
 
 		public function addNewDecType(){
+			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
 			$newEnumVal = $this->input->post('type_name');
+			if (!is_dir('./uploads/decors/' . $newEnumVal)) {
+				mkdir('./uploads/decors/' . $newEnumVal);
+			}
 			$this->events_model->addDecType($enumVals, $newEnumVal);
 			$this->adminDecorsHome();
 		}
 
 		public function addNewDesType(){
+			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDesignEnum();
 			$newEnumVal = $this->input->post('type_name');
+			if (!is_dir('./uploads/designs/' . $newEnumVal)) {
+				mkdir('./uploads/designs/' . $newEnumVal);
+			}
 			$this->events_model->addDesType($enumVals, $newEnumVal);
 			$this->adminDesignsHome();
 		}
