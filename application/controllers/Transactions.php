@@ -465,7 +465,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->transactions_model->finishTransaction($id);
 
-			redirect('transactions/transactions');
+			redirect('transactions/finishedTransactions');
 		}
 
 		public function markCancel(){
@@ -473,7 +473,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$this->transactions_model->cancelTransaction($id);
 
-			redirect('transactions/transactions');
+			redirect('transactions/cancelledTransactions');
 			
 		}
 

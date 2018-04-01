@@ -224,7 +224,7 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Finish Transaction</h4>
               </div>
-              <div class="modal-body">
+              <div class="modal-body text-center">
                 <p>Are you sure you want to end this Transaction?</p>
               </div>
               <div class="modal-footer">
@@ -250,7 +250,7 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Cancel Transaction</h4>
               </div>
-              <div class="modal-body">
+              <div class="modal-body text-center">
                 <p>Are you sure you want to cancel?</p>
               </div>
               <div class="modal-footer">
