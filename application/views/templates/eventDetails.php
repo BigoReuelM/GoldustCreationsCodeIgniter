@@ -137,13 +137,9 @@
                 <label>Motif</label>
                 <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
-              <!--<div class="form-group">
-                <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
-              </div>-->
               <label>Theme/s</label>
               <div class="input-group">            
-                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
+                <input type="text" class="form-control" id="themeName" placeholder="<?php if(!empty($nagan)){echo $nagan->themeName;}else{echo "No theme";} ?>" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
