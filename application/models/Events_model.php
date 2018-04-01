@@ -23,14 +23,20 @@
 
 		public function getNewEvents($employeeID, $role, $status)
 		{
-			
-			$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
-			$this->db->from('events');
-			$this->db->join('clients','events.clientID = clients.clientID');
-			$this->db->join('employees','events.employeeID = employees.employeeID');
-			$this->db->where('events.eventStatus', $status);
 			if ($role === "handler") {
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
+				
 				$this->db->where('events.employeeID', $employeeID);
+			}else{
+				$this->db->SELECT('*, concat(clients.firstName, " ", middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", midName, " ", employees.lastName) as employeeName');
+				$this->db->from('events');
+				$this->db->join('clients','events.clientID = clients.clientID');
+				$this->db->join('employees','events.employeeID = employees.employeeID');
+				$this->db->where('events.eventStatus', $status);
 			}
 			
 			$query=$this->db->get();
