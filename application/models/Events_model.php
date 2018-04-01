@@ -285,8 +285,7 @@
 		}
 
 		public function showAllStaff(){
-			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS empName , contactNumber FROM employees left join events using(employeeID)  left join eventstaff using (employeeID) where role like '%staff%' and status='active' and employeeID NOT IN
-(SELECT employeeID FROM employees left join events using(employeeID) WHERE role like '%staff%' and status='active' and '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
+			$query = $this->db->query("SELECT DISTINCT concat(firstName,' ', midName,' ', lastName) AS name , employeeID as empId, contactNumber as num FROM employees left join events using(employeeID)  left join eventstaff using (employeeID) where role like '%staff%' and status='active' and employeeID NOT IN (SELECT employeeID FROM employees left join events using(employeeID) WHERE role like '%staff%' and status='active' and '2018-02-02' between date_sub(eventDate, INTERVAL 5 day) and date_add(eventDate, INTERVAL 3 day))");
 			return $query->result_array();
 		}
 
