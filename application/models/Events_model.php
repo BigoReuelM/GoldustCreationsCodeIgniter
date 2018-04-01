@@ -783,7 +783,7 @@
 			$query = $this->db->query("
 				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
 				FROM `events`
-				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going');
+				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
 			");
 
 			return $query->result_array();
@@ -880,17 +880,7 @@
 			return $query->result_array();
 		}	
 
-		/*public function getThemeName(){
-			$evID = $this->session->userdata('currentEventID');
-
-			//$this->db->select('CONCAT(themeName, ',' , themeName2) as eventThemeName', FALSE);
-			$this->db->select('themeName');
-			$this->db->from('eventthemes');
-			$this->db->where('eventID', $evID);
-			$query = $this->db->get();
-
-			return $query->result();
-		}*/
+	
 	}
 
 
