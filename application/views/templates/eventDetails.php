@@ -142,24 +142,12 @@
                 <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
               </div>-->
               <label>Theme/s</label>
-              <form type="form" method="post" action="<?php echo base_url('events/showThemeName') ?>">
-              <div class="input-group">
-              <?php
-                if(!empty($nagan)) {
-                  foreach ($nagan as $name) {
-                    $themeName = $name['themeName'];
-              ?>            
-                <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>"  disabled>
+              <div class="input-group">            
+                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
                 </span>
-                <?php
-
-                  }
-                }
-                ?>
               </div>
-            </form>
               <div class="form-group">   
                 <label>Total Amount Due</label>
                 <?php 
