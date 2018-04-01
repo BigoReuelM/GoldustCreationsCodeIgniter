@@ -374,13 +374,12 @@ class Events extends CI_Controller
 		$empRole = $this->session->userdata('role');
 		$cid = $this->session->userdata('clientID');
 		$data['payments']=$this->events_model->getPayments($currentEvent);
+		$data['clientName']=$this->events_model->getClientName($cid);
 		$totalPayments = $this->events_model->totalAmountPaid($currentEvent);
 		$totalAmount = $this->events_model->totalAmount($currentEvent);
 		$data['totalPayments'] = $totalPayments;
 		$data['totalAmount'] = $totalAmount;		
 		$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
-		$data['clientName']=$this->events_model->getClientName($cid);
-		$data['receiver']=$this->events_model->getPaymentReceiver($currentEvent);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Payments | Admin';	
 		}else{
@@ -473,6 +472,7 @@ class Events extends CI_Controller
 				$eventID = $this->session->userdata('currentEventID');
 				$empID = $this->session->userdata('employeeID');
 				$clientID = $this->session->userdata('clientID');
+				$clientName = $this->events_model->getClientName($clientID);
 
 				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
 
@@ -500,9 +500,18 @@ class Events extends CI_Controller
 					
 					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
-					$data['paymentID'] = $paymentID;
+					$data['amount'] = number_format($amount, 2);
+
+                    $d = date_create($date);
+                    $newDate = date_format($d, "M-d-Y");
+                    $newTime = date("g:i a", strtotime($time));
+
+                    $data['dateTime'] = $newDate . " at " . $newTime;
+
 
 					$data['success'] = true;
+
+					$data['client'] = $clientName->clientName;
 					
 				}else{
 					foreach ($_POST as $key => $value) {

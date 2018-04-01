@@ -1,6 +1,6 @@
 <?php
   $empRole = $this->session->userdata('role');
-  
+  $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
 ?>
 
     <!-- Content Header (Page header) -->
@@ -210,8 +210,6 @@
       e.preventDefault();
 
       var paymentDetails = $(this);
-      var time = $('#time').val();
-      var date = $('#date').val();
       var amount = $('#amount').val();
       $.ajax({
         type: 'POST',
@@ -221,9 +219,10 @@
         success: function(response){
           if(response.balance == true){
             if (response.success == true) {
-
-              var paymentID = response.paymentID;
               var eventBalance = response.balanceAmount - amount;
+              var dateTime = response.dateTime;
+              var client = response.client;
+              var receiver = "<?php echo $empname ?>";
 
               $('.alert-success').remove();
 
@@ -249,10 +248,10 @@
               
               $('#paymentTableBody').prepend(
                 '<tr>' +
-                  '<td>' + paymentID + '</td>' +
-                  '<td>' + amount + '</td>' +
-                  '<td>' + date + '</td>' +
-                  '<td>' + time + '</td>' +
+                  '<td>' + client + '</td>' +
+                  '<td>' + receiver + '</td>' +
+                  '<td>' + response.amount + '</td>' +
+                  '<td>' + dateTime + '</td>' +
                 '</tr>'
               );
 
