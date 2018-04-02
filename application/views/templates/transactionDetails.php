@@ -90,7 +90,10 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Deposited Amount</label>
                   <div class="col-sm-10">
-                    <input type="text" id="depositAmt" name="depositAmt" class="form-control" placeholder="<?php echo $details->depositAmt ?>" value="">
+                    <?php  
+                      $formatedDepositedAmount = number_format($details->depositAmt, 2);
+                    ?>
+                    <input type="text" id="depositAmt" name="depositAmt" class="form-control" placeholder="<?php echo $formatedDepositedAmount ?>" value="">
                   </div>
                 </div>
                 <div class="form-group">
@@ -123,8 +126,13 @@
                       <label class="col-sm-5 control-label">Date Availed</label>
                       <div class="col-sm-7">
                         <?php
+                        if (!$details->dateAvail == null) {
                           $date = date_create($details->dateAvail);
-                          $newDate = date_format($date, "M-d-Y"); 
+                          $newDate = date_format($date, "M-d-Y");
+                        }else{
+                          $newDate = "not set";
+                        }
+                           
                         ?>
                         <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>
                       </div>
@@ -142,8 +150,13 @@
                     <div class="col-lg-6">
                       <label class="col-sm-5 control-label">Time Availed</label>
                       <div class="col-sm-7">
-                        <?php 
-                          $newTime = date("g:i a", strtotime('$detail->time'));
+                        <?php
+                          if (!$detail->time == null) {
+                            $newTime = date("g:i a", strtotime($detail->time)); 
+                          }else{
+                            $newTime = "not set";
+                          } 
+                          
                         ?>
                         <input type="text" class="form-control" value="<?php echo $newTime ?>" disabled>
                       </div>
@@ -195,7 +208,10 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Total Amount</label>
             <div class="col-sm-10">
-              <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $totalAmount->totalAmount ?>" disabled>
+              <?php  
+                $formatedTotalAmount = number_format($totalAmount->totalAmount, 2);
+              ?>
+              <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $formatedTotalAmount ?>" disabled>
             </div>
           </div>
           <div class="form-group">
