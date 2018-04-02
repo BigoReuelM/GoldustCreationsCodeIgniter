@@ -1115,42 +1115,44 @@ class Events extends CI_Controller
 
 		public function uploadDecImg(){
 			$cType = $this->session->userdata('currentType');
-			$config['upload_path'] = './uploads/decors/' . $cType . '/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
 			
 			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
-
+			
 			$this->form_validation->set_rules('dec_name', 'New Decor Name', 'required');
 			$this->form_validation->set_rules('dec_color', 'New Decor Color', 'required');		
 
-			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
+			if ($this->form_validation->run()) {		
 				$decorName = html_escape($this->input->post('dec_name'));
 				$decorColor = html_escape($this->input->post('dec_color'));
-				$this->events_model->addNewDecor($decorName, $decorColor, $cType);
+				$decID = $this->events_model->addNewDecor($decorName, $decorColor, $cType);
+				$config['upload_path'] = './uploads/decors/' . $cType . '/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['file_name'] = sprintf('%07d', $decID);
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
 				$this->adminDecorsHome();
 			}
 		}
 
 		public function uploadDesImg(){
 			$cType = $this->session->userdata('currentType');
-			$config['upload_path'] = './uploads/designs/' . $cType . '/';
-			$config['allowed_types'] = 'jpg|png|jpeg';
-			
+					
 			$this->load->library('form_validation');
-			$this->load->library('upload', $config);
 
 			$this->form_validation->set_rules('des_name', 'New Design Name', 'required');
 			$this->form_validation->set_rules('des_color', 'New Design Color', 'required');		
 
-			if ($this->form_validation->run()) {
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
+			if ($this->form_validation->run()) {			
 				$designName = html_escape($this->input->post('des_name')); 
 				$designColor = html_escape($this->input->post('des_color'));
-				$this->events_model->addNewDesign($designName, $designColor, $cType);
+				$desID = $this->events_model->addNewDesign($designName, $designColor, $cType);
+				$config['upload_path'] = './uploads/designs/' . $cType . '/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['file_name'] = sprintf('%07d', $desID);
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('userfile');
+				$data = array('upload_data' => $this->upload->data());
 				$this->adminDesignsHome();
 			}
 		}	
