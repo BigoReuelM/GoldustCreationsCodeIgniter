@@ -888,8 +888,8 @@
 		}	
 
 		public function getThemeName($currentEventID){
-			$evID = $this->session->userdata('$currentEventID');
-			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $evID");
+			//$evID = $this->session->userdata('$currentEventID');
+			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $currentEventID");
 
 			//return $query->result_array();
 			return $query->row();
