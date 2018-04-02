@@ -180,8 +180,8 @@
                   <?php
                     $newDate = "";
 
-                      $date = date_create($eventDetail->eventDate);
-                      $newDate = date_format($date, "M-d-Y");  
+                    $date = date_create($eventDetail->eventDate);
+                    $newDate = date_format($date, "M-d-Y");  
 
                      
                   ?>
@@ -198,9 +198,9 @@
                   <label>Event Time</label>
                   <?php
                     $newTime = "";
-                    if (!$eventDetail->eventTime = null) {
-                      $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
-                    } 
+                    
+                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
+                    
                                         
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
