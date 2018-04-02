@@ -151,8 +151,8 @@
                       <label class="col-sm-5 control-label">Time Availed</label>
                       <div class="col-sm-7">
                         <?php
-                          if (!$detail->time == null) {
-                            $newTime = date("g:i a", strtotime($detail->time)); 
+                          if (!$details->time == null) {
+                            $newTime = date("g:i a", strtotime($details->time)); 
                           }else{
                             $newTime = "not set";
                           } 
