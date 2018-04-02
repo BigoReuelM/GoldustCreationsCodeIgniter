@@ -242,7 +242,7 @@
 			if($this->db->insert('transactiondetails', $data)){
 				return true;
 			}else{
-				false;
+				return false;
 			}
 		}
 
