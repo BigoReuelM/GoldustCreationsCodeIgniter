@@ -241,6 +241,7 @@
 			);
 			if(!$this->db->insert('transactiondetails', $data)){
 				return false;
+				exit();
 			}
 		}
 
