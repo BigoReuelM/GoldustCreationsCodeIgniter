@@ -608,7 +608,11 @@
 				'eventID' => $eID,
 				'serviceID' => $svcid
 			);
-			$this->db->insert('eventservices', $data);
+			if($this->db->insert('eventservices', $data)){
+				return true;
+			}else{
+				return false;
+			}
 		}
 
 		public function changeAttireEntourage($eID, $desID, $newDesId) {
