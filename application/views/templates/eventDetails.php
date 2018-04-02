@@ -178,7 +178,7 @@
                 <div class="col-lg-6">
                   <label>Event Date</label>
                   <?php
-                    $newDate = "";
+
                     if (!$eventDetail->eventDate == null) {
                       $date = date_create($eventDetail->eventDate);
                       $newDate = date_format($date, "M-d-Y");
@@ -199,7 +199,7 @@
                 <div class="col-lg-6">
                   <label>Event Time</label>
                   <?php
-                    $newTime = "";
+
                     if (!$eventDetail->eventTime == null) {
                       $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));
                     }     
