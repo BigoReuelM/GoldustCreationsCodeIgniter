@@ -201,7 +201,7 @@
                   <?php
 
                     if (!$eventDetail->eventTime == null) {
-                      $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));
+                      $newTime = date("g:i a", strtotime($eventDetail->eventTime));
                     }     
                                         
                   ?>
