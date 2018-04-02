@@ -180,8 +180,8 @@
                   <?php
 
                     if (!$eventDetail->eventDate == null) {
-                      $date = date_create($eventDetail->eventDate);
-                      $newDate = date_format($date, "M-d-Y");
+                      $eventdate = date_create($eventDetail->eventDate);
+                      $newDate = date_format($eventdate, "M-d-Y");
                     }else{
                       $newDate = "not set";
                     }
