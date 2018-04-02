@@ -202,6 +202,8 @@
 
                     if (!$eventDetail->eventTime == null) {
                       $newTime = date("g:i a", strtotime($eventDetail->eventTime));
+                    }else{
+                      $newTime = "not set;"
                     }     
                                         
                   ?>
