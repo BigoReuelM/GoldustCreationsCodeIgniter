@@ -239,7 +239,11 @@
 				'transactionID' => $tID,
 				'serviceID' => $svcid
 			);
-			$this->db->insert('transactiondetails', $data);
+			if($this->db->insert('transactiondetails', $data)){
+				return true;
+			}else{
+				false;
+			}
 		}
 
 		public function getServices($tranID){
