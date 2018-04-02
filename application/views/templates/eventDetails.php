@@ -179,10 +179,10 @@
                   <label>Event Date</label>
                   <?php
                     $newDate = "";
-                    if (!$eventDetail->eventDate = null) {
+
                       $date = date_create($eventDetail->eventDate);
                       $newDate = date_format($date, "M-d-Y");  
-                    }
+
                      
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
