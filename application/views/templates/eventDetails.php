@@ -179,7 +179,7 @@
                   <label>Event Date</label>
                   <?php
                     $newDate = "";
-                    if (!empty($eventDetail->eventDate)) {
+                    if (!$eventDetail->eventDate = null) {
                       $date = date_create($eventDetail->eventDate);
                       $newDate = date_format($date, "M-d-Y");  
                     }
@@ -198,7 +198,7 @@
                   <label>Event Time</label>
                   <?php
                     $newTime = "";
-                    if (!empty($eventDetail->eventTime)) {
+                    if (!$eventDetail->eventTime = null)) {
                       $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
                     } 
                                         
