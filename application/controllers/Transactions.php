@@ -176,7 +176,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
 			$data['servcs'] = $this->transactions_model->getServices($tranID);
-
+			$data['serviceIDs'] = $this->transactions_model->getServiceIDs($tranID);
 			
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			if ($this->session->userdata('role') === "admin") {

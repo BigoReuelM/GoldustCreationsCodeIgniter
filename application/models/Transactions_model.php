@@ -239,11 +239,7 @@
 				'transactionID' => $tID,
 				'serviceID' => $svcid
 			);
-			if(!$this->db->insert('transactiondetails', $data)){
-				return false;
-				exit();
-			}
-		}
+			$this->db->insert('transactiondetails', $data));
 
 		public function getServices($tranID){
 			$query=$this->db->query("
@@ -257,6 +253,15 @@
 		public function getService($service){
 			$query=$this->db->query("SELECT * FROM services WHERE serviceID = $service");
 			return $query->row();
+		}
+
+		public function getServiceIDs($service){
+			$query=$this->db->query("
+				SELECT serviceID
+				FROM services
+				WHERE serviceID = $service
+			");
+			return $query->result_array();
 		}
 
 		public function viewEventRentals(){
