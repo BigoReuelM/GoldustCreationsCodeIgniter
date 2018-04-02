@@ -96,7 +96,7 @@
 			$id=$this->session->userdata('currentEventID');
 			$query=$this->db->query("
 				SELECT *
-				FROM service
+				FROM services
 				WHERE status like 'active'
 			");
 			return $query->result_array();
