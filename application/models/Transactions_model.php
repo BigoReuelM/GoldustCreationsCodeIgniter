@@ -248,7 +248,7 @@
 				FROM transactions
 				LEFT JOIN transactiondetails USING(transactionID)
 				LEFT JOIN services USING(serviceID)
-				WHERE STATUS='active' AND serviceID NOT IN(SELECT S.serviceID 
+				WHERE STATUS='active' AND transactiondetails.serviceID is null or serviceID NOT IN(SELECT S.serviceID 
 				FROM (SELECT * FROM transactions LEFT JOIN transactiondetails USING(transactionID) LEFT JOIN services USING(serviceID) WHERE STATUS = 'active') AS S
 				WHERE transactionID = '$tranID')
 			");
