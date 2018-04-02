@@ -179,11 +179,13 @@
                   <label>Event Date</label>
                   <?php
                     $newDate = "";
-
-                    $date = date_create($eventDetail->eventDate);
-                    $newDate = date_format($date, "M-d-Y");  
-
-                     
+                    if (!$eventDetail->eventDate == null) {
+                      $date = date_create($eventDetail->eventDate);
+                      $newDate = date_format($date, "M-d-Y");
+                    }else{
+                      $newDate = "not set";
+                    }
+                                        
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
                 </div>
@@ -198,9 +200,9 @@
                   <label>Event Time</label>
                   <?php
                     $newTime = "";
-                    
-                    $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
-                    
+                    if (!$eventDetail->eventTime == null) {
+                      $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));
+                    }     
                                         
                   ?>
                   <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
