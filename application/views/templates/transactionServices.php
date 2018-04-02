@@ -106,8 +106,7 @@
                 <?php
                   if (!empty($servcs)) {
                     foreach ($servcs as $svc) { ?>
-                      <?php if (!in_array($svc['serviceID'], $serviceIDs['serviceID'])): ?>
-                        <tr>                   
+                      <tr>                   
                           <td>
                             <div class="checkbox">
                               <label>
@@ -116,8 +115,7 @@
                             </div>
                           </td>
                           <td><?php echo $svc['description'] ?></td>
-                        </tr>
-                      <?php endif ?>
+                      </tr>
                 <?php }
                   }
                 ?>
