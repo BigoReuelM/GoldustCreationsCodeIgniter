@@ -240,7 +240,8 @@
 				'serviceID' => $svcid
 			);
 			$this->db->insert('transactiondetails', $data);
-
+		}
+		
 		public function getServices($tranID){
 			$query=$this->db->query("
 				SELECT *
