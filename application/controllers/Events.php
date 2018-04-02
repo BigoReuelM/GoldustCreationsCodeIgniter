@@ -325,9 +325,11 @@ class Events extends CI_Controller
 	}
 
 	public function eventDecors(){
+		$clientID = $this->session->userdata('clientID');
 		$eventid = $this->session->userdata('currentEventID');
 		$decorid = $this->session->userdata('currentDecorID');
 		$empID = $this->session->userdata('employeeID');
+		$themeID = $this->session->userdata('currentThemeID');
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -337,6 +339,9 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventName'] =$this->events_model->getEventName($eventid);
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
+		// get theme id from event detail
+		
+		$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID);
 		$this->load->model('items_model');
 		$data['allDecors'] = $this->items_model->getAllDecors();
 		if ($this->session->userdata('role') === "admin") {

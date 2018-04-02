@@ -163,6 +163,7 @@ input[type=submit] {
                 </thead>
                 <tbody>
                   <?php 
+                    //$eventID = $eventDetail['eventID'];
                     if (!empty($themeDecors)) {
                       foreach ($themeDecors as $td) {
                         $themeID = $td['themeID'];

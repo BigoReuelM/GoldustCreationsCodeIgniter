@@ -756,6 +756,11 @@
 
 		}
 
+		public function getEventTheme($eventID){
+			$query = $this->db->query("SELECT * FROM eventthemes WHERE eventID = $eventID");
+			return $query->row();
+		}
+
 		public function displayEventThemeDesigns($currentThemeID){
 			//$eventID = $this->session->userdata('currentEventID');
 			$themeID = $this->session->userdata('currentThemeID');
