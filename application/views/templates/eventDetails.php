@@ -114,10 +114,10 @@
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
+                      <span class="radio"><label><input type="checkbox" name="package" value="full-Package">Full Package</label></span>
                     </div>
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></span>
+                      <span class="radio"><label><input type="checkbox" name="package" value="semi-Package">Semi Package</label></span>
                     </div>
                   </div>
                 </div> 
