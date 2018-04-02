@@ -49,11 +49,12 @@
                           ?>
                         </td>
                         <td>
-                          <?php
+                          <!-- <?php
                             $date = date_create($ctransac['cancelledDate']);
                             $newDate = date_format($date, "M-d-Y");
                             echo $newDate; 
-                          ?>
+                          ?> -->
+                          <p>To be added</p>
                         </td>
                         <td>
 
