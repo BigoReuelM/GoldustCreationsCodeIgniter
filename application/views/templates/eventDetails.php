@@ -198,7 +198,7 @@
                   <label>Event Time</label>
                   <?php
                     $newTime = "";
-                    if (!$eventDetail->eventTime = null)) {
+                    if (!$eventDetail->eventTime = null) {
                       $newTime = date("g:i a", strtotime('$eventDetail->eventTime'));  
                     } 
                                         
