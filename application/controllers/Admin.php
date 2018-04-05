@@ -191,10 +191,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addEmployee(){
 
-			$data = array('success' => false, 'messages' => array());
+			$data = array('success' => false, 'messages' => array(), 'upload_data' => array());
 
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|required');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
 			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
 			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -202,6 +202,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('role', 'Role', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
+
 				$fname = html_escape($this->input->post('firstname'));	
 				$mname = html_escape($this->input->post('middlename'));
 				$lname = html_escape($this->input->post('lastname'));
@@ -210,7 +211,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$address = html_escape($this->input->post('address'));
 				$role = html_escape($this->input->post('role'));
 
-				$this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
+				$newEmpID = $this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
+
+				$config['upload_path'] = './uploads/profileImage/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['file_name'] = sprintf('%04d', $newEmpID);
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('userfile');
+				$data['upload_data'] = $this->upload->data();
+				
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {

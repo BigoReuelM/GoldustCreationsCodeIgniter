@@ -56,14 +56,21 @@
 			$this->db->insert('employees', $data);
 			
 			$newEmpID = $this->db->insert_id();
-			$username = sprintf('%04d', $newEmpID) . $fname;
-			$second = array(
-				'username' => $username,
-				'password' => "goldust"
-			);
 
-			$this->db->where('employeeID', $newEmpID);
-			$this->db->update('employees', $second);
+			if ($role == "admin" || $role == "handler") {
+				$username = sprintf('%04d', $newEmpID) . $fname;
+				$defaultpass = 'goldust';
+				$userPass = password_hash($defaultpass, PASSWORD_BCRYPT);
+				$credentials = array(
+					'username' => $username,
+					'password' => $userPass
+				);
+
+				$this->db->where('employeeID', $newEmpID);
+				$this->db->update('employees', $credentials);
+			}
+
+			return $newEmpID;			
 
 		}
 

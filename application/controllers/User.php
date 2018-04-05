@@ -15,6 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
+			$this->load->helper('file');
 
 		}
 		//WILL LOAD THE REGISTRATION VIEW
@@ -28,8 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//method for user to login to his/her account
 		function login_user(){
 
-			$username = html_escape($this->input->post('username'));
-			$password = html_escape($this->input->post('password'));
+			$username = trim(html_escape($this->input->post('username')));
+			$password = trim(html_escape($this->input->post('password')));
 
 			if (empty($username)) {
 				$this->session->set_flashdata('error_msg', 'Username field should not be empty!');
@@ -52,7 +53,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->session->set_userdata('email',$data['email']);
 				$this->session->set_userdata('photo',$data['photo']);
 				$this->session->set_userdata('username',$data['username']);
-				$this->session->set_userdata('password',$data['password']);
 				$this->session->set_userdata('contactNumber',$data['contactNumber']);
 				$this->session->set_userdata('role',$data['role']);
 				$this->session->set_userdata('allowed_idle_time', 6000);
@@ -234,12 +234,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			$password = $this->user_model->getPassword($empID);
 
-			if ($password->password !== $pass){
+			if (!password_verify($pass, $password->password)){
 				$this->form_validation->set_message('password_matches', 'The password you supplied does not match your existing password. ');
 				return FALSE;
 			}
 
 			return TRUE;
+		}
+
+		public function uploadProfilePhoto(){
+			$userID = $this->input->post('userID');
+			$userFilePath = './uploads/profileImage/' . $userID . ".*";
+			$path = glob($userFilePath);
+			if (!empty($path)) {
+				unlink($path[0]);
+			}
+			$config['upload_path'] = './uploads/profileImage/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['file_name'] = $userID;
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('userfile');
+			$data = array('upload_data' => $this->upload->data());
+			redirect('user/user_profile');
+			
 		}
 
 	}

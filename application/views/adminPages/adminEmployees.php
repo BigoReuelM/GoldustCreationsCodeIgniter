@@ -85,7 +85,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Employee</h4>
         </div>
-        <div id="the-message">
+        <div id="message">
           
         </div>
         <div class="modal-body">
@@ -138,10 +138,16 @@
                 </select>
               </div>
             </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Select User Profile</label>
+              <div class="col-lg-9">
+                <input type="file" name="userfile">
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button id="submit" type="submit" class="btn btn-default">Add</button>
+          <button name="upload" type="submit" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
         </div>
       <?php echo form_close(); ?>
@@ -174,22 +180,23 @@
   </script>
 
 <script>
-  //$(function(){
     $('#addEmployee').submit(function(e){
       e.preventDefault();
 
-      var employeeDetails = $(this);
+      var formData = new FormData($(this));
 
       $.ajax({
         type: 'POST',
-        url: employeeDetails.attr('action'),
-        data: employeeDetails.serialize(),
+        url: <?php echo base_url('admin/addEmployee') ?>,
+        data: formData.serialize(),
+        processData: false,
+        contentType: false,
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
             // if success we would show message
             // and also remove the error class
-            $('#the-message').append('<div class="alert alert-success text-center">' +
+            $('#message').append('<div class="alert alert-success text-center">' +
             '<span class="glyphicon glyphicon-ok"></span>' +
             ' New employee has been saved.' +
             '</div>');
@@ -197,7 +204,8 @@
                   .removeClass('has-success');
             $('.text-danger').remove();
             // reset the form
-            employeeDetails[0].reset();
+
+            formData.reset();
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
             $(this).delay(3000).hide(10, function() {
@@ -205,6 +213,13 @@
             });
             })
           }else{
+            // if (response.upload_data['is_image'] == false) {
+            //   $('#message').append('<div class="alert alert-danger text-center">' +
+            //     '<span class="glyphicon glyphicon-ok"></span>' +
+            //     ' You must select an image' +
+            //     '</div>');
+            // }
+
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);
               
@@ -220,5 +235,4 @@
         }
       });
     });
-  //});
 </script>

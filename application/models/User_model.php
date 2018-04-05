@@ -1,26 +1,21 @@
 <?php
 	class User_model extends CI_model{
-		//register user function, insert new user data to the database
-		/*
-		public function register_user($user){
- 
- 
-			$this->db->insert('user', $user);
- 
-		}
-		*/
-		//query to login user, check user availability
+		
 		public function login_user($username,$pass){
 	 
 			$this->db->select('*');
 			$this->db->from('employees');
 			$this->db->where('username like binary',$username);
-			$this->db->where('password like binary',$pass);
 			$this->db->where('status', "active");
 
 			if($query=$this->db->get())
 			{
-				return $query->row_array();
+				$userData = $query->row_array();
+				if (password_verify($pass, $userData['password'])) {
+					return $userData;
+				}else{
+					return false;
+				}
 			}
 			else{
 				return false;
@@ -115,8 +110,9 @@
 			Change Password of user
 		*/
 		public function updateUserPassword($empID, $newPass){
+			$hashPass = password_hash($newPass, PASSWORD_BCRYPT);
 			$data = array(
-				'password' => $newPass
+				'password' => $hashPass
 			);
 
 			$this->db->where('employeeID', $empID);

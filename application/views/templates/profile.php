@@ -1,130 +1,150 @@
-<style type="text/css">
-  #list6 {
-  width:260px;
-  margin-left:40%;
-  padding-top: 15px;
-}
 
-#img5 {
-  width:250px;
-  height:250px;
-}
-</style>
 <div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      User Profile
+    </h1>
+  </section>
   <section class="content container-fluid">
     <div classs="content">
       <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-4">
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo base_url('/uploads/profileImage/' . $employee->employeeID . ''); ?>" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
+              <!-- -->
+              <h3 class="profile-username text-center"><?php echo $employee->firstName . " " . $employee->midName . " " . $employee->lastName ?></h3>
+
+              <?php if ($this->session->userdata('role')  === "admin"): ?>
+                <p class="text-muted text-center">Admin</p>
+              <?php endif ?>
+
+              <?php if ($this->session->userdata('role')  === "handler"): ?>
+                <p class="text-muted text-center">Event Handler</p>
+
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item" id="list6">
+                    <b>Events Currently Handling</b> <a class="pull-right">50</a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Handled Events</b> <a class="pull-right">1,322</a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Transactions</b> <a class="pull-right">543</a>
+                  </li>
+                </ul>                      
+              <?php endif ?>
+              <form id="changeProfilePhotoForm" action="<?php echo base_url('user/uploadProfilePhoto') ?>" method="post" role="form" enctype="multipart/form-data" class="text-center">
+                <label class="control-label">Change Profile Photo</label>
+                <input type="hidden" name="userID" value="<?php echo $employee->employeeID ?>">
+                <input type="file" name="userfile" class="text-center"> 
+              </form>
+            </div>
+            <div class="box-footer">
+              <button form="changeProfilePhotoForm" type="submit" class="btn btn-primary pull-right">Submit</button>
+            </div>
+          </div>
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">About Me</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+
+              <strong><i class="fa fa-tag margin-r-5"></i> Identification Number</strong>
+
+              <p class="text-muted"><?php echo $employee->employeeID ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-user margin-r-5"></i> Name</strong>
+
+              <p class="text-muted"><?php echo $employee->firstName . " " . $employee->midName . " " . $employee->lastName ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-phone margin-r-5"> Contact Number</i></strong>
+              
+              <p class="text-muted"><?php echo $employee->contactNumber ?></p>
+
+              <br>
+              
+              <strong><i class="fa fa-envelope-o margin-r-5"> Email</i></strong>
+              
+              <p class="text-muted"><?php  echo $employee->email ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+              <p class="text-muted"><?php echo $employee->address ?></p>
+
+              <br>
+
+            </div>
+            <div class="box-footer">
+              
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
           <div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title">Profile</h3>
+              Settings
             </div>
-              <div class="box-body box-profile">
-              <div id="the-message">
-                  
-                </div>         
-                <div class="col-lg-12">               
-                  <div class="form-group">
-                    <img class="profile-user-img img-responsive img-circle" id="img5"  alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
-                    <!-- -->
-
-                    <h3 class="profile-username text-center"></h3>
-
-                    <?php if ($this->session->userdata('role')  === "admin"): ?>
-                      <p class="text-muted text-center">Admin</p>
-                    <?php endif ?>
-
-                    <?php if ($this->session->userdata('role')  === "handler"): ?>
-                      <p class="text-muted text-center">Event Handler</p>
-
-                      <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item" id="list6">
-                          <b>Handled Events</b> <a class="pull-right">1,322</a>
-                        </li>
-                        <li class="list-group-item" id="list6">
-                          <b>Events Currently Handling</b> <a class="pull-right">50</a>
-                        </li>
-                        <li class="list-group-item" id="list6">
-                          <b>Transactions</b> <a class="pull-right">543</a>
-                        </li>
-                      </ul>                      
-                    <?php endif ?>
-
+            <div class="box-body">
+              <?php 
+                $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal", "autocomplete" => "off");
+                echo form_open("user/updateProfile", $attributes);
+              ?>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">First Name</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="fname" name="fname" class="form-control" placeholder="<?php echo $employee->firstName ?>" value="">
                   </div>
                 </div>
-                <?php 
-                  $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal", "autocomplete" => "off");
-                  echo form_open("user/updateProfile", $attributes);
-                ?>
-                
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Employee ID</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
-                    </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Middle Name</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="mname" name="mname" class="form-control" placeholder="<?php echo $employee->midName ?>" value="">
                   </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Role</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" value="<?php echo $employee->role?>" disabled>
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Last Name</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="lname" name="lname" class="form-control" placeholder="<?php echo $employee->lastName ?>" value="">
                   </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Status</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" value="<?php echo $employee->status ?>" disabled>
-                    </div>
+                </div>  
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Contact Number</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="cNum" name="cNum" class="form-control" placeholder="<?php echo $employee->contactNumber ?>" value="">
                   </div>
-
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">First Name</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="fname" name="fname" class="form-control" placeholder="<?php echo $employee->firstName ?>" value="">
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Email Address</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="emailAdd" name="emailAdd"  class="form-control" placeholder="<?php echo $employee->email ?>" value="">
                   </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Middle Name</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="mname" name="mname" class="form-control" placeholder="<?php echo $employee->midName ?>" value="">
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Home Address</label>
+                  <div class="col-sm-5">
+                    <input type="text" id="homeAdd" name="homeAdd" class="form-control" placeholder="<?php echo $employee->address ?>" value="">
                   </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Last Name</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="lname" name="lname" class="form-control" placeholder="<?php echo $employee->lastName ?>" value="">
-                    </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Click to Save updates</label>
+                  <div class="col-lg-5">
+                    <button type="submit" class="btn btn-default btn-primary form-control">Save Updates</button>
                   </div>
-  
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Contact Number</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="cNum" name="cNum" class="form-control" placeholder="<?php echo $employee->contactNumber ?>" value="">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Email Address</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="emailAdd" name="emailAdd"  class="form-control" placeholder="<?php echo $employee->email ?>" value="">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Home Address</label>
-                    <div class="col-sm-5">
-                      <input type="text" id="homeAdd" name="homeAdd" class="form-control" placeholder="<?php echo $employee->address ?>" value="">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Click to Save updates</label>
-                    <div class="col-lg-5">
-                      <button type="submit" class="btn btn-default btn-primary form-control">Save Updates</button>
-                    </div>
-                  </div>
-                <?php echo form_close(); ?>
-              </div>
-              <div class="box-footer">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
-                <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
-              </div>     
+                </div>
+              <?php echo form_close(); ?>
+            </div>
+            <div class="box-footer">
+              <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
+              <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
             </div>
           </div>
         </div>
@@ -143,7 +163,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Additional Charges</h4>
+          <h4 class="modal-title">Change Your Password</h4>
           <div id="pass-message">
           
           </div>
@@ -157,7 +177,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Old password</label>
               <div class="col-sm-10">
-                <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Enter your old password..">
+                <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Enter old password">
               </div>
             </div>
             <div class="form-group">
@@ -175,12 +195,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="employeeID" value="" hidden>
-            <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Update Password</button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-default btn-lg" data-dismiss="modal">Close</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Update Password</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         <?php echo form_close(); ?>
       </div>   
@@ -197,7 +213,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Additional Charges</h4>
+          <h4 class="modal-title">Change Your Username</h4>
           <div id="username-message">
           
           </div>
@@ -242,6 +258,7 @@
 </div>
 <!-- End of charges pasword modal -->
 
+
   <!-- jQuery 3 -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -258,13 +275,6 @@
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
   <!-- page script -->
-  <script>
-    $(function () {
-      $('#adminTable').DataTable()
-      $('#handlerTable').DataTable()
-      $('#staffTable').DataTable()
-    })
-  </script>
 
   <script>
       $('#updateProfile').submit(function(e){
