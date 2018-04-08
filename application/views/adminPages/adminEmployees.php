@@ -1,8 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
   <!-- jQuery 3 -->
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 
   <section class="content-header">
     <div class="row">
@@ -78,7 +75,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "enctype" => "multipart/form-data", "autocomplete" => "off");
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "autocomplete" => "off");
         echo form_open("admin/addEmployee", $attributes);
       ?>
         <div class="modal-header">
@@ -147,15 +144,16 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button name="upload" type="submit" class="btn btn-default">Add</button>
+          <button type="submit" class="btn btn-default">Add</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
         </div>
-      <?php echo form_close(); ?>
+      <?php echo form_close() ?>
     </div>       
   </div>
 </div>
 <!-- Modal -->
 
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
 
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -174,8 +172,6 @@
   <script>
     $(function () {
       $('#adminTable').DataTable()
-      $('#handlerTable').DataTable()
-      $('#staffTable').DataTable()
     })
   </script>
 
@@ -188,12 +184,12 @@
       $.ajax({
         type: 'POST',
         url: <?php echo base_url('admin/addEmployee') ?>,
-        data: formData.serialize(),
-        processData: false,
-        contentType: false,
+        data: formData,
+        //processData: false,
+        ///contentType: false,
         dataType: 'json',
         success: function(response){
-          if (response.success == true) {
+          if (response.responseJSON.success == true) {
             // if success we would show message
             // and also remove the error class
             $('#message').append('<div class="alert alert-success text-center">' +
@@ -220,7 +216,7 @@
             //     '</div>');
             // }
 
-            $.each(response.messages, function(key, value) {
+            $.each(response.responseJSON.messages, function(key, value) {
               var element = $('#' + key);
               
               element.closest('div.form-group')

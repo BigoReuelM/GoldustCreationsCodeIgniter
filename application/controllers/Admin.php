@@ -216,9 +216,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$config['upload_path'] = './uploads/profileImage/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['file_name'] = sprintf('%04d', $newEmpID);
-				$this->load->library('upload', $config);
-				$this->upload->do_upload('userfile');
-				$data['upload_data'] = $this->upload->data();
+				if(!$this->load->library('upload', $config)){
+					$data['upload_data'] = $this->upload->display_errors();
+				}else{
+					$this->upload->do_upload('userfile');	
+				}
 				
 				$data['success'] = true;
 			}else{
