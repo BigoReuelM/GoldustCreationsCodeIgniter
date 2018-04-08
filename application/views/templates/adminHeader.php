@@ -445,11 +445,4 @@
   </div>
 </div>
 
-<script>
-  $(function () {
-    $('#appointmentsNotifTable').DataTable()
-    $('#incommingEventsTable').DataTable()
-    $('#incomingAppointmentsTable').DataTable()
-  })
-</script>
 

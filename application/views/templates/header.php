@@ -450,10 +450,4 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
   </div>
 </div>
 
-<script>
-  $(function () {
-    $('#appointmentsNotifTable').DataTable()
-    $('#incommingEventsTable').DataTable()
-    $('#incomingAppointmentsTable').DataTable()
-  })
-</script>
+

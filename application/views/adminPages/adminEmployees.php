@@ -75,7 +75,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <?php 
-        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "autocomplete" => "off");
+        $attributes = array("name" => "addEmployee", "id" => "addEmployee", "class" => "form-horizontal", "autocomplete" => "off", "method" => "post");
         echo form_open("admin/addEmployee", $attributes);
       ?>
         <div class="modal-header">
@@ -135,12 +135,6 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Select User Profile</label>
-              <div class="col-lg-9">
-                <input type="file" name="userfile">
-              </div>
-            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -153,7 +147,7 @@
 </div>
 <!-- Modal -->
 
-  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
 
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -169,27 +163,24 @@
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
   <!-- page script -->
-  <script>
-    $(function () {
-      $('#adminTable').DataTable()
-    })
-  </script>
 
 <script>
+  $(function () {
+    $('#adminTable').DataTable();
+  });
     $('#addEmployee').submit(function(e){
       e.preventDefault();
 
-      var formData = new FormData($(this));
+      var empData = $(this);
 
       $.ajax({
         type: 'POST',
-        url: <?php echo base_url('admin/addEmployee') ?>,
-        data: formData,
-        //processData: false,
-        ///contentType: false,
+        url: empData.attr('action'),
+        data: empData.serialize(),
         dataType: 'json',
         success: function(response){
-          if (response.responseJSON.success == true) {
+
+          if (response.success == true) {
             // if success we would show message
             // and also remove the error class
             $('#message').append('<div class="alert alert-success text-center">' +
@@ -201,22 +192,15 @@
             $('.text-danger').remove();
             // reset the form
 
-            formData.reset();
+            empData.reset();
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
             })
           }else{
-            // if (response.upload_data['is_image'] == false) {
-            //   $('#message').append('<div class="alert alert-danger text-center">' +
-            //     '<span class="glyphicon glyphicon-ok"></span>' +
-            //     ' You must select an image' +
-            //     '</div>');
-            // }
-
-            $.each(response.responseJSON.messages, function(key, value) {
+            $.each(response.messages, function(key, value) {
               var element = $('#' + key);
               
               element.closest('div.form-group')
@@ -229,6 +213,7 @@
             });
           }
         }
+        
       });
     });
 </script>

@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addEmployee(){
 
-			$data = array('success' => false, 'messages' => array(), 'upload_data' => array());
+			$data = array('success' => false, 'messages' => array());
 
 			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
 			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
@@ -212,15 +212,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$role = html_escape($this->input->post('role'));
 
 				$newEmpID = $this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
-
-				$config['upload_path'] = './uploads/profileImage/';
-				$config['allowed_types'] = 'jpg|png|jpeg';
-				$config['file_name'] = sprintf('%04d', $newEmpID);
-				if(!$this->load->library('upload', $config)){
-					$data['upload_data'] = $this->upload->display_errors();
-				}else{
-					$this->upload->do_upload('userfile');	
-				}
 				
 				$data['success'] = true;
 			}else{
