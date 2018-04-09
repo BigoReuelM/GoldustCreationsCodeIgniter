@@ -427,46 +427,57 @@ var organizer = new Organizer("organizerContainer", calendar);
 currentDay = calendar.date.getDate(); // used this in order to make anyday today depending on the current today
 // QUERY GOING EVENTS
 data = {
-  years: [
-    {
-      int: 2018,
-      months: [
-        {
-          int: 4,
-          days: [
-            {
-              int: 28,
-              events: [
-                {
-                  startTime: "6:00",
-                  endTime: "6:30",
-                  mTime: "pm",
-                  text: "Weirdo was born"
-                }
-              ]
+<?php 
+  if (!empty($eventData)) {
+    echo "years: [";
+    foreach ($years as $year) {
+      echo "{";
+      echo "int: " . $year['year'] . ",";
+      echo "months: [";
+      foreach ($months as $month) {
+        echo "{";
+        echo "int: " . ltrim($month['month'], '0') . ",";
+        echo "days: [";
+        foreach ($days as $day) {
+          echo "{";
+          echo "int: " . ltrim($day['day'], '0') . ",";
+          echo "events: [";
+          for ($i = 0; $i < count($eventData); $i++) {
+            if ($eventData[$i]['year'] == $year['year'] && $eventData[$i]['month'] == $month['month'] && $eventData[$i]['day'] == $day['day']) {
+              echo "{";
+              if (!$eventData[$i]['eventTime'] == null) {
+                $formatedTime = date("g:i", strtotime($eventData[$i]['eventTime']));
+                echo "startTime: '" . $formatedTime . "',";  
+              }else{
+                echo "startTime: 'Not Set',";
+              }
+              echo "endTime: '00:00',";
+              if (!$eventData[$i]['eventTime'] == null) {
+                $meridiem = date("A", strtotime($eventData[$i]['eventTime']));
+                echo "mTime: '" . $meridiem . "',";
+              }else{
+                echo "mTime: --,";
+              }
+              if (!empty($eventData[$i]['eventName'])) {
+                echo "text: '" . $eventData[$i]['eventName'] . "'";
+              }else{
+                echo "text: 'Not Set',";
+              }
+              echo "},";
             }
-          ]
-        },
-        {
-          int: 3,
-          days: [
-            {
-              int: 28,
-              events: [
-                {
-                  startTime: "6:00",
-                  endTime: "6:30",
-                  mTime: "pm",
-                  text: "Weirdo was born"
-                }
-              ]
-            }
-          ]
+          }
+          echo "]";
+          echo "},";
         }
-      ]
-    },
-    
-  ]
+        echo "]";
+        echo "},";
+      }
+      echo "]";
+      echo "},";
+    }
+    echo "]";
+  }
+?> 
 };
 
 function showEvents() {

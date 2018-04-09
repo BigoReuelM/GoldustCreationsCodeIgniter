@@ -453,15 +453,27 @@ data = {
           echo "{";
           echo "int: " . ltrim($day['day'], '0') . ",";
           echo "events: [";
-          for ($i = count($eventData) - 1; $i >= 0; $i--) {
+          for ($i = 0; $i < count($eventData); $i++) {
             if ($eventData[$i]['year'] == $year['year'] && $eventData[$i]['month'] == $month['month'] && $eventData[$i]['day'] == $day['day']) {
               echo "{";
-              echo "startTime: '" . $eventData[$i]['eventTime'] . "',";
-              echo "text: '" . $eventData[$i]['eventName'] . "'";
-              echo "},";
-            }else{
-              echo "{";
-              echo "text: " . "'No event Today'";
+              if (!$eventData[$i]['eventTime'] == null) {
+                $formatedTime = date("g:i", strtotime($eventData[$i]['eventTime']));
+                echo "startTime: '" . $formatedTime . "',";  
+              }else{
+                echo "startTime: 'Not Set',";
+              }
+              echo "endTime: '00:00',";
+              if (!$eventData[$i]['eventTime'] == null) {
+                $meridiem = date("A", strtotime($eventData[$i]['eventTime']));
+                echo "mTime: '" . $meridiem . "',";
+              }else{
+                echo "mTime: --,";
+              }
+              if (!empty($eventData[$i]['eventName'])) {
+                echo "text: '" . $eventData[$i]['eventName'] . "'";
+              }else{
+                echo "text: 'Not Set',";
+              }
               echo "},";
             }
           }

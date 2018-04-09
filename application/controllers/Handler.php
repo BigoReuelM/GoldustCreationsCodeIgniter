@@ -18,23 +18,29 @@ class Handler extends CI_Controller
 	}
 
 	public function index(){
+		$empID = $this->session->userdata('employeeID');
+		$empRole = $this->session->userdata('role');
+		$newStatus = "new";
+		$ongoingStatus = "on-going";
+
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-		$empID = $this->session->userdata('employeeID');
-		$empRole = $this->session->userdata('role');
-		$newStatus = "new";
-		$ongoingStatus = "on-going";
-
+		
+		$data['eventData'] = $this->events_model->getEventDetailsForCalendar();
+		$data['eventDates'] = $this->events_model->getEventDates();
+		$data['years'] = $this->events_model->getEventYear();
+		$data['months'] = $this->events_model->getEventMonth();
+		$data['days'] = $this->events_model->getEventDay();
 		$data['new']=$this->events_model->getNewEventsCount($empID, $empRole, $newStatus);
 		$data['ongoing']=$this->events_model->getEventCount($empID, $empRole, $ongoingStatus);
 		$tRentalCount = count($this->transactions_model->view_home_ongoing_rentals());
-			$tEventCount = count($this->transactions_model->viewEventRentals());
+		$tEventCount = count($this->transactions_model->viewEventRentals());
 
-			$data['rentalCount'] = $tRentalCount + $tEventCount;
+		$data['rentalCount'] = $tRentalCount + $tEventCount;
 		$data['todoItems'] = $this->handler_model->toDoList($empID);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Home | Admin';	
