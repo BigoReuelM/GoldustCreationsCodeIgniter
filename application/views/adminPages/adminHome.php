@@ -453,18 +453,18 @@ data = {
           echo "{";
           echo "int: " . ltrim($day['day'], '0') . ",";
           echo "events: [";
-          // foreach ($eventData as $event) {
-          //   if ($event['year'] == $year['year'] && $event['month'] == $month['month'] && $event['day'] == $day['day']) {
-               echo "{";
-          //     echo "startTime: '" . $event['eventTime'] . "',";
-          //     echo "text: '" . $event['eventName'] . "'";
-          //     echo "},";
-          //   }else{
-          //     echo "{";
-          //     echo "text: " . "'No event Today'";
-               echo "},";
-          //   }
-          // }
+          for ($i = count($eventData) - 1; $i >= 0; $i--) {
+            if ($eventData[$i]['year'] == $year['year'] && $eventData[$i]['month'] == $month['month'] && $eventData[$i]['day'] == $day['day']) {
+              echo "{";
+              echo "startTime: '" . $eventData[$i]['eventTime'] . "',";
+              echo "text: '" . $eventData[$i]['eventName'] . "'";
+              echo "},";
+            }else{
+              echo "{";
+              echo "text: " . "'No event Today'";
+              echo "},";
+            }
+          }
           echo "]";
           echo "},";
         }
