@@ -1,16 +1,34 @@
 <?php
 
+/**
+* 
+*/
+class MYPDF extends TCPDF
+{
+	public function Header(){
+		$this->SetFont('helvetica', 'B', 20);
+		$this->Cell(0, 15, 'Goldust Creations', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+	}
+
+	public function Footer(){
+		$this->SetY(-15);
+		$this->SetFont('helvetica', 'I', 8);
+		$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+	}
+}
+
 // create new PDF document
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetTitle('TCPDF Example 001');
+$pdf->SetAuthor('Nicola Asuni');
+$pdf->SetTitle('TCPDF Example 003');
+$pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
-$pdf->SetHeaderData(false);
-$pdf->setFooterData(false);
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -38,21 +56,12 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // ---------------------------------------------------------
 
-// set default font subsetting mode
-$pdf->setFontSubsetting(true);
-
 // Set font
-// dejavusans is a UTF-8 Unicode font, if you only need to
-// print standard ASCII chars, you can use core fonts like
-// helvetica or times to reduce file size.
-$pdf->SetFont('helvetica', '', 14, '', true);
+$pdf->SetFont('times', 'BI', 14);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
 
-
-// set text shadow effect
-$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
 // Set some content to print
 if (in_array("eventDetails", $printItems)) {
@@ -353,7 +362,7 @@ $pdf->writeHTML($payments_tbl_header . $html . $payments_tbl . $payments_tbl_foo
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output($eventDetails->eventName . ' Event_Details.pdf', 'D');
+$pdf->Output($eventDetails->eventName . ' Event_Details.pdf', 'I');
 
 //============================================================+
 // END OF FILE
