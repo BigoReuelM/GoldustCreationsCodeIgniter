@@ -27,11 +27,10 @@
       <div class="box-body">
         <div class="col-lg-4">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
-            <div class="box-header">
+            <div class="box-header text-center">
               <h3>Event Handler</h3>
               <?php  
                 if ($empRole === 'admin') {
-                  echo "<label>Select</label>";
                   echo "<select class='form-control' name='handler'>";
                   echo "<option selected disabled hidden>Choose Handler</option>";
 
@@ -40,6 +39,10 @@
                   }
 
                   echo "</select>";
+                }else{
+                  echo "<select class='form-control' name='handler' disabled>";
+                  echo "<option selected disabled hidden>Choose Handler</option>";
+                  echo "</select>";                  
                 }
               ?>
             </div>
@@ -52,24 +55,35 @@
 
                 ?>
                 
-                <img class="profile-user-img img-responsive img-circle" src="data:image/jpeg;base64, <?php echo base64_encode($currentHandler->photo); ?>" alt="User profile picture">
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url('/uploads/profileImage/' . $currentHandler->employeeID . ''); ?>" alt="User profile picture" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
 
                 <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
 
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item" id="list6">
+                    <b>Events Currently Handling</b> <a class="pull-right"><?php echo $currentEventNum->count ?></a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Handled Events</b> <a class="pull-right"><?php echo $doneEvent->count ?></a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Transactions</b> <a class="pull-right"><?php echo $allTransac->count ?></a>
+                  </li>
+                </ul>
+
                 <?php 
-                  }else{
-                    echo "
-                          No Handler Selected.
-                          ";
                   }
                 ?>
               </div>
             </div>
           </form>      
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8 well">
           
-          <form id="updateDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
+          <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
+            <div id="update-message">
+              
+            </div>
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
@@ -226,11 +240,13 @@
             <?php
               if ($empRole === 'admin') {
                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
-               } 
+              }else{
+                echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
+              } 
             ?>
           </div>
           <div class="col-lg-4">
-            <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#update-details">Update Details</button>
+            <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </div>
           <div class="col-lg-4">
             <button class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#addAdditionalChargesModal">Additional Charges</button>
@@ -426,6 +442,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Finish Events</h4>
+        <div id="finish-message">
+          
+        </div>
       </div>
       <div class="modal-body text-center">
         <p>Are you sure you want to proceed?</p>
@@ -492,13 +511,11 @@
           <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
 <!-- End of Selecting handler modal -->
 <!-- Update Details Modal -->
-<div class="modal fade" id="update-details">
+<!-- <div class="modal fade" id="update-details">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -514,11 +531,9 @@
           <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
       </div>
     </div>
-    <!-- /.modal-content -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
-
+ -->
 <div class="modal fade" id="printDetails">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -645,7 +660,7 @@
           if (response.success == true) {
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="icon fa fa-ckeck"></span>' +
-            ' Additional Charges Applied.' +
+            ' Details Successfully Updated.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
@@ -670,6 +685,137 @@
               
               element.after(value);
             });
+          }
+        }
+      });
+    });
+
+    $('#updateEventDetails').submit(function(e){
+      e.preventDefault();
+
+      var eventDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: eventDetails.attr('action'),
+        data: eventDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#update-message').append('<div class="alert alert-success text-center">' +
+            '<span class="icon fa fa-ckeck"></span>' +
+            ' Additional Charges Applied.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            eventDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+
+    $('#finishEvent').submit(function(e){
+      e.preventDefault();
+
+      var finishDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: finishDetails.attr('action'),
+        data: finishDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#finish-message').append('<div class="alert alert-success text-center">' +
+            '<span class="icon fa fa-ckeck"></span>' +
+            ' Event Successfully Finished.' +
+            '</div>');
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            finishDetails[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+
+            if (response.notPaid == true && response.eventDatePassed == false){
+              $('#finish-message').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Event Date has not Passed and there are still remaning balance.' +
+              '</div>');
+              finishDetails[0].reset();
+              // close the message after seconds
+              $('.alert-danger').delay(500).show(10, function() {
+                $(this).delay(3000).hide(10, function() {
+                  $(this).remove();
+                });
+              })
+            }
+            if (response.notPaid == true && response.eventDatePassed == true) {
+              $('#finish-message').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' There are still remaining balance.' +
+              '</div>');
+
+              finishDetails[0].reset();
+              // close the message after seconds
+              $('.alert-danger').delay(500).show(10, function() {
+                $(this).delay(3000).hide(10, function() {
+                  $(this).remove();
+                });
+              })
+            }
+
+            if(response.eventDatePassed == false && response.notPaid == false){
+              $('#finish-message').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' The event date has not yet passed.' +
+              '</div>');
+
+              finishDetails[0].reset();
+              // close the message after seconds
+              $('.alert-danger').delay(500).show(10, function() {
+                $(this).delay(3000).hide(10, function() {
+                  $(this).remove();
+                });
+              })
+            }
           }
         }
       });

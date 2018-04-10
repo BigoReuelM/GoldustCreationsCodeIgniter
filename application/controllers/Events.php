@@ -171,8 +171,12 @@ class Events extends CI_Controller
 		$data['themes'] = $this->events_model->getThemes();
 		$data['handlers'] = $this->events_model->getHandlers();
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
+		$handlerID = $data['currentHandler']->employeeID;
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
 		$data['nagan'] = $this->events_model->getThemeName($id);
+		$data['currentEventNum'] = $this->events_model->currentEventNum($handlerID);
+		$data['doneEvent'] = $this->events_model->doneEventNum($handlerID);
+		$data['allTransac'] = $this->events_model->allTransacNum($handlerID);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Details | Admin';	
 		}else{
@@ -738,62 +742,103 @@ class Events extends CI_Controller
 		}
 
 		public function updateEventDetails(){
+			$data = array('success' => false, 'messages' => array());
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
-			$eventName = ucwords(html_escape($this->input->post('eventName')));
-			$clientContactNo = html_escape($this->input->post('contactNumber'));
-			$celebrant = ucwords(html_escape($this->input->post('celebrantName')));
-			$dateAvailed = html_escape($this->input->post('dateAvailed'));
-			$packageType = ucwords(html_escape($this->input->post('package')));
-			$eventDate = html_escape($this->input->post('eventDate'));
-			$eventTime = html_escape($this->input->post('eventTime'));
-			$location = ucwords(html_escape($this->input->post('location')));
-			$type = ucwords(html_escape($this->input->post('type')));
-			$motif = ucwords(html_escape($this->input->post('motif')));
-			$theme = html_escape($this->input->post('theme'));
 
-			if (!empty($eventName)) {
-				$this->events_model->upEventName($eventName, $eventID);		
-			}
-			if (!empty($celebrant)) {
-				$this->events_model->upCelebrantName($celebrant, $eventID);
-			}
-			if (!empty($clientContactNo)) {
-				$this->events_model->upClientContactNo($clientContactNo, $clientID);
-			}
-			if (!empty($packageType)) {
-				$this->events_model->upPackageType($packageType, $eventID);
-			}
-			if (!empty($eventDate)) {
-				$this->events_model->upEventDate($eventDate, $eventID);
-			}
-			if (!empty($eventTime)) {
-				$this->events_model->upEventTime($eventTime, $eventID);
-			}
-			if (!empty($location)) {
-				$this->events_model->upLocation($location, $eventID);
-			}
-			if (!empty($type)) {
-				$this->events_model->upType($type, $eventID);
-			}
-			if (!empty($motif)) {
-				$this->events_model->upMotif($motif, $eventID);
-			}
-			if(!empty($dateAvailed)){
-				$this->events_model->updateAvailDate($dateAvailed, $eventID);
+			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
+			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numberic');
+			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
+			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+			$this->form_validation->set_rules('package', 'Package Type', 'trim');
+			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			$this->form_validation->set_rules('location', 'Location', 'trim');
+			$this->form_validation->set_rules('type', 'Type', 'trim');
+			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if ($this->form_validation->run()) {
+				$eventName = ucwords(html_escape($this->input->post('eventName')));
+				$clientContactNo = html_escape($this->input->post('contactNumber'));
+				$celebrant = ucwords(html_escape($this->input->post('celebrantName')));
+				$dateAvailed = html_escape($this->input->post('dateAvailed'));
+				$packageType = ucwords(html_escape($this->input->post('package')));
+				$eventDate = html_escape($this->input->post('eventDate'));
+				$eventTime = html_escape($this->input->post('eventTime'));
+				$location = ucwords(html_escape($this->input->post('location')));
+				$type = ucwords(html_escape($this->input->post('type')));
+				$motif = ucwords(html_escape($this->input->post('motif')));
+				$theme = html_escape($this->input->post('theme'));
+
+				if (!empty($eventName)) {
+					$this->events_model->upEventName($eventName, $eventID);		
+				}
+				if (!empty($celebrant)) {
+					$this->events_model->upCelebrantName($celebrant, $eventID);
+				}
+				if (!empty($clientContactNo)) {
+					$this->events_model->upClientContactNo($clientContactNo, $clientID);
+				}
+				if (!empty($packageType)) {
+					$this->events_model->upPackageType($packageType, $eventID);
+				}
+				if (!empty($eventDate)) {
+					$this->events_model->upEventDate($eventDate, $eventID);
+				}
+				if (!empty($eventTime)) {
+					$this->events_model->upEventTime($eventTime, $eventID);
+				}
+				if (!empty($location)) {
+					$this->events_model->upLocation($location, $eventID);
+				}
+				if (!empty($type)) {
+					$this->events_model->upType($type, $eventID);
+				}
+				if (!empty($motif)) {
+					$this->events_model->upMotif($motif, $eventID);
+				}
+				if(!empty($dateAvailed)){
+					$this->events_model->updateAvailDate($dateAvailed, $eventID);
+				}
+
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
 
-			redirect('events/eventDetails');
+			echo json_encode($data);
 		}
 
 		public function finishEvent(){
-			$eventID = html_escape($this->input->post('eventID'));
-			$finishDate = $this->input->post('finishDate');
+			$data = array('success' => false, 'notPaid' => false, 'eventDatePassed' => false);
 
-			//$this->events_model->markEventFinish($eventID);
-			$this->events_model->markEventFinish($eventID, $finishDate);
+			$this->form_validation->set_rules('finishDate', 'Finish Date', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('events/finishedEvents');
+			if ($this->form_validation->run()) {
+				$eventID = html_escape($this->input->post('eventID'));
+				$finishDate = $this->input->post('finishDate');
+
+				$datePassed = $this->events_model->validateEventDate($eventID, $finishDate);
+				$hasBalance = $this->events_model->validateBalance($eventID);
+
+				if ($datePassed and !$hasBalance) {
+					$this->events_model->markEventFinish($eventID, $finishDate);
+					$data['success'] = true;	
+				}else{
+					$data['notPaid'] = $hasBalance;
+					$data['eventDatePassed'] = $datePassed;
+				}
+					
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
 		}
 
 		public function cancelEvent(){

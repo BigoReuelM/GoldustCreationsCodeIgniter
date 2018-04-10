@@ -251,7 +251,7 @@
 
 		public function getCurrentHandler($ceid){
 			$query = $this->db->query("
-				SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, photo
+				SELECT concat(firstName, ' ', midName, ' ', lastName) as employeeName, employeeID
 				FROM employees
 				Natural join events
 				where events.eventID = $ceid  
@@ -979,6 +979,31 @@
 
 			$query = $this->db->get();
 			return $query->row();
+		}
+
+		public function validateBalance($id){
+			$totalAmount = $this->totalAmount($id);
+			$totalPayments = $this->totalAmountPaid($id);
+
+			if($totalAmount->totalAmount > $totalPayments->total){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		public function validateEventDate($id, $date){
+			$query = $this->db->query("
+				SELECT *
+				FROM events
+				WHERE eventID = $id and eventDate > '$date'
+			");
+
+			if(empty($query->row())){
+				return true;
+			}else{
+				return false;
+			}
 		}
 	}
 
