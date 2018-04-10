@@ -109,23 +109,24 @@
             <tbody>              
                 <?php
                   if (!empty($servcs)) {
-                    foreach ($servcs as $svc) {
+                    $valid = true;
+                    for($j = 0 ; $j < count($servcs) ; $j++){
                       for($i = 0 ; $i < count($avlServcs) ; $i++){
-                        if ($svc['serviceID'] == $avlServcs[$i]['serviceID']) {
+                        if ($servcs[$j]['serviceID'] == $avlServcs[$i]['serviceID']) {
                           $valid = false;
-                        }else{
-                          $valid = true;
                         }
                       }                  
                       if($valid){  
                 ?>
                       <tr>                   
                           <td>
-                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $svc['serviceID'] ?>" multiple><?php echo $svc['serviceName'] ?></label></div>
+                            <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?></label></div>
                           </td>
-                          <td><?php echo $svc['description'] ?></td>
+                          <td><?php echo $servcs[$j]['description'] ?></td>
                       </tr>
-                <?php }
+                <?php }else{
+                        $valid = true;
+                      }
                     }
                   }
                 ?>             
