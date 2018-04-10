@@ -298,7 +298,7 @@
 			$query = $this->db->query("
 				SELECT *
 				FROM employees
-				WHERE status like 'active' and (role like 'staff' or role like 'on$call$staff')
+				WHERE status like 'active' and ((role like 'staff') or (role like 'on%call%staff'))
 			");
 			return $query->result_array();
 		}
@@ -939,6 +939,36 @@
 		public function getDecorID(){
 			$query = $this->db->query('SELECT decorsID FROM decors');
 			return $query->result_array();
+		}
+
+		public function currentEventNum($id){
+			$this->db->select('count(eventID) as count');
+			$this->db->from('events');
+			$this->db->where('employeeID', $id);
+			$this->db->where('eventStatus', "on-going");
+			$this->db->or_where('eventStatus', "new");
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function doneEventNum($id){
+			$this->db->select('count(eventID) as count');
+			$this->db->from('events');
+			$this->db->where('employeeID', $id);
+			$this->db->where('eventStatus', "finished");
+
+			$query = $this->db->get();
+			return $query->row();
+		}
+
+		public function allTransacNum($id){
+			$this->db->select('count(transactionID) as count');
+			$this->db->from('transactions');
+			$this->db->where('employeeID', $id);
+
+			$query = $this->db->get();
+			return $query->row();
 		}
 	}
 

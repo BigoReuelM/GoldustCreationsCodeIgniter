@@ -203,12 +203,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 
-				$fname = html_escape($this->input->post('firstname'));	
-				$mname = html_escape($this->input->post('middlename'));
-				$lname = html_escape($this->input->post('lastname'));
+				$fname = ucwords(html_escape($this->input->post('firstname')));	
+				$mname = ucwords(html_escape($this->input->post('middlename')));
+				$lname = ucwords(html_escape($this->input->post('lastname')));
 				$cNumber = html_escape($this->input->post('cNumber'));
 				$email = html_escape($this->input->post('email'));
-				$address = html_escape($this->input->post('address'));
+				$address = ucwords(html_escape($this->input->post('address')));
 				$role = html_escape($this->input->post('role'));
 
 				$newEmpID = $this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
@@ -305,7 +305,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$date = html_escape($this->input->post('expenseDate'));
 				$amount = html_escape($this->input->post('expenseAmount'));
-				$name = html_escape($this->input->post('expenseName'));
+				$name = ucwords(html_escape($this->input->post('expenseName')));
 				$rNum = html_escape($this->input->post('expenseReceipt'));
 				
 				
@@ -329,8 +329,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$serviceName = html_escape($this->input->post('serviceName'));
-				$serviceDisk = html_escape($this->input->post('description'));
+				$serviceName = ucwords(html_escape($this->input->post('serviceName')));
+				$serviceDisk = ucwords(html_escape($this->input->post('description')));
 
 				if ($this->form_validation->is_unique($serviceName, 'services.serviceName')) {
 					$this->admin_model->insertService($serviceName, $serviceDisk);
@@ -460,15 +460,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function addNewTheme(){
 			$this->load->library('form_validation');
 
-			$this->form_validation->set_rules('themeName', 'New Theme Name', 'required');
+			$this->form_validation->set_rules('themeName', 'New Theme Name', 'trim|required');
 
 			if ($this->form_validation->run()) {
-				$name = html_escape($this->input->post('themeName'));
-				$desc = html_escape($this->input->post('themeDesc'));
-
-				$name = html_escape($this->input->post('themeName'));
-				$desc = html_escape($this->input->post('themeDesc'));
-
+				$name = ucwords(html_escape($this->input->post('themeName')));
+				$desc = ucwords(html_escape($this->input->post('themeDesc')));
 				$this->admin_model->addTheme($name, $desc);
 				$this->adminTheme();
 			}

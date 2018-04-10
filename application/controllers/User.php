@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('user_model');
 			$this->load->model('notifications_model');
+			$this->load->model('events_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
@@ -95,6 +96,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['currentEventNum'] = $this->events_model->currentEventNum($userID);
+			$data['doneEvent'] = $this->events_model->doneEventNum($userID);
+			$data['allTransac'] = $this->events_model->allTransacNum($userID);
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'User Profile| Admin';	
 			}else{
@@ -136,12 +140,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$fname = html_escape($this->input->post('fname'));
-				$mname = html_escape($this->input->post('mname'));
-				$lname = html_escape($this->input->post('lname'));
+				$fname = ucwords(html_escape($this->input->post('fname')));
+				$mname = ucwords(html_escape($this->input->post('mname')));
+				$lname = ucwords(html_escape($this->input->post('lname')));
 				$cNum = html_escape($this->input->post('cNum'));
 				$emailAdd = html_escape($this->input->post('emailAdd'));
-				$homeAdd = html_escape($this->input->post('homeAdd'));
+				$homeAdd = ucwords(html_escape($this->input->post('homeAdd')));
 
 				if (!empty($fname)) {
 					$this->user_model->updateUserFirstname($id, $fname);
@@ -185,7 +189,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if ($this->form_validation->run()) {
 
-				$newPassword = $this->input->post('newPassword');
+				$newPassword = html_escape($this->input->post('newPassword'));
 
 				$this->user_model->updateUserPassword($id, $newPassword);
 
@@ -209,7 +213,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if ($this->form_validation->run()) {
 
-				$newUsername = $this->input->post('newUsername');
+				$newUsername = html_escape($this->input->post('newUsername'));
 
 				$this->user_model->updateUserUsername($id, $newUsername);
 

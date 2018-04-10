@@ -409,9 +409,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$adate = $this->input->post('appointmentDate');
-				$time = $this->input->post('appointmentTime');
-				$agenda = $this->input->post('agenda');
+				$adate = html_escape($this->input->post('appointmentDate'));
+				$time = html_escape($this->input->post('appointmentTime'));
+				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
 				$this->transactions_model->addTransactionAppointment($empID, $ctID, $adate, $time, $agenda);
 
@@ -497,18 +497,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
 
 			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('contactNumber', 'contactNumber', 'trim|numeric');
+			$this->form_validation->set_rules('address', 'Address', 'trim');
+			$this->form_validation->set_rules('yNs', 'Year and Section', 'trim');
+			$this->form_validation->set_rules('school', 'School', 'trim');
+			$this->form_valdiation->set_rules('idType', 'ID Type', 'trim');
+			$this->form_validation->set_rules('newDate', 'Date', 'trim');
+			$this->form_validation->set_rules('newTime', 'Time', 'trim');
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$contactNumber = $this->input->post('contactNumber');
-				$address = $this->input->post('address');
-				$yNs = $this->input->post('yNs');
-				$school = $this->input->post('school');
-				$idType = $this->input->post('idType');
-				$depositAmount = $this->input->post('depositAmt');
-				$date = $this->input->post('newDate');
-				$time = $this->input->post('newTime');
+				$contactNumber = html_escape($this->input->post('contactNumber'));
+				$address = ucwords(html_escape($this->input->post('address')));
+				$yNs = ucwords(html_escape($this->input->post('yNs')));
+				$school = ucwords(html_escape($this->input->post('school')));
+				$idType = ucwords(html_escape($this->input->post('idType')));
+				$depositAmount = html_escape($this->input->post('depositAmt'));
+				$date = html_escape($this->input->post('newDate'));
+				$time = html_escape($this->input->post('newTime'));
 
 				if (!empty($contactNumber)) {
 					$this->transactions_model->upContactNumber($contactNumber, $clientID);

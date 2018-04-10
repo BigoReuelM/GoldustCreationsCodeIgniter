@@ -618,7 +618,7 @@ class Events extends CI_Controller
 			if ($this->form_validation->run()) {
 				$adate = html_escape($this->input->post('appointmentDate'));
 				$time = html_escape($this->input->post('appointmentTime'));
-				$agenda = html_escape($this->input->post('agenda'));
+				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
 				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
 
@@ -740,16 +740,16 @@ class Events extends CI_Controller
 		public function updateEventDetails(){
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
-			$eventName = html_escape($this->input->post('eventName'));
+			$eventName = ucwords(html_escape($this->input->post('eventName')));
 			$clientContactNo = html_escape($this->input->post('contactNumber'));
-			$celebrant = html_escape($this->input->post('celebrantName'));
+			$celebrant = ucwords(html_escape($this->input->post('celebrantName')));
 			$dateAvailed = html_escape($this->input->post('dateAvailed'));
-			$packageType = html_escape($this->input->post('package'));
+			$packageType = ucwords(html_escape($this->input->post('package')));
 			$eventDate = html_escape($this->input->post('eventDate'));
 			$eventTime = html_escape($this->input->post('eventTime'));
-			$location = html_escape($this->input->post('location'));
-			$type = html_escape($this->input->post('type'));
-			$motif = html_escape($this->input->post('motif'));
+			$location = ucwords(html_escape($this->input->post('location')));
+			$type = ucwords(html_escape($this->input->post('type')));
+			$motif = ucwords(html_escape($this->input->post('motif')));
 			$theme = html_escape($this->input->post('theme'));
 
 			if (!empty($eventName)) {

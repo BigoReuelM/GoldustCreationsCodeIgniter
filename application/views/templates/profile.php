@@ -24,13 +24,13 @@
 
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item" id="list6">
-                    <b>Events Currently Handling</b> <a class="pull-right">50</a>
+                    <b>Events Currently Handling</b> <a class="pull-right"><?php echo $currentEventNum->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Handled Events</b> <a class="pull-right">1,322</a>
+                    <b>Handled Events</b> <a class="pull-right"><?php echo $doneEvent->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Transactions</b> <a class="pull-right">543</a>
+                    <b>Transactions</b> <a class="pull-right"><?php echo $allTransac->count ?></a>
                   </li>
                 </ul>                      
               <?php endif ?>
@@ -44,6 +44,10 @@
               <button form="changeProfilePhotoForm" type="submit" class="btn btn-primary pull-right">Submit</button>
             </div>
           </div>
+          
+        </div>
+
+        <div class="col-md-8">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">About Me</h3>
@@ -83,68 +87,11 @@
 
             </div>
             <div class="box-footer">
-              
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-8">
-          <div class="box box-primary">
-            <div class="box-header">
-              Settings
-            </div>
-            <div class="box-body">
-              <?php 
-                $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal", "autocomplete" => "off");
-                echo form_open("user/updateProfile", $attributes);
-              ?>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">First Name</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="fname" name="fname" class="form-control" placeholder="<?php echo $employee->firstName ?>" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Middle Name</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="mname" name="mname" class="form-control" placeholder="<?php echo $employee->midName ?>" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Last Name</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="lname" name="lname" class="form-control" placeholder="<?php echo $employee->lastName ?>" value="">
-                  </div>
-                </div>  
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Contact Number</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="cNum" name="cNum" class="form-control" placeholder="<?php echo $employee->contactNumber ?>" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Email Address</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="emailAdd" name="emailAdd"  class="form-control" placeholder="<?php echo $employee->email ?>" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Home Address</label>
-                  <div class="col-sm-5">
-                    <input type="text" id="homeAdd" name="homeAdd" class="form-control" placeholder="<?php echo $employee->address ?>" value="">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Click to Save updates</label>
-                  <div class="col-lg-5">
-                    <button type="submit" class="btn btn-default btn-primary form-control">Save Updates</button>
-                  </div>
-                </div>
-              <?php echo form_close(); ?>
-            </div>
-            <div class="box-footer">
-              <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
-              <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
+              <div class="pull-right">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
+                <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
+                <button class="btn btn-primary"  data-toggle="modal" data-target="#editProfile">Edit Profile</button>
+              </div>
             </div>
           </div>
         </div>
@@ -153,7 +100,66 @@
   </section>
   <div class="control-sidebar-bg"></div>
 </div>
-
+<div class="modal fade" id="editProfile" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4>Update Profile Info</h4>
+        <div id="the-message">
+            
+        </div>
+      </div>
+      <div class="modal-body">
+        <?php 
+          $attributes = array("name" => "updateProfile", "id" => "updateProfile", "class" => "form-horizontal", "autocomplete" => "off");
+          echo form_open("user/updateProfile", $attributes);
+        ?>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">First Name</label>
+            <div class="col-sm-5">
+              <input type="text" id="fname" name="fname" class="form-control" placeholder="<?php echo $employee->firstName ?>" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Middle Name</label>
+            <div class="col-sm-5">
+              <input type="text" id="mname" name="mname" class="form-control" placeholder="<?php echo $employee->midName ?>" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Last Name</label>
+            <div class="col-sm-5">
+              <input type="text" id="lname" name="lname" class="form-control" placeholder="<?php echo $employee->lastName ?>" value="">
+            </div>
+          </div>  
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Contact Number</label>
+            <div class="col-sm-5">
+              <input type="text" id="cNum" name="cNum" class="form-control" placeholder="<?php echo $employee->contactNumber ?>" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Email Address</label>
+            <div class="col-sm-5">
+              <input type="text" id="emailAdd" name="emailAdd"  class="form-control" placeholder="<?php echo $employee->email ?>" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Home Address</label>
+            <div class="col-sm-5">
+              <input type="text" id="homeAdd" name="homeAdd" class="form-control" placeholder="<?php echo $employee->address ?>" value="">
+            </div>
+          </div>
+        <?php echo form_close(); ?>
+      </div>
+      <div class="modal-footer">
+        <button form="updateProfile" type="submit" class="btn btn-primary">Save Updates</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- charges pasword Modal -->
 <div class="modal fade" id="changePass" role="dialog">
   <div class="modal-dialog">
@@ -246,10 +252,10 @@
           <div class="modal-footer">
             <input type="text" name="employeeID" value="" hidden>
             <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Update Username</button>
+              <button type="submit" class="btn btn-primary">Update Username</button>
             </div>
             <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-default btn-lg" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
         <?php echo form_close(); ?>
