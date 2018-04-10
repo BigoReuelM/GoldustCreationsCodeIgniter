@@ -105,7 +105,16 @@
             <tbody id="serviceTable"> 
                 <?php
                   if (!empty($servcs)) {
-                    foreach ($servcs as $svc) { ?>
+                    foreach ($servcs as $svc) { 
+                      for($i = 0 ; $i < count($transServices) ; $i++){
+                        if ($svc['serviceID'] == $transServices[$i]['serviceID']) {
+                          $valid = false;
+                        }else{
+                          $valid = true;
+                        }
+                      }                  
+                      if($valid){ 
+                  ?>
                       <tr>                   
                           <td>
                             <div class="checkbox">
@@ -117,6 +126,7 @@
                           <td><?php echo $svc['description'] ?></td>
                       </tr>
                 <?php }
+                    }
                   }
                 ?>
               

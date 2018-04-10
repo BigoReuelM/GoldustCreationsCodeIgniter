@@ -96,14 +96,24 @@
             <tbody>
                 <?php
                   if (!empty($allStaff)) {
-                    foreach ($allStaff as $s) { ?>
+                    foreach ($allStaff as $s) {
+                      for($i = 0 ; $i < count($eventStaff) ; $i++){
+                        if ($s['employeeID'] == $eventStaff[$i]['empId']) {
+                          $valid = false;
+                        }else{
+                          $valid = true;
+                        }
+                      }                  
+                      if($valid){      
+                ?>
                       <tr>                   
                         <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['empId'] ?>" multiple><?php echo $s['name'] ?></label></div>
+                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $s['employeeID'] ?>" multiple><?php echo $s['employeeName'] ?></label></div>
                         </td>
-                        <td><?php echo $s['num'] ?></td>
+                        <td><?php echo $s['contactNumber'] ?></td>
                       </tr>
                 <?php }
+                    }
                   }
                 ?> 
             </tbody>            

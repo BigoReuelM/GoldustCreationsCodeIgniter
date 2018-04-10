@@ -270,6 +270,16 @@
 			return $query->result_array();
 		}
 
+		public function getStaffID($ceid){
+			$this->db->select('employees.employeeID as empId');
+			$this->db->from('employees');
+			$this->db->join('eventstaff', 'employees.employeeID = eventstaff.employeeID');
+			$this->db->where('eventID', $ceid);
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
 		public function addStaff($eID, $staffID){
 			$data = array(
 				'eventID' => $eID,
@@ -296,7 +306,7 @@
 		public function showAllStaff($id){
 			$date = $this->getEventDate($id);
 			$query = $this->db->query("
-				SELECT *
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
 				WHERE status like 'active' and ((role like 'staff') or (role like 'on%call%staff'))
 			");
