@@ -440,7 +440,19 @@
 			$this->db->update('transactions', $data);
 		}
 
+		// end of trandaction details update
 
+		// validate time and date of transactions
+
+		public function getTimeNDate($id){
+			$this->db->select('time, dateAvail');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
 	}
 
 ?>

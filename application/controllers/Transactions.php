@@ -494,16 +494,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$transID = $this->session->userdata('currentTransactionID');
 			$clientID = $this->session->userdata('clientID');
 
+			$dateTimeValidation = $this->transactions_model->getTimeNDate($transID);
+
 			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
 
 			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('contactNumber', 'contactNumber', 'trim|numeric');
-			$this->form_validation->set_rules('address', 'Address', 'trim');
-			$this->form_validation->set_rules('yNs', 'Year and Section', 'trim');
-			$this->form_validation->set_rules('school', 'School', 'trim');
-			$this->form_valdiation->set_rules('idType', 'ID Type', 'trim');
-			$this->form_validation->set_rules('newDate', 'Date', 'trim');
-			$this->form_validation->set_rules('newTime', 'Time', 'trim');
+			$this->form_validation->set_rules('address', 'Address', 'trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('yNs', 'Year and Section', 'trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('school', 'School', 'trim|alpha_numeric_spaces');
+			$this->form_validation->set_rules('idType', 'ID Type', 'trim|alpha_numeric_spaces');
+
+			if ($dateTimeValidation->dateAvail == null) {
+				$this->form_validation->set_rules('newDate', 'Date', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('newDate', 'Date', 'trim');
+			}
+
+			if ($dateTimeValidation->time == null) {
+				$this->form_validation->set_rules('newTime', 'Time', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('newTime', 'Time', 'trim');
+			}
 
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
