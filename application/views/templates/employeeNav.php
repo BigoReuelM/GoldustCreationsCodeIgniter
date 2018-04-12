@@ -19,6 +19,7 @@
         <li><a href="<?php echo base_url('admin/handlerEmployees') ?>">Handler Employees</a></li>
         <li><a href="<?php echo base_url('admin/staffEmployees') ?>">Staff</a></li>
         <li><a href="<?php echo base_url('admin/oncallstaffEmployees') ?>">On-call Staff</a></li>
+        <li><a href="<?php echo base_url('admin/inactiveEmployees') ?>">Inactive Employee</a></li>
       </ul>
     </div><!-- /.container-fluid -->
   </nav>

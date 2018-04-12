@@ -3,20 +3,6 @@
 .glyphicon.glyphicon-circle-arrow-left {
   font-size: 30px;
 }
-
-#img5 {
-  width:250px;
-  height:250px;
-}
-
-
-.employeeButton {
-  margin-left: 39%;
-  width: 400px;
-  padding-top: 15px;
-  background: #3c8dbc;
-}
-
 </style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -31,82 +17,100 @@
   </section>
   <section class="content container-fluid">
     <div classs="content">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title">Profile</h3>
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">About Me</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="box-body box-profile">
+              <img class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo base_url('/uploads/profileImage/' . $employee->employeeID . ''); ?>" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
+              <!-- -->
+              <h3 class="profile-username text-center"><?php echo $employee->firstName . " " . $employee->midName . " " . $employee->lastName ?></h3>
+
+              <?php if ($employee->role  === "admin"): ?>
+                <p class="text-muted text-center">Admin</p>
+              <?php endif ?>
+
+              <?php if ($employee->role  === "handler"): ?>
+                <p class="text-muted text-center">Event Handler</p>
+
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item" id="list6">
+                    <b>Events Currently Handling</b> <a class="pull-right"><?php echo $currentEventNum->count ?></a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Handled Events</b> <a class="pull-right"><?php echo $doneEvent->count ?></a>
+                  </li>
+                  <li class="list-group-item" id="list6">
+                    <b>Transactions</b> <a class="pull-right"><?php echo $allTransac->count ?></a>
+                  </li>
+                </ul>                      
+              <?php endif ?>
+              <form id="changeProfilePhotoForm" action="<?php echo base_url('admin/uploadProfilePhoto') ?>" method="post" role="form" enctype="multipart/form-data" class="text-center">
+                <label class="control-label">Change Profile Photo</label>
+                <div class="row">                
+                  <div class="col-md-6">                  
+                    <input type="hidden" name="userID" value="<?php echo $employee->employeeID ?>">
+                    <input type="file" name="userfile" class="text-center">
+                  </div>
+                  <div class="col-md-6">
+                    <button form="changeProfilePhotoForm" type="submit" class="btn btn-primary pull-right">Submit</button>
+                  </div>
+                </div>
+                 
+              </form>
             </div>
-            <form class="form-horizontal">
-              <div class="box-body box-profile">          
-                <div class="col-lg-12">               
-                  <div class="form-group">
-                    <img class="profile-user-img img-responsive img-circle" id="img5" alt="User profile picture" src="data:image/jpeg;base64, <?php echo base64_encode($employee->photo); ?>">
-                    <?php if ($employee->role === "admin"): ?>
-                      <p class="text-muted text-center">Admin</p>
-                    <?php endif ?>
-                    <?php if ($employee->role === "handler"): ?>
-                      <p class="text-muted text-center">Event Handler</p>
-                    <?php endif ?>
-                  </div>
-                  <div class="form-group">
-                      <div class="col-lg-12">
-                    <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
-                    </div>
-                      <div class="col-lg-12">
-                        <?php if ($employee->status === "active"): ?>
-                          <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#disable">Disable Account</button>
-                        <?php endif ?>
-                        <?php if ($employee->status === "inactive"): ?>
-                          <button type="button" class="btn btn-block btn-default employeeButton"  data-toggle="modal" data-target="#enable">Enable Account</button>
-                        <?php endif ?>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Employee ID</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeID ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Name</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->employeeName ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Contact Number</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->contactNumber ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Email Address</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->email ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Home Address</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->address ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Role</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->role?>" disabled>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-sm-4 control-label">Status</label>
-                    <div class="col-sm-5">
-                      <input type="text" class="form-control" placeholder="Email" value="<?php echo $employee->status ?>" disabled>
-                    </div>
-                  </div>     
-              </div>
-            </form>
+          </div>
+          <div class="col-md-8">
+            <!-- /.box-header -->
+            <div class="box-body">
+
+              <strong><i class="fa fa-tag margin-r-5"></i> Identification Number</strong>
+
+              <p class="text-muted"><?php echo $employee->employeeID ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-user margin-r-5"></i> Name</strong>
+
+              <p class="text-muted"><?php echo $employee->firstName . " " . $employee->midName . " " . $employee->lastName ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-phone margin-r-5"> Contact Number</i></strong>
+              
+              <p class="text-muted"><?php echo $employee->contactNumber ?></p>
+
+              <br>
+              
+              <strong><i class="fa fa-envelope-o margin-r-5"> Email</i></strong>
+              
+              <p class="text-muted"><?php  echo $employee->email ?></p>
+
+              <br>
+
+              <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+              <p class="text-muted"><?php echo $employee->address ?></p>
+
+              <br>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="pull-right">
+            <?php if ($employee->role === "admin" || $employee->role === "handler"): ?>
+              <button type="button" class="btn btn-warning employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
+            <?php endif ?>
+            
+            <?php if ($employee->status === "active"): ?>
+              <button type="button" class="btn btn-danger employeeButton"  data-toggle="modal" data-target="#disable">Deactivate Account</button>
+            <?php endif ?>
+
+            <?php if ($employee->status === "inactive"): ?>
+              <button type="button" class="btn btn-danger employeeButton"  data-toggle="modal" data-target="#enable">Reactivate Account</button>
+            <?php endif ?>
           </div>
         </div>
       </div>

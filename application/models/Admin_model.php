@@ -5,38 +5,48 @@
 	class Admin_model extends CI_model
 	{
 		public function getAdminEmployees(){
-			$query=$this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
-				FROM employees
-				where role = 'admin'
-			");
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('role', "admin");
+			$this->db->where('status', "active");
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
 		public function getHandlerEmployees(){
-			$query=$this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
-				FROM employees
-				where role = 'handler'
-			");
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('role', "handler");
+			$this->db->where('status', "active");
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
 		public function getStaffEmployees(){
-			$query=$this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
-				FROM employees
-				where role = 'staff' OR role = 'on-call staff'
-			");
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('role', "staff");
+			$this->db->where('status', "active");
+			$query = $this->db->get();
 			return $query->result_array();
 		}
 
 		public function getOncallStaffEmployees(){
-			$query=$this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
-				FROM employees
-				where role = 'on-call staff'
-			");
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('role', "on-call staff");
+			$this->db->where('status', "active");
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getInactiveEmployees(){
+			$this->db->select('*, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('status', "inactive");
+
+			$query = $this->db->get();
+
 			return $query->result_array();
 		}
 

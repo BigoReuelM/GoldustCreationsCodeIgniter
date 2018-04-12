@@ -52,7 +52,7 @@
                   <td><?php echo $h['contactNumber'] ?></td>
                   <td><?php echo $h['role'] ?></td>
                   <td>
-                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post">
+                    <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post">
                       <input type="text" name="employeeID" value="<?php echo $handlerID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
