@@ -735,25 +735,20 @@
 		public function getThemeDecors($currentThemeID){
 			$currentThemeID = $this->session->userdata('currentTheme');
 			$query = $this->db->query("
-				SELECT * FROM themedecor JOIN decors ON themedecor.decorID = decors.decorsID WHERE themeID = $currentThemeID"
+				SELECT * FROM decors WHERE themeID = $currentThemeID"
 			);
-			/*$this->db->select('*');
-			$this->db->from('themedecor');
-			$this->db->join('decors', 'themedecor.decorID = decors.decorsID');
-			$this->db->where('themeID', $currentThemeID);
-			$query = $this->db->get();*/
+			/*SELECT * FROM themedecor JOIN decors ON themedecor.decorID = decors.decorsID WHERE themeID = $currentThemeID"*/
 			return $query->result_array();
 		}
 
 		public function getThemeDesigns($currentThemeID){
-			/*$this->db->select('*');
-			$this->db->from('themedesign');
-			$query = $this->db->get();
-			return $query->result_array();*/
 			$currentThemeID = $this->session->userdata('currentTheme');
 			$query = $this->db->query("
-				SELECT * FROM themedesign JOIN designs ON themedesign.designID = designs.designID WHERE themeID = $currentThemeID"
+				SELECT * FROM designs WHERE themeID = $currentThemeID"
 			);
+			/*
+			SELECT * FROM themedesign JOIN designs ON themedesign.designID = designs.designID WHERE themeID = $currentThemeID"
+			*/
 			return $query->result_array();
 		}
 
@@ -789,8 +784,8 @@
 			//$designID = $this->session->userdata('currentDesignID');
 			//$entID = $this->session->userdata('currentEntourageID');
 
-			$query = $this->db->query("SELECT designID, designName, designImage FROM theme NATURAL JOIN themedesign NATURAL JOIN designs WHERE themeID = $themeID");
-				//SELECT designID, designName, designImage from theme natural join themedesign natural join designs where themeID='0002'
+			$query = $this->db->query("SELECT designID, designName, designImage FROM theme NATURAL JOIN designs WHERE themeID = $themeID");
+				//SELECT designID, designName, designImage FROM theme NATURAL JOIN themedesign NATURAL JOIN designs WHERE themeID = $themeID
 			return $query->result_array();
 		}
 
@@ -863,40 +858,26 @@
 
 		//end of calendar queries
 		
-		public function addNewDecor($name, $color, $type){
+		public function addNewDecor($name, $color, $type, $themeID){
 			$data = array(
 				'decorName' => $name,
 				'color' => $color,
-				'decorType' => $type
+				'decorType' => $type,
+				'themeID' => $themeID
 			);
 			$this->db->insert('decors', $data);
 			return $this->db->insert_id();
 		}
 
-		public function addNewThemeDecor($themeID, $decorID){
-			$data = array(
-				'themeID' => $themeID,
-				'decorID' => $decorID
-			);
-			$this->db->insert('themedecor', $data);
-		}
-
-		public function addNewDesign($name, $color, $type){
+		public function addNewDesign($name, $color, $type, $themeID){
 			$data = array(
 				'designName' => $name,
 				'color' => $color,
-				'designType' => $type
+				'designType' => $type,
+				'themeID' => $themeID
 			);
 			$this->db->insert('designs', $data);
 			return $this->db->insert_id();
-		}
-
-		public function addNewThemeDesign($themeID, $designID){
-			$data = array(
-				'themeID' => $themeID,
-				'designID' => $designID
-			);
-			$this->db->insert('themedesign', $data);
 		}
 
 		public function getDecorTypes(){

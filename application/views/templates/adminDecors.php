@@ -34,28 +34,6 @@
   <!-- /.content-wrapper -->
 
 <!-- modals... -->
-  <div class="modal fade" id="addDecType" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add New Decor Type</h4>
-        </div>
-        <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url() ?>">
-            <div class="form-group">
-              <label>Name</label>
-              <input class="form-control" type="text" name="type_name">
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
   <div id="addNew" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">

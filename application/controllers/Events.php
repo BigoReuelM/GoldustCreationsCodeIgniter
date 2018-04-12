@@ -1160,6 +1160,7 @@ class Events extends CI_Controller
 
 		public function uploadDecImg(){
 			$cType = $this->session->userdata('currentType');
+			$themeID = $this->session->userdata('currentThemeID');
 			
 			$this->load->library('form_validation');
 			
@@ -1169,7 +1170,7 @@ class Events extends CI_Controller
 			if ($this->form_validation->run()) {		
 				$decorName = html_escape($this->input->post('dec_name'));
 				$decorColor = html_escape($this->input->post('dec_color'));
-				$decID = $this->events_model->addNewDecor($decorName, $decorColor, $cType);
+				$decID = $this->events_model->addNewDecor($decorName, $decorColor, $cType, $themeID);
 				$config['upload_path'] = './uploads/decors/' . $cType . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['file_name'] = sprintf('%07d', $decID);
@@ -1182,6 +1183,7 @@ class Events extends CI_Controller
 
 		public function uploadDesImg(){
 			$cType = $this->session->userdata('currentType');
+			$themeID = $this->session->userdata('currentThemeID');
 					
 			$this->load->library('form_validation');
 
@@ -1191,7 +1193,7 @@ class Events extends CI_Controller
 			if ($this->form_validation->run()) {			
 				$designName = html_escape($this->input->post('des_name')); 
 				$designColor = html_escape($this->input->post('des_color'));
-				$desID = $this->events_model->addNewDesign($designName, $designColor, $cType);
+				$desID = $this->events_model->addNewDesign($designName, $designColor, $cType, $themeID);
 				$config['upload_path'] = './uploads/designs/' . $cType . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['file_name'] = sprintf('%07d', $desID);

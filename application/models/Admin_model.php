@@ -199,7 +199,7 @@
 			$this->db->insert('theme', $data);
 		}
 
-		public function addNewDecor($themeID, $name, $color, $type){
+		/*public function addNewDecor($themeID, $name, $color, $type){
 			$data = array(
 				'decorName' => $name,
 				'color' => $color,
@@ -207,17 +207,17 @@
 			);
 			$this->db->insert('decors', $data);
 			return $this->db->insert_id();
-		}
+		}*/
 
-		public function addNewThemeDecor($themeID, $decorID){
+		/*public function addNewThemeDecor($themeID, $decorID){
 			$data = array(
 				'themeID' => $themeID,
 				'decorID' => $decorID
 			);
 			$this->db->insert('themedecor', $data);
-		}
+		}*/
 
-		public function addNewDesign($themeID, $name, $color, $type){
+		/*public function addNewDesign($themeID, $name, $color, $type){
 			$data = array(
 				'designName' => $name,
 				'color' => $color,
@@ -225,15 +225,15 @@
 			);
 			$this->db->insert('designs', $data);
 			return $this->db->insert_id();
-		}
+		}*/
 
-		public function addNewThemeDesign($themeID, $designID){
+		/*public function addNewThemeDesign($themeID, $designID){
 			$data = array(
 				'themeID' => $themeID,
 				'designID' => $designID
 			);
 			$this->db->insert('themedesign', $data);
-		}
+		}*/
 
 		public function getDecorTypes(){
 			/*$query = $this->db->query("SELECT DISTINCT decorType FROM decors");

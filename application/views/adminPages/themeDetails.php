@@ -64,7 +64,7 @@
                             $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
                             foreach ($files as $f) {
                               $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                              if ($f_no_extension === $td['decorID']) { ?>
+                              if ($f_no_extension === $td['decorsID']) { ?>
                                 <div class="thumbnail">
                                   <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
                                 </div>

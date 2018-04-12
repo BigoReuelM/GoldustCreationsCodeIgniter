@@ -484,8 +484,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$color = html_escape($this->input->post('decor_color'));
 				$type = html_escape($this->input->post('decor_type'));
 				
-				$decID = $this->admin_model->addNewDecor($themeID, $name, $color, $type);
-				$this->admin_model->addNewThemeDecor($themeID, $decID);
+				//$decID = $this->admin_model->addNewDecor($themeID, $name, $color, $type);
+				//$this->admin_model->addNewThemeDecor($themeID, $decID);
+				$decID = $this->events_model->addNewDecor($name, $color, $type, $themeID);
 
 				$config['upload_path'] = './uploads/decors/' . $type . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
@@ -513,8 +514,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$color = html_escape($this->input->post('design_color'));
 				$type = html_escape($this->input->post('design_type'));
 
-				$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
-				$this->admin_model->addNewThemeDesign($themeID, $desID);
+				//$desID = $this->admin_model->addNewDesign($themeID, $name, $color, $type);
+				//$this->admin_model->addNewThemeDesign($themeID, $desID);
+				$desID = $this->events_model->addNewDesign($name, $color, $type, $themeID);
 
 				$config['upload_path'] = './uploads/designs/' . $type . '/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
