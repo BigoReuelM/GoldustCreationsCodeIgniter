@@ -196,6 +196,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function inactiveEmployees(){
+			$data['inactiveEmp'] = $this->admin_model->getInactiveEmployees();
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Manage Employee | Admin';	
+			}else{
+				$headdata['pagename'] = 'Manage Employee | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("templates/employeeNav.php");
+			$this->load->view("adminPages/inactiveEmployees.php", $data);
+			$this->load->view("templates/footer.php");
+
+		}
+
 
 		public function addEmployee(){
 

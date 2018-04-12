@@ -181,25 +181,9 @@
         success: function(response){
 
           if (response.success == true) {
-            // if success we would show message
-            // and also remove the error class
-            // $('#message').append('<div class="alert alert-success text-center">' +
-            // '<span class="glyphicon glyphicon-ok"></span>' +
-            // ' New employee has been saved.' +
-            // '</div>');
-            // $('.form-group').removeClass('has-error')
-            //       .removeClass('has-success');
-            // $('.text-danger').remove();
-            // reset the form
 
-            //empData.reset();
             window.location.href = "<?php echo base_url('admin/employeeDetails'); ?>";
-            // close the message after seconds
-            // $('.alert-success').delay(500).show(10, function() {
-            //   $(this).delay(3000).hide(10, function() {
-            //     $(this).remove();
-            //   });
-            // })
+
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

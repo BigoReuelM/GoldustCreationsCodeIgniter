@@ -100,12 +100,16 @@
         </div>
         <div class="box-footer">
           <div class="pull-right">
-            <button type="button" class="btn btn-default employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
-            <?php if ($employee->status === "active"): ?>
-              <button type="button" class="btn btn-default employeeButton"  data-toggle="modal" data-target="#disable">Disable Account</button>
+            <?php if ($employee->role === "admin" || $employee->role === "handler"): ?>
+              <button type="button" class="btn btn-warning employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
             <?php endif ?>
+            
+            <?php if ($employee->status === "active"): ?>
+              <button type="button" class="btn btn-danger employeeButton"  data-toggle="modal" data-target="#disable">Deactivate Account</button>
+            <?php endif ?>
+
             <?php if ($employee->status === "inactive"): ?>
-              <button type="button" class="btn btn-default employeeButton"  data-toggle="modal" data-target="#enable">Enable Account</button>
+              <button type="button" class="btn btn-danger employeeButton"  data-toggle="modal" data-target="#enable">Reactivate Account</button>
             <?php endif ?>
           </div>
         </div>
