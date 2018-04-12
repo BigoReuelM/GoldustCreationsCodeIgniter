@@ -596,7 +596,7 @@ body > p {
 } 
 
 .year { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
@@ -642,7 +642,7 @@ body > p {
   align-content: center; 
 }
 .month { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
@@ -822,7 +822,7 @@ body > p {
   height: 800px; 
 } 
 .date { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
