@@ -47,7 +47,7 @@
                   <td><?php echo $a['contactNumber'] ?></td>
                   <td><?php echo $a['role'] ?></td>
                   <td>                   
-                    <form role="form" action="<?php echo base_url('admin/employeeDetails') ?>" method="post" autocomplete="off">
+                    <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post" autocomplete="off">
                       <input type="text" name="employeeID" value="<?php echo $adminID ?>" hidden>
                       <button class="btn btn-block btn-default" id="butt5" type="submit"> View Info
                         <i class="fa fa-fw fa-info"></i>
@@ -183,22 +183,23 @@
           if (response.success == true) {
             // if success we would show message
             // and also remove the error class
-            $('#message').append('<div class="alert alert-success text-center">' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New employee has been saved.' +
-            '</div>');
-            $('.form-group').removeClass('has-error')
-                  .removeClass('has-success');
-            $('.text-danger').remove();
+            // $('#message').append('<div class="alert alert-success text-center">' +
+            // '<span class="glyphicon glyphicon-ok"></span>' +
+            // ' New employee has been saved.' +
+            // '</div>');
+            // $('.form-group').removeClass('has-error')
+            //       .removeClass('has-success');
+            // $('.text-danger').remove();
             // reset the form
 
-            empData.reset();
+            //empData.reset();
+            window.location.href = "<?php echo base_url('admin/employeeDetails'); ?>";
             // close the message after seconds
-            $('.alert-success').delay(500).show(10, function() {
-              $(this).delay(3000).hide(10, function() {
-                $(this).remove();
-              });
-            })
+            // $('.alert-success').delay(500).show(10, function() {
+            //   $(this).delay(3000).hide(10, function() {
+            //     $(this).remove();
+            //   });
+            // })
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

@@ -26,7 +26,7 @@
 			$query=$this->db->query("
 				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
 				FROM employees
-				where role = 'staff' OR role = 'on-call staff'
+				where role = 'staff'
 			");
 			return $query->result_array();
 		}

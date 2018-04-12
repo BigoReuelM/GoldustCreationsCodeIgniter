@@ -74,8 +74,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function setPersonnelID(){
+			$id = $this->input->post('employeeID');
+			$this->session->set_userdata('personnelId', $id);
+			redirect('admin/employeeDetails');
+		}
+
 		public function employeeDetails(){
-			$employeeID = $this->input->post('employeeID');
+			$employeeID = $this->session->userdata('personnelId');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -83,6 +89,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments(); 
 			$data['employee'] = $this->admin_model->getEmpDetails($employeeID);
+			$data['currentEventNum'] = $this->events_model->currentEventNum($employeeID);
+			$data['doneEvent'] = $this->events_model->doneEventNum($employeeID);
+			$data['allTransac'] = $this->events_model->allTransacNum($employeeID);
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Employee Details | Admin';	
 			}else{
@@ -96,7 +105,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 			
 		}
-
 
 		public function adminEmployees(){
 			$data['admin'] = $this->admin_model->getAdminEmployees();
@@ -212,8 +220,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$role = html_escape($this->input->post('role'));
 
 				$newEmpID = $this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
-				
+				$id = sprintf('%04d', $newEmpID);
 				$data['success'] = true;
+				$this->session->set_userdata('personnelId', $id);
+				
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
@@ -221,6 +231,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 			echo json_encode($data);
+		}
+
+		public function uploadProfilePhoto(){
+			$userID = $this->input->post('userID');
+			$userFilePath = './uploads/profileImage/' . $userID . ".*";
+			$path = glob($userFilePath);
+			if (!empty($path)) {
+				unlink($path[0]);
+			}
+			$config['upload_path'] = './uploads/profileImage/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['file_name'] = $userID;
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('userfile');
+			$data = array('upload_data' => $this->upload->data());
+			$this->session->set_userdata('personnelId', $userID);
+			redirect('admin/employeeDetails');			
 		}
 
 		public function services(){
