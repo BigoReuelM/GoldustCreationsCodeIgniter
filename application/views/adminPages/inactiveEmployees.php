@@ -14,7 +14,6 @@
     <div classs="content">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Admin Table</h3>
         </div>
         <div class="box-body">
           <div class="table table-responsive">
@@ -23,10 +22,8 @@
                 <tr>
                   <th>Employee ID</th>
                   <th>Name</th>
-                  <th>Address</th>
                   <th>Email</th>
                   <th>Contact Number</th>
-                  <th>Role</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -39,10 +36,8 @@
                 <tr>
                   <td><?php echo $emp['employeeID'] ?></td>
                   <td><?php echo $emp['employeeName'] ?></td>
-                  <td><?php echo $emp['address'] ?></td>
                   <td><?php echo $emp['email'] ?></td>
                   <td><?php echo $emp['contactNumber'] ?></td>
-                  <td><?php echo $emp['role'] ?></td>
                   <td>                   
                     <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post" autocomplete="off">
                       <input type="text" name="employeeID" value="<?php echo $empID ?>" hidden>

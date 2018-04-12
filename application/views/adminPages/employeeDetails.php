@@ -100,7 +100,7 @@
         </div>
         <div class="box-footer">
           <div class="pull-right">
-            <?php if ($employee->role === "admin" || $employee->role === "handler"): ?>
+            <?php if (($employee->role === "admin" || $employee->role === "handler") && $employee->status === "active"): ?>
               <button type="button" class="btn btn-warning employeeButton"  data-toggle="modal" data-target="#reset"> Reset Password</button>
             <?php endif ?>
             

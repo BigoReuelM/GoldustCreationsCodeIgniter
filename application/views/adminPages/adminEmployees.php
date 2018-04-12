@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-9">
         <h1>
-          Employees
+          Admin Employees
         </h1>
       </div>
       <div class="col-lg-3">
@@ -17,7 +17,7 @@
     <div classs="content">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Admin Table</h3>
+          
         </div>
         <div class="box-body">
           <div class="table table-responsive">
@@ -26,10 +26,8 @@
                 <tr>
                   <th>Employee ID</th>
                   <th>Name</th>
-                  <th>Address</th>
                   <th>Email</th>
                   <th>Contact Number</th>
-                  <th>Role</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -42,10 +40,8 @@
                 <tr>
                   <td><?php echo $a['employeeID'] ?></td>
                   <td><?php echo $a['employeeName'] ?></td>
-                  <td><?php echo $a['address'] ?></td>
                   <td><?php echo $a['email'] ?></td>
                   <td><?php echo $a['contactNumber'] ?></td>
-                  <td><?php echo $a['role'] ?></td>
                   <td>                   
                     <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post" autocomplete="off">
                       <input type="text" name="employeeID" value="<?php echo $adminID ?>" hidden>

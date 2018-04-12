@@ -107,6 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function adminEmployees(){
+			$page['pageName'] = "admin";
 			$data['admin'] = $this->admin_model->getAdminEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -122,13 +123,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeNav.php");
+			$this->load->view("templates/employeeNav.php", $page);
 			$this->load->view("adminPages/adminEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
 		}
 
 		public function handlerEmployees(){
+			$page['pageName'] = "handler";
 			$data['handler'] = $this->admin_model->getHandlerEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -144,7 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeNav.php");
+			$this->load->view("templates/employeeNav.php", $page);
 			$this->load->view("adminPages/handlerEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
@@ -152,6 +154,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function staffEmployees(){
+			$page['pageName'] = "staff";
 			$data['staff'] = $this->admin_model->getStaffEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -167,7 +170,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeNav.php");
+			$this->load->view("templates/employeeNav.php", $page);
 			$this->load->view("adminPages/staffEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
@@ -175,6 +178,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function oncallstaffEmployees(){
+			$page['pageName'] = "oncall";
 			$data['oncallStaff'] = $this->admin_model->getOncallStaffEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -190,13 +194,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeNav.php");
+			$this->load->view("templates/employeeNav.php", $page);
 			$this->load->view("adminPages/oncallStaffEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
 		}
 
 		public function inactiveEmployees(){
+			$page['pageName'] = "inactive";
 			$data['inactiveEmp'] = $this->admin_model->getInactiveEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -212,7 +217,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/employeeNav.php");
+			$this->load->view("templates/employeeNav.php", $page);
 			$this->load->view("adminPages/inactiveEmployees.php", $data);
 			$this->load->view("templates/footer.php");
 
