@@ -972,6 +972,16 @@ class Events extends CI_Controller
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['decorTypes'] = $this->events_model->getDecorEnum();
 
+			if (!is_dir('./uploads/decors/furnishing/')) {
+				mkdir('./uploads/decors/furnishing');
+			}
+			if (!is_dir('./uploads/decors/trinkets/')) {
+				mkdir('./uploads/decors/trinkets');
+			}
+			if (!is_dir('./uploads/decors/utensils/')) {
+				mkdir('./uploads/decors/utensils');
+			}
+
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
 			// get contents of the folder similarly named to the current type selected
@@ -987,12 +997,6 @@ class Events extends CI_Controller
 			// get the enum values of decor types from the database
 			$data['enumVals'] = $this->events_model->getDecorEnum();
 			// pass the existing enum values to query.. then add new enum value...
-
-			/*$enumString = "";
-			foreach ($enumVals as $val) {
-				$enumString .= $enumVals;
-			}
-			$data['enumString'] = $enumString;*/
 
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Decors Home | Admin';	
@@ -1027,11 +1031,23 @@ class Events extends CI_Controller
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['designTypes'] = $this->events_model->getDesignEnum();
 
-			// get all folders inside DECOR folder in uploads folder
+			if (!is_dir('./uploads/designs/accesory')) {
+				mkdir('./uploads/designs/accesory');
+			}
+			if (!is_dir('./uploads/designs/costume')) {
+				mkdir('./uploads/designs/costume');
+			}
+			if (!is_dir('./uploads/designs/gown')) {
+				mkdir('./uploads/designs/gown');
+			}
+			if (!is_dir('./uploads/designs/suit')) {
+				mkdir('./uploads/designs/suit');
+			}
+
+			// get all folders inside DESIGNS folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
 			// get contents of the folder similarly named to the current type selected
 			$designTypeFoldr = html_escape($this->input->post('design_type'));
-			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
 			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
 
 			// get all folders inside DESIGN folder in uploads folder
@@ -1208,6 +1224,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
 			$newEnumVal = $this->input->post('type_name');
+
 			if (!is_dir('./uploads/decors/' . $newEnumVal)) {
 				mkdir('./uploads/decors/' . $newEnumVal);
 			}
@@ -1219,6 +1236,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDesignEnum();
 			$newEnumVal = $this->input->post('type_name');
+
 			if (!is_dir('./uploads/designs/' . $newEnumVal)) {
 				mkdir('./uploads/designs/' . $newEnumVal);
 			}

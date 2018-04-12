@@ -199,45 +199,7 @@
 			$this->db->insert('theme', $data);
 		}
 
-		/*public function addNewDecor($themeID, $name, $color, $type){
-			$data = array(
-				'decorName' => $name,
-				'color' => $color,
-				'decorType' => $type
-			);
-			$this->db->insert('decors', $data);
-			return $this->db->insert_id();
-		}*/
-
-		/*public function addNewThemeDecor($themeID, $decorID){
-			$data = array(
-				'themeID' => $themeID,
-				'decorID' => $decorID
-			);
-			$this->db->insert('themedecor', $data);
-		}*/
-
-		/*public function addNewDesign($themeID, $name, $color, $type){
-			$data = array(
-				'designName' => $name,
-				'color' => $color,
-				'designType' => $type
-			);
-			$this->db->insert('designs', $data);
-			return $this->db->insert_id();
-		}*/
-
-		/*public function addNewThemeDesign($themeID, $designID){
-			$data = array(
-				'themeID' => $themeID,
-				'designID' => $designID
-			);
-			$this->db->insert('themedesign', $data);
-		}*/
-
 		public function getDecorTypes(){
-			/*$query = $this->db->query("SELECT DISTINCT decorType FROM decors");
-			return $query->result_array();*/
 			$query = $this->db->query("show columns from decors where Field like 'decorType'")->row(0)->Type;
 			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
 		    $enum = explode("','", $vals[1]);
@@ -245,8 +207,6 @@
 		}
 
 		public function getDesignTypes(){
-			/*$query = $this->db->query("SELECT DISTINCT designType FROM designs");
-			return $query->result_array();*/
 			$query = $this->db->query("show columns from designs where Field like 'designType'")->row(0)->Type;
 			preg_match("/^enum\(\'(.*)\'\)$/", $query, $vals);
 		    $enum = explode("','", $vals[1]);
