@@ -972,13 +972,16 @@ class Events extends CI_Controller
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['decorTypes'] = $this->events_model->getDecorEnum();
 
-			if (!is_dir('./uploads/decors/furnishing/')) {
+			if (!is_dir('./uploads/decors')) {
+				mkdir('./uploads/decors');
+			}
+			if (!is_dir('./uploads/decors/furnishing')) {
 				mkdir('./uploads/decors/furnishing');
 			}
-			if (!is_dir('./uploads/decors/trinkets/')) {
+			if (!is_dir('./uploads/decors/trinkets')) {
 				mkdir('./uploads/decors/trinkets');
 			}
-			if (!is_dir('./uploads/decors/utensils/')) {
+			if (!is_dir('./uploads/decors/utensils')) {
 				mkdir('./uploads/decors/utensils');
 			}
 
@@ -1031,6 +1034,9 @@ class Events extends CI_Controller
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['designTypes'] = $this->events_model->getDesignEnum();
 
+			if (!is_dir('./uploads/designs')) {
+				mkdir('./uploads/designs');
+			}
 			if (!is_dir('./uploads/designs/accesory')) {
 				mkdir('./uploads/designs/accesory');
 			}
