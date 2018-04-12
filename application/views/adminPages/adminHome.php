@@ -528,7 +528,7 @@ organizer.setOnClickListener('year-slider', function () { showEvents(); console.
 
 <style>
 body { 
-  display: felx;
+  display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column; 
@@ -607,7 +607,7 @@ body > p {
 } 
 
 .year { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
@@ -653,7 +653,7 @@ body > p {
   align-content: center; 
 }
 .month { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
@@ -833,7 +833,7 @@ body > p {
   height: 800px; 
 } 
 .date { 
-  width: calc(100% - 10px); 
+  width: calc(100%); 
   display: -webkit-box; 
   display: -ms-flexbox; 
   display: flex; 
