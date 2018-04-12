@@ -7,9 +7,12 @@
   </section>
   <section class="content container-fluid">
     <div classs="content">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="box box-primary">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">About Me</h3>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" alt="User profile picture" src="<?php echo base_url('/uploads/profileImage/' . $employee->employeeID . ''); ?>" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
               <!-- -->
@@ -36,22 +39,20 @@
               <?php endif ?>
               <form id="changeProfilePhotoForm" action="<?php echo base_url('user/uploadProfilePhoto') ?>" method="post" role="form" enctype="multipart/form-data" class="text-center">
                 <label class="control-label">Change Profile Photo</label>
-                <input type="hidden" name="userID" value="<?php echo $employee->employeeID ?>">
-                <input type="file" name="userfile" class="text-center"> 
+                <div class="row">                
+                  <div class="col-md-6">                  
+                    <input type="hidden" name="userID" value="<?php echo $employee->employeeID ?>">
+                    <input type="file" name="userfile" class="text-center">
+                  </div>
+                  <div class="col-md-6">
+                    <button form="changeProfilePhotoForm" type="submit" class="btn btn-primary pull-right">Submit</button>
+                  </div>
+                </div>
+                 
               </form>
             </div>
-            <div class="box-footer">
-              <button form="changeProfilePhotoForm" type="submit" class="btn btn-primary pull-right">Submit</button>
-            </div>
           </div>
-          
-        </div>
-
-        <div class="col-md-8">
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">About Me</h3>
-            </div>
+          <div class="col-md-8">
             <!-- /.box-header -->
             <div class="box-body">
 
@@ -84,15 +85,14 @@
               <p class="text-muted"><?php echo $employee->address ?></p>
 
               <br>
-
             </div>
-            <div class="box-footer">
-              <div class="pull-right">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
-                <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
-                <button class="btn btn-primary"  data-toggle="modal" data-target="#editProfile">Edit Profile</button>
-              </div>
-            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="pull-right">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#changeUsername">Change Username</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#changePass">Change Password</button>
+            <button class="btn btn-primary"  data-toggle="modal" data-target="#editProfile">Edit Profile</button>
           </div>
         </div>
       </div>
