@@ -167,12 +167,37 @@ input[type=submit] {
                     if (!empty($themeDecors)) {
                       foreach ($themeDecors as $td) {
                         $themeID = $td['themeID'];
-                        $decorID = $td['decorID'];
+                        $decorID = $td['decorsID'];
                     ?>
                       <tr>
                         <td><?php echo $td['decorName']; ?></td>
                         <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $td['quantity']; ?>"></td>
-                        <td><?php echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?></td>
+                        <td>
+                          <?php //echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?>
+                          <?php
+                          if (!empty($eventTheme)) {
+                            $currentThemeID = $eventTheme->themeID;
+                            $decors = $eventTheme->decorID;
+                            if (!empty($decortypesmap)) {
+                            foreach ($decortypesmap as $dtm) {
+                              // files inside uploads/designs/type/
+                              $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                              foreach ($files as $f) {
+                                $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                if ($f_no_extension === $decors) { ?>
+                                  <div class="thumbnail">
+                                    <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                  </div>
+                          <?php     
+                                }
+                              }
+                            }
+                          }
+                          }else{
+                            echo "No data";
+                          }
+                          ?>
+                        </td>
                         <td>                            
                           <!-- remove decor button -->
                           <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->

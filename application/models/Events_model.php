@@ -774,7 +774,7 @@
 		}
 
 		public function getEventTheme($eventID){
-			$query = $this->db->query("SELECT * FROM eventthemes WHERE eventID = $eventID");
+			$query = $this->db->query("SELECT themeID FROM eventthemes WHERE eventID = $eventID");
 			return $query->row();
 		}
 
@@ -789,15 +789,25 @@
 			return $query->result_array();
 		}
 
-		public function displayEventThemeDecors($currentThemeID){
-			//$eventID = $this->session->userdata('currentEventID');
-			$themeID = $this->session->userdata('currentThemeID');
-			//$decorID = $this->session->userdata('currentDecorID');
-
-			$query = $this->db->query("SELECT decorID, decorName, decorImage FROM theme NATURAL JOIN themedecor NATURAL JOIN decors WHERE themeID = $themeID");
-			//SELECT decorID, decorName, decorImage from theme natural join themedecor natural join decors where themeID='0002'
+		public function displayEventThemeDecors($eventThemeID){
+			$query = $this->db->query("SELECT * FROM decors JOIN eventdecors ON decors.decorsID = eventdecors.decorID WHERE themeID = $eventThemeID");
 
 			return $query->result_array();
+		}
+
+		public function chkDecExist($eventID, $decorID){
+			// check if the eventdecor being inserted already exists...
+			$query = $this->db->query("SELECT * FROM eventdecors WHERE eventID = $eventID AND decorID = $decorID");
+			return $query->result_array();
+		}
+
+		public function insertEventDecorTheme($eventID, $decorID){
+			// insert the decors of a theme [for an event] to the eventdecors table...
+			$data = array(
+				'eventID' => $eventID,
+				'decorID' => $decorID
+			);
+			$this->db->insert('eventdecors', $data);
 		}
 
 		//The following queries is meant for the calendar
