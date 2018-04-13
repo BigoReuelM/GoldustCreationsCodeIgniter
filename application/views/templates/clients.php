@@ -91,16 +91,16 @@
 <div id="addClient" class="modal fade" role="dialog">
 	<div class="modal-dialog">
 	  	<div class="modal-content">
-		    <div class="modal-header">
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">&times;</span>
-          </button>
-		      <h4 class="modal-title">Add New Client</h4>
-		    </div>
         <?php 
           $attributes = array("name" => "addNewClient", "id" => "addNewClient", "class" => "form-horizontal", "autocomplete" => "off");
           echo form_open("clients/addClient", $attributes);
         ?>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Add New Client</h4>
+        </div>
         <div id="the-message">
           
         </div>
@@ -161,6 +161,10 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="<?php echo base_url();?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 
 <script>
 	$(function () {
