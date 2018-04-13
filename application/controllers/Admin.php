@@ -395,6 +395,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				if ($this->form_validation->is_unique($serviceName, 'services.serviceName')) {
 					$this->admin_model->insertService($serviceName, $serviceDisk);
 
+					$data['serviceName'] = $serviceName;
+					$data['description'] = $serviceDisk;
+
 					$data['success'] = true;
 				}else{
 					$data['alert'] = true;

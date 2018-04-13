@@ -232,5 +232,15 @@
 
 			return $query->row();
 		}
+
+		public function getServiceDetails($id){
+			$this->db->select('*');
+			$this->db->form('services');
+			$this->db->where('serviceID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
 	}
  ?>

@@ -165,6 +165,7 @@
                 '<td>' + response.date + '</td>' +
               '</tr>'
             );
+            
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();
