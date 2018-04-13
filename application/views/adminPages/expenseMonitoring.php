@@ -52,8 +52,6 @@
                 </tr>
                 <?php
                     }
-                  }else{
-                    echo "0 data";
                   }
                 ?>
               </tbody>
@@ -135,8 +133,6 @@
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <script>
     $(function () {
-      $('#adminTable').DataTable()
-      $('#handlerTable').DataTable()
       $('#expenseTable').DataTable()
     })
   </script>
@@ -158,9 +154,22 @@
             '<span class="icon fa fa-ckeck"></span>' +
             ' New expense has been saved.' +
             '</div>');
+
+            $('td.dataTables_empty').remove();
+
+            $('#expenseTable').prepend(
+              '<tr>' +
+                '<td>' + response.receiver + '</td>' +
+                '<td>' + response.amount + '</td>' +
+                '<td>' + response.description + '</td>' +
+                '<td>' + response.date + '</td>' +
+              '</tr>'
+            );
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();
+
+
             // reset the form
             expensesDetails[0].reset();
             // close the message after seconds
