@@ -222,5 +222,25 @@
 		    $enum = explode("','", $vals[1]);
 		    return $enum;
 		}
+
+		public function getEmpName($id){
+			$this->db->select('concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('employeeID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
+		public function getServiceDetails($id){
+			$this->db->select('*');
+			$this->db->form('services');
+			$this->db->where('serviceID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
 	}
  ?>

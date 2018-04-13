@@ -357,13 +357,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			if ($this->form_validation->run()) {
 
-				$date = html_escape($this->input->post('expenseDate'));
+				$expenceDate = html_escape($this->input->post('expenseDate'));
+				$date = date_create($expenceDate);
+				$formatedDate = date_format($date, "M-d-Y");
+				$data['date'] = $formatedDate;
 				$amount = html_escape($this->input->post('expenseAmount'));
+				$data['amount'] = number_format($amount, 2);
 				$name = ucwords(html_escape($this->input->post('expenseName')));
+				$data['description'] = $name;
 				$rNum = html_escape($this->input->post('expenseReceipt'));
 				
-				
-				$this->admin_model->addExpenses($empID, $name, $date, $amount, $rNum);
+				$this->admin_model->addExpenses($empID, $name, $expenceDate, $amount, $rNum);
+
+				$data['receiver'] = $this->admin_model->getEmpName($empID)->employeeName;
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -388,6 +394,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				if ($this->form_validation->is_unique($serviceName, 'services.serviceName')) {
 					$this->admin_model->insertService($serviceName, $serviceDisk);
+
+					$data['serviceName'] = $serviceName;
+					$data['description'] = $serviceDisk;
 
 					$data['success'] = true;
 				}else{

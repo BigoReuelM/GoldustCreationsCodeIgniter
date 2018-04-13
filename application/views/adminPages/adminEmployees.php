@@ -156,9 +156,6 @@
   <script src="<?php echo base_url();?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
   <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
-  <!-- page script -->
 
 <script>
   $(function () {

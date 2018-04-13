@@ -38,7 +38,7 @@
                 <td><?php echo $a['serviceName']; ?></td>
                 <td><?php echo $a['description']; ?></td>
                 <td>
-                  <form role="form" method="post" action="<?php echo base_url('admin/deactivateServiceStatus') ?>">
+                  <form id="deactivateService" role="form" method="post" action="<?php echo base_url('admin/deactivateServiceStatus') ?>">
                     <input type="text" name="active" value="<?php echo($serviceID) ?> " hidden>
                     <button type="submit" class="btn btn-block btn-danger">Deactivate</button> 
                   </form>                  
@@ -75,7 +75,7 @@
                 <td><?php echo $ia['serviceName']; ?></td>
                 <td><?php echo $ia['description']; ?></td>
                 <td>
-                  <form role="form" method="post" action="<?php echo base_url('admin/activateServiceStatus') ?>">
+                  <form id="activateService" role="form" method="post" action="<?php echo base_url('admin/activateServiceStatus') ?>">
                     <input type="text" name="inactive" value="<?php echo($iID) ?>" hidden>
                     <button type="submit" class="btn btn-block btn-primary">Activate</button>
                   </form>
@@ -186,6 +186,19 @@
           '<span class="icon fa fa-check"></span>' +
           ' New service has been saved.' +
           '</div>');
+
+          $('td.dataTables_empty').remove();
+
+          $('#activeService').prepend(
+            '<tr>' +
+              '<td>' + response.serviceName + '</td>' +
+              '<td>' + response.serviceDisk + '</td>' +
+              '<td>' + '<button data-toggle="tooltip" title="Refresh to Use Feature" class="btn btn-block btn-danger" disabled>Deactivate</button> ' + '</td>' +
+            '</tr>'
+          );
+
+          $('[data-toggle="tooltip]').tooltip();
+
           $('.form-group').removeClass('has-error')
                 .removeClass('has-success');
           $('.text-danger').remove();
