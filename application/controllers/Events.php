@@ -343,11 +343,25 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventName'] =$this->events_model->getEventName($eventid);
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
-		// get theme id from event detail
-		
-		$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID);
+
 		$this->load->model('items_model');
 		$data['allDecors'] = $this->items_model->getAllDecors();
+		
+		// display the decors accdg to the selected theme...
+		$themeDet = $this->events_model->getEventTheme($eventid);
+		$eventTheme = $themeDet->themeID;
+		$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
+		// insert each [theme] decors to the eventdecors table
+		$thdec = $this->events_model->displayEventThemeDecors($eventTheme);
+		if (!empty($thdec)) {
+			foreach ($thdec as $dec) {
+				$chkExist = $this->events_model->chkDecExist($eventid, $dec['decorsID']);
+				if (empty($chkExist)) {
+					$this->events_model->insertEventDecorTheme($eventid, $dec['decorsID']);
+				}
+			}
+		}
+
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Decorations | Admin';	
 		}else{
@@ -946,16 +960,19 @@ class Events extends CI_Controller
 			redirect('events/eventEntourage');
 
 		}
-
+		/*
 		public function getThemeDecors(){
-			$themeID = $this->session->userdata('currentThemeID');
-			//$evID = $this->session->userdata('currentEventID');
+			//$themeID = $this->session->userdata('currentThemeID');
+			$evID = $this->session->userdata('currentEventID');
 			//$decorID = $this->session->userdata('currentDecorID');
-			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($themeID);
+
+			// get theme of an event
+			$eventTheme = $this->event_model->getEventTheme($evID);
+			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
 
 			redirect('events/eventDecors');
 
-		}
+		}*/
 
 		public function adminDecorsHome(){
 			$this->load->helper('directory');
