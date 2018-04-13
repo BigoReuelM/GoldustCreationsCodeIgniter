@@ -135,11 +135,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
-			$totalAmount = $this->transactions_model->totalAmount($tranID);
-			$data['totalPayments'] = $totalPayments;
-			$data['totalAmount'] = $totalAmount;		
-			$data['balance'] = $totalAmount->totalAmount - $totalPayments->total;
+			$data['totalAmount'] = $this->transactions_model->totalAmount($tranID);		
+			$data['balance'] = $this->transactions_model->getBalance($tranID);
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);		
 
 			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
@@ -385,7 +382,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$totalAmount = $this->transactions_model->totalAmount($tID);
 				$newTotalAmount = $totalAmount->totalAmount + $amount;
 				$this->transactions_model->updateTotalAmount($tID, $newTotalAmount);
-
+				$data['newTotalAmount'] = number_format($newTotalAmount, 2);
+				$data['balance'] = number_format($this->transactions_model->getBalance($tID), 2);
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -496,7 +494,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$dateTimeValidation = $this->transactions_model->getTimeNDate($transID);
 
-			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'depositAmt' => false, 'newDate' => false, 'newTime' => false);
+			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'deposit' => false, 'newDate' => false, 'newTime' => false);
 
 			$this->form_validation->set_rules('depositAmt', 'Deposit', 'trim|numeric|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('contactNumber', 'contactNumber', 'trim|numeric');
@@ -551,15 +549,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				if (!empty($depositAmount)) {
 					$this->transactions_model->upDepositAmount($depositAmount, $transID);	
-					$data['depositAmt'] = true;	
+					$data['deposit'] = true;
+					$data['depositAmt'] = number_format($depositAmount, 2);
+					$data['totalAmount'] = number_format($this->transactions_model->totalAmount($transID)->totalAmount, 2);
+					$data['balance'] = number_format($this->transactions_model->getBalance($transID), 2);	
 				}
 				if (!empty($date)) {
 					$this->transactions_model->upDate($date, $transID);
 					$data['newDate'] = true;
+					$newDate = date_create($date);
+					$data['newDateValue'] = date_format($newDate, "M-d-Y");
 				}
 				if (!empty($time)) {
 					$this->transactions_model->upTime($time, $transID);
-					$data['newTime'] = true;		
+					$data['newTime'] = true;
+					$data['newTimeValue'] = date("g:i a", strtotime($time));		
 				}
 
 				$data['success'] = true;
@@ -613,6 +617,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 			echo json_encode($data);
+			
+		}
+
+		public function refundDeposit(){
 			
 		}
 		

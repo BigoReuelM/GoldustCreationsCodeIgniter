@@ -190,6 +190,13 @@
 			return $query->row();
 		}
 
+		public function getBalance($id){
+			$totalAmount = $this->totalAmount($id)->totalAmount;
+			$totalAmountPaid = $this->totalAmountPaid($id)->total;
+			$balance = $totalAmount - $totalAmountPaid;
+			return $balance;
+		}
+
 		public function updateTotalAmount($tid, $amount){	
 			$data = array(
 				'totalAmount' => $amount
@@ -408,20 +415,33 @@
 			$this->db->update('transactions', $data);
 		}
 
+		public function getOldDepositAmount($id){
+			$this->db->select('depositAmt');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
 		public function upDepositAmount($depositAmount, $transID){
+
+			$oldDepositAmount = $this->getOldDepositAmount($transID)->depositAmt;
+
 			$data = array(
 				'depositAmt' => $depositAmount
 			);
-			$this->db->where('transactionID', $transID);
-			$this->db->update('transactions', $data);
-		}
 
-		public function upTotalAmount($totalAmount, $transID){
-			$data = array(
-				'totalAmount' => $totalAmount
-			);
 			$this->db->where('transactionID', $transID);
 			$this->db->update('transactions', $data);
+
+			$totalAmount = $this->totalAmount($transID)->totalAmount;
+
+			$total = $totalAmount - $oldDepositAmount;
+			$newTotal = $total + $depositAmount;
+
+			$this->updateTotalAmount($transID, $newTotal);
+			
 		}
 
 		public function upDate($date, $transID){

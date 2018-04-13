@@ -88,7 +88,7 @@
               </div>
               <div class="col-lg-6">             
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Deposited Amount</label>
+                  <label class="col-sm-2 control-label">Required Deposit</label>
                   <div class="col-sm-10">
                     <?php  
                       $formatedDepositedAmount = number_format($details->depositAmt, 2);
@@ -177,6 +177,7 @@
             <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
             <?php if ($this->session->userdata('role') === "admin"): ?>
               <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addCharges">Additional Payments</button>
+              <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#refundDeposit">Refund Deposit</button>
             <?php endif ?>
           </div>
       </div>
@@ -211,7 +212,7 @@
               <?php  
                 $formatedTotalAmount = number_format($totalAmount->totalAmount, 2);
               ?>
-              <input type="text" id="newTotalAmount" name="newTotalAmount" class="form-control" placeholder="<?php echo $formatedTotalAmount ?>" disabled>
+              <input type="text" id="totalAmountModal" name="totalAmountModal" class="form-control" placeholder="<?php echo $formatedTotalAmount ?>" disabled>
             </div>
           </div>
           <div class="form-group">
@@ -232,57 +233,98 @@
 </div>
 
 <!-- Finish Modal -->
-        <div class="modal fade" id="finish">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Finish Transaction</h4>
-              </div>
-              <div class="modal-body text-center">
-                <p>Are you sure you want to end this Transaction?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <form id="finishTransaction" method="post" action="<?php echo base_url('transactions/markFinish') ?>">
-                  <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
-                </form>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+<div class="modal fade" id="finish">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Finish Transaction</h4>
+      </div>
+      <div class="modal-body text-center">
+        <p>Are you sure you want to end this Transaction?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <form id="finishTransaction" method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+          <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- /Finish modal -->
 <!-- Cancel Modal -->
-      <div class="modal fade" id="cancel">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Cancel Transaction</h4>
-              </div>
-              <div class="modal-body text-center">
-                <p>Are you sure you want to cancel?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
-                  <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-                    <button type="submit" class="btn btn-primary">Confirm</button>
-                </form>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+<div class="modal fade" id="cancel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Cancel Transaction</h4>
+      </div>
+      <div class="modal-body text-center">
+        <p>Are you sure you want to cancel?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+        <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+          <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
+            <button type="submit" class="btn btn-primary">Confirm</button>
+        </form>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>  <!-- /.modal -->
 <!-- /Cancel Modal -->
+<!-- refund deposit modal -->
+
+<div class="modal fade" id="refundDeposit">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Refund Deposit</h4>
+      </div>
+      <form method="post" action="<?php echo base_url('transactions/markCancel') ?>" class="form-horizontal">
+        <div class="modal-body text-center">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Client Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" placeholder="<?php echo $details->clientName ?>" disabled>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Deposit Amount</label>
+            <div class="col-sm-10">
+              <?php  
+                $formatedDepositedAmountModal = number_format($details->depositAmt, 2);
+              ?>
+              <input type="text" id="dempositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
+            </div>
+          </div>
+        </div>   
+      </form>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>     
+            <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
+              <button type="submit" class="btn btn-primary">Confirm</button>        
+        </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- end refund modal -->
+
 <!-- jQuery 3 -->
 <script src="<?php echo base_url(); ?>/public/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -326,10 +368,6 @@
     var yNs = $('#yNs').val();
     var school = $('#school').val();
     var idType = $('#idType').val();
-    var depositAmt = $('#depositAmt').val();
-    var totalAmount = $('#totalAmount').val();
-    var time = $('#newTime').val();
-    var date = $('#newDate').val();
     $.ajax({
       type: 'POST',
       url: transactionDetails.attr('action'),
@@ -357,31 +395,31 @@
           transactionDetails[0].reset();
           // close the message after seconds
           if (response.contactNumber == true) {
-            $('#contactNumber').val(cNum);
+            $('#contactNumber').attr('placeholder', cNum);
           }
           if (response.address == true) {
-            $('#address').val(address);
+            $('#address').attr('placeholder', address);
           }
           if (response.yNs == true) {
-            $('#yNs').val(yNs);
+            $('#yNs').attr('placeholder', yNs);
           }
           if (response.school == true) {
-            $('#school').val(school);
+            $('#school').attr('placeholder', school);
           }
           if (response.idType == true) {
-            $('#idType').val(idType);
+            $('#idType').attr('placeholder', idType);
           }
-          if (response.depositAmt == true) {
-            $('#depositAmt').val(depositAmt);  
-          }
-          if (response.totalAmount == true) {
-            $('#totalAmount').val(totalAmount);
+          if (response.deposit == true) {
+            $('#depositAmt').attr('placeholder', response.depositAmt);  
+            $('#totalAmount').attr('placeholder', response.totalAmount);
+            $('#balance').attr('placeholder', response.balance);
+            $('#totalAmountModal').attr('placeholder', response.totalAmount);
           }
           if (response.newTime == true) {
-            $('#time').val(time);
+            $('#time').attr('placeholder', response.newTimeValue);
           }
           if (response.newDate == true) {
-            $('#date').val(date);
+            $('#date').attr('placeholder', response.newDateValue);
           }
 
           $('.alert-success').delay(500).show(10, function() {
@@ -429,6 +467,11 @@
             $('.text-danger').remove();
             // reset the form
             chargeDetails[0].reset();
+
+            $('#totalAmount').attr('placeholder', response.newTotalAmount);
+            $('#balance').attr('placeholder', response.balance);
+            $('#totalAmountModal').attr('placeholder', response.newTotalAmount);
+
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {
