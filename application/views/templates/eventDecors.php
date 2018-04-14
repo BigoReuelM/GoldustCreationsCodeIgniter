@@ -119,34 +119,8 @@ input[type=submit] {
           <h3 class="box-title">List Of Decors</h3>    
         </div>   
               <div class="col-lg-3">
-                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Add New Decors </button>
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addNewDecorModal">Add New Decors </button>
               </div> 
-              <!--<div class="col-lg-3">
-                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Save </button>
-              </div> 
-              
-                Add new decors 
-                <div class="modal fade" id="myModal" role="dialog">
-                  <div class="modal-dialog">
-
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
-                      </div>
-                      <div class="modal-body">
-                        <p>Some text in the modal.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
-
-                <!-- End -->
-      </div>
-    </div>
           
           <!-- /.box-header -->
           <div class="box-body">
@@ -163,28 +137,27 @@ input[type=submit] {
                 </thead>
                 <tbody>
                   <?php 
-                    //$eventID = $eventDetail['eventID'];
-                    if (!empty($themeDecors)) {
-                      foreach ($themeDecors as $td) {
-                        $themeID = $td['themeID'];
+                    //$allEventDec = array_merge($themeDecors, $eventDecors);
+                    if (!empty($eventDecors)) { 
+                      foreach ($eventDecors as $td) {
+                        //$themeID = $td['themeID'];
                         $decorID = $td['decorsID'];
                     ?>
                       <tr>
                         <td><?php echo $td['decorName']; ?></td>
                         <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $td['quantity']; ?>"></td>
                         <td>
-                          <?php //echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?>
                           <?php
                           if (!empty($eventThemeDet)) {
                             //$evtThemeID = $eventThemeDet->themeID;
-                            $decors = $td['decorsID'];
+                            //$decors = $td['decorsID'];
                             if (!empty($decortypesmap)) {
                               foreach ($decortypesmap as $dtm) {
                                 // files inside uploads/decors/$dtm/
                                 $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
                                 foreach ($files as $f) {
                                   $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                                  if ($f_no_extension === $decors) { ?>
+                                  if ($f_no_extension === $decorID) { ?>
                                     <div class="thumbnail">
                                       <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
                                     </div>
@@ -203,7 +176,6 @@ input[type=submit] {
                           <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
                           <div class="col-md-3 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                              <!-- add onsubmit="return false" on form to prevent page from reloading, returns no value tho -->
                               <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button>  
                           </div>
                           <!-- change decor button -->
@@ -225,24 +197,53 @@ input[type=submit] {
     </div>
   </div>
 
-        <!-- modals -->
-        <!-- add new decor modal 
-        <div class="modal fade" id="addnewdecor" role="dialog">
+<!-- MODALS -->  
+        <!-- add new decor/event decor -->      
+        <div class="modal fade" id="addNewDecorModal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add New Decor</h4>
+                <h4 class="modal-title">Add New Decor From Computer</h4>
               </div>
               <div class="modal-body">
-                <p>Add new decor here....</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <form action="<?php echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="decor_name" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>Color</label>
+                    <input type="text" name="decor_color" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label>Type</label>
+                    <select class="form-control" name="decor_type" id="decor_type">
+                    <?php
+                      if (!empty('decorTypes')) {
+                        foreach ($decorTypes as $dt) { ?>
+                          <option><?php echo $dt ?></option>
+                        <?php }
+                          }
+                        ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Image</label>
+                      <div class="form-group">
+                        <label>Select files from your computer</label>
+                        <input type="file" name="userfile" >
+                      </div>
+                  </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-        </div>-->
+        </div>
         <!-- change decor modal -->
         <div class="modal fade" id="changedecor" role="dialog">
           <div class="modal-dialog">
