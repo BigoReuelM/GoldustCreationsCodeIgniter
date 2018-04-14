@@ -18,10 +18,10 @@
           </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav navbar-centered collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <li><a href="<?php echo base_url('transactions/transactionDetails') ?>">Details</a></li>
-              <li><a href="<?php echo base_url('transactions/transactionServices') ?>">Services</a></li>
-              <li><a href="<?php echo base_url('transactions/transactionPayments') ?>">Payments</a></li>
-              <li><a href="<?php echo base_url('transactions/transactionAppointments') ?>">Appointments</a></li>
+              <li class="<?php if($pageName === 'tdetails'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/transactionDetails') ?>">Transaction Details</a></li>
+              <li class="<?php if($pageName === 'tservices'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/transactionServices') ?>">Transaction Services</a></li>
+              <li class="<?php if($pageName === 'tpayments'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/transactionPayments') ?>">Transaction Payments</a></li>
+              <li class="<?php if($pageName === 'tappointments'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/transactionAppointments') ?>">Transaction Appointments</a></li>
             </ul>
         </div><!-- /.container-fluid -->
       </nav>

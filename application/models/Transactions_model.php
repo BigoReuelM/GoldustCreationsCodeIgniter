@@ -336,10 +336,11 @@
 			return $query->result_array();
 		}
 
-		public function finishTransaction($transID){
+		public function finishTransaction($transID, $date){
 
 			$data = array(
-				'transactionstatus' => "finished"
+				'transactionstatus' => "finished",
+				'finishDate' => $date
 			);
 
 			$this->db->where('transactionID', $transID);
@@ -347,10 +348,21 @@
 
 		}
 
-		public function cancelTransaction($transID){
+		public function cancelTransaction($transID, $date){
 
 			$data = array(
-				'transactionstatus' => "cancelled"
+				'transactionstatus' => "cancelled",
+				'cancelledDate' =>$date
+			);
+
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+		}
+
+		public function refundDeposit($transID, $amount){
+
+			$data = array(
+				'refundAmt' => $amount
 			);
 
 			$this->db->where('transactionID', $transID);
@@ -415,7 +427,7 @@
 			$this->db->update('transactions', $data);
 		}
 
-		public function getOldDepositAmount($id){
+		public function getDepositAmount($id){
 			$this->db->select('depositAmt');
 			$this->db->from('transactions');
 			$this->db->where('transactionID', $id);
@@ -426,7 +438,7 @@
 		}
 		public function upDepositAmount($depositAmount, $transID){
 
-			$oldDepositAmount = $this->getOldDepositAmount($transID)->depositAmt;
+			$oldDepositAmount = $this->getDepositAmount($transID)->depositAmt;
 
 			$data = array(
 				'depositAmt' => $depositAmount
@@ -473,6 +485,7 @@
 
 			return $query->row();
 		}
+
 	}
 
 ?>

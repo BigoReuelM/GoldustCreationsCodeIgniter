@@ -126,6 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionDetails(){
+			$page['pageName'] = "tdetails";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -151,17 +152,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}
 			$this->load->view("templates/transactionDetails.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
 		public function transactionServices(){
+			$page['pageName'] = "tservices";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -187,11 +189,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}
 			$this->load->view("templates/transactionServices.php", $data);
 			$this->load->view("templates/footer.php");
@@ -199,6 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionAppointments(){
+			$page['pageName'] = "tappointments";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -221,11 +224,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}
 			$this->load->view("templates/transactionAppointments.php", $data);
 			$this->load->view("templates/footer.php");
@@ -233,6 +236,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionPayments(){
+			$page['pageName'] = "tpayments";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -260,11 +264,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transactionNav.php");
+				$this->load->view("templates/transactionNav.php", $page);
 			}
 			$this->load->view("templates/transactionPayments.php", $data);
 			$this->load->view("templates/footer.php");
@@ -461,21 +465,93 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function markFinish(){
-			$id = $this->input->post('finish');
+			$data = array('success' => false, 'messages' => array());
 
-			$this->transactions_model->finishTransaction($id);
+			$this->form_validation->set_rules('finishDate', 'Finish Date', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			
+			if ($this->form_validation->run()) {
+				$id = $this->input->post('finish');
+				$date = $this->input->post('finishDate');
+				$this->transactions_model->finishTransaction($id, $date);
 
-			redirect('transactions/finishedTransactions');
+				$data['success'] = true;
+
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function markCancel(){
-			$id = $this->input->post('cancel');
+			$data = array('success' => false, 'messages' => array());
 
-			$this->transactions_model->cancelTransaction($id);
+			$this->form_validation->set_rules('cancellDate', 'Finish Date', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('transactions/cancelledTransactions');
+			if ($this->form_validation->run()) {
+				$id = $this->input->post('cancel');
+				$date = $this->input->post('cancellDate');
+				$this->transactions_model->cancelTransaction($id, $date);
+
+				$data['success'] = true;
+
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
 			
 		}
+
+		public function refundDeposit(){
+			$data = array('success' => false,'lower' => false, 'higher' => false,'remainingDeposit' => 0, 'messages' => array());
+
+			$this->form_validation->set_rules('refundAmount', 'Amount', 'trim|required|greater_than[0]');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$id = $this->input->post('refund');
+
+				$depositAmount = $this->transactions_model->getDepositAmount($id)->depositAmt;
+				
+				$amount = $this->input->post('refundAmount');
+
+				if ($depositAmount > $amount) {
+					$remDeposit = number_format($amount - $depositAmount, 2);
+					$data['lower'] = true;
+					$data['remainingDeposit'] = $remDeposit;					
+					$this->transactions_model->refundDeposit($id, $amount);
+
+					$data['success'] = true;
+				}
+
+				if($depositAmount == $amount){
+					$this->transactions_model->refundDeposit($id, $amount);
+
+					$data['success'] = true;	
+				}
+
+				if($depositAmount < $amount){
+					$data['higher'] = true;
+					$data['success'] = true;
+				}
+
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+			
+		}		
 
 		public function addTransaction(){
 			$clientID = $this->input->post('clientID');
@@ -617,10 +693,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 
 			echo json_encode($data);
-			
-		}
-
-		public function refundDeposit(){
 			
 		}
 		

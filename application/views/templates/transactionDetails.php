@@ -241,16 +241,22 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Finish Transaction</h4>
       </div>
-      <div class="modal-body text-center">
-        <p>Are you sure you want to end this Transaction?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <form id="finishTransaction" method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+      <form id="finishTransaction" method="post" action="<?php echo base_url('transactions/markFinish') ?>">
+        <div class="modal-body text-center form-horizontal">
+          <p>Are you sure you want to finish this Transaction?</p>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Finish Date</label>
+            <div class="col-lg-9">
+              <input type="date" name="finishDate" id="finishDate" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
-            <button type="submit" class="btn btn-primary">Confirm</button>
-        </form>
-      </div>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+      </form>
     </div>
     <!-- /.modal-content -->
   </div>
@@ -267,16 +273,22 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Cancel Transaction</h4>
       </div>
-      <div class="modal-body text-center">
-        <p>Are you sure you want to cancel?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <form method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+      <form id="cancellTransaction" method="post" action="<?php echo base_url('transactions/markCancel') ?>">
+        <div class="modal-body text-center form-horizontal">
+          <p>Are you sure you want to cancel?</p>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Cancell Date</label>
+            <div class="col-lg-9">
+              <input type="date" name="cancellDate" id="cancellDate" class="form-control">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
           <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-            <button type="submit" class="btn btn-primary">Confirm</button>
-        </form>
-      </div>
+          <button type="submit" class="btn btn-primary">Confirm</button>
+        </div>
+      </form>
     </div>
     <!-- /.modal-content -->
   </div>
@@ -293,30 +305,40 @@
           <span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Refund Deposit</h4>
       </div>
-      <form method="post" action="<?php echo base_url('transactions/markCancel') ?>" class="form-horizontal">
+      <div id="refundConfirm">
+        
+      </div>
+      <form id="refundTransactionDeposit" method="post" action="<?php echo base_url('transactions/refundDeposit') ?>" class="form-horizontal" autocomplete="off">
         <div class="modal-body text-center">
           <div class="form-group">
-            <label class="col-sm-2 control-label">Client Name</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 control-label">Client Name</label>
+            <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="<?php echo $details->clientName ?>" disabled>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">Deposit Amount</label>
-            <div class="col-sm-10">
+            <label class="col-sm-3 control-label">Deposit Amount</label>
+            <div class="col-sm-9">
               <?php  
                 $formatedDepositedAmountModal = number_format($details->depositAmt, 2);
               ?>
               <input type="text" id="dempositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Refund Amount</label>
+            <div class="col-lg-9">
+              <input type="text" id="refundAmount" name="refundAmount" placeholder="Enter amount here...." class="form-control">
+            </div>
+          </div>
         </div>   
-      </form>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>     
-            <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-              <button type="submit" class="btn btn-primary">Confirm</button>        
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</butto>
+          <input type="text" value="<?php echo $details->transactionID ?>" name="refund" hidden>
+          <button type="submit" class="btn btn-primary">Confirm</button>
         </div>
+      </form>
     </div>
     <!-- /.modal-content -->
   </div>
@@ -472,6 +494,136 @@
             $('#balance').attr('placeholder', response.balance);
             $('#totalAmountModal').attr('placeholder', response.newTotalAmount);
 
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+
+    $('#finishTransaction').submit(function(e){
+      e.preventDefault();
+
+      var finishDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: finishDetails.attr('action'),
+        data: finishDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            
+            window.location.href = "<?php echo base_url('transactions/finishedTransactions') ?>";
+
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+
+    $('#cancellTransaction').submit(function(e){
+      e.preventDefault();
+
+      var cancellDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: cancellDetails.attr('action'),
+        data: cancellDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            
+            window.location.href = "<?php echo base_url('transactions/cancelledTransactions') ?>";
+
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+
+    $('#refundTransactionDeposit').submit(function(e){
+      e.preventDefault();
+
+      var refundDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: refundDetails.attr('action'),
+        data: refundDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            if (response.higher == true) {
+              $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Amount you entered is higher than the deposited amount.' +
+              '</div>');
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+              // reset the form
+              refundDetails[0].reset();
+            } else if (response.lower == true) {
+              $('#refundConfirm').append('<div class="alert alert-warning text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Refund Recorded. The amount refunded is lower than the deposited amount' +
+              '</div>');
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+              // reset the form
+              refundDetails[0].reset();  
+            } else if(response.higher == false && response.lower == false){
+              $('#refundConfirm').append('<div class="alert alert-success text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Refund Recorded.' +
+              '</div>');
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+              // reset the form
+              refundDetails[0].reset();
+            }
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {
