@@ -125,7 +125,7 @@ input[type=submit] {
                 <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Save </button>
               </div> 
               
-                 Add new decors 
+                Add new decors 
                 <div class="modal fade" id="myModal" role="dialog">
                   <div class="modal-dialog">
 
@@ -175,19 +175,19 @@ input[type=submit] {
                         <td>
                           <?php //echo '<img class = "eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode( $td['decorImage'] ) . '"/>' ?>
                           <?php
-                          if (!empty($eventTheme)) {
-                            $currentThemeID = $eventTheme->themeID;
-                            $decors = $eventTheme->decorID;
+                          if (!empty($eventThemeDet)) {
+                            //$evtThemeID = $eventThemeDet->themeID;
+                            $decors = $td['decorsID'];
                             if (!empty($decortypesmap)) {
-                            foreach ($decortypesmap as $dtm) {
-                              // files inside uploads/designs/type/
-                              $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
-                              foreach ($files as $f) {
-                                $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                                if ($f_no_extension === $decors) { ?>
-                                  <div class="thumbnail">
-                                    <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
-                                  </div>
+                              foreach ($decortypesmap as $dtm) {
+                                // files inside uploads/decors/$dtm/
+                                $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                                foreach ($files as $f) {
+                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                  if ($f_no_extension === $decors) { ?>
+                                    <div class="thumbnail">
+                                      <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                    </div>
                           <?php     
                                 }
                               }
@@ -263,7 +263,7 @@ input[type=submit] {
                       </tr>
                     </thead>
                     <tbody>
-                      <form role="form" method="post" action="">
+                      <!--<form role="form" method="post" action="">
                       <?php
                       /*foreach ($allDecors as $dec) { ?>
                       <tr>
@@ -280,7 +280,7 @@ input[type=submit] {
                       </tr>
                       <?php  }*/
                       ?>
-                      </form>
+                      </form>-->
                     </tbody>
                   </table>
                 </div>

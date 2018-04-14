@@ -329,6 +329,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventDecors(){
+		$this->load->helper('directory');
 		$clientID = $this->session->userdata('clientID');
 		$eventid = $this->session->userdata('currentEventID');
 		$decorid = $this->session->userdata('currentDecorID');
@@ -343,13 +344,19 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['eventName'] =$this->events_model->getEventName($eventid);
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
+		// get all folders (types) inside the design folder
+		$data['decortypesmap'] = directory_map('./uploads/decors/', 1);
 
 		$this->load->model('items_model');
 		$data['allDecors'] = $this->items_model->getAllDecors();
 		
 		// display the decors accdg to the selected theme...
 		$themeDet = $this->events_model->getEventTheme($eventid);
-		$eventTheme = $themeDet->themeID;
+		// ...as well as pass to view, along with other info...
+		$data['eventThemeDet'] = $this->events_model->getEventTheme($eventid);
+		// store event theme ID to variable...
+		$eventTheme = $themeDet->themeID;		
+		// display event theme decors
 		$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
 		// insert each [theme] decors to the eventdecors table
 		$thdec = $this->events_model->displayEventThemeDecors($eventTheme);

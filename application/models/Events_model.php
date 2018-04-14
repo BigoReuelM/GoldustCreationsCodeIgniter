@@ -774,7 +774,7 @@
 		}
 
 		public function getEventTheme($eventID){
-			$query = $this->db->query("SELECT themeID FROM eventthemes WHERE eventID = $eventID");
+			$query = $this->db->query("SELECT * FROM eventthemes WHERE eventID = $eventID");
 			return $query->row();
 		}
 
