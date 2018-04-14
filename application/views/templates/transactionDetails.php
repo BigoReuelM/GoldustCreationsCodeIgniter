@@ -20,24 +20,60 @@
               <span class="glyphicon glyphicon-circle-arrow-left" ></span>
         </a>
       </div>
-      <?php if ($this->session->userdata('role') === "admin"): ?>
-        <?php if ($details->transactionstatus === "on-going"): ?>
-          
-              <div class="col-lg-3">
-                <button type="submit" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#finish">Finish</button>
-              </div>
-              <div class="col-lg-3">
-                <button type="submit" class="btn btn-block btn-danger btn-lg" data-toggle="modal" data-target="#cancel">Cancel</button>
-              </div>
-                 
-        <?php endif ?>
-      <?php endif ?>
     </div>
   </section>
   <section class="content container-fluid">
       <div class="box box-info">
         <div class="box-header">
-          <h3 class="box-title">Transaction Details</h3>
+          <div class="row">
+            <div class="col-lg-12">
+              <nav class="navbar">
+                <div class="navbar-header">
+                  <h3 class="box-title">Transaction Details</h3>
+                </div>
+                <div class="navbar-custom-menu pull-right">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown tasks-menu">
+                      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <i class="fa fa-cog"></i>
+                        <span class="label label-info">Actions</span>
+                      </a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <ul class="menu">
+                            <li class="text-center">
+                              <a href="#addCharges" type="button" data-toggle="modal" data-target="#addCharges">
+                                <i class="fa fa-money"></i>
+                                <span>Additional Payments</span>
+                              </a>
+                            </li>
+                            <li class="text-center">
+                              <a href="#refundDeposit" type="button" data-toggle="modal" data-target="#refundDeposit">
+                                <i class="fa fa-money"></i>
+                                <span>Refund Deposit</span>
+                              </a>
+                            </li>
+                            <li class="text-center">
+                              <a href="#finish" type="button" data-toggle="modal" data-target="#finish">
+                                <i class="fa fa-check"></i>
+                                <span>Finish Event</span>
+                              </a>
+                            </li>
+                            <li class="text-center">
+                              <a href="#cancel" type="button" data-toggle="modal" data-target="#cancel">
+                                <i class="fa fa-close"></i>
+                                <span>Cancel Event</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
           <div id="updateConfirmation">
             
           </div>
@@ -175,10 +211,6 @@
           </div>
           <div class="box-footer">  
             <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-            <?php if ($this->session->userdata('role') === "admin"): ?>
-              <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addCharges">Additional Payments</button>
-              <button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#refundDeposit">Refund Deposit</button>
-            <?php endif ?>
           </div>
       </div>
      <div class="control-sidebar-bg"></div>             
@@ -594,6 +626,8 @@
         success: function(response){
           if (response.success == true) {
             if (response.higher == true) {
+              $('div.alert-danger').remove();
+              $('div.alert-warning').remove();
               $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
               ' Amount you entered is higher than the deposited amount.' +
@@ -604,9 +638,11 @@
               // reset the form
               refundDetails[0].reset();
             } else if (response.lower == true) {
+              $('div.alert-danger').remove();
+              $('div.alert-warning').remove();
               $('#refundConfirm').append('<div class="alert alert-warning text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
-              ' Refund Recorded. The amount refunded is lower than the deposited amount' +
+              ' The amount you entered is lower than the deposited amount' +
               '</div>');
               $('.form-group').removeClass('has-error')
                     .removeClass('has-success');

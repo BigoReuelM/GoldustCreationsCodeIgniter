@@ -524,11 +524,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$amount = $this->input->post('refundAmount');
 
 				if ($depositAmount > $amount) {
-					$remDeposit = number_format($amount - $depositAmount, 2);
 					$data['lower'] = true;
-					$data['remainingDeposit'] = $remDeposit;					
-					$this->transactions_model->refundDeposit($id, $amount);
-
 					$data['success'] = true;
 				}
 
