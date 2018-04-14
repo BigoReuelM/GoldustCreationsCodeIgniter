@@ -91,7 +91,7 @@
           <?php if ($balance <= 0): ?>
             <div class="alert alert-danger text-center">
               <span class="icon fa fa-hand-stop-o"></span>
-              <span>This event is fully paid!</span>
+              <span>This transaction is fully paid!</span>
             </div>
           <?php endif ?>
           <?php if ($balance > 0): ?>

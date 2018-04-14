@@ -22,6 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function ongoingTransactions(){
+			$page['pageName'] = "ongoing";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -44,12 +45,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}
 			$this->load->view("templates/ongoingTransactions.php", $data);
@@ -57,6 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function finishedTransactions(){
+			$page['pageName'] = "finished";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -78,12 +80,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}
 			$this->load->view("templates/finishedTransactions.php", $data);
@@ -92,6 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function cancelledTransactions(){
+			$page['pageName'] = "cancelled";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -113,12 +116,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			if ($empRole === 'admin') {
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}else{
 
 				$this->load->view("templates/header.php", $notif);
-				$this->load->view("templates/transNav.php");
+				$this->load->view("templates/transNav.php", $page);
 
 			}
 			$this->load->view("templates/cancelledTransactions.php", $data);
@@ -524,11 +527,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$amount = $this->input->post('refundAmount');
 
 				if ($depositAmount > $amount) {
-					$remDeposit = number_format($amount - $depositAmount, 2);
 					$data['lower'] = true;
-					$data['remainingDeposit'] = $remDeposit;					
-					$this->transactions_model->refundDeposit($id, $amount);
-
 					$data['success'] = true;
 				}
 

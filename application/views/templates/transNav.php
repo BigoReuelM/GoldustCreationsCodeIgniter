@@ -15,9 +15,9 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav navbar-centered collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <li><a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Ongoing Transactions</a></li>
-        <li><a href="<?php echo base_url('transactions/finishedTransactions') ?>">Finished Transactions</a></li>
-        <li><a href="<?php echo base_url('transactions/cancelledTransactions') ?>">Cancelled Transactions</a></li>
+        <li class="<?php if($pageName === 'ongoing'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Ongoing Transactions</a></li>
+        <li class="<?php if($pageName === 'finished'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/finishedTransactions') ?>">Finished Transactions</a></li>
+        <li class="<?php if($pageName === 'cancelled'){ echo 'active';} ?>"><a href="<?php echo base_url('transactions/cancelledTransactions') ?>">Cancelled Transactions</a></li>
       </ul>
     </div><!-- /.container-fluid -->
   </nav>
