@@ -158,6 +158,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventDetails(){
+		$page['pageName'] = "details";
 		$id = $this->session->userdata('currentEventID');
 		$clientID = $this->session->userdata('clientID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -189,11 +190,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php");
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php");			
+			$this->load->view("templates/eventNav.php", $page);			
 		}
 		$this->load->view("templates/eventDetails.php", $data);
 		$this->load->view("templates/footer.php");
@@ -226,6 +227,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventStaff(){
+		$page['pageName'] = "staff";
 		$empRole = $this->session->userdata('role');
 		$id = $this->session->userdata('currentEventID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -246,11 +248,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php");
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php");			
+			$this->load->view("templates/eventNav.php", $page);			
 		}
 		$this->load->view("templates/eventStaff.php", $data);
 		$this->load->view("templates/footer.php");
@@ -258,6 +260,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventServices(){
+		$page['pageName'] = "services";
 		$id = $this->session->userdata('currentEventID');
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -280,11 +283,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php");
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php");			
+			$this->load->view("templates/eventNav.php", $page);			
 		}
 		$this->load->view("templates/eventServices.php", $data);
 		$this->load->view("templates/footer.php");
@@ -292,6 +295,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventEntourage(){
+		$page['pageName'] = "entourage";
 		$id = $this->session->userdata('currentEventID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -316,12 +320,12 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}
 		$this->load->view("templates/eventEntourage.php", $data);
@@ -329,6 +333,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventDecors(){
+		$page['pageName'] = "decors";
 		$this->load->helper('directory');
 		$clientID = $this->session->userdata('clientID');
 		$eventid = $this->session->userdata('currentEventID');
@@ -382,12 +387,12 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}
 		$data['eventdecors'] = $this->events_model->getDecors($eventid);
@@ -396,6 +401,7 @@ class Events extends CI_Controller
 	}
 
 	public function payment(){
+		$page['pageName'] = "payments";
 		$currentEvent = $this->session->userdata('currentEventID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -424,12 +430,12 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}
 		$this->load->view("templates/payment.php", $data);
@@ -437,6 +443,7 @@ class Events extends CI_Controller
 	}
 
 	public function appointments(){
+		$page['pageName'] = "appointments";
 		$currentEvent = $this->session->userdata('currentEventID');
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -461,12 +468,12 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}else{
 			
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNav.php", $data);
+			$this->load->view("templates/eventNav.php", $page);
 			
 		}
 		$this->load->view("templates/appointments.php", $data);
