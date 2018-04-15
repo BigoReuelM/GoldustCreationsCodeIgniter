@@ -201,9 +201,6 @@
         if(response.balance == true){
           if (response.success == true) {
 
-            var paymentID = response.paymentID;
-            var eventBalance = response.balanceAmount - amount;
-
             $('.alert-success').remove();
 
             // if success we would show message
@@ -218,7 +215,7 @@
                     '<span>New Balance: </span>' +
                   '</div>' +
                   '<div class="col-lg-6">' +
-                    '<strong>' + eventBalance + '</strong>'+
+                    '<strong>' + response.balanceAmount + '</strong>'+
                   '</div>' +
                 '</div>' +
               '</div>'
@@ -226,10 +223,9 @@
 
             $('#paymentTableBody').prepend(
               '<tr>' +
-                '<td>' + paymentID + '</td>' +
-                '<td>' + amount + '</td>' +
-                '<td>' + date + '</td>' +
-                '<td>' + time + '</td>' +
+                '<td>' + response.receiver + '</td>' +
+                '<td>' + response.dateNtime + '</td>' +
+                '<td>' + response.paidAmount + '</td>' +
               '</tr>'
             );
 
@@ -258,6 +254,10 @@
           $('.alert-success').remove();
 
           $('.alert-danger').remove();
+
+          $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+          $('.text-danger').remove();
 
           $('#the-message').append(
             '<div class="alert alert-danger text-center">' +

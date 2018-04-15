@@ -657,17 +657,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$clientID = $this->session->userdata('clientID');
 
-			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => true, 'balanceAmount' => 0);
+
 
 			$totalAmount = $this->transactions_model->totalAmount($transactionID);
 			$totalAmountPaid = $this->transactions_model->totalAmountPaid($transactionID);
 
-			$transactionBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
-
-			if ($transactionBalance > 0) {
-				$data['balance'] = true;
-				$data['balanceAmount'] = $transactionBalance;
-			}
+			$transactionBalance = $totalAmount->totalAmount - $totalAmountPaid->total;
 
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
@@ -679,16 +675,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$time = $this->input->post('time');
 				$amount = $this->input->post('amount');
 				
-				$paymentID = $this->transactions_model->addTransactionPayment($clientID, $empID, $transactionID, $date, $time, $amount);
+				$this->transactions_model->addTransactionPayment($clientID, $empID, $transactionID, $date, $time, $amount);
+				$newTotalAmountPaid = $this->transactions_model->totalAmountPaid($transactionID);
 
-				$data['paymentID'] = $paymentID;
+				$newTransactionBalance = $totalAmount->totalAmount - $newTotalAmountPaid->total;
 
+				$data['receiver'] = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');				
+				$data['balanceAmount'] = number_format($newTransactionBalance, 2);
+				$data['paidAmount'] = number_format($amount, 2);
+				$newDate = date_create($date);
+				$newDateFormated = date_format($newDate, "M-d-Y");
+				$newTimeFormated = date("g:i a", strtotime($time));
+				$data['dateNtime'] = $newDateFormated . " " . $newTimeFormated;
 				$data['success'] = true;
 				
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
 				}
+				if ($transactionBalance <= 0) {
+					$data['balance'] = false;
+				}
+				
 			}
 
 			echo json_encode($data);
