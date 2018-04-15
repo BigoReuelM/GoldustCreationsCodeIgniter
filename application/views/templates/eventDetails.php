@@ -27,7 +27,7 @@
               <ul class="nav navbar-nav">
                 <li class="dropdown tasks-menu">
                   <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                    <i class="fa fa-cog"></i>
+                    <i class="fa fa-cogs"></i>
                     <span class="label label-info">Actions</span>
                   </a>
                   <ul class="dropdown-menu">

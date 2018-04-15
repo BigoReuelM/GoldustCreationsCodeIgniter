@@ -781,8 +781,8 @@ class Events extends CI_Controller
 			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
 			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
 			$this->form_validation->set_rules('package', 'Package Type', 'trim');
-			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
-			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
 			$this->form_validation->set_rules('location', 'Location', 'trim');
 			$this->form_validation->set_rules('type', 'Type', 'trim');
 			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');
