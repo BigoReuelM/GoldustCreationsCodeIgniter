@@ -103,18 +103,7 @@
 		}
 
 		public function getDecors($eventID){
-			//$eID = $this->session->userdata('employeeID');
-			//$evntID = $this->session->userdata('currentEventID');
-			// $this->db->select('*');
-			// $this->db->from('eventdecors');
-			// $this->db->join('decors', 'eventdecors.decorID = decors.decorsID');
-			// //$this->db->join('events', 'eventdecors.eventID = events.eventID');
-			// //$this->db->where('employeeID', $employeeID);
-			// $this->db->where('eventID', $eventID);
-			// $query = $this->db->get();
-			// return $query->result_array();
-
-			$query = $this->db->query("SELECT * FROM eventdecors NATURAL JOIN decors where eventID = $eventID GROUP BY color ORDER BY decorName");
+			$query = $this->db->query("SELECT * FROM eventdecors JOIN decors ON eventdecors.decorID = decors.decorsID WHERE eventID = $eventID GROUP BY decorsID ORDER BY decorName");
 			return $query->result_array();
 		}
 
@@ -774,7 +763,7 @@
 		}
 
 		public function getEventTheme($eventID){
-			$query = $this->db->query("SELECT themeID FROM eventthemes WHERE eventID = $eventID");
+			$query = $this->db->query("SELECT * FROM eventthemes WHERE eventID = $eventID");
 			return $query->row();
 		}
 
@@ -995,6 +984,14 @@
 			}else{
 				return false;
 			}
+		}
+
+		public function addNewEventDecor($eventID, $decID){
+			$data = array(
+				'eventID' => $eventID,
+				'decorID' => $decID
+			);
+			$this->db->insert('eventdecors', $data);
 		}
 	}
 
