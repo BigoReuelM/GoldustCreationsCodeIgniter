@@ -5,9 +5,12 @@
 	class Items_model extends CI_model
 	{		
 		public function getAllDecors(){
-			$this->db->select('*');
+			// get all decors W/O THEME 
+			/*$this->db->select('*');
 			$this->db->from('decors');
-			$query = $this->db->get();
+			$this->db->where('themeID', 'NULL');
+			$query = $this->db->get();*/
+			$query = $this->db->query("SELECT * FROM decors WHERE themeID IS NULL");
 			return $query->result_array();
 		}
 

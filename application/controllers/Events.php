@@ -364,7 +364,7 @@ class Events extends CI_Controller
 		$thdec = $this->events_model->displayEventThemeDecors($eventTheme);
 		if (!empty($thdec)) {
 			foreach ($thdec as $dec) {
-				$chkExist = $this->events_model->chkDecExist($eventid, $dec['decorsID']);
+				$chkExist = $this->events_model->chkEvtDecExist($eventid, $dec['decorsID']);
 				if (empty($chkExist)) {
 					$this->events_model->insertEventDecorTheme($eventid, $dec['decorsID']);
 				}
@@ -1304,6 +1304,14 @@ class Events extends CI_Controller
 
 				$this->eventDecors();
 			}
+		}
+
+		public function addExstEventDec(){
+			// add an existing decor to the eventdecors table
+			$decID = html_escape($this->input->post('addExstDecor'));
+			$eventID = $this->session->userdata('currentEventID');
+			$this->events_model->addNewEventDecor($eventID, $decID);
+			$this->eventDecors();
 		}
 	}
 

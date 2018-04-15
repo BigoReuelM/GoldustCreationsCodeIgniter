@@ -784,7 +784,13 @@
 			return $query->result_array();
 		}
 
-		public function chkDecExist($eventID, $decorID){
+		public function chkDecExist($decorID){
+			// check if the decor being inserted already exists...
+			$query = $this->db->query("SELECT * FROM decors WHERE decorID = $decorID");
+			return $query->result_array();
+		}
+
+		public function chkEvtDecExist($eventID, $decorID){
 			// check if the eventdecor being inserted already exists...
 			$query = $this->db->query("SELECT * FROM eventdecors WHERE eventID = $eventID AND decorID = $decorID");
 			return $query->result_array();

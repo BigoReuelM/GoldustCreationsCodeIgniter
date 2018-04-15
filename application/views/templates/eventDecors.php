@@ -118,10 +118,13 @@ input[type=submit] {
         <div class="col-lg-6">
           <h3 class="box-title">List Of Decors</h3>    
         </div>   
-              <div class="col-lg-3">
-                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addNewDecorModal">Add New Decors </button>
-              </div> 
-          
+        <div class="col-lg-3">
+          <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
+        </div>
+        <div class="col-lg-3">
+          <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
+        </div> 
+    </div>      
           <!-- /.box-header -->
           <div class="box-body">
             <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
@@ -180,9 +183,10 @@ input[type=submit] {
                           </div>
                           <!-- change decor button -->
                           <div class="col-md-3 col-sm-4">
-                            <form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
+                            <!--<form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
                               <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
-                            </form>
+                            </form>-->
+                            <button class="btn btn-link" id="changedecorbtn" name="decorID" type="button" data-toggle="modal" data-target="changedecormodal" value=""><i class="fa fa-fw fa-edit"></i> Change</button>
                           </div>
                         </td>
                       </tr>
@@ -198,7 +202,7 @@ input[type=submit] {
   </div>
 
 <!-- MODALS -->  
-        <!-- add new decor/event decor -->      
+        <!-- add new decor/event decor from computer -->      
         <div class="modal fade" id="addNewDecorModal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -245,7 +249,7 @@ input[type=submit] {
           </div>
         </div>
         <!-- change decor modal -->
-        <div class="modal fade" id="changedecor" role="dialog">
+        <div class="modal fade" id="changedecormodal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -313,6 +317,72 @@ input[type=submit] {
             </div>
           </div>
         </div> -->
+
+        <!-- add existing an decor to the event -->
+        <div class="modal fade" id="addExstDecorModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Existing Decor</h4>
+              </div>
+              <div class="modal-body">
+                <div class="box-body">
+                  <table id="exstDecors" class="table table-bordered text-center">
+                    <thead>
+                      <tr>
+                        <th>Decor Name</th>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
+                      <?php
+                        foreach ($allDecors as $dec) { ?>
+                        <tr>
+                          <td><?php echo $dec['decorName'] ?></td>
+                          <td><?php echo $dec['color'] ?></td>
+                          <td><?php echo $dec['decorType'] ?></td>
+                          <td>
+                            <?php
+                            if (!empty($decortypesmap)) {
+                              foreach ($decortypesmap as $dtm) {
+                                $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                                foreach ($files as $f) {
+                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                  if ($f_no_extension === $dec['decorsID']) { ?>
+                                    <div class="thumbnail">
+                                      <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                    </div>
+                            <?php     
+                                  }
+                                }
+                              }
+                            }else{
+                              echo "No image";
+                            }
+                            ?>
+                          </td>
+                          <td><button type="submit" name="addExstDecor" class="btn btn-sm btn-primary" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
+                        </tr>
+                      <?php  } ?>
+                      </form>
+                    </tbody> 
+                  </table>
+                </div>
+                <!--<form action="<?php //echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
+                  
+                  <div class="modal-footer">
+                    <button type="submit" name="addExstDecor" class="btn btn-sm btn-primary">Add</button>
+                  </div>
+                </form>-->
+              </div>
+            </div>
+          </div>
+        </div> 
       </section>  
       <!-- /.content-wrapper -->
 
@@ -352,7 +422,7 @@ input[type=submit] {
       })
       $('#decorsTable').DataTable({
       })
-      $('#alldecorstbl').DataTable({
+      $('#exstDecors').DataTable({
       })
     })
 
@@ -392,12 +462,11 @@ input[type=submit] {
 
 <style>
 @media screen and (min-width: 768px){
-  #changedecor .modal-dialog {
-    width:900px;
+  #changedecormodal .modal-dialog {
+    width:90%;
   }
-}
-
-#changedecor .modal-dialog {
-  width:80%;
+  #addExstDecorModal .modal-dialog {
+    width:70%;
+  }
 }
 </style>
