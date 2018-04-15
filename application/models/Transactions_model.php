@@ -359,14 +359,20 @@
 			$this->db->update('transactions', $data);
 		}
 
-		public function refundDeposit($transID, $amount){
+		public function refundDeposit($transID){
+			$depositAmount = $this->getDepositAmount($transID)->depositAmt;
+			if ($depositAmount == null) {
+				$data = array(
+					'refundAmt' => $depositAmount
+				);
 
-			$data = array(
-				'refundAmt' => $amount
-			);
-
-			$this->db->where('transactionID', $transID);
-			$this->db->update('transactions', $data);
+				$this->db->where('transactionID', $transID);
+				$this->db->update('transactions', $data);
+				return true;
+			}else{
+				return false;
+			}
+			
 		}
 
 		public function insertTransaction($clientID, $empID){

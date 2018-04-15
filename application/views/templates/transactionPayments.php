@@ -1,23 +1,4 @@
 
-<style type="text/css">
-  .glyphicon.glyphicon-circle-arrow-left {
-  font-size: 50px;
-
-}
-</style>
-
-
-  <!-- Content Header (Page header) -->
-
-  <section class="content-header">
-    <div class="row">
-      <div class="col-lg-6">
-        <a href="<?php echo base_url('transactions/ongoingTransactions') ?>" id="icon">
-              <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-        </a>
-      </div>
-    </div>
-  </section>
   <section class="content container-fluid">
     <div class="box">
       <div class="box-header with-border">

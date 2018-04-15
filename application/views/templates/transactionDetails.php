@@ -1,27 +1,4 @@
 
-<style type="text/css">
-  .glyphicon.glyphicon-circle-arrow-left {
-  font-size: 50px;
-
-}
-
-  #but8 {
-    width:30px;
-  }
-</style>
-
-
-  <!-- Content Header (Page header) -->
-
-  <section class="content-header">
-    <div class="row">
-      <div class="col-lg-6">
-        <a href="<?php echo base_url('transactions/ongoingTransactions') ?>" id="icon">
-              <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-        </a>
-      </div>
-    </div>
-  </section>
   <section class="content container-fluid">
       <div class="box box-info">
         <div class="box-header">
@@ -34,10 +11,12 @@
                 <div class="navbar-custom-menu pull-right">
                   <ul class="nav navbar-nav">
                     <li class="dropdown tasks-menu">
-                      <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <i class="fa fa-cog"></i>
-                        <span class="label label-info">Actions</span>
-                      </a>
+                      <?php if ($details->transactionstatus == "on-going"): ?>
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                          <i class="fa fa-cog"></i>
+                          <span class="label label-info">Actions</span>
+                        </a>      
+                      <?php endif ?>
                       <ul class="dropdown-menu">
                         <li>
                           <ul class="menu">
@@ -170,7 +149,7 @@
                         }
                            
                         ?>
-                        <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>
+                        <input type="text" id="date" class="form-control" placeholder="<?php echo $newDate ?>" disabled>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -194,7 +173,7 @@
                           } 
                           
                         ?>
-                        <input type="text" class="form-control" value="<?php echo $newTime ?>" disabled>
+                        <input type="text" id="time" class="form-control" placeholder="<?php echo $newTime ?>" disabled>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -209,8 +188,10 @@
             </div>
             <?php echo form_close(); ?>                  
           </div>
-          <div class="box-footer">  
-            <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+          <div class="box-footer">
+            <?php if ($details->transactionstatus == "on-going"): ?>
+              <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+            <?php endif ?>  
           </div>
       </div>
      <div class="control-sidebar-bg"></div>             
@@ -357,11 +338,8 @@
               <input type="text" id="dempositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Refund Amount</label>
-            <div class="col-lg-9">
-              <input type="text" id="refundAmount" name="refundAmount" placeholder="Enter amount here...." class="form-control">
-            </div>
+          <div class="alert-info well">
+            <p>Click on confirm to record refund</p>
           </div>
         </div>   
         
@@ -385,29 +363,12 @@
 <script src="<?php echo base_url(); ?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url(); ?>/public/bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
-<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<!-- bootstrap color picker -->
-<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="<?php echo base_url(); ?>/public/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <!-- SlimScroll -->
 <script src="<?php echo base_url(); ?>/public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- iCheck 1.0.1 -->
 <script src="<?php echo base_url(); ?>/public/plugins/iCheck/icheck.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url(); ?>/public/bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url(); ?>/public/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url(); ?>/public/dist/js/demo.js"></script>
 <!-- DataTables -->
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -417,11 +378,11 @@
     e.preventDefault();
 
     var transactionDetails = $(this);
-    var cNum = $('#contactNumber').val();
-    var address = $('#address').val();
-    var yNs = $('#yNs').val();
-    var school = $('#school').val();
-    var idType = $('#idType').val();
+    var cNum = $('#contactNumber').val().trim();
+    var address = $('#address').val().trim();
+    var yNs = $('#yNs').val().trim();
+    var school = $('#school').val().trim();
+    var idType = $('#idType').val().trim();
     $.ajax({
       type: 'POST',
       url: transactionDetails.attr('action'),
@@ -625,59 +586,30 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
-            if (response.higher == true) {
+            if (response.refunded == false) {
               $('div.alert-danger').remove();
-              $('div.alert-warning').remove();
               $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
-              ' Amount you entered is higher than the deposited amount.' +
+              ' This transaction has allready been refunded!' +
               '</div>');
-              $('.form-group').removeClass('has-error')
-                    .removeClass('has-success');
-              $('.text-danger').remove();
               // reset the form
               refundDetails[0].reset();
-            } else if (response.lower == true) {
-              $('div.alert-danger').remove();
-              $('div.alert-warning').remove();
-              $('#refundConfirm').append('<div class="alert alert-warning text-center">' +
-              '<span class="icon fa fa-ckeck"></span>' +
-              ' The amount you entered is lower than the deposited amount' +
-              '</div>');
-              $('.form-group').removeClass('has-error')
-                    .removeClass('has-success');
-              $('.text-danger').remove();
-              // reset the form
-              refundDetails[0].reset();  
-            } else if(response.higher == false && response.lower == false){
+            }else{
+
               $('#refundConfirm').append('<div class="alert alert-success text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
-              ' Refund Recorded.' +
+              ' Refund is successfully recorder' +
               '</div>');
-              $('.form-group').removeClass('has-error')
-                    .removeClass('has-success');
-              $('.text-danger').remove();
               // reset the form
               refundDetails[0].reset();
             }
+              
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {
                 $(this).remove();
               });
             })
-          }else{
-            $.each(response.messages, function(key, value) {
-              var element = $('#' + key);
-              
-              element.closest('div.form-group')
-              .removeClass('has-error')
-              .addClass(value.length > 0 ? 'has-error' : 'has-success')
-              .find('.text-danger')
-              .remove();
-              
-              element.after(value);
-            });
           }
         }
       });
