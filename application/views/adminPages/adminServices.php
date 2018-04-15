@@ -192,7 +192,7 @@
           $('#activeService').prepend(
             '<tr>' +
               '<td>' + response.serviceName + '</td>' +
-              '<td>' + response.serviceDisk + '</td>' +
+              '<td>' + response.description + '</td>' +
               '<td>' + '<button data-toggle="tooltip" title="Refresh to Use Feature" class="btn btn-block btn-danger" disabled>Deactivate</button> ' + '</td>' +
             '</tr>'
           );
