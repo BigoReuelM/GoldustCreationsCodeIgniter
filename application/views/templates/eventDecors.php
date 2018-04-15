@@ -117,33 +117,38 @@ input[type=submit] {
       <div class="row">
         <div class="col-lg-6">
           <h3 class="box-title">List Of Decors</h3>    
-        </div>   
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
         </div>
-        <div class="col-lg-3">
-          <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
-        </div> 
+        <?php
+          if ($empRole === "admin") { ?>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
+            </div>
+        <?php } else { ?>
+          <div class="col-lg-offset-3 col-lg-3">
+            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Decor</button>
+          </div>
+        <?php }
+        ?>
+
     </div>      
           <!-- /.box-header -->
           <div class="box-body">
             <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
               <thead>
                 <tr>
-                  <!--<th>Decor ID</th>
-                    <th>Event ID</th>-->
-                    <th>Decor Name</th>
-                    <th>Quantity</th>
-                    <th>Photo</th>
-                    <th>Action</th>
-                  </tr>
+                  <th>Decor Name</th>
+                  <th>Quantity</th>
+                  <th>Photo</th>
+                  <th>Action</th>
+                </tr>
                 </thead>
                 <tbody>
                   <?php 
-                    //$allEventDec = array_merge($themeDecors, $eventDecors);
                     if (!empty($eventDecors)) { 
                       foreach ($eventDecors as $td) {
-                        //$themeID = $td['themeID'];
                         $decorID = $td['decorsID'];
                     ?>
                       <tr>
@@ -152,11 +157,8 @@ input[type=submit] {
                         <td>
                           <?php
                           if (!empty($eventThemeDet)) {
-                            //$evtThemeID = $eventThemeDet->themeID;
-                            //$decors = $td['decorsID'];
                             if (!empty($decortypesmap)) {
                               foreach ($decortypesmap as $dtm) {
-                                // files inside uploads/decors/$dtm/
                                 $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
                                 foreach ($files as $f) {
                                   $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
@@ -176,15 +178,15 @@ input[type=submit] {
                         </td>
                         <td>                            
                           <!-- remove decor button -->
-                          <!--<div class="col-md-3 col-sm-4"><a class="btn btn-link"><i class="fa fa-fw fa-remove" data-toggle="modal" data-target="#"></i></a></div>-->
                           <div class="col-md-3 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button>  
+                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
+                            </form>   
                           </div>
                           <!-- change decor button -->
                           <div class="col-md-3 col-sm-4">
-                            <!--<form id="changedecorform" role="form" method="post" action="<?php echo base_url('items/changeDecorSetVals') ?>">
-                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
+                            <!--<form id="changedecorform" role="form" method="post" action="<?php //echo base_url('items/changeDecorSetVals') ?>">
+                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php //echo($decorID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
                             </form>-->
                             <button class="btn btn-link" id="changedecorbtn" name="decorID" type="button" data-toggle="modal" data-target="changedecormodal" value=""><i class="fa fa-fw fa-edit"></i> Change</button>
                           </div>

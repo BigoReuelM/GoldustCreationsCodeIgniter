@@ -341,6 +341,7 @@ class Events extends CI_Controller
 		$empID = $this->session->userdata('employeeID');
 		$themeID = $this->session->userdata('currentThemeID');
 		$empRole = $this->session->userdata('role');
+		$data['empRole'] = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -994,6 +995,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['empRole'] = $this->session->userdata('role');
 			$newStatus = "new";
 			$ongoingStatus = "on-going";
 
@@ -1056,6 +1058,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['empRole'] = $this->session->userdata('role');
 			$newStatus = "new";
 			$ongoingStatus = "on-going";
 
@@ -1116,6 +1119,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['empRole'] = $this->session->userdata('role');
 			$currentDecType = $this->session->userdata('currentType');
 			$newStatus = "new";
 			$ongoingStatus = "on-going";
@@ -1160,6 +1164,7 @@ class Events extends CI_Controller
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
+			$data['empRole'] = $this->session->userdata('role');
 			$newStatus = "new";
 			$ongoingStatus = "on-going";
 

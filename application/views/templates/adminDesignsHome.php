@@ -5,9 +5,14 @@
         <div class="col-md-9">
           <h3>Design Types</h3>
         </div>
-        <div class="col-lg-3">
-          <button class="btn btn-primary btn-block btn-lg" role="button" data-toggle="modal" data-target="#addDesType">Add New Type</button>
-        </div>
+        <?php
+          if ($empRole === "admin") { ?>
+            <div class="col-lg-3">
+              <button class="btn btn-primary btn-block btn-lg" role="button" data-toggle="modal" data-target="#addDesType">Add New Type</button>
+            </div>
+        <?php  }
+        ?>
+        
       </div> 
     </section>
     <!-- Main content -->
