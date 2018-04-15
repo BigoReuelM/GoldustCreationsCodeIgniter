@@ -419,6 +419,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
 				$this->transactions_model->addTransactionAppointment($empID, $ctID, $adate, $time, $agenda);
+				$newDate = date_create($adate);
+				$dateFormated = date_format($newDate, "M-d-Y");
+				$newTime = date("g:i a", strtotime($time));
+				$data['time'] = $newTime;
+				$data['date'] = $dateFormated;
+				$data['agenda'] = $agenda;
 
 				$data['success'] = true;
 			}else{
@@ -514,43 +520,55 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function refundDeposit(){
-			$data = array('success' => false,'lower' => false, 'higher' => false,'remainingDeposit' => 0, 'messages' => array());
-
-			$this->form_validation->set_rules('refundAmount', 'Amount', 'trim|required|greater_than[0]');
-			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-
-			if ($this->form_validation->run()) {
-				$id = $this->input->post('refund');
-
-				$depositAmount = $this->transactions_model->getDepositAmount($id)->depositAmt;
-				
-				$amount = $this->input->post('refundAmount');
-
-				if ($depositAmount > $amount) {
-					$data['lower'] = true;
-					$data['success'] = true;
-				}
-
-				if($depositAmount == $amount){
-					$this->transactions_model->refundDeposit($id, $amount);
-
-					$data['success'] = true;	
-				}
-
-				if($depositAmount < $amount){
-					$data['higher'] = true;
-					$data['success'] = true;
-				}
-
+			$id = $this->input->post('refund');
+			if ($this->transactions_model->refundDeposit($id)) {
+				$data['refunded'] = true;
 			}else{
-				foreach ($_POST as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
+				$data['refunded'] = false;
 			}
 
+			$data['success'] = true;
 			echo json_encode($data);
+		}
+
+		// public function refundDeposit(){
+		// 	$data = array('success' => false,'lower' => false, 'higher' => false,'remainingDeposit' => 0, 'messages' => array());
+
+		// 	$this->form_validation->set_rules('refundAmount', 'Amount', 'trim|required|greater_than[0]');
+		// 	$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+		// 	if ($this->form_validation->run()) {
+		// 		$id = $this->input->post('refund');
+
+		// 		$depositAmount = $this->transactions_model->getDepositAmount($id)->depositAmt;
+				
+		// 		$amount = $this->input->post('refundAmount');
+
+		// 		if ($depositAmount > $amount) {
+		// 			$data['lower'] = true;
+		// 			$data['success'] = true;
+		// 		}
+
+		// 		if($depositAmount == $amount){
+		// 			$this->transactions_model->refundDeposit($id, $amount);
+
+		// 			$data['success'] = true;	
+		// 		}
+
+		// 		if($depositAmount < $amount){
+		// 			$data['higher'] = true;
+		// 			$data['success'] = true;
+		// 		}
+
+		// 	}else{
+		// 		foreach ($_POST as $key => $value) {
+		// 			$data['messages'][$key] = form_error($key);
+		// 		}
+		// 	}
+
+		// 	echo json_encode($data);
 			
-		}		
+		// }		
 
 		public function addTransaction(){
 			$clientID = $this->input->post('clientID');
@@ -657,17 +675,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$empID = $this->session->userdata('employeeID');
 			$clientID = $this->session->userdata('clientID');
 
-			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => true, 'balanceAmount' => 0);
+
 
 			$totalAmount = $this->transactions_model->totalAmount($transactionID);
 			$totalAmountPaid = $this->transactions_model->totalAmountPaid($transactionID);
 
-			$transactionBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
-
-			if ($transactionBalance > 0) {
-				$data['balance'] = true;
-				$data['balanceAmount'] = $transactionBalance;
-			}
+			$transactionBalance = $totalAmount->totalAmount - $totalAmountPaid->total;
 
 			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']|greater_than_equal_to[0]');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
@@ -679,16 +693,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$time = $this->input->post('time');
 				$amount = $this->input->post('amount');
 				
-				$paymentID = $this->transactions_model->addTransactionPayment($clientID, $empID, $transactionID, $date, $time, $amount);
+				$this->transactions_model->addTransactionPayment($clientID, $empID, $transactionID, $date, $time, $amount);
+				$newTotalAmountPaid = $this->transactions_model->totalAmountPaid($transactionID);
 
-				$data['paymentID'] = $paymentID;
+				$newTransactionBalance = $totalAmount->totalAmount - $newTotalAmountPaid->total;
 
+				$data['receiver'] = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');				
+				$data['balanceAmount'] = number_format($newTransactionBalance, 2);
+				$data['paidAmount'] = number_format($amount, 2);
+				$newDate = date_create($date);
+				$newDateFormated = date_format($newDate, "M-d-Y");
+				$newTimeFormated = date("g:i a", strtotime($time));
+				$data['dateNtime'] = $newDateFormated . " " . $newTimeFormated;
 				$data['success'] = true;
 				
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
 				}
+				if ($transactionBalance <= 0) {
+					$data['balance'] = false;
+				}
+				
 			}
 
 			echo json_encode($data);

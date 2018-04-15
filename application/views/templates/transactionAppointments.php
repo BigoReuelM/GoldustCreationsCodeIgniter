@@ -1,24 +1,8 @@
 
-<style type="text/css">
-  .glyphicon.glyphicon-circle-arrow-left {
-  font-size: 50px;
-
-}
 </style>
 
 
   <!-- Content Header (Page header) -->
-
-  <section class="content-header">
-    <div class="row">
-      <div class="col-lg-6">
-        <a href="<?php echo base_url('transactions/ongoingTransactions') ?>" id="icon">
-              <span class="glyphicon glyphicon-circle-arrow-left" ></span>
-        </a>
-      </div>
-
-    </div>
-  </section>
   <section class="content container-fluid">
     <div class="box box-info">
       <!--list of appointments col-->
@@ -174,10 +158,7 @@
   $('#addNewAppointment').submit(function(e){
     e.preventDefault();
 
-    var appointmentDetails = $(this);
-    var agenda = $('#agenda').val();
-    var time = $('#appointmentTime').val();
-    var date = $('#appointmentDate').val();
+    var appointmentDetails = $(this); 
 
     $.ajax({
       type: 'POST',
@@ -195,9 +176,9 @@
 
           $('#appTable').prepend(
             '<tr>'+
-            '<td>' + date + '</td>' +
-            '<td>' + time + '</td>' +
-            '<td>' + agenda + '</td>' +
+            '<td>' + response.date + '</td>' +
+            '<td>' + response.time + '</td>' +
+            '<td>' + response.agenda + '</td>' +
             '</tr>'
           );
           
