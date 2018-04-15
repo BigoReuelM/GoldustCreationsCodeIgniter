@@ -419,6 +419,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
 				$this->transactions_model->addTransactionAppointment($empID, $ctID, $adate, $time, $agenda);
+				$newDate = date_create($adate);
+				$dateFormated = date_format($newDate, "M-d-Y");
+				$newTime = date("g:i a", strtotime($time));
+				$data['time'] = $newTime;
+				$data['date'] = $dateFormated;
+				$data['agenda'] = $agenda;
 
 				$data['success'] = true;
 			}else{

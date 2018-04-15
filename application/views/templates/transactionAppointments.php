@@ -174,10 +174,7 @@
   $('#addNewAppointment').submit(function(e){
     e.preventDefault();
 
-    var appointmentDetails = $(this);
-    var agenda = $('#agenda').val();
-    var time = $('#appointmentTime').val();
-    var date = $('#appointmentDate').val();
+    var appointmentDetails = $(this); 
 
     $.ajax({
       type: 'POST',
@@ -195,9 +192,9 @@
 
           $('#appTable').prepend(
             '<tr>'+
-            '<td>' + date + '</td>' +
-            '<td>' + time + '</td>' +
-            '<td>' + agenda + '</td>' +
+            '<td>' + response.date + '</td>' +
+            '<td>' + response.time + '</td>' +
+            '<td>' + response.agenda + '</td>' +
             '</tr>'
           );
           
