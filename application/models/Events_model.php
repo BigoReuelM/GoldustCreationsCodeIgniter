@@ -999,6 +999,18 @@
 			);
 			$this->db->insert('eventdecors', $data);
 		}
+
+		// event time and date validation
+		public function getEventTimeDate($id){
+			$this->db->select('dateAssisted, eventDate, eventTime');
+			$this->db->from('events');
+			$this->db->where('eventID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+		// end valdiation
 	}
 
 

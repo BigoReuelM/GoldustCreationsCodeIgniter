@@ -7,23 +7,71 @@
    }
 
  </style>
-<!-- Main content -->
-<section class="content-header">
-  <h1>
-    <?php
-    //foreach ($eventName as $name) {
-      $name = $eventName->eventName; 
-      echo '<p>' . $name . '</p>';
 
-    //}
-      
-    ?>
-  </h1>
-</section>
 <section class="content container-fluid">
 <div class="content">
   <div class="row">
     <div class="box box-primary">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1>
+              <?php
+                $name = $eventName->eventName; 
+                echo '<p>' . $name . '</p>';    
+              ?>
+            </h1>
+          </div>
+          <div class="col-lg-6">
+            <div class="navbar-custom-menu pull-right">
+              <ul class="nav navbar-nav">
+                <li class="dropdown tasks-menu">
+                  <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                    <i class="fa fa-cogs"></i>
+                    <span class="label label-info">Actions</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <ul class="menu">
+                        <li class="text-center">
+                          <a href="#printDetails" type="button" class="btn btn-default" data-toggle="modal" data-target="#printDetails">
+                            <i class="fa fa-print pull-left"></i>
+                            <span>Print Event Details</span>
+                          </a>
+                        </li>
+                        <li class="text-center">
+                          <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
+                            <i class="fa fa-money pull-left"></i>
+                            <span>Add Additional Charges</span>
+                          </a>
+                        </li>
+                        <li class="text-center">
+                          <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
+                            <i class="fa fa-check pull-left"></i>
+                            <span>Finish Event</span>
+                          </a>
+                        </li>
+                        <li class="text-center">
+                          <a href="#cancellEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancellEvent">
+                            <i class="fa fa-close pull-left"></i>
+                            <span>Cancel Event</span>
+                          </a>
+                        </li>
+                        <li class="text-center">
+                          <a href="#continueEventModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#continueEventModal">
+                            <i class="fa fa-circle-o-notch pull-left"></i>
+                            <span>Continue Event</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>       
+      </div>
       <div class="box-body">
         <div class="col-lg-4">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
@@ -245,33 +293,12 @@
               } 
             ?>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-8">
             <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-          </div>
-          <div class="col-lg-4">
-            <button class="btn btn-primary btn-block btn-lg" data-toggle="modal" data-target="#addAdditionalChargesModal">Additional Charges</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="row">
-      
-    <?php if ($eventDetail->eventStatus === "on-going"): ?>
-      <button type="button" data-toggle="modal" data-target="#finishEventModal" class="btn btn-block btn-primary btn-lg">Finish Event</button>
-      <button type="button" data-toggle="modal" data-target="#cancellEvent" class="btn btn-block btn-danger btn-lg">Cancel Event</button>
-      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-    <?php endif ?>
-
-    <?php if ($eventDetail->eventStatus === "cancelled"): ?>
-      <button type="button" data-toggle="modal" data-target="#continueEventModal" class="btn btn-block btn-primary btn-lg">Continue Event</button>
-      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-    <?php endif ?>
-
-    <?php if ($eventDetail->eventStatus === "finished"): ?>
-      <button type="button" data-toggle="modal" data-target="#printDetails" class="btn btn-block btn-primary btn-lg">Print Event Details</button>
-    <?php endif ?>        
   </div>
 </div>
 
@@ -704,7 +731,7 @@
           if (response.success == true) {
             $('#update-message').append('<div class="alert alert-success text-center">' +
             '<span class="icon fa fa-ckeck"></span>' +
-            ' Additional Charges Applied.' +
+            ' Changes Applied.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
