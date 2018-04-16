@@ -1,8 +1,13 @@
-
+<style>
+  #servicesContainer{
+    height: 500px;
+    overflow: scroll;
+  }
+</style>
   <section class="content container-fluid">
     <div class="row">
       <div class="col-lg-5">
-        <div class="box">
+        <div id="servicesBox" class="box">
           <div class="box-header">
             <h3 class="box-title">Available Services</h3>            
           </div>
@@ -11,6 +16,7 @@
             echo form_open("transactions/addsvc", $attributes);
           ?>
             <div class="box-body">
+              <div id="servicesContainer">
               <table class="table table-hover table-responsive table-bordered" id="servicesAvailable">
                 <thead>
                   <tr>
@@ -48,6 +54,7 @@
                 ?>
                 </tbody>
               </table>
+              </div>
             </div>
             <div class="box-footer">
               <div class="pull-right">

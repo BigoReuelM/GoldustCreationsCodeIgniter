@@ -1,4 +1,9 @@
-
+<style>
+  #servicesContainer{
+    height: 500px;
+    overflow: scroll;
+  }
+</style>
 
 <!-- Main content -->
 <section class="content container-fluid">
@@ -10,6 +15,7 @@
         </div>
         <form id="addsvcform" role="form" method="post" action="<?php echo base_url('events/addsvc') ?>">
           <div class="box-body">
+            <div id="servicesContainer">
             <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
               <thead>
                 <tr>
@@ -42,7 +48,8 @@
                     }
                   ?>             
               </tbody>            
-            </table> 
+            </table>
+            </div> 
           </div>
           <div class="box-footer">
             <div class="pull-right">
