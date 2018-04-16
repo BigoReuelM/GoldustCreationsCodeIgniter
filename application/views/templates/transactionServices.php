@@ -1,27 +1,24 @@
-<style>
-    
-  #servicesBox{
-    background-color: white;
-    padding: 5%;  
-  }
-  #servicesBox .servicebox-body{
-    overflow: scroll;
-  }  
-  
-</style>
 
   <section class="content container-fluid">
     <div class="row">
-      <div class="col-lg-4">
-        <div id="servicesBox">
-            <div class="h-100 servicebox-header">
-              <h3 class="servicebox-title">Available Services</h3>            
-            </div>
-            <div class="servicebox-body">
-              <table class="table table-bordered">
-                <tr>
-                  
-                </tr>
+      <div class="col-lg-5">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Available Services</h3>            
+          </div>
+          <?php 
+            $attributes = array("name" => "addService", "id" => "addService", "class" => "form-horizontal", "autocomplete" => "off");
+            echo form_open("transactions/addsvc", $attributes);
+          ?>
+            <div class="box-body">
+              <table class="table table-hover table-responsive table-bordered" id="servicesAvailable">
+                <thead>
+                  <tr>
+                    <th>Service Name</th>
+                    <th>Service Description</th>
+                  </tr>
+                </thead>
+                <tbody>
                 <?php
                   if (!empty($servcs)) {
                     $valid = true;
@@ -49,14 +46,19 @@
                     }
                   }
                 ?>
+                </tbody>
               </table>
             </div>
-            <div class="servicebox-footer">
-              
+            <div class="box-footer">
+              <div class="pull-right">
+                <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+                <button class="btn btn-default" type="submit">Add</button>
+              </div>
             </div>
+          <?php echo form_close() ?>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-7">
         <div class="box box-info">
           <!--list of services col-->
             <div class="box-header">
@@ -64,9 +66,6 @@
                 <div class="col-lg-6">
                   <h3 class="box-title">List of Availed Services</h3>
                 </div>
-                <div class="col-lg-6">
-                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addServc">Add Services</button>
-                </div>  
               </div>    
             </div>
             <!-- /.box-header -->
@@ -124,72 +123,6 @@
     <div class="control-sidebar-bg"></div>             
   </section> 
 </div>
-<!-- ./wrapper -->
-
-<!-- add service modal -->
-<div class="modal fade" role="dialog" id="addServc">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Service/s</h4>
-        <div id="serviceConfirm">
-        </div>
-      </div>
-      <?php 
-        $attributes = array("name" => "addService", "id" => "addService", "class" => "form-horizontal", "autocomplete" => "off");
-        echo form_open("transactions/addsvc", $attributes);
-      ?>
-        <div class="modal-body">
-          <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
-            <thead>
-              <tr>
-                <th>Service Name</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody id="serviceTable"> 
-                <?php
-                  if (!empty($servcs)) {
-                    $valid = true;
-                    for($j = 0; $j < count($servcs) ; $j++) { 
-                      for($i = 0 ; $i < count($transServices) ; $i++){
-                        if ($servcs[$j]['serviceID'] == $transServices[$i]['serviceID']) {
-                          $valid = false;
-                        }
-                      }                  
-                      if($valid){ 
-                  ?>
-                      <tr>                   
-                          <td>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" name="services[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?>
-                              </label>
-                            </div>
-                          </td>
-                          <td><?php echo $servcs[$j]['description'] ?></td>
-                      </tr>
-                <?php }else{
-                        $valid = true;
-                      }
-                    }
-                  }
-                ?>
-              
-            </tbody>            
-          </table> 
-        </div>
-        <div class="modal-footer">                 
-          <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-          <button class="btn btn-default" type="submit">Add</button>
-        </div>
-      <?php echo form_close(); ?>
-    </div>
-
-  </div>
-</div>
-
 
 <!-- jQuery 3 -->
 <script src="<?php echo base_url(); ?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -208,8 +141,17 @@
 <script>
   $(function () {
     $('#servicesTable').DataTable()
-    $('#modalServcTbl').DataTable()
+    $('#servicesAvailable').DataTable({
+      'paging'      : false,
+      'lengthChange': false,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true
+    })
   });
-
+  function reset_chkbx() {
+    $('input:checkbox').prop('checked', false);
+  }
 </script>
 
