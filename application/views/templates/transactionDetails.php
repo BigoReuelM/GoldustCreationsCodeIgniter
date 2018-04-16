@@ -23,7 +23,7 @@
                             <li class="text-center">
                               <a href="#addCharges" type="button" data-toggle="modal" data-target="#addCharges">
                                 <i class="fa fa-money"></i>
-                                <span>Additional Payments</span>
+                                <span>Additional Charges</span>
                               </a>
                             </li>
                             <li class="text-center">
@@ -335,7 +335,7 @@
               <?php  
                 $formatedDepositedAmountModal = number_format($details->depositAmt, 2);
               ?>
-              <input type="text" id="dempositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
+              <input type="text" id="depositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
             </div>
           </div>
           <div class="alert-info well">
@@ -429,6 +429,7 @@
             $('#totalAmount').attr('placeholder', response.totalAmount);
             $('#balance').attr('placeholder', response.balance);
             $('#totalAmountModal').attr('placeholder', response.totalAmount);
+            $('#depositModal').attr('placeholder', response.depositAmt);
           }
           if (response.newTime == true) {
             $('#time').attr('placeholder', response.newTimeValue);
