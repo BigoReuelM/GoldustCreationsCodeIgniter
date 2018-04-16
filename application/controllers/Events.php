@@ -777,13 +777,32 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
 
+			$eventTimeNdate = $this->events_model->getEventTimeDate($eventID);
+
 			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
 			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numberic');
 			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
-			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+			
+			if ($eventTimeNdate->dateAssisted == null) {
+				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+			}
+			
 			$this->form_validation->set_rules('package', 'Package Type', 'trim');
-			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
-			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
+
+			if ($eventTimeNdate->eventDate == null) {
+				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+			}
+
+			if ($eventTimeNdate->eventTime == null) {
+				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			}
+			
 			$this->form_validation->set_rules('location', 'Location', 'trim');
 			$this->form_validation->set_rules('type', 'Type', 'trim');
 			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');

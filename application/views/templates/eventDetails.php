@@ -73,7 +73,7 @@
         </div>       
       </div>
       <div class="box-body">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header text-center">
               <h3>Event Handler</h3>
@@ -126,7 +126,7 @@
             </div>
           </form>      
         </div>
-        <div class="col-lg-8 well">
+        <div class="col-lg-9 well">
           
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
             <div id="update-message">
@@ -135,7 +135,7 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
-                <input type="text" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
+                <input type="text" id="eventName" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
               </div>
               <div class="form-group">
                 <label>Client Name</label>
@@ -143,11 +143,11 @@
               </div>
               <div class="form-group">
                 <label>Contact Number</label>
-                <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
+                <input type="text" name="contactNumber" id="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
               </div>
               <div class="form-group">
                 <label>Celebrant</label>
-                <input type="text" name="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
+                <input type="text" name="celebrantName" id="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
               </div>
               <div class="form-group">
                 <div class="col-lg-6 col-sm-6">
@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <label>Change Avail Date</label>
-                  <input type="date" name="dateAvailed" class="form-control">
+                  <input type="date" name="dateAvailed" id="dateAvailed" class="form-control">
                 </div>
               </div>
               <div class="form-group">
@@ -188,16 +188,16 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Location</label>
-                <input type="text" name="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
+                <input type="text" name="location" id="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
               </div>
 
               <div class="form-group">
                 <label>Event Type</label>
-                <input type="text" name="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
+                <input type="text" name="type" id="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
               </div>
               <div class="form-group">
                 <label>Motif</label>
-                <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
+                <input type="text" name="motif" id="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
               <!--<div class="form-group">
                 <label>Theme</label>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="col-lg-6">
                   <label>Change Date</label>
-                  <input type="date" class="form-control" name="eventDate">
+                  <input type="date" class="form-control" name="eventDate" id="eventDate">
                 </div>
               </div>
 
@@ -273,7 +273,7 @@
                 </div>
                 <div class="col-lg-6">
                   <label>Change Time</label>
-                  <input type="time" class="form-control" name="eventTime">
+                  <input type="time" class="form-control" name="eventTime" id="eventTime">
                 </div>
                 
               </div>
@@ -284,7 +284,7 @@
       </div>
       <div class="box-footer">
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <?php
               if ($empRole === 'admin') {
                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
@@ -293,7 +293,7 @@
               } 
             ?>
           </div>
-          <div class="col-lg-8">
+          <div class="col-lg-9">
             <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
           </div>
         </div>
