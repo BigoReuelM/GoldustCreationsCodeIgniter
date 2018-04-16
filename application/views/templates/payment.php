@@ -3,12 +3,6 @@
   $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
 ?>
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Payments
-      </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">

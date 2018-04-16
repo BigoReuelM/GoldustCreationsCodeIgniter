@@ -1,10 +1,4 @@
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Appointments
-      </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
@@ -165,23 +159,7 @@
     })
    
   })
-</script>
 
-<style>
-  @media screen and (min-with: 768px){
-    #editEntourage .modal-dialog {
-      with:900px;
-    }
-  }
-  @media screen and (min-with: 768px){
-    #addEntourage .modal-dialog {
-      with:950px;
-    }
-  }
-
-</style>
-
-<script>
       $('#addNewAppointment').submit(function(e){
       e.preventDefault();
 
@@ -208,9 +186,9 @@
 
             $('#appTable').prepend(
               '<tr>'+
-              '<td>' + date + '</td>' +
-              '<td>' + time + '</td>' +
-              '<td>' + agenda + '</td>' +
+              '<td>' + response.status + '</td>' +
+              '<td>' + response.appDateTime + '</td>' +
+              '<td>' + response.agenda + '</td>' +
               '</tr>'
             );
             

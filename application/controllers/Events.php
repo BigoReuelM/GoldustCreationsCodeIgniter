@@ -661,10 +661,13 @@ class Events extends CI_Controller
 				$time = html_escape($this->input->post('appointmentTime'));
 				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
-				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
-
-				$data['appointmentID'] = $newAppID;
-
+				$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+				$date = date_create($adate);
+                $newDate = date_format($date, "M-d-Y");
+                $newTime = date("g:i a", strtotime($time));
+				$data['appDateTime'] = $newDate . " at " . $newTime;
+				$data['agenda'] = $agenda;
+				$data['status'] = "ongoing";
 				$data['success'] = true;	
 			}else{
 				foreach ($_POST as $key => $value) {
