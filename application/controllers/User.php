@@ -79,10 +79,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$username = html_escape($this->input->post('username'));
 			$pin = html_escape($this->input->post('pin'));
 
-			$this->user_model->resetPasstoDefault($username, $pin);
-
-			$this->session->set_flashdata('success_msg', 'Password reset to default.');
-			redirect('user/index');
+			if ($this->user_model->resetPasstoDefault($username, $pin)) {
+				$this->session->set_flashdata('success_msg', 'Password reset to default.');
+				redirect('user/index');	
+			}else{
+				$this->session->set_flashdata('error_msg', 'Error occured, Try again.');
+				redirect('user/index');
+			}
+	
 		}
 		
 		public function user_profile(){

@@ -139,13 +139,38 @@
 
 
 		public function resetPasstoDefault($username, $pin){
-			$data = array(
-				'password' => "goldust"
-			);
+			$password = $this->getPassByUsername($username);
+			if (!$password) {
+				return false;
+			}else{
+				$resetPass = "goldust" . $pin;
+				if (password_verify($resetPass, $password->password)) {
+					$pass = password_hash("goldust", PASSWORD_BCRYPT);
+					$data = array(
+						'password' => $pass
+					);
 
-			$this->db->where('username like binary', $username);
-			$this->db->where('password like binary', "goldust" . $pin);
-			$this->db->update('employees', $data);
+					$this->db->where('username like binary', $username);
+					$this->db->update('employees', $data);
+					return true;	
+				}else{
+					return false;
+				}
+			}
+			
+		}
+
+		public function getPassByUsername($username){
+			$this->db->select('password');
+			$this->db->from('employees');
+			$this->db->where('username', $username);
+
+			$query = $this->db->get();
+			if (!empty($query->row())) {
+				return $query->row();	
+			}else{
+				return false;
+			}
 		}
 
 		public function checkUsernameAvailability($username){
