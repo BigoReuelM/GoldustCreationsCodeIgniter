@@ -515,7 +515,7 @@ class Events extends CI_Controller
 				$clientID = $this->session->userdata('clientID');
 				$clientName = $this->events_model->getClientName($clientID);
 
-				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'hasBalance' => false, 'balanceAmount' => 0);
 
 				$totalAmount = $this->events_model->totalAmount($eventID);
 				$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
@@ -523,7 +523,7 @@ class Events extends CI_Controller
 				$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
 
 				if ($eventBalance > 0) {
-					$data['balance'] = true;
+					$data['hasBalance'] = true;
 					$data['balanceAmount'] = $eventBalance;
 				}
 
@@ -538,8 +538,14 @@ class Events extends CI_Controller
 					$date = html_escape($this->input->post('date'));
 					$time = html_escape($this->input->post('time'));
 					$amount = html_escape($this->input->post('amount'));
+
+					$totalAmount = $this->events_model->totalAmount($eventID)->totalAmount;
+					$totalAmountPaid = $this->events_model->totalAmountPaid($eventID)->total;
 					
-					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
+					$data['totalAmountPaid'] = number_format($totalAmountPaid + $amount, 2);
+
+					$data['balance'] = number_format($totalAmount-($totalAmountPaid+$amount), 2);
+					$this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
 					$data['amount'] = number_format($amount, 2);
 
