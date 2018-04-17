@@ -1,10 +1,4 @@
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Appointments
-      </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
@@ -15,8 +9,8 @@
               <h3 class="box-title">List of Appointments</h3>    
             </div>
             <div class="col-lg-3">
-              <?php if ($this->session->userdata('role') === "handler"): ?>
-                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button> 
+              <?php if ($eventStatus === "on-going" || $eventStatus === "new"): ?>
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button>
               <?php endif ?>
             </div>
           </div>
@@ -59,6 +53,7 @@
         </div>
             <!-- /.box-body -->
       </div>
+      <div class="control-sidebar-bg"></div> 
     </section>
     <!-- /.content -->
   </div>
@@ -165,23 +160,7 @@
     })
    
   })
-</script>
 
-<style>
-  @media screen and (min-with: 768px){
-    #editEntourage .modal-dialog {
-      with:900px;
-    }
-  }
-  @media screen and (min-with: 768px){
-    #addEntourage .modal-dialog {
-      with:950px;
-    }
-  }
-
-</style>
-
-<script>
       $('#addNewAppointment').submit(function(e){
       e.preventDefault();
 
@@ -208,9 +187,9 @@
 
             $('#appTable').prepend(
               '<tr>'+
-              '<td>' + date + '</td>' +
-              '<td>' + time + '</td>' +
-              '<td>' + agenda + '</td>' +
+              '<td>' + response.status + '</td>' +
+              '<td>' + response.appDateTime + '</td>' +
+              '<td>' + response.agenda + '</td>' +
               '</tr>'
             );
             

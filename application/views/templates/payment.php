@@ -3,12 +3,6 @@
   $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
 ?>
 
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Payments
-      </h1>
-    </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
@@ -17,12 +11,12 @@
           <div class="box">
             <div class="box-header with-border">
               <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-9">
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-3">
                   <?php 
-                    if ($empRole === "admin") {
+                    if ($empRole === "admin" && ($eventStatus === "on-going" || $eventStatus === "new")) {
                       echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
                     }
                   ?>
@@ -31,12 +25,31 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <div>
-                <?php
-                  $formatedBalance = number_format($balance, 2);
-                  echo '<h3>Balance: </h3> <h1>Php ' . $formatedBalance . '</h1>';
-                ?>
-                
+              <div class="well">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <?php
+                      $formatedTotalAmount = number_format($totalAmount->totalAmount, 2);
+                      echo '<h3>Total Amount: Php ' . $formatedTotalAmount . '</h3>';
+                    ?>
+                  </div>
+                  <div class="col-lg-4">
+                    <div id="paidTotal">
+                      <?php  
+                        $formatedTotalPayment = number_format($totalPayments->total, 2);
+                        echo '<h3>Total Amount Paid: Php' . $formatedTotalPayment . '</h3>';
+                      ?>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div id="balance">
+                      <?php
+                        $formatedBalance = number_format($balance, 2);
+                        echo '<h3>Balance: Php ' . $formatedBalance . '</h3>';
+                      ?>
+                    </div>
+                  </div>
+                </div>
               </div>
               <table id="paymentTable" class="table table-bordered">
                 <thead>
@@ -79,16 +92,7 @@
                   ?>
                 </tbody>
               </table>
-
-            <div class="">
-              <?php
-                $formatedTotalAmount = number_format($totalAmount->totalAmount, 2);
-                $formatedTotalPayment = number_format($totalPayments->total, 2);
-                echo '<h3>Total Amount: Php ' . $formatedTotalAmount . '</h3>';
-                echo '<h3>Total Amount Paid: Php' . $formatedTotalPayment . '</h3>';
-               ?>
-              
-            </div>
+            
           </div>
           </div>
 
@@ -136,7 +140,14 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Event Name</label>
             <div class="col-lg-9">
-              <input type="text" class="form-control" value="<?php echo $eventName->eventName; ?>" disabled>
+              <?php
+                if (empty($eventName->eventName) || $eventName->eventName == null) {
+                   $currentEventName = "Event Name Not Set!";
+                }else{
+                  $currentEventName = $eventName->eventName;
+                } 
+              ?>
+              <input type="text" class="form-control" value="<?php echo $currentEventName ?>" disabled>
             </div>
           </div>
           <div class="form-group">
@@ -217,7 +228,7 @@
         data: paymentDetails.serialize(),
         dataType: 'json',
         success: function(response){
-          if(response.balance == true){
+          if(response.hasBalance == true){
             if (response.success == true) {
               var eventBalance = response.balanceAmount - amount;
               var dateTime = response.dateTime;
@@ -255,6 +266,8 @@
                 '</tr>'
               );
 
+              $('#balance h3').html("Balance: Php " + response.balance);
+              $('#paidTotal h3').html("Total Amount Paid: Php " + response.totalAmountPaid);
               $('.form-group').removeClass('has-error')
                     .removeClass('has-success');
               $('.text-danger').remove();

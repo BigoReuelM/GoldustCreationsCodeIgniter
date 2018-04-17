@@ -21,26 +21,26 @@
                         <li>
                           <ul class="menu">
                             <li class="text-center">
-                              <a href="#addCharges" type="button" data-toggle="modal" data-target="#addCharges">
-                                <i class="fa fa-money"></i>
-                                <span>Additional Payments</span>
+                              <a href="#addCharges" type="button" class="btn btn-default" data-toggle="modal" data-target="#addCharges">
+                                <i class="fa fa-money pull-left"></i>
+                                <span>Additional Charges</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#refundDeposit" type="button" data-toggle="modal" data-target="#refundDeposit">
-                                <i class="fa fa-money"></i>
+                              <a href="#refundDeposit" type="button" class="btn btn-default" data-toggle="modal" data-target="#refundDeposit">
+                                <i class="fa fa-money pull-left"></i>
                                 <span>Refund Deposit</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#finish" type="button" data-toggle="modal" data-target="#finish">
-                                <i class="fa fa-check"></i>
+                              <a href="#finish" type="button" class="btn btn-default" data-toggle="modal" data-target="#finish">
+                                <i class="fa fa-check pull-left"></i>
                                 <span>Finish Event</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#cancel" type="button" data-toggle="modal" data-target="#cancel">
-                                <i class="fa fa-close"></i>
+                              <a href="#cancel" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancel">
+                                <i class="fa fa-close pull-left"></i>
                                 <span>Cancel Event</span>
                               </a>
                             </li>
@@ -130,9 +130,24 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Status</label>
-                  <div class="col-sm-10">
-                    <input type="text" id="status" name="status" class="form-control" placeholder="<?php echo $details->transactionstatus ?>" value="" disabled>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label class="col-sm-2 control-label">Handler</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="currentHandler" placeholder="<?php echo $handlerName ?>" class="form-control" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <label class="col-sm-2 control-label">Handler Incharge</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="handler">
+                          <option selected disabled hidden>Choose Handler</option>
+                          <?php foreach ($handlers as $handler): ?>
+                            <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['employeeName'] ?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -335,7 +350,7 @@
               <?php  
                 $formatedDepositedAmountModal = number_format($details->depositAmt, 2);
               ?>
-              <input type="text" id="dempositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
+              <input type="text" id="depositModal" name="depositModal" class="form-control" placeholder="<?php echo $formatedDepositedAmountModal ?>" disabled>
             </div>
           </div>
           <div class="alert-info well">
@@ -429,12 +444,16 @@
             $('#totalAmount').attr('placeholder', response.totalAmount);
             $('#balance').attr('placeholder', response.balance);
             $('#totalAmountModal').attr('placeholder', response.totalAmount);
+            $('#depositModal').attr('placeholder', response.depositAmt);
           }
           if (response.newTime == true) {
             $('#time').attr('placeholder', response.newTimeValue);
           }
           if (response.newDate == true) {
             $('#date').attr('placeholder', response.newDateValue);
+          }
+          if (response.handler == true) {
+            $('#currentHandler').attr('placeholder', response.handlerName);
           }
 
           $('.alert-success').delay(500).show(10, function() {

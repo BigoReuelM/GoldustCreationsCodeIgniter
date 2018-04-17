@@ -21,6 +21,7 @@ class Events extends CI_Controller
 	}
 
 	public function newEvents(){
+		$page['pageName'] = "new";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "new";
@@ -43,11 +44,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/newEvents.php", $data);
@@ -58,6 +59,7 @@ class Events extends CI_Controller
 
 
 	public function ongoingEvents(){
+		$page['pageName'] = "ongoing";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "on-going";
@@ -80,11 +82,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/ongoingEvents.php", $data);
@@ -94,6 +96,7 @@ class Events extends CI_Controller
 	}
 
 	public function finishedEvents(){
+		$page['pageName'] = "finished";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "finished";
@@ -114,11 +117,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/finishedEvents.php", $data);
@@ -126,6 +129,7 @@ class Events extends CI_Controller
 	}
 
 	public function canceledEvents(){
+		$page['pageName'] = "canceled";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "cancelled";
@@ -146,11 +150,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/canceledEvents.php", $data);
@@ -230,6 +234,7 @@ class Events extends CI_Controller
 		$page['pageName'] = "staff";
 		$empRole = $this->session->userdata('role');
 		$id = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -262,6 +267,7 @@ class Events extends CI_Controller
 	public function eventServices(){
 		$page['pageName'] = "services";
 		$id = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -404,6 +410,7 @@ class Events extends CI_Controller
 	public function payment(){
 		$page['pageName'] = "payments";
 		$currentEvent = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -446,6 +453,7 @@ class Events extends CI_Controller
 	public function appointments(){
 		$page['pageName'] = "appointments";
 		$currentEvent = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -515,7 +523,7 @@ class Events extends CI_Controller
 				$clientID = $this->session->userdata('clientID');
 				$clientName = $this->events_model->getClientName($clientID);
 
-				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => false, 'balanceAmount' => 0);
+				$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'hasBalance' => false, 'balanceAmount' => 0);
 
 				$totalAmount = $this->events_model->totalAmount($eventID);
 				$totalAmountPaid = $this->events_model->totalAmountPaid($eventID);
@@ -523,7 +531,7 @@ class Events extends CI_Controller
 				$eventBalance = $totalAmount->totalAmount - $totalAmountPaid->total; 
 
 				if ($eventBalance > 0) {
-					$data['balance'] = true;
+					$data['hasBalance'] = true;
 					$data['balanceAmount'] = $eventBalance;
 				}
 
@@ -538,8 +546,14 @@ class Events extends CI_Controller
 					$date = html_escape($this->input->post('date'));
 					$time = html_escape($this->input->post('time'));
 					$amount = html_escape($this->input->post('amount'));
+
+					$totalAmount = $this->events_model->totalAmount($eventID)->totalAmount;
+					$totalAmountPaid = $this->events_model->totalAmountPaid($eventID)->total;
 					
-					$paymentID = $this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
+					$data['totalAmountPaid'] = number_format($totalAmountPaid + $amount, 2);
+
+					$data['balance'] = number_format($totalAmount-($totalAmountPaid+$amount), 2);
+					$this->events_model->addEventPayment($clientID, $empID, $eventID, $date, $time, $amount);
 
 					$data['amount'] = number_format($amount, 2);
 
@@ -655,10 +669,13 @@ class Events extends CI_Controller
 				$time = html_escape($this->input->post('appointmentTime'));
 				$agenda = ucwords(html_escape($this->input->post('agenda')));
 
-				$newAppID = $this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
-
-				$data['appointmentID'] = $newAppID;
-
+				$this->events_model->addEventAppointment($empID, $ceID, $adate, $time, $agenda);
+				$date = date_create($adate);
+                $newDate = date_format($date, "M-d-Y");
+                $newTime = date("g:i a", strtotime($time));
+				$data['appDateTime'] = $newDate . " at " . $newTime;
+				$data['agenda'] = $agenda;
+				$data['status'] = "ongoing";
 				$data['success'] = true;	
 			}else{
 				foreach ($_POST as $key => $value) {
@@ -777,13 +794,40 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
 
-			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
-			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numberic');
-			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
-			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
-			$this->form_validation->set_rules('package', 'Package Type', 'trim');
-			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
-			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
+			$eventDetails = $this->events_model->getEventDetails($eventID, $clientID);
+
+			if (empty($eventDetails->eventName) || $eventDetails->eventName == null) {
+				$this->form_validation->set_rules('eventName', 'Event Name', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
+			}
+
+			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numeric');
+			
+			if (empty($eventDetails->celebrantName) || $eventDetails->celebrantName == null) {
+				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
+			}
+			
+			if ($eventDetails->dateAssisted == null) {
+				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+			}
+
+			if ($eventDetails->eventDate == null) {
+				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+			}
+
+			if ($eventDetails->eventTime == null) {
+				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			}
+			
 			$this->form_validation->set_rules('location', 'Location', 'trim');
 			$this->form_validation->set_rules('type', 'Type', 'trim');
 			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');
@@ -837,6 +881,13 @@ class Events extends CI_Controller
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
 				}
+
+				if (!isset($_POST['package']) && (empty($eventDetails->packageType) || $eventDetails->packageType == null)) {
+					$data['messages']['package'] = '<p class="text-danger">The Package Type is required!</p>';
+				}else{
+					$data['messages']['package'] = "";
+				}
+
 			}
 
 			echo json_encode($data);

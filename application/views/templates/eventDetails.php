@@ -39,30 +39,34 @@
                             <span>Print Event Details</span>
                           </a>
                         </li>
-                        <li class="text-center">
-                          <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
-                            <i class="fa fa-money pull-left"></i>
-                            <span>Add Additional Charges</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
-                            <i class="fa fa-check pull-left"></i>
-                            <span>Finish Event</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#cancellEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancellEvent">
-                            <i class="fa fa-close pull-left"></i>
-                            <span>Cancel Event</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#continueEventModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#continueEventModal">
-                            <i class="fa fa-circle-o-notch pull-left"></i>
-                            <span>Continue Event</span>
-                          </a>
-                        </li>
+                        <?php if ($eventDetail->eventStatus == "on-going"): ?>
+                          <li class="text-center">
+                            <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
+                              <i class="fa fa-money pull-left"></i>
+                              <span>Add Additional Charges</span>
+                            </a>
+                          </li>
+                          <li class="text-center">
+                            <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
+                              <i class="fa fa-check pull-left"></i>
+                              <span>Finish Event</span>
+                            </a>
+                          </li>
+                          <li class="text-center">
+                            <a href="#cancellEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancellEvent">
+                              <i class="fa fa-close pull-left"></i>
+                              <span>Cancel Event</span>
+                            </a>
+                          </li>
+                        <?php endif ?>
+                        <?php if ($eventDetail->eventStatus == "cancelled"): ?>
+                          <li class="text-center">
+                            <a href="#continueEventModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#continueEventModal">
+                              <i class="fa fa-circle-o-notch pull-left"></i>
+                              <span>Continue Event</span>
+                            </a>
+                          </li>
+                        <?php endif ?>
                       </ul>
                     </li>
                   </ul>
@@ -73,7 +77,7 @@
         </div>       
       </div>
       <div class="box-body">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header text-center">
               <h3>Event Handler</h3>
@@ -126,7 +130,7 @@
             </div>
           </form>      
         </div>
-        <div class="col-lg-8 well">
+        <div class="col-lg-9 well">
           
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
             <div id="update-message">
@@ -135,7 +139,7 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Name</label>
-                <input type="text" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
+                <input type="text" id="eventName" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
               </div>
               <div class="form-group">
                 <label>Client Name</label>
@@ -143,11 +147,11 @@
               </div>
               <div class="form-group">
                 <label>Contact Number</label>
-                <input type="text" name="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
+                <input type="text" name="contactNumber" id="contactNumber" class="form-control" placeholder="<?php echo $eventDetail->contactNumber ?>" value="">
               </div>
               <div class="form-group">
                 <label>Celebrant</label>
-                <input type="text" name="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
+                <input type="text" name="celebrantName" id="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
               </div>
               <div class="form-group">
                 <div class="col-lg-6 col-sm-6">
@@ -164,40 +168,42 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <label>Change Avail Date</label>
-                  <input type="date" name="dateAvailed" class="form-control">
+                  <input type="date" name="dateAvailed" id="dateAvailed" class="form-control">
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group"> -->
                 <div class="col-lg-6">
-                  <label>Package Availed</label>
-                  <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
+                  <div class="form-group">
+                    <label>Package Availed</label>
+                    <input type="text" class="form-control" id="package" placeholder="<?php echo $eventDetail->packageType ?>">  
+                  </div>
                 </div>
                 <div class="col-lg-6">
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="checkbox" name="package" value="full-Package">Full Package</label></span>
+                      <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
                     </div>
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="checkbox" name="package" value="semi-Package">Semi Package</label></span>
+                      <span class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></span>
                     </div>
                   </div>
                 </div> 
-              </div>
+              <!-- </div> -->
             </div>
             <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Location</label>
-                <input type="text" name="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
+                <input type="text" name="location" id="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
               </div>
 
               <div class="form-group">
                 <label>Event Type</label>
-                <input type="text" name="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
+                <input type="text" name="type" id="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
               </div>
               <div class="form-group">
                 <label>Motif</label>
-                <input type="text" name="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
+                <input type="text" name="motif" id="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
               <!--<div class="form-group">
                 <label>Theme</label>
@@ -212,17 +218,21 @@
                       $themeName = $nagan->themeName;
               ?>           
                 <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>" disabled>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                </span>
+                <?php if ($eventDetail->eventStatus === "on-going"): ?>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                  </span>
+                <?php endif ?>
                 <?php 
                     } else {
                       //echo "wala";
                 ?>
-                 <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                </span>
+                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
+                <?php if ($eventDetail->eventStatus === "on-going"): ?>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                  </span>
+                <?php endif ?>
                 <?php
                   }
                 ?>
@@ -253,7 +263,7 @@
                 </div>
                 <div class="col-lg-6">
                   <label>Change Date</label>
-                  <input type="date" class="form-control" name="eventDate">
+                  <input type="date" class="form-control" name="eventDate" id="eventDate">
                 </div>
               </div>
 
@@ -265,7 +275,7 @@
                     if (!$eventDetail->eventTime == null) {
                       $newTime = date("g:i a", strtotime($eventDetail->eventTime));
                     }else{
-                      $newTime = "not set;";
+                      $newTime = "not set";
                     }     
                                         
                   ?>
@@ -273,7 +283,7 @@
                 </div>
                 <div class="col-lg-6">
                   <label>Change Time</label>
-                  <input type="time" class="form-control" name="eventTime">
+                  <input type="time" class="form-control" name="eventTime" id="eventTime">
                 </div>
                 
               </div>
@@ -284,18 +294,20 @@
       </div>
       <div class="box-footer">
         <div class="row">
-          <div class="col-lg-4">
-            <?php
-              if ($empRole === 'admin') {
-                 echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
-              }else{
-                echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
-              } 
-            ?>
-          </div>
-          <div class="col-lg-8">
-            <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-          </div>
+          <?php if ($eventDetail->eventStatus == "on-going"): ?>
+            <div class="col-lg-3">
+              <?php
+                if ($empRole === 'admin') {
+                   echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
+                }else{
+                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
+                } 
+              ?>
+            </div>
+            <div class="col-lg-9">
+              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+            </div>
+          <?php endif ?>
         </div>
       </div>
     </div>
@@ -637,42 +649,13 @@
   <!-- page script -->
   <script>
     $(function () {
-      $('#serviceTable').DataTable()
-      $('#staffTable').DataTable()
-      $('#modalServcTbl').DataTable()
-      $('#modalStaffTbl').DataTable()
       $('#modalthemetbl').DataTable()
     })
 
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
     }
-  </script>
 
-<style>
-  @media screen and (min-with: 768px){
-    #add-event .modal-dialog {
-      width:900px;
-    }
-  }
-
-  #finishEventModal .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-
-  #select-handler .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-
-  #update-details .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-</style>
-
-<script>
     $('#addAdditionalCharges').submit(function(e){
       e.preventDefault();
 
@@ -729,6 +712,7 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
+            $('div.alert-success').remove();
             $('#update-message').append('<div class="alert alert-success text-center">' +
             '<span class="icon fa fa-ckeck"></span>' +
             ' Changes Applied.' +

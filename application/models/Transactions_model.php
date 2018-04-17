@@ -89,6 +89,16 @@
 
 		}
 
+		public function getHandlerName($id){
+			$this->db->select('concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('employeeID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 		public function getTransactionServices($transID){
 			$query=$this->db->query(
 				"
@@ -375,12 +385,11 @@
 			
 		}
 
-		public function insertTransaction($clientID, $empID){
+		public function insertTransaction($clientID){
 			$defaultStatus = "on-going";
 			$data = array(
 				'clientID' => $clientID,
 				'transactionstatus' => $defaultStatus,
-				'employeeID' => $empID
 			);
 
 			$this->db->insert('transactions', $data);
@@ -478,6 +487,14 @@
 			$this->db->update('transactions', $data);
 		}
 
+		public function uptransactionHandler($empID, $trnID){
+			$data = array(
+				'employeeID' => $empID
+			);
+			$this->db->where('transactionID', $trnID);
+			$this->db->update('transactions', $data);
+		}
+
 		// end of trandaction details update
 
 		// validate time and date of transactions
@@ -490,6 +507,27 @@
 			$query = $this->db->get();
 
 			return $query->row();
+		}
+
+		public function getTransactionStatus($id){
+			$this->db->select('transactionstatus');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
+		public function getHandlers(){
+			$this->db->select('employeeID, concat(firstName, " ", midName, " ", lastName) as employeeName');
+			$this->db->from('employees');
+			$this->db->where('status', "active");
+			$this->db->where('role', "handler");
+
+			$query = $this->db->get();
+
+			return $query->result_array();
 		}
 
 	}

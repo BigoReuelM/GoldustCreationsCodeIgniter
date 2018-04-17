@@ -175,8 +175,10 @@
 		public function returnPassToDefault($pin, $empID){
 			$newPass = "goldust" . $pin;
 
+			$hashedNewPass = password_hash($newPass, PASSWORD_BCRYPT);
+
 			$data = array(
-				'password' => $newPass
+				'password' => $hashedNewPass
 			);
 
 			$this->db->where('employeeID', $empID);

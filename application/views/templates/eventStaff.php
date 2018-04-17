@@ -1,28 +1,73 @@
-<?php 
-  $empRole = $this->session->userdata('role');
- ?>
- <style type="text/css">
-   #butt5 {
-    width: 100px;
-   }
-
- </style>
-<!-- Main content -->
+<style>
+  #staffContainer{
+    height: 500px;
+    overflow: scroll;
+  }
+</style>
 <section class="content container-fluid">
-
-
-    <!--end of service col-->
-
-    <!--start of staff col-->
-    <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
+  <div class="row">
+    <?php if ($eventStatus === "on-going" || $eventStatus === "new"): ?>
+      <div class="col-lg-5">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Available Staff</h3>
+          </div>
+          <div class="box-body">
+            <div id="staffContainer">
+              <form id="addstaffform" role="form" method="post" action="<?php echo base_url('events/addStaff') ?>">
+                <table class="table table-hover table-responsive table-bordered" id="modalStaffTbl">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Contact Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <?php
+                        if (!empty($allStaff)) {
+                          $valid = true;
+                          for($j = 0 ; $j < count($allStaff) ; $j++){
+                            for($i = 0 ; $i < count($eventStaff) ; $i++){
+                              if ($allStaff[$j]['employeeID'] == $eventStaff[$i]['empId']) {
+                                $valid = false;
+                              }
+                            }                  
+                            if($valid){      
+                      ?>
+                            <tr>                   
+                              <td>
+                                <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $allStaff[$j]['employeeID'] ?>" multiple><?php echo $allStaff[$j]['employeeName'] ?></label></div>
+                              </td>
+                              <td><?php echo $allStaff[$j]['contactNumber'] ?></td>
+                              <td><?php echo $allStaff[$j]['role'] ?></td>
+                            </tr>
+                      <?php }else{
+                              $valid = true;
+                            }
+                          }
+                        }
+                      ?> 
+                  </tbody>            
+                </table>
+              </form>
+            </div>
+          </div>
+          <div class="box-footer">
+            <div class="pull-right">
+              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+              <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
+            </div>
+          </div>
+        </div>  
+      </div>
+    <?php endif ?>
+    <div class="<?php if(($eventStatus === 'finished') || ($eventStatus === 'cancelled')){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
+      <form id="evtstaffdltform" role="form" method="post" action="<?php echo base_url('events/rmvStaff') ?>"></form>
       <div class="box box-primary">
         <div class="box-header">
           <div class="row">
             <div class="col-lg-6">
               <h3 class="box-title">Staff</h3>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addStaff">Add Staff </button>
             </div>
           </div>
         </div>
@@ -62,9 +107,9 @@
           </table>
         </div>
       </div>
-
-    <!--end staff col-->
-
+    </div>
+  </div>
+      
 <div class="control-sidebar-bg"></div> 
 </section>
 <!-- /.content-wrapper -->
@@ -73,62 +118,6 @@
     
 </div>
 
-
-
-<!-- Add staff Modal -->
-<div class="modal fade" role="dialog" id="addStaff">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- pwede ditu form -->
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add Staff</h4>
-      </div>
-      <div class="modal-body">
-        <form id="addstaffform" role="form" method="post" action="<?php echo base_url('events/addStaff') ?>">
-          <table class="table table-hover table-responsive table-bordered" id="modalStaffTbl">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Contact Number</th>
-              </tr>
-            </thead>
-            <tbody>
-                <?php
-                  if (!empty($allStaff)) {
-                    $valid = true;
-                    for($j = 0 ; $j < count($allStaff) ; $j++){
-                      for($i = 0 ; $i < count($eventStaff) ; $i++){
-                        if ($allStaff[$j]['employeeID'] == $eventStaff[$i]['empId']) {
-                          $valid = false;
-                        }
-                      }                  
-                      if($valid){      
-                ?>
-                      <tr>                   
-                        <td>
-                          <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $allStaff[$j]['employeeID'] ?>" multiple><?php echo $allStaff[$j]['employeeName'] ?></label></div>
-                        </td>
-                        <td><?php echo $allStaff[$j]['contactNumber'] ?></td>
-                      </tr>
-                <?php }else{
-                        $valid = true;
-                      }
-                    }
-                  }
-                ?> 
-            </tbody>            
-          </table>
-          <div class="modal-footer">                 
-            <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-            <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
-          </div>
-        </form>
-      </div>     
-    </div>
-  </div>
-</div>
-<!-- End of Add staff modal -->
 
   <!-- REQUIRED JS SCRIPTS -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -148,61 +137,19 @@
   <!-- page script -->
   <script>
     $(function () {
-      $('#serviceTable').DataTable()
       $('#staffTable').DataTable()
-      $('#modalServcTbl').DataTable()
-      $('#modalStaffTbl').DataTable()
+      $('#modalStaffTbl').DataTable({
+        'paging'      : false,
+        'lengthChange': false,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true
+      })
     })
 
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
     }
   </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-  $(".search").keyup(function () {
-    var searchTerm = $(".search").val();
-    var listItem = $('.results tbody').children('tr');
-    var searchSplit = searchTerm.replace(/ /g, "'):containsi('")
-    
-  $.extend($.expr[':'], {'containsi': function(elem, i, match, array){
-        return (elem.textContent || elem.innerText || '').toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
-    }
-  });
-    
-  $(".results tbody tr").not(":containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','false');
-  });
 
-  $(".results tbody tr:containsi('" + searchSplit + "')").each(function(e){
-    $(this).attr('visible','true');
-  });
-
-  var jobCount = $('.results tbody tr[visible="true"]').length;
-    $('.counter').text(jobCount + ' item');
-
-  if(jobCount == '0') {$('.no-result').show();}
-    else {$('.no-result').hide();}
-      });
-});
-  </script>
-
-<style>
-  @media screen and (min-with: 768px){
-    #add-event .modal-dialog {
-      width:900px;
-    }
-  }
-
-  #add-event .modal-dialog {
-    width:90%;
-  }
-
-  #addServc .modal-dialog {
-    width:70%;
-  }
-
-  #addStaff .modal-dialog {
-    width: 70%;
-  }
-</style>
