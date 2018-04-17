@@ -819,7 +819,13 @@ class Events extends CI_Controller
 			if ($eventDetails->eventDate == null) {
 				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
 			}else{
-				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+				if (!empty($_POST['eventDate']) && !empty($_POST['dateAvailed'])){
+					$enteredDateEvent = $this->input->post('eventDate');
+					$enteredDateAvailed = $this->input->post('dateAvailed');
+					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_compareDates[' . $enteredDateAvailed . ']');
+				}elseif(isset($_POST['eventDate']) && $eventDetails->dateAssisted != null){
+					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_eventDateValidation[' . $eventID . ']');
+				}
 			}
 
 			if ($eventDetails->eventTime == null) {
@@ -846,34 +852,56 @@ class Events extends CI_Controller
 				$theme = html_escape($this->input->post('theme'));
 
 				if (!empty($eventName)) {
-					$this->events_model->upEventName($eventName, $eventID);		
+					$this->events_model->upEventName($eventName, $eventID);
+					$data['eventName'] = true;
+					$data['newEventName'] = $eventName;		
 				}
 				if (!empty($celebrant)) {
 					$this->events_model->upCelebrantName($celebrant, $eventID);
+					$data['celebrant'] = true;
+					$data['celebrantName'] = $celebrant;
 				}
 				if (!empty($clientContactNo)) {
 					$this->events_model->upClientContactNo($clientContactNo, $clientID);
+					$data['clientContact'] = true;
+					$data['newClientContact'] = $clientContactNo;
 				}
 				if (!empty($packageType)) {
 					$this->events_model->upPackageType($packageType, $eventID);
+					$data['packageType'] = true;
+					$data['newPackageType'] = $packageType;
 				}
 				if (!empty($eventDate)) {
 					$this->events_model->upEventDate($eventDate, $eventID);
+					$newDate = date_create($eventDate);
+					$data['eventDate'] = true;
+					$data['newEventDate'] = date_format($newDate, "M-d-Y");
 				}
 				if (!empty($eventTime)) {
 					$this->events_model->upEventTime($eventTime, $eventID);
+					$data['eventTime'] = true;
+					$data['newEventTime'] = date("g:i a", strtotime($eventTime));
 				}
 				if (!empty($location)) {
 					$this->events_model->upLocation($location, $eventID);
+					$data['location'] = true;
+					$data['newLocation'] = $location;
 				}
 				if (!empty($type)) {
 					$this->events_model->upType($type, $eventID);
+					$data['type'] = true;
+					$data['newType'] = $type;
 				}
 				if (!empty($motif)) {
 					$this->events_model->upMotif($motif, $eventID);
+					$data['motif'] = true;
+					$data['newMotif'] = $motif;
 				}
 				if(!empty($dateAvailed)){
 					$this->events_model->updateAvailDate($dateAvailed, $eventID);
+					$dateAvl = date_create($dateAvailed);
+					$data['dateAvailed'] = true;
+					$data['newDateAvailed'] = date_format($dateAvl, "M-d-Y");
 				}
 
 				$data['success'] = true;
@@ -891,6 +919,27 @@ class Events extends CI_Controller
 			}
 
 			echo json_encode($data);
+		}
+
+		public function compareDates($eventDate, $dateAvl){
+			$edate = date_create($eventDate);
+			$adate = date_create($dateAvl);
+
+			if ($edate <= $adate) {
+				$this->form_validation->set_message('compareDates', 'Event Date must be later than the Availed Date.');
+				return false;
+			}else{
+				return true;
+			}
+		}
+
+		public function eventDateValidation($date, $id){
+			if($this->events_model->eventDateValidate($date, $id)){
+				return true;
+			}else{
+				$this->form_validation->set_message('eventDateValidation', 'Event Date must be later than the Availed Date. ');
+				return false;
+			}
 		}
 
 		public function finishEvent(){
