@@ -167,10 +167,12 @@
                   <input type="date" name="dateAvailed" id="dateAvailed" class="form-control">
                 </div>
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group"> -->
                 <div class="col-lg-6">
-                  <label>Package Availed</label>
-                  <input type="text" class="form-control" placeholder="<?php echo $eventDetail->packageType ?>">  
+                  <div class="form-group">
+                    <label>Package Availed</label>
+                    <input type="text" class="form-control" id="package" placeholder="<?php echo $eventDetail->packageType ?>">  
+                  </div>
                 </div>
                 <div class="col-lg-6">
                   <label>Change Package Type</label>
@@ -183,7 +185,7 @@
                     </div>
                   </div>
                 </div> 
-              </div>
+              <!-- </div> -->
             </div>
             <div class="col-lg-6">
               <div class="form-group">

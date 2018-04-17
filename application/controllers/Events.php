@@ -21,6 +21,7 @@ class Events extends CI_Controller
 	}
 
 	public function newEvents(){
+		$page['pageName'] = "new";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "new";
@@ -43,11 +44,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/newEvents.php", $data);
@@ -58,6 +59,7 @@ class Events extends CI_Controller
 
 
 	public function ongoingEvents(){
+		$page['pageName'] = "ongoing";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "on-going";
@@ -80,11 +82,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/ongoingEvents.php", $data);
@@ -94,6 +96,7 @@ class Events extends CI_Controller
 	}
 
 	public function finishedEvents(){
+		$page['pageName'] = "finished";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "finished";
@@ -114,11 +117,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/finishedEvents.php", $data);
@@ -126,6 +129,7 @@ class Events extends CI_Controller
 	}
 
 	public function canceledEvents(){
+		$page['pageName'] = "canceled";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$status = "cancelled";
@@ -146,11 +150,11 @@ class Events extends CI_Controller
 			
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}else{
 			$this->load->view("templates/header.php", $notif);
-			$this->load->view("templates/eventNavigation.php");
+			$this->load->view("templates/eventNavigation.php", $page);
 			
 		}
 		$this->load->view("templates/canceledEvents.php", $data);
@@ -786,27 +790,41 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			$clientID = $this->session->userdata('clientID');
 
-			$eventTimeNdate = $this->events_model->getEventTimeDate($eventID);
+			$eventDetails = $this->events_model->getEventDetails($eventID, $clientID);
 
-			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
-			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numberic');
-			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
+			if (empty($eventDetails->eventName) || $eventDetails->eventName == null) {
+				$this->form_validation->set_rules('eventName', 'Event Name', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
+			}
+
+			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numeric');
 			
-			if ($eventTimeNdate->dateAssisted == null) {
+			if (empty($eventDetails->celebrantName) || $eventDetails->celebrantName == null) {
+				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
+			}
+			
+			if ($eventDetails->dateAssisted == null) {
 				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim|required');
 			}else{
 				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
 			}
 			
-			$this->form_validation->set_rules('package', 'Package Type', 'trim');
+			if (empty($eventDetails->packageType) || $eventDetails->packageType == null) {
+				$this->form_validation->set_rules('package', 'Package Type', 'trim|required');
+			}else{
+				$this->form_validation->set_rules('package', 'Package Type', 'trim');
+			}
 
-			if ($eventTimeNdate->eventDate == null) {
+			if ($eventDetails->eventDate == null) {
 				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
 			}else{
 				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
 			}
 
-			if ($eventTimeNdate->eventTime == null) {
+			if ($eventDetails->eventTime == null) {
 				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
 			}else{
 				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');

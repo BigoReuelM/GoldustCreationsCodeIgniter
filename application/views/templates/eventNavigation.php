@@ -15,16 +15,16 @@
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <ul class="nav navbar-nav navbar-centered collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <li>
+        <li class="<?php if($pageName === "new"){ echo 'active'; } ?>">
           <a href="<?php echo base_url('events/newEvents') ?>"><i class=""></i>New Events</a>
         </li>
-        <li>
+        <li class="<?php if($pageName === "ongoing"){ echo 'active'; } ?>">
           <a href="<?php echo base_url('events/ongoingEvents') ?>"><i class=""></i>Ongoing Events</a>
         </li>
-        <li>
+        <li class="<?php if($pageName === "finished"){ echo 'active'; } ?>">
           <a href="<?php echo base_url('events/finishedEvents') ?>"><i class=""></i>Finished Events</a>
         </li>
-        <li>
+        <li class="<?php if($pageName === "canceled"){ echo 'active'; } ?>">
           <a href="<?php echo base_url('events/canceledEvents') ?>"><i class=""></i>Canceled Events</a>
         </li>
       </ul>
