@@ -130,9 +130,24 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="col-sm-2 control-label">Status</label>
-                  <div class="col-sm-10">
-                    <input type="text" id="status" name="status" class="form-control" placeholder="<?php echo $details->transactionstatus ?>" value="" disabled>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label class="col-sm-2 control-label">Handler</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="currentHandler" placeholder="<?php echo $handlerName ?>" class="form-control" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <label class="col-sm-2 control-label">Handler Incharge</label>
+                      <div class="col-sm-10">
+                        <select class="form-control" name="handler">
+                          <option selected disabled hidden>Choose Handler</option>
+                          <?php foreach ($handlers as $handler): ?>
+                            <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['employeeName'] ?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -436,6 +451,9 @@
           }
           if (response.newDate == true) {
             $('#date').attr('placeholder', response.newDateValue);
+          }
+          if (response.handler == true) {
+            $('#currentHandler').attr('placeholder', response.handlerName);
           }
 
           $('.alert-success').delay(500).show(10, function() {

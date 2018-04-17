@@ -885,7 +885,7 @@ class Events extends CI_Controller
 				if (!isset($_POST['package']) && (empty($eventDetails->packageType) || $eventDetails->packageType == null)) {
 					$data['messages']['package'] = '<p class="text-danger">The Package Type is required!</p>';
 				}else{
-					$data['messages']['package'];
+					$data['messages']['package'] = "";
 				}
 
 			}

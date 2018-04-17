@@ -142,8 +142,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['totalAmount'] = $this->transactions_model->totalAmount($tranID);		
 			$data['balance'] = $this->transactions_model->getBalance($tranID);
-			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);		
-
+			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			if (!empty($data['details']->employeeID) || $data['details']->employeeID !== null) {
+				$data['handlerName'] = $this->transactions_model->getHandlerName($data['details']->employeeID)->employeeName;
+			}else{
+				$data['handlerName'] = "None";
+			}		
+			$data['handlers'] = $this->transactions_model->gethandlers();
 			$data['total'] = $this->transactions_model->totalAmountPaid($tranID);
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Transactions Details| Admin';	
@@ -576,9 +581,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addTransaction(){
 			$clientID = $this->input->post('clientID');
-			$empID = $this->session->userdata('employeeID');
 
-			$newTranID = $this->transactions_model->insertTransaction($clientID, $empID);
+			$newTranID = $this->transactions_model->insertTransaction($clientID);
 
 			$this->session->set_userdata('currentTransactionID', $newTranID);
 
@@ -589,7 +593,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$transID = $this->session->userdata('currentTransactionID');
 			$clientID = $this->session->userdata('clientID');
 
-			$dateTimeValidation = $this->transactions_model->getTimeNDate($transID);
+			$transactionDetails = $this->transactions_model->getTransactionDetails($transID);
 
 			$data = array('success' => false, 'messages' => array(), 'contactNumber' => false, 'address' => false, 'yNs' => false, 'school' => false, 'idType' => false, 'deposit' => false, 'newDate' => false, 'newTime' => false);
 
@@ -600,13 +604,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('school', 'School', 'trim|alpha_numeric_spaces');
 			$this->form_validation->set_rules('idType', 'ID Type', 'trim|alpha_numeric_spaces');
 
-			if ($dateTimeValidation->dateAvail == null) {
+			if ($transactionDetails->dateAvail == null) {
 				$this->form_validation->set_rules('newDate', 'Date', 'trim|required');
 			}else{
 				$this->form_validation->set_rules('newDate', 'Date', 'trim');
 			}
 
-			if ($dateTimeValidation->time == null) {
+			if ($transactionDetails->time == null) {
 				$this->form_validation->set_rules('newTime', 'Time', 'trim|required');
 			}else{
 				$this->form_validation->set_rules('newTime', 'Time', 'trim');
@@ -623,7 +627,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$depositAmount = html_escape($this->input->post('depositAmt'));
 				$date = html_escape($this->input->post('newDate'));
 				$time = html_escape($this->input->post('newTime'));
+				$handler = html_escape($this->input->post('handler'));
 
+				if (!empty($handler)) {
+					$this->transactions_model->upTransactionHandler($handler, $transID);
+					$data['handler'] = true;
+					$data['handlerName'] = $this->transactions_model->getHandlerName($handler)->employeeName;
+				}
 				if (!empty($contactNumber)) {
 					$this->transactions_model->upContactNumber($contactNumber, $clientID);
 					$data['contactNumber'] = true;		
@@ -667,6 +677,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
+				}
+				if (!isset($_POST['handler']) && (empty($transactionDetails->employeeID) || $transactionDetails->employeeID == null)) {
+					$data['messages']['currentHandler'] = '<p class="text-danger">A handler for this transaction should be selected!</p>';
+				}else{
+					$data['messages']['currentHandler'] = "";
 				}
 			}
 
