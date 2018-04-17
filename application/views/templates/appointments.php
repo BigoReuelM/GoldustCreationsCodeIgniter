@@ -53,6 +53,7 @@
         </div>
             <!-- /.box-body -->
       </div>
+      <div class="control-sidebar-bg"></div> 
     </section>
     <!-- /.content -->
   </div>

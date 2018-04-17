@@ -234,6 +234,7 @@ class Events extends CI_Controller
 		$page['pageName'] = "staff";
 		$empRole = $this->session->userdata('role');
 		$id = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();

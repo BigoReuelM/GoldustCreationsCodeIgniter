@@ -165,7 +165,7 @@
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true
-    })
+      })
     })
 
     function reset_chkbx() {

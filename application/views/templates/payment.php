@@ -11,10 +11,10 @@
           <div class="box">
             <div class="box-header with-border">
               <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-9">
                   <h3 class="box-title">Payments Table:</h3>
                 </div>
-                <div class="col-lg-7">
+                <div class="col-lg-3">
                   <?php 
                     if ($empRole === "admin" && ($eventStatus === "on-going" || $eventStatus === "new")) {
                       echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
