@@ -492,6 +492,16 @@
 			return $query->row();
 		}
 
+		public function getTransactionStatus($id){
+			$this->db->select('transactionstatus');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 	}
 
 ?>

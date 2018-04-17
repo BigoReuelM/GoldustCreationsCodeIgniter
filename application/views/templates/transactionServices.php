@@ -6,66 +6,68 @@
 </style>
   <section class="content container-fluid">
     <div class="row">
-      <div class="col-lg-5">
-        <div id="servicesBox" class="box">
-          <div class="box-header">
-            <h3 class="box-title">Available Services</h3>            
-          </div>
-          <?php 
-            $attributes = array("name" => "addService", "id" => "addService", "class" => "form-horizontal", "autocomplete" => "off");
-            echo form_open("transactions/addsvc", $attributes);
-          ?>
-            <div class="box-body">
-              <div id="servicesContainer">
-              <table class="table table-hover table-responsive table-bordered" id="servicesAvailable">
-                <thead>
-                  <tr>
-                    <th>Service Name</th>
-                    <th>Service Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php
-                  if (!empty($servcs)) {
-                    $valid = true;
-                    for($j = 0; $j < count($servcs) ; $j++) { 
-                      for($i = 0 ; $i < count($transServices) ; $i++){
-                        if ($servcs[$j]['serviceID'] == $transServices[$i]['serviceID']) {
-                          $valid = false;
+      <?php if ($transactionStatus === "on-going"): ?>
+        <div class="col-lg-5">
+          <div id="servicesBox" class="box">
+            <div class="box-header">
+              <h3 class="box-title">Available Services</h3>            
+            </div>
+            <?php 
+              $attributes = array("name" => "addService", "id" => "addService", "class" => "form-horizontal", "autocomplete" => "off");
+              echo form_open("transactions/addsvc", $attributes);
+            ?>
+              <div class="box-body">
+                <div id="servicesContainer">
+                <table class="table table-hover table-responsive table-bordered" id="servicesAvailable">
+                  <thead>
+                    <tr>
+                      <th>Service Name</th>
+                      <th>Service Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                    if (!empty($servcs)) {
+                      $valid = true;
+                      for($j = 0; $j < count($servcs) ; $j++) { 
+                        for($i = 0 ; $i < count($transServices) ; $i++){
+                          if ($servcs[$j]['serviceID'] == $transServices[$i]['serviceID']) {
+                            $valid = false;
+                          }
+                        }                  
+                        if($valid){ 
+                    ?>
+                        <tr>                   
+                            <td>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" name="services[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?>
+                                </label>
+                              </div>
+                            </td>
+                            <td><?php echo $servcs[$j]['description'] ?></td>
+                        </tr>
+                  <?php }else{
+                          $valid = true;
                         }
-                      }                  
-                      if($valid){ 
-                  ?>
-                      <tr>                   
-                          <td>
-                            <div class="checkbox">
-                              <label>
-                                <input type="checkbox" name="services[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?>
-                              </label>
-                            </div>
-                          </td>
-                          <td><?php echo $servcs[$j]['description'] ?></td>
-                      </tr>
-                <?php }else{
-                        $valid = true;
                       }
                     }
-                  }
-                ?>
-                </tbody>
-              </table>
+                  ?>
+                  </tbody>
+                </table>
+                </div>
               </div>
-            </div>
-            <div class="box-footer">
-              <div class="pull-right">
-                <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-                <button class="btn btn-default" type="submit">Add</button>
+              <div class="box-footer">
+                <div class="pull-right">
+                  <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+                  <button class="btn btn-default" type="submit">Add</button>
+                </div>
               </div>
-            </div>
-          <?php echo form_close() ?>
-        </div>
-      </div>
-      <div class="col-lg-7">
+            <?php echo form_close() ?>
+          </div>
+        </div>    
+      <?php endif ?>  
+      <div class="<?php if($transactionStatus !== 'on-going'){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
         <div class="box box-info">
           <!--list of services col-->
             <div class="box-header">
@@ -83,7 +85,9 @@
                     <th>Service</th>
                     <th>Quantity</th>
                     <th>Amount</th>
-                    <th>Action</th>
+                    <?php if ($transactionStatus === "on-going"): ?>
+                      <th>Action</th>
+                    <?php endif ?>
                   </tr>
                 </thead>
                 
@@ -105,17 +109,19 @@
                             ?>
                             <input class="form-control" id="serviceAmount" name="serviceAmount" type="text" placeholder="<?php echo $formatedServiceAmount ?>">
                           </td>
-                          <td>
-                            <input type="text" id="servi" name="serviceID" value="<?php echo $serviceID ?>" hidden>
-                            <div class="row">
-                              <div class="col-lg-6">
-                                <button class="btn btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
+                          <?php if ($transactionStatus === "on-going"): ?>
+                            <td>
+                              <input type="text" id="servi" name="serviceID" value="<?php echo $serviceID ?>" hidden>
+                              <div class="row">
+                                <div class="col-lg-6">
+                                  <button class="btn btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
+                                </div>
+                                <div class="col-lg-6">
+                                  <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
+                                </div>
                               </div>
-                              <div class="col-lg-6">
-                                <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
-                              </div>
-                            </div>
-                          </td>
+                            </td>
+                          <?php endif ?>
                         <?php echo form_close(); ?>
                       </tr>
                     <?php }}?>

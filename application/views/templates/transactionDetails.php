@@ -21,26 +21,26 @@
                         <li>
                           <ul class="menu">
                             <li class="text-center">
-                              <a href="#addCharges" type="button" data-toggle="modal" data-target="#addCharges">
-                                <i class="fa fa-money"></i>
+                              <a href="#addCharges" type="button" class="btn btn-default" data-toggle="modal" data-target="#addCharges">
+                                <i class="fa fa-money pull-left"></i>
                                 <span>Additional Charges</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#refundDeposit" type="button" data-toggle="modal" data-target="#refundDeposit">
-                                <i class="fa fa-money"></i>
+                              <a href="#refundDeposit" type="button" class="btn btn-default" data-toggle="modal" data-target="#refundDeposit">
+                                <i class="fa fa-money pull-left"></i>
                                 <span>Refund Deposit</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#finish" type="button" data-toggle="modal" data-target="#finish">
-                                <i class="fa fa-check"></i>
+                              <a href="#finish" type="button" class="btn btn-default" data-toggle="modal" data-target="#finish">
+                                <i class="fa fa-check pull-left"></i>
                                 <span>Finish Event</span>
                               </a>
                             </li>
                             <li class="text-center">
-                              <a href="#cancel" type="button" data-toggle="modal" data-target="#cancel">
-                                <i class="fa fa-close"></i>
+                              <a href="#cancel" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancel">
+                                <i class="fa fa-close pull-left"></i>
                                 <span>Cancel Event</span>
                               </a>
                             </li>

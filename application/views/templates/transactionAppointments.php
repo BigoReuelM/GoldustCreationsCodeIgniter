@@ -1,7 +1,5 @@
 
 </style>
-
-
   <!-- Content Header (Page header) -->
   <section class="content container-fluid">
     <div class="box box-info">
@@ -12,9 +10,11 @@
             <div class="col-md-6">
               <h3 class="box-title">List of Appointments</h3>
             </div>
-            <div class="col-md-6">
-              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointment</button>
-            </div>
+            <?php if ($transactionStatus === "on-going"): ?>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointment</button>
+              </div>
+            <?php endif ?>
           </div>    
         </div>
         <!-- /.box-header -->
