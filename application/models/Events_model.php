@@ -1024,6 +1024,15 @@
 			$this->db->insert('eventdecors', $data);
 		}
 
+
+		public function updtDecorQty($eventID, $decorID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->where('decorID', $decorID);
+			$this->db->update('eventdecors', $data);
+		}
 	}
 
 

@@ -33,7 +33,7 @@ $eventId = $this->session->userdata('currentEventID');
   resize: vertical;
   background-color: #E6E6E6;
 }
-input[type=text], select, textarea {
+#updtDecorIdForm input[type=text], select, textarea {
   width:100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -153,7 +153,18 @@ input[type=submit] {
                     ?>
                       <tr>
                         <td><?php echo $td['decorName']; ?></td>
-                        <td><input class="form-control" type="text" name="" style="border: none;" placeholder="<?php echo $td['quantity']; ?>"></td>
+                        <td>
+                          <form id="updtDecorIdForm" role="form" method="post" action="<?php echo base_url('events/updateEvtDec') ?>">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                              </div>
+                              <div class="col-md-6">
+                                <button class="btn btn-link btn-block" id="updtDecorBtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                              </div>
+                            </div>
+                          </form>
+                        </td>
                         <td>
                           <?php
                           if (!empty($eventThemeDet)) {
@@ -178,17 +189,10 @@ input[type=submit] {
                         </td>
                         <td>                            
                           <!-- remove decor button -->
-                          <div class="col-md-3 col-sm-4">
+                          <div class="col-md-4 col-sm-4">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
                               <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>   
-                          </div>
-                          <!-- change decor button -->
-                          <div class="col-md-3 col-sm-4">
-                            <!--<form id="changedecorform" role="form" method="post" action="<?php //echo base_url('items/changeDecorSetVals') ?>">
-                              <button class="btn btn-link" id="changedecorbtn" name="decorID" type="submit" value="<?php //echo($decorID) ?>"><i class="fa fa-fw fa-edit"></i> Change</button>
-                            </form>-->
-                            <button class="btn btn-link" id="changedecorbtn" name="decorID" type="button" data-toggle="modal" data-target="changedecormodal" value=""><i class="fa fa-fw fa-edit"></i> Change</button>
                           </div>
                         </td>
                       </tr>

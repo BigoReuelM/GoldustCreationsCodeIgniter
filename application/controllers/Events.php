@@ -1425,6 +1425,15 @@ class Events extends CI_Controller
 			$this->events_model->addNewEventDecor($eventID, $decID);
 			$this->eventDecors();
 		}
+
+		public function updateEvtDec(){
+			// update event decor quantity
+			$eventID = $this->session->userdata('currentEventID');
+			$decorID = $this->input->post('decorID');
+			$qty = $this->input->post('decor_qty');
+			$this->events_model->updtDecorQty($eventID, $decorID, $qty);
+			$this->eventDecors();
+		}
 	}
 
 ?>
