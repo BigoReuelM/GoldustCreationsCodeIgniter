@@ -114,30 +114,6 @@ class Items extends CI_Controller
 		$this->load->view("templates/footer.php");
 	}
 
-	public function changeDecorSetVals(){		
-			// id of the current decor id.. yung papalitan
-		$currentDecorID =html_escape($this->input->post('decorID'));
-		$this->session->set_userdata('currentDecorID', $currentDecorID);
-
-		
-
-			//$this->load->model('events_model');
-			//$this->events_model->changeDecor($eId, $decId, $newdecID);
-		$this->decors();
-	}
-
-		// nasa events din controller tu
-	public function changeDecor(){
-			// id nung decor na ipapalit 
-		$newdecID = html_escape($this->input->post('newdecId'));
-		$eId = $this->session->userdata('currentEventID');
-		$decId = $this->session->userdata('currentDecorID');
-
-		$this->load->model('events_model');
-		$this->events_model->changeDecor($eId, $decId, $newdecID);
-		redirect('events/eventDecors');
-	}
-
 	public function costumes(){
 		$this->load->model('items_model');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
