@@ -8,59 +8,61 @@
 <!-- Main content -->
 <section class="content container-fluid">
   <div class="row">
-    <div class="col-lg-5">
-      <div class="box">
-        <div class="box-header">
-          <h3 class="box-title">Available Services</h3>
-        </div>
-        <form id="addsvcform" role="form" method="post" action="<?php echo base_url('events/addsvc') ?>">
-          <div class="box-body">
-            <div id="servicesContainer">
-            <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
-              <thead>
-                <tr>
-                  <th>Service Name</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>              
-                  <?php
-                    if (!empty($servcs)) {
-                      $valid = true;
-                      for($j = 0 ; $j < count($servcs) ; $j++){
-                        for($i = 0 ; $i < count($avlServcs) ; $i++){
-                          if ($servcs[$j]['serviceID'] == $avlServcs[$i]['serviceID']) {
-                            $valid = false;
+    <?php if ($eventStatus === "on-going" || $eventStatus === "new"): ?>
+      <div class="col-lg-5">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Available Services</h3>
+          </div>
+          <form id="addsvcform" role="form" method="post" action="<?php echo base_url('events/addsvc') ?>">
+            <div class="box-body">
+              <div id="servicesContainer">
+              <table class="table table-hover table-responsive table-bordered" id="modalServcTbl">
+                <thead>
+                  <tr>
+                    <th>Service Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>              
+                    <?php
+                      if (!empty($servcs)) {
+                        $valid = true;
+                        for($j = 0 ; $j < count($servcs) ; $j++){
+                          for($i = 0 ; $i < count($avlServcs) ; $i++){
+                            if ($servcs[$j]['serviceID'] == $avlServcs[$i]['serviceID']) {
+                              $valid = false;
+                            }
+                          }                  
+                          if($valid){  
+                    ?>
+                          <tr>                   
+                              <td>
+                                <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?></label></div>
+                              </td>
+                              <td><?php echo $servcs[$j]['description'] ?></td>
+                          </tr>
+                    <?php }else{
+                            $valid = true;
                           }
-                        }                  
-                        if($valid){  
-                  ?>
-                        <tr>                   
-                            <td>
-                              <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?></label></div>
-                            </td>
-                            <td><?php echo $servcs[$j]['description'] ?></td>
-                        </tr>
-                  <?php }else{
-                          $valid = true;
                         }
                       }
-                    }
-                  ?>             
-              </tbody>            
-            </table>
-            </div> 
-          </div>
-          <div class="box-footer">
-            <div class="pull-right">
-              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-              <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button>
-            </div>  
-          </div>
-        </form>
+                    ?>             
+                </tbody>            
+              </table>
+              </div> 
+            </div>
+            <div class="box-footer">
+              <div class="pull-right">
+                <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+                <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button>
+              </div> 
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-    <div class="col-lg-7">
+    <?php endif ?>
+    <div class="<?php if(($eventStatus === 'finished') || ($eventStatus === 'cancelled')){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
       <div class="box box-primary">
         <div class="box-header">
           <div class="row">

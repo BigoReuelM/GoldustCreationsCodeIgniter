@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-lg-7">
                   <?php 
-                    if ($empRole === "admin") {
+                    if ($empRole === "admin" && ($eventStatus === "on-going" || $eventStatus === "new")) {
                       echo '<button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addpayment">Add Payments</button>';
                     }
                   ?>

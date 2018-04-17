@@ -266,6 +266,7 @@ class Events extends CI_Controller
 	public function eventServices(){
 		$page['pageName'] = "services";
 		$id = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -408,6 +409,7 @@ class Events extends CI_Controller
 	public function payment(){
 		$page['pageName'] = "payments";
 		$currentEvent = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -450,6 +452,7 @@ class Events extends CI_Controller
 	public function appointments(){
 		$page['pageName'] = "appointments";
 		$currentEvent = $this->session->userdata('currentEventID');
+		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -811,12 +814,6 @@ class Events extends CI_Controller
 			}else{
 				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
 			}
-			
-			if (empty($eventDetails->packageType) || $eventDetails->packageType == null) {
-				$this->form_validation->set_rules('package', 'Package Type', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('package', 'Package Type', 'trim');
-			}
 
 			if ($eventDetails->eventDate == null) {
 				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
@@ -883,6 +880,13 @@ class Events extends CI_Controller
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
 				}
+
+				if (!isset($_POST['package']) && (empty($eventDetails->packageType) || $eventDetails->packageType == null)) {
+					$data['messages']['package'] = '<p class="text-danger">The Package Type is required!</p>';
+				}else{
+					$data['messages']['package'];
+				}
+
 			}
 
 			echo json_encode($data);

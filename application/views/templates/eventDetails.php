@@ -39,30 +39,34 @@
                             <span>Print Event Details</span>
                           </a>
                         </li>
-                        <li class="text-center">
-                          <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
-                            <i class="fa fa-money pull-left"></i>
-                            <span>Add Additional Charges</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
-                            <i class="fa fa-check pull-left"></i>
-                            <span>Finish Event</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#cancellEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancellEvent">
-                            <i class="fa fa-close pull-left"></i>
-                            <span>Cancel Event</span>
-                          </a>
-                        </li>
-                        <li class="text-center">
-                          <a href="#continueEventModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#continueEventModal">
-                            <i class="fa fa-circle-o-notch pull-left"></i>
-                            <span>Continue Event</span>
-                          </a>
-                        </li>
+                        <?php if ($eventDetail->eventStatus == "on-going"): ?>
+                          <li class="text-center">
+                            <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
+                              <i class="fa fa-money pull-left"></i>
+                              <span>Add Additional Charges</span>
+                            </a>
+                          </li>
+                          <li class="text-center">
+                            <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
+                              <i class="fa fa-check pull-left"></i>
+                              <span>Finish Event</span>
+                            </a>
+                          </li>
+                          <li class="text-center">
+                            <a href="#cancellEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancellEvent">
+                              <i class="fa fa-close pull-left"></i>
+                              <span>Cancel Event</span>
+                            </a>
+                          </li>
+                        <?php endif ?>
+                        <?php if ($eventDetail->eventStatus == "cancelled"): ?>
+                          <li class="text-center">
+                            <a href="#continueEventModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#continueEventModal">
+                              <i class="fa fa-circle-o-notch pull-left"></i>
+                              <span>Continue Event</span>
+                            </a>
+                          </li>
+                        <?php endif ?>
                       </ul>
                     </li>
                   </ul>
@@ -178,10 +182,10 @@
                   <label>Change Package Type</label>
                   <div class="row">
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="checkbox" name="package" value="full-Package">Full Package</label></span>
+                      <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
                     </div>
                     <div class="col-lg-6">
-                      <span class="radio"><label><input type="checkbox" name="package" value="semi-Package">Semi Package</label></span>
+                      <span class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></span>
                     </div>
                   </div>
                 </div> 
@@ -214,17 +218,21 @@
                       $themeName = $nagan->themeName;
               ?>           
                 <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>" disabled>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                </span>
+                <?php if ($eventDetail->eventStatus === "on-going"): ?>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                  </span>
+                <?php endif ?>
                 <?php 
                     } else {
                       //echo "wala";
                 ?>
-                 <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                </span>
+                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
+                <?php if ($eventDetail->eventStatus === "on-going"): ?>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
+                  </span>
+                <?php endif ?>
                 <?php
                   }
                 ?>
@@ -267,7 +275,7 @@
                     if (!$eventDetail->eventTime == null) {
                       $newTime = date("g:i a", strtotime($eventDetail->eventTime));
                     }else{
-                      $newTime = "not set;";
+                      $newTime = "not set";
                     }     
                                         
                   ?>
@@ -286,18 +294,20 @@
       </div>
       <div class="box-footer">
         <div class="row">
-          <div class="col-lg-3">
-            <?php
-              if ($empRole === 'admin') {
-                 echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
-              }else{
-                echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
-              } 
-            ?>
-          </div>
-          <div class="col-lg-9">
-            <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
-          </div>
+          <?php if ($eventDetail->eventStatus == "on-going"): ?>
+            <div class="col-lg-3">
+              <?php
+                if ($empRole === 'admin') {
+                   echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
+                }else{
+                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
+                } 
+              ?>
+            </div>
+            <div class="col-lg-9">
+              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+            </div>
+          <?php endif ?>
         </div>
       </div>
     </div>
@@ -639,42 +649,13 @@
   <!-- page script -->
   <script>
     $(function () {
-      $('#serviceTable').DataTable()
-      $('#staffTable').DataTable()
-      $('#modalServcTbl').DataTable()
-      $('#modalStaffTbl').DataTable()
       $('#modalthemetbl').DataTable()
     })
 
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
     }
-  </script>
 
-<style>
-  @media screen and (min-with: 768px){
-    #add-event .modal-dialog {
-      width:900px;
-    }
-  }
-
-  #finishEventModal .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-
-  #select-handler .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-
-  #update-details .modal-dialog{
-    top:20%;
-    width: 30%;
-  }
-</style>
-
-<script>
     $('#addAdditionalCharges').submit(function(e){
       e.preventDefault();
 
@@ -731,6 +712,7 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
+            $('div.alert-success').remove();
             $('#update-message').append('<div class="alert alert-success text-center">' +
             '<span class="icon fa fa-ckeck"></span>' +
             ' Changes Applied.' +

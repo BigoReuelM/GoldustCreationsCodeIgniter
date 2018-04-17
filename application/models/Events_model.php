@@ -92,6 +92,16 @@
 			
 		}
 
+		public function getEventStatus($id){
+			$this->db->select('eventStatus');
+			$this->db->from('events');
+			$this->db->where('eventID', $id);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 		public function getServices(){
 			$id=$this->session->userdata('currentEventID');
 			$query=$this->db->query("

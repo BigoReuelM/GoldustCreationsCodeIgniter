@@ -9,8 +9,8 @@
               <h3 class="box-title">List of Appointments</h3>    
             </div>
             <div class="col-lg-3">
-              <?php if ($this->session->userdata('role') === "handler"): ?>
-                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button> 
+              <?php if ($eventStatus === "on-going" || $eventStatus === "new"): ?>
+                <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addappoint">Add Appointments</button>
               <?php endif ?>
             </div>
           </div>
