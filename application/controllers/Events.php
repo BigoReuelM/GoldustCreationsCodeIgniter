@@ -731,8 +731,8 @@ class Events extends CI_Controller
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = html_escape($this->input->post('entourage_name'));
-			$eRole = html_escape($this->input->post('role'));
+			$entName = html_escape($this->input->post('new_ent_name'));
+			$eRole = html_escape($this->input->post('new_ent_role'));
 			$eShoulder = html_escape($this->input->post('shoulder'));
 			$eChest = html_escape($this->input->post('chest'));
 			$eStomach = html_escape($this->input->post('stomach'));
@@ -743,7 +743,8 @@ class Events extends CI_Controller
 			$ePantsL = html_escape($this->input->post('pantsLength'));
 			$eBaston = html_escape($this->input->post('baston'));
 
-			$this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+			$newEntId = $this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+			$this->events_model->insertEntDet($newEntId);
 
 			redirect('events/eventEntourage');
 		}
@@ -1075,17 +1076,21 @@ class Events extends CI_Controller
 			redirect('events/eventEntourage');
 		}
 
-		public function updateDesignName(){
-			$eventID = $this->session->userdata('currentEventID');
-			$entID = $this->session->userdata('currentEntourageID');
-			$desID = $this->session->userdata('currentDesignID');
+		public function updateEntDesign(){
+			//$eventID = $this->session->userdata('currentEventID');
+			//$entourageID = $this->session->userdata('currentEntourageID');
+			//$desID = $this->session->userdata('currentDesignID');
+			$entourageID = $this->input->post('entourageID');
+			$desID = $this->input->post('designID');
 
-			$entAttireQty = html_escape($this->input->post('quantity'));
-			$designName = html_escape($this->input->post('designName'));
+			$this->events_model->updateAttireDesign($entourageID, $desID);
 
-			if (!empty($designName)) {
-				$this->events_model->updateAttireDesign($eventID, $entID, $designName);
-			}
+			//$entAttireQty = html_escape($this->input->post('quantity'));
+			//$designName = html_escape($this->input->post('designName'));
+
+			//if (!empty($designName)) {
+				//$this->events_model->updateAttireDesign($eventID, $entID, $designName);
+			//}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 			redirect('events/eventEntourage');
 		}

@@ -161,17 +161,14 @@
 		}
 
 		public function getEntourageDetails($currentEventID){
-
-			$this->db->select('*');
+			/*$this->db->select('*');
 			$this->db->from('entouragedetails');
 			$this->db->join('entourage', 'entouragedetails.entourageID = entourage.entourageID');
 			$this->db->join('designs', 'designs.designID = entouragedetails.designID');
-			$this->db->where('entourage.eventID', $currentEventID);
-
-			$query = $this->db->get();
+			$this->db->where('entourage.eventID', $currentEventID);*/
+			$query = $this->db->query("SELECT * FROM entourage WHERE eventID = $currentEventID");
+			//$query = $this->db->get();
 			return $query->result_array();
-
-
 		}
 
 		public function getEntourage($currentEventID){
@@ -444,6 +441,7 @@
 				'status' => "not-done"
 			);
 			$this->db->insert('entourage', $data);
+			return $this->db->insert_id();
 		}
 		/*
 
@@ -683,7 +681,7 @@
 				//UPDATE eventdesign set quantity=5 where eventID=’0001’ and designID=’002’
 		}
 
-		public function updateAttireDesign($evID, $entID, $designName){
+		/*public function updateAttireDesign($evID, $entID, $designName){
 			$evID = $this->session->userdata('$currentEventID');
 			$enID = $this->session->userdata('$currentEntourageID');
 			$desID = $this->session->userdata('$currentDesignID');
@@ -692,6 +690,23 @@
 				SELECT designID, designName, quantity, role FROM (SELECT designID, role FROM `entouragedetails` join entourage using($enID) where eventID='$evID') AS entourage join designs using ($desID) join eventdesigns USING(currentDesignID) where eventID='$evID' group by role");
 			
 			return $query->result_array();
+		}*/
+
+		public function insertEntDet($entID){
+			// insert entourage to entouragedetails table...
+			$data = array(
+				'entourageID' => $entID
+			);
+			$this->db->insert('entouragedetails', $data);
+		}
+
+		public function updateAttireDesign($entID, $desID){
+			$data = array(
+				'designID' => $desID
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entouragedetails', $data);
+
 		}
 
 		/*public function updateAttireRole($evID, $entID, $entRole){

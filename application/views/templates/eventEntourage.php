@@ -9,7 +9,7 @@
     float: right;
   }
 
-  #updtDesignIdForm input[type=text], select, textarea {
+  input[type=text], select, textarea {
     width:100%;
     padding: 0.5em;
     border: 1px solid #ccc;
@@ -118,11 +118,11 @@
               <h3 class="box-title">List of Entourage</h3>
             </div>
             <div class="col-lg-3">
-              <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
+              <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
 
              </div> 
               <div class="col-lg-3">
-              <a type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
+              <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
             </div>
           </div>
         </div>
@@ -148,28 +148,30 @@
                     <td><?php echo $details['role'] ?></td>
                     <td><?php echo $details['status'] ?></td>
                     <td>
-                      <select name="designName">
-                        <option selected disabled>Please Choose</option>
-                        <?php if(!empty($designs)){ 
-                          foreach($designs as $name) { ?>
-                            <option value="<?php echo $name['designName'] ?>"><?php echo $name['designName'] ?></option>
-                        <?php } 
-                          }else{ 
-                            echo "no design"; 
-                          } ?>
-                      </select>
+                      <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntDesign') ?>">
+                        <div class="col-md-6">
+                          <select name="designID">
+                            <option selected disabled>Choose</option>
+                            <?php if(!empty($designs)){ 
+                              foreach($designs as $des) { ?>
+                                <option value="<?php echo $des['designID'] ?>"><?php echo $des['designName'] ?></option>
+                            <?php } 
+                              }else{ 
+                                echo "Please choose attire design/s"; 
+                              } ?>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <button class="btn btn-link btn-block" id="updtDecorBtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                        </div>
+                      </form>
                     </td>
                     <td>
-                      
-                      <div class="col-md-3 col-sm-4">
-                        <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateAttireQty') ?>">
-                          <button class="btn btn-block" id="editdesignID" name="editdesignID" type="submit" value="<?php echo($entID)?>"> Update <i class="fa fa-exchange" > </i>
-                          </button>
+                      <div class="col-md-12 col-sm-12">
+                        <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
+                          <button class="btn btn-link" id="rmvdesignbtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-remove"></i> Remove</button>
                         </form>
                       </div>
-                      <div class="col-md-6 col-sm-4">
-                      <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                      <button class="btn btn-block" id="entourageID" name="entourageID" type="submit" value="<?php echo($entID) ?>"> Remove <i class="fa fa-remove"></i></button></form></div>
                     </td>
                   </tr>
               <?php  }
@@ -180,9 +182,7 @@
         </div>
         <!-- /.box-body -->
       </div>
-
-          
-          </div>
+    </div>
         
           <!-- edit entourage -->
           <div class="modal modal-default fade" id="editEntourage">
@@ -261,146 +261,77 @@
           <!-- /.modal-dialog -->
           </div>
 
-
           <!-- Modal for adding of entourage -->
               <div class="modal fade" id="addEntourage" role="dialog">
                   <div class="modal-dialog">
-
                     <div class="modal-content">
                       <form role="form" method="post" action="<?php echo base_url('events/addEntourage') ?>">
-
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <div class="col-lg-6">
                           <h4 class="modal-title">Add Entourage</h4>
                         </div>
                       </div>
-
-                    <div class="modal-body">
-                   <div class="row">
-                    <div class="col-md-6">
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Entourage Name</label>
-                        <input type="text" name="entourage_name" class="form-control">
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Entourage Name</label>
+                              <input type="text" name="new_ent_name" class="form-control">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Role</label>
+                              <input type="text" name="new_ent_role" class="form-control">
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Role</label>
-                        <input type="text" name="role" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Shoulder</label>
-                        <input type="text" name="shoulder" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Chest</label>
-                        <input type="text" name="chest" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Stomach</label>
-                        <input type="text" name="stomach" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Waist</label>
-                        <input type="text" name="waist" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Arm Length</label>
-                        <input type="text" name="armLength" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Arm Hole</label>
-                        <input type="text" name="armHole" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Muscle</label>
-                        <input type="text" name="muscle" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Pants Length</label>
-                        <input type="text" name="pantsLength" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                        <label>Baston</label>
-                        <input type="text" name="baston" class="form-control">
-                        </div>
-                      </div>
-                    </div>
+                        <div class="box">
+                          <div class="box-body">
+                            <table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
+                              <thead>
+                                <tr>
+                                  <th>Shoulder</th>
+                                  <th>Chest</th>
+                                  <th>Stomach</th>
+                                  <th>Waist</th>
+                                  <th>Arm Length</th>
+                                  <th>Arm Hole</th>
+                                  <th>Muscle</th>
+                                  <th>Pants Length</th>
+                                  <th>Baston</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><input class="form-control" type="text" id="shoulder" name="shoulder"></td>
+                                  <td><input class="form-control" type="text" id="chest" name="chest"></td>
+                                  <td><input class="form-control" type="text" id="stomach" name="stomach"></td>
+                                  <td><input class="form-control" type="text" id="waist" name="waist"></td>
+                                  <td><input class="form-control" type="text" id="armLength" name="armLength"></td>
+                                  <td><input class="form-control" type="text" id="armHole" name="armHole"></td>
+                                  <td><input class="form-control" type="text" id="muscle" name="muscle"></td>
+                                  <td><input class="form-control" type="text" id="pantsLength" name="pantsLength"></td>
+                                  <td><input class="form-control" type="text" id="baston" name="baston"></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         <!-- /.box-body -->
                   </div>
-                  </div>
-                </div>
-                  <div class="modal-footer">
-                    <div class="col-lg-6" id="butt1">
-                          <button type="submit" class="btn btn-block btn-primary btn-lg">Add</button>
+                      <div class="modal-footer">
+                        <div class="col-lg-6" id="butt1">
+                              <button type="submit" class="btn btn-block btn-primary btn-md">Add</button>
+                          </div>
                       </div>
+                    </div>
                   </div>
-                </div>
+                  </div>
                 </form>
               </div>
             </div>
               <!-- End of modal -->
-
-         <!--<div class="modal fade" id="rmvent" >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Alert!</h4> 
-                </div>
-                <div class="modal-body">
-                  <p>Remove this person from the list?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Remove</button>
-                </div>
-              </div-->
-              <!-- /.modal-content -->
-            </div>
-          <!-- /.modal-dialog -->
 
       <!-- add existing design to the event -->
         <div class="modal fade" id="addExstDesignModal" role="dialog">
@@ -457,12 +388,6 @@
                     </tbody> 
                   </table>
                 </div>
-                <!--<form action="<?php //echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
-                  
-                  <div class="modal-footer">
-                    <button type="submit" name="addExstDecor" class="btn btn-sm btn-primary">Add</button>
-                  </div>
-                </form>-->
               </div>
             </div>
           </div>
