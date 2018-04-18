@@ -164,7 +164,7 @@
                       $dateAvailed = "not set";
                     }
                   ?>
-                  <input type="text" class="form-control" placeholder="<?php echo $dateAvailed ?>" hidden>
+                  <input type="text" class="form-control" id="dateAvl" placeholder="<?php echo $dateAvailed ?>" hidden>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <label>Change Avail Date</label>
@@ -259,7 +259,7 @@
                     }
                                         
                   ?>
-                  <input type="text" class="form-control" value="<?php echo $newDate ?>" disabled>  
+                  <input type="text" class="form-control" id="date" placeholder="<?php echo $newDate ?>" disabled>  
                 </div>
                 <div class="col-lg-6">
                   <label>Change Date</label>
@@ -279,7 +279,7 @@
                     }     
                                         
                   ?>
-                  <input type="text" class="form-control" value="<?php echo $newTime?>" disabled>
+                  <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>" disabled>
                 </div>
                 <div class="col-lg-6">
                   <label>Change Time</label>
@@ -722,6 +722,46 @@
             $('.text-danger').remove();
             // reset the form
             eventDetails[0].reset();
+
+            if (response.eventName == true) {
+              $('#eventName').attr('placeholder', response.newEventName);
+            }
+
+            if (response.clientContact == true) {
+              $('#contactNumber').attr('placeholder', response.newClientContact);
+            }
+
+            if (response.celebrant == true) {
+              $('#celebrantName').attr('placeholder', response.celebrantName);
+            }
+
+            if (response.packageType == true) {
+              $('#package').attr('placeholder', response.newPackageType);
+            }
+
+            if (response.eventDate == true) {
+              $('#date').attr('placeholder', response.newEventDate);
+            }
+
+            if (response.eventTime == true) {
+              $('#time').attr('placeholder', response.newEventTime);
+            }
+
+            if (response.location == true) {
+              $('#location').attr('placeholder', response.newLocation);
+            }
+
+            if (response.type == true) {
+              $('#type').attr('placeholder', response.newType);
+            }
+
+            if (response.motif == true) {
+              $('#motif').attr('placeholder', response.newMotif);
+            }
+
+            if (response.dateAvailed == true) {
+              $('#dateAvl').attr('placeholder', response.newDateAvailed);
+            }
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {

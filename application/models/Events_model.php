@@ -1007,6 +1007,20 @@
 			}
 		}
 
+		public function eventDateValidate($date, $id){
+			$query = $this->db->query("
+				SELECT *
+				FROM events
+				WHERE eventID = $id and dateAssisted <= $date
+			");
+
+			if (!empty($query->row())) {
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 		public function addNewEventDecor($eventID, $decID){
 			$data = array(
 				'eventID' => $eventID,
