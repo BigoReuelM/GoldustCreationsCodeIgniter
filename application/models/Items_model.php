@@ -14,6 +14,11 @@
 			return $query->result_array();
 		}
 
+		public function getAllDesigns(){
+			$query = $this->db->query("SELECT * FROM designs WHERE themeID IS NULL");
+			return $query->result_array();
+		}
+
 		public function getAllCostumes(){
 			$this->db->select('*');
 			$this->db->from('designs');
@@ -37,9 +42,5 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
-
-		/*public function uploadGown(){
-			$this->db->insert();
-		}*/
 	}
 ?>

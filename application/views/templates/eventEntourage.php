@@ -1,4 +1,24 @@
+<style type="text/css">
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
 
+  #updtDesignIdForm input[type=text], select, textarea {
+    width:100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: #E6E6E6;
+    text-align: center;
+  }
+</style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -15,7 +35,7 @@
               <h3 class="box-title">Attire Designs</h3>    
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" >Add Attire Designs</button>  
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDesignModal" >Add Attire Designs</button>  
             </div>
           </div>
         </div>
@@ -31,44 +51,60 @@
               </tr>
             </thead>
             <tbody>
-              <?php
-                if (!empty($themeEvEnt)) {
-                  foreach ($themeEvEnt as $te) {
-                    $themeID = $te['themeID'];
-                    $designID = $te['designID'];
-              ?>
-              <tr>
-                <td><?php echo $te['designName']?></td>
-                <td><input class="form-control" type="text" id="quantity" name="quantity" placeholder="<?php echo $te['quantity'] ?>"></td>
-                <!--?php }
-                  } else {
-                    echo "no data";
+                   <?php 
+                    if (!empty($eventDesigns)) { 
+                      foreach ($eventDesigns as $td) {
+                        $designID = $td['designID'];
+                    ?>
+                      <tr>
+                        <td><?php echo $td['designName']; ?></td>
+                        <td>
+                          <form id="updtDesignIdForm" role="form" method="post" action="<?php echo base_url('events/updateEvtDes') ?>">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <input type="text" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                              </div>
+                              <div class="col-md-6">
+                                <button class="btn btn-link btn-block" id="updtDecorBtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                              </div>
+                            </div>
+                          </form>
+                        </td>
+                        <td>
+                          <?php
+                          if (!empty($eventThemeDet)) {
+                            if (!empty($designtypesmap)) {
+                              foreach ($designtypesmap as $dtm) {
+                                $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                                foreach ($files as $f) {
+                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                  if ($f_no_extension === $designID) { ?>
+                                    <div class="thumbnail">
+                                      <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                    </div>
+                          <?php     
+                                }
+                              }
+                            }
+                          }
+                          }else{
+                            echo "No data";
+                          }
+                          ?>
+                        </td>
+                        <td>                            
+                          <!-- remove design button -->
+                          <div class="col-md-12 col-sm-12">
+                            <form id="designidform" role="form" method="post" action="<?php echo base_url('events/setCurrentDesignID') ?>">
+                              <button class="btn btn-link" id="rmvdesignbtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-remove"></i> Remove</button> 
+                            </form>   
+                          </div>
+                        </td>
+                      </tr>
+                      <?php      
+                    }
                   }
-
-                ?-->
-                <td><?php echo '<a data-toggle="modal" data-target="#modal-photo"><img class="eventDecorsImg" src="data:image/jpeg;base64,' . base64_encode($te['designImage']) . '"/></a>' ?></td>
-                <td>
-                  <div class="col-md-3 col-sm-4">
-                    <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateDesignName') ?>">
-                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($designID)?>"> Update <i class="fa fa-exchange" > </i>
-                      </button>
-                    </form>
-                  </div>
-                  <div class="col-md-3 col-sm-4">
-                    <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeAttireEntourage') ?>">
-                      <button class="btn btn-block" id="designID" name="designID" type="submit" value="<?php echo($designID) ?>">
-                         Remove <i class="fa fa-remove"></i>
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-              <?php 
-                   }
-                 }else {
-                  echo "0 details";
-                 }
-              ?>
+                  ?>
             </tbody>
           </table>
         </div>
@@ -76,8 +112,6 @@
       </div>
 
       <div class="box">
-        
-
         <div class="box-header">
           <div class="row">
             <div class="col-lg-6">
@@ -115,14 +149,14 @@
                     <td><?php echo $details['status'] ?></td>
                     <td>
                       <select name="designName">
-                      <option selected hidden>Please Choose</option>
-                      <?php if(!empty($designs)){ 
-                        foreach($designs as $name) { ?>
-                          <option value="<?php echo $name['designName'] ?>"><?php echo $name['designName'] ?></option>
-                      <?php } 
-                        }else{ 
-                          echo "no design"; 
-                        } ?>
+                        <option selected disabled>Please Choose</option>
+                        <?php if(!empty($designs)){ 
+                          foreach($designs as $name) { ?>
+                            <option value="<?php echo $name['designName'] ?>"><?php echo $name['designName'] ?></option>
+                        <?php } 
+                          }else{ 
+                            echo "no design"; 
+                          } ?>
                       </select>
                     </td>
                     <td>
@@ -367,6 +401,72 @@
               <!-- /.modal-content -->
             </div>
           <!-- /.modal-dialog -->
+
+      <!-- add existing design to the event -->
+        <div class="modal fade" id="addExstDesignModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Design</h4>
+              </div>
+              <div class="modal-body">
+                <div class="box-body">
+                  <table id="exstDesigns" class="table table-bordered text-center">
+                    <thead>
+                      <tr>
+                        <th>Design Name</th>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <form role="form" method="post" action="<?php echo base_url('events/addExstEventDes') ?>">
+                      <?php
+                        foreach ($allDesigns as $des) { ?>
+                        <tr>
+                          <td><?php echo $des['designName'] ?></td>
+                          <td><?php echo $des['color'] ?></td>
+                          <td><?php echo $des['designType'] ?></td>
+                          <td>
+                            <?php
+                            if (!empty($designtypesmap)) {
+                              foreach ($designtypesmap as $dtm) {
+                                $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                                foreach ($files as $f) {
+                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                  if ($f_no_extension === $des['designID']) { ?>
+                                    <div class="thumbnail">
+                                      <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                    </div>
+                            <?php     
+                                  }
+                                }
+                              }
+                            }else{
+                              echo "No image";
+                            }
+                            ?>
+                          </td>
+                          <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
+                        </tr>
+                      <?php  } ?>
+                      </form>
+                    </tbody> 
+                  </table>
+                </div>
+                <!--<form action="<?php //echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
+                  
+                  <div class="modal-footer">
+                    <button type="submit" name="addExstDecor" class="btn btn-sm btn-primary">Add</button>
+                  </div>
+                </form>-->
+              </div>
+            </div>
+          </div>
+        </div>
         </section>
     <!-- /.content -->
   </div>

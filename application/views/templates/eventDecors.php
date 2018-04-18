@@ -35,7 +35,7 @@ $eventId = $this->session->userdata('currentEventID');
 }
 #updtDecorIdForm input[type=text], select, textarea {
   width:100%;
-  padding: 12px;
+  padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
@@ -144,7 +144,7 @@ input[type=submit] {
                   <th>Photo</th>
                   <th>Action</th>
                 </tr>
-                </thead>
+              </thead>
                 <tbody>
                   <?php 
                     if (!empty($eventDecors)) { 
@@ -189,7 +189,7 @@ input[type=submit] {
                         </td>
                         <td>                            
                           <!-- remove decor button -->
-                          <div class="col-md-4 col-sm-4">
+                          <div class="col-md-12 col-sm-12">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
                               <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>   
@@ -254,75 +254,6 @@ input[type=submit] {
             </div>
           </div>
         </div>
-        <!-- change decor modal -->
-        <div class="modal fade" id="changedecormodal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Change Decor</h4>
-              </div>
-              <div class="modal-body">
-                <div class="box-body">
-                  <table id="alldecorstbl" class="table table-bordered text-center">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Decor Name</th>
-                        <th>Color</th>
-                        <th>Image</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!--<form role="form" method="post" action="">
-                      <?php
-                      /*foreach ($allDecors as $dec) { ?>
-                      <tr>
-                        <td>
-                          <form role="form" method="post" action="">
-                            <button class="btn btn-default" id="" name="" type="submit" value="">Select</button>
-                          </form>
-                        </td>
-                        <td><?php //echo $dec['decorName'] ?></td>
-                        <td><?php /g/echo $dec['color'] ?></td>
-                        <td>
-                          <?php //echo '<img class = "modalImg img-rounded" src="data:image/jpeg;base64,' . base64_encode( $dec['decorImage'] ) . '"/>'; ?>
-                        </td>
-                      </tr>
-                      <?php  }*/
-                      ?>
-                      </form>-->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- remove decor modal 
-        <div class="modal fade" id="rmvdecor" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Confirmation</h4>
-              </div>
-              <div class="modal-body">
-                <p>Remove decor from this event?</p>
-              </div>
-              <div class="modal-footer">
-                <form id ="dltdecorform" role="form" method="post" action="<?php //echo base_url('events/deleteDecor') ?>">
-                  <button type="submit" class="btn btn-danger" id="rmvbtn" name="decorID"><i class="fa fa-remove"></i> Remove</button>
-                </form>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div> -->
 
         <!-- add existing an decor to the event -->
         <div class="modal fade" id="addExstDecorModal" role="dialog">
@@ -424,8 +355,6 @@ input[type=submit] {
 
   <script>
     $(function () {
-      $('#designTable').DataTable({
-      })
       $('#decorsTable').DataTable({
       })
       $('#exstDecors').DataTable({

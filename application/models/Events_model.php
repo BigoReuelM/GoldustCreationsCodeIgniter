@@ -118,13 +118,6 @@
 		}
 
 		public function getDesigns($currentEventID){
-			/*
-			$this->db->select('*');
-			$this->db->from('eventdesigns');
-			$this->db->join('designs', 'eventdesigns.designID = designs.designID');
-			$this->db->join('events', 'eventdesigns.eventID = events.eventID');
-			$this->db->where('events.eventID', $currentEventID);
-			*/
 			$query = $this->db->query("SELECT * FROM eventdesigns NATURAL JOIN designs where eventID = $currentEventID" );
 			return $query->result_array();
 		}
@@ -343,6 +336,12 @@
 			$this->db->where('eventID', $eId);
 			$this->db->delete('eventdecors');
 		}	
+
+		public function deleteEvntDesign($desId, $eId){
+			$this->db->where('designID', $desId);
+			$this->db->where('eventID', $eId);
+			$this->db->delete('eventdesigns');
+		}
 
 		public function deleteEvntSvc($svcId, $eId){
 			$this->db->where('serviceID', $svcId);
@@ -736,7 +735,6 @@
 			$query = $this->db->query("
 				SELECT * FROM decors WHERE themeID = $currentThemeID"
 			);
-			/*SELECT * FROM themedecor JOIN decors ON themedecor.decorID = decors.decorsID WHERE themeID = $currentThemeID"*/
 			return $query->result_array();
 		}
 
@@ -745,9 +743,6 @@
 			$query = $this->db->query("
 				SELECT * FROM designs WHERE themeID = $currentThemeID"
 			);
-			/*
-			SELECT * FROM themedesign JOIN designs ON themedesign.designID = designs.designID WHERE themeID = $currentThemeID"
-			*/
 			return $query->result_array();
 		}
 
@@ -777,14 +772,9 @@
 			return $query->row();
 		}
 
-		public function displayEventThemeDesigns($currentThemeID){
-			//$eventID = $this->session->userdata('currentEventID');
-			$themeID = $this->session->userdata('currentThemeID');
-			//$designID = $this->session->userdata('currentDesignID');
-			//$entID = $this->session->userdata('currentEntourageID');
+		public function displayEventThemeDesigns($eventThemeID){
+			$query = $this->db->query("SELECT * FROM designs JOIN eventdesigns ON designs.designID = eventdesigns.designID WHERE themeID = $eventThemeID");
 
-			$query = $this->db->query("SELECT designID, designName, designImage FROM theme NATURAL JOIN designs WHERE themeID = $themeID");
-				//SELECT designID, designName, designImage FROM theme NATURAL JOIN themedesign NATURAL JOIN designs WHERE themeID = $themeID
 			return $query->result_array();
 		}
 
@@ -806,6 +796,12 @@
 			return $query->result_array();
 		}
 
+		public function chkEvtDesExist($eventID, $designID){
+			// check if the eventdecor being inserted already exists...
+			$query = $this->db->query("SELECT * FROM eventdesigns WHERE eventID = $eventID AND designID = $designID");
+			return $query->result_array();
+		}
+
 		public function insertEventDecorTheme($eventID, $decorID){
 			// insert the decors of a theme [for an event] to the eventdecors table...
 			$data = array(
@@ -813,6 +809,15 @@
 				'decorID' => $decorID
 			);
 			$this->db->insert('eventdecors', $data);
+		}
+
+		public function insertEventDesignTheme($eventID, $designID){
+			// insert the designs of a theme [for an event] to the eventdesigns table...
+			$data = array(
+				'eventID' => $eventID,
+				'designID' => $designID
+			);
+			$this->db->insert('eventdesigns', $data);
 		}
 
 		//The following queries is meant for the calendar
@@ -1010,6 +1015,13 @@
 			$this->db->insert('eventdecors', $data);
 		}
 
+		public function addNewEventDesign($eventID, $desID){
+			$data = array(
+				'eventID' => $eventID,
+				'designID' => $desID
+			);
+			$this->db->insert('eventdesigns', $data);
+		}
 
 		public function updtDecorQty($eventID, $decorID, $qty){
 			$data = array(
@@ -1018,6 +1030,15 @@
 			$this->db->where('eventID', $eventID);
 			$this->db->where('decorID', $decorID);
 			$this->db->update('eventdecors', $data);
+		}
+
+		public function updtDesignQty($eventID, $designID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('eventID', $eventID);
+			$this->db->where('designID', $designID);
+			$this->db->update('eventdesigns', $data);
 		}
 	}
 

@@ -302,6 +302,7 @@ class Events extends CI_Controller
 
 	public function eventEntourage(){
 		$page['pageName'] = "entourage";
+		$this->load->helper('directory');
 		$id = $this->session->userdata('currentEventID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -313,8 +314,35 @@ class Events extends CI_Controller
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
 		$data['entourage'] = $this->events_model->getEntourage($id);
 		$empRole = $this->session->userdata('role');
-		$currentEvent = $this->session->userdata('currentEventID');
-		$data['designs']= $this->events_model->getDesigns($currentEvent);
+		//$currentEvent = $this->session->userdata('currentEventID');
+		$this->load->model('items_model');
+		$data['allDesigns'] = $this->items_model->getAllDesigns();
+		$data['designs']= $this->events_model->getDesigns($id);
+		$data['eventDesigns'] =$this->events_model->getDesigns($id);
+
+		$data['designTypes'] = $this->events_model->getDesignEnum();
+		// get all folders (types) inside the design folder
+		$data['designtypesmap'] = directory_map('./uploads/designs/', 1);
+
+		// display the designs accdg to the selected theme...
+		$themeDet = $this->events_model->getEventTheme($id);
+		// ...as well as pass to view, along with other info...
+		$data['eventThemeDet'] = $this->events_model->getEventTheme($id);
+		// store event theme ID to variable...
+		$eventTheme = $themeDet->themeID;		
+		// display event theme designs
+		$data['themeDesigns'] = $this->events_model->displayEventThemeDesigns($eventTheme);
+		// insert each [theme] designs to the eventdesigns table
+		$thdes = $this->events_model->displayEventThemeDesigns($eventTheme);
+		if (!empty($thdes)) {
+			foreach ($thdes as $des) {
+				//$chkExist = $this->events_model->chkEvtDesExist($id, $des['designID']);
+				//if (empty($chkExist)) {
+				$this->events_model->insertEventDesignTheme($id, $des['designID']);
+				//}
+			}
+		}
+
 		$data['entourageRole'] = $this->events_model->getEntourageRole();
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Entourage | Admin';	
@@ -579,7 +607,7 @@ class Events extends CI_Controller
 			}
 
 
-		// set and delete selected decor...
+			// set and delete selected decor...
 			public function setCurrentDecorID(){
 				$currentDecorID = html_escape($this->input->post('decorID'));
 				$this->session->set_userdata('currentDecorID', $currentDecorID);
@@ -589,6 +617,18 @@ class Events extends CI_Controller
 				$this->events_model->deleteEvntDecor($decId, $eId);
 
 				$this->eventDecors();			
+			}
+
+			// set and delete selected design...
+			public function setCurrentDesignID(){
+				$currentDesignID = html_escape($this->input->post('designID'));
+				$this->session->set_userdata('currentDesignID', $currentDesignID);
+				
+				$desId = $this->session->userdata('currentDesignID');
+				$eId = $this->session->userdata('currentEventID');
+				$this->events_model->deleteEvntDesign($desId, $eId);
+
+				$this->eventEntourage();			
 			}
 		/*
 		public function setEntourageID(){
@@ -1377,6 +1417,14 @@ class Events extends CI_Controller
 			$this->eventDecors();
 		}
 
+		public function addExstEventDes(){
+			// add an existing design to the eventdecors table
+			$desID = html_escape($this->input->post('addExstDesign'));
+			$eventID = $this->session->userdata('currentEventID');
+			$this->events_model->addNewEventDesign($eventID, $desID);
+			$this->eventEntourage();
+		}
+
 		public function updateEvtDec(){
 			// update event decor quantity
 			$eventID = $this->session->userdata('currentEventID');
@@ -1384,6 +1432,15 @@ class Events extends CI_Controller
 			$qty = $this->input->post('decor_qty');
 			$this->events_model->updtDecorQty($eventID, $decorID, $qty);
 			$this->eventDecors();
+		}
+
+		public function updateEvtDes(){
+			// update event design quantity
+			$eventID = $this->session->userdata('currentEventID');
+			$designID = $this->input->post('designID');
+			$qty = $this->input->post('design_qty');
+			$this->events_model->updtDesignQty($eventID, $designID, $qty);
+			$this->eventEntourage();
 		}
 	}
 
