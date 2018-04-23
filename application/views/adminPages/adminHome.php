@@ -462,12 +462,16 @@ data = {
               }else{
                 echo "startTime: 'Not Set',";
               }
-              echo "endTime: '00:00',";
+              
               if (!$eventData[$i]['eventTime'] == null) {
                 $meridiem = date("A", strtotime($eventData[$i]['eventTime']));
-                echo "mTime: '" . $meridiem . "',";
+                echo "endTime: '" . $meridiem . "',";
               }else{
-                echo "mTime: --,";
+                
+              }if (!$eventData[$i]['packageType'] == null){
+                echo "mTime: '" . $eventData[$i]['packageType'] . "',";
+              }else{
+                echo "mTime: --,";  
               }
               if (!empty($eventData[$i]['eventName'])) {
                 echo "text: '" . $eventData[$i]['eventName'] . "'";

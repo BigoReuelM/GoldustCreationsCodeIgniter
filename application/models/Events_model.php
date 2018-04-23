@@ -840,7 +840,7 @@
 		public function getEventDetailsForCalendar(){
 
 			$query = $this->db->query("
-				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime 
+				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType 
 				FROM `events`
 				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
 			");
