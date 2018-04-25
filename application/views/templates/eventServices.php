@@ -78,7 +78,9 @@
                 <th>Services</th>
                 <th>Quantity</th>
                 <th>Amount</th>
-                <th>Action</th>
+                <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
+                  <th>Action</th>
+                <?php endif ?>
               </tr>
             </thead>
             
@@ -107,17 +109,19 @@
                           ?>
                           <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
                         </td>
-                        <td>  
-                          <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">
-                          <div class="row">
-                            <div class="col-lg-6">
-                              <button class="btn btn-primary" id="updtsvcbtn" name="btn" type="submit" value="updt">Update</i></button>    
-                            </div>
-                            <div class="col-lg-6">
-                              <button class="btn btn-danger" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove</i></button>
-                            </div>
-                          </div>                      
-                        </td> 
+                        <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
+                          <td>  
+                            <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <button class="btn btn-primary" id="updtsvcbtn" name="btn" type="submit" value="updt">Update</i></button>    
+                              </div>
+                              <div class="col-lg-6">
+                                <button class="btn btn-danger" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove</i></button>
+                              </div>
+                            </div>                      
+                          </td>
+                        <?php endif ?> 
                       </form>
                     </tr>
                   <?php }

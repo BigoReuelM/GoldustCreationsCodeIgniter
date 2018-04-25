@@ -1,10 +1,4 @@
-<style type="text/css">
-  #reps {
-    text-decoration: underline;
-    font-size: 20px;
-    margin-left: 92%;
-  }
-</style>
+
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
@@ -780,14 +774,14 @@ body > p {
   border-right: none; 
 } 
 .day:hover { 
-  background-color: rgba(21, 21, 21, 0.012); 
+  background-color: pink; 
   box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21); 
 } 
 .day-radios { 
   display: none; 
 } 
 .day-radios:checked + .day { 
-  background-color: rgba(21, 21, 21, 0.012); 
+  background-color: red; 
   box-shadow: inset 0px 0px 4px rgba(21, 21, 21, 0.21); 
 } 
 .day > span { 

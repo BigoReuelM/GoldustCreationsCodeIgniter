@@ -579,44 +579,48 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Update Details</h4>
+        <h4 class="modal-title">Print Event Details</h4>
       </div>
       <div class="modal-body">
+        <div class="form-group">
+          <input type="checkbox" id="selectAll">
+          <label class="control-label">Select All</label>
+        </div>
         <form id="printEventDetails" method="post" action="<?php echo base_url('printDetailsAndReports/create_pdf') ?>">
           <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="eventDetails">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="eventDetails">
             <label class="control-label">Event Details</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="payment">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="payment">
             <label class="control-label">Event Payments</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="entourageAndDesigns">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="entourageAndDesigns">
             <label class="control-label">Event Entourage and Designs</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="decors">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="decors">
             <label class="control-label">Event Decors</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="services">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="services">
             <label class="control-label">Event Services</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="staff">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="staff">
             <label class="control-label">Event Staff</label>
           </div>
           <div class="form-group">
             
-            <input type="checkbox" name="printItem[]" value="appointments">
+            <input type="checkbox" class="printCheckBox" name="printItem[]" value="appointments">
             <label class="control-label">Event Appointments</label>
           </div>  
         </form>
@@ -648,13 +652,17 @@
   <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
   <!-- page script -->
   <script>
+    $('#selectAll').click(function(){
+      $('.printCheckBox').prop('checked', $(this).prop("checked") );
+    });
+
     $(function () {
       $('#modalthemetbl').DataTable()
-    })
+    });
 
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
-    }
+    };
 
     $('#addAdditionalCharges').submit(function(e){
       e.preventDefault();

@@ -20,6 +20,7 @@
                     <tr>
                       <th>Name</th>
                       <th>Contact Number</th>
+                      <th>Standing</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -78,7 +79,9 @@
                 <th>Name</th>
                 <th>Role</th>
                 <th>Contact Number</th>
-                <th>Action </th>
+                <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
+                  <th>Action </th>
+                <?php endif ?>
               </tr>
             </thead>
             <tbody>
@@ -92,11 +95,13 @@
                       <td><?php echo $staff['name']; ?></td>
                       <td><input type="text" name="staffRole" placeholder="<?php echo $staff['employeeRole']; ?>" class="form-control"></td>
                       <td><?php echo $staff['contactNumber']; ?></td>
-                      <td>
-                        <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
-                          <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
-                          <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="fa fa-remove"></i></button>
-                      </td>
+                      <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
+                        <td>
+                          <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
+                            <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
+                            <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="fa fa-remove"></i></button>
+                        </td>
+                      <?php endif ?>
                     </form>
                   </tr>
               <?php 
