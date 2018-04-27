@@ -9,13 +9,179 @@
 
     <!-- Main content -->
     <section class="content">
-      <div style="width:75%;">
+      <!--<div style="width:75%;">
         <canvas id="canvas"></canvas>
-      </div
+      </div>-->
 
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#monthly" data-toggle="tab">Monthly</a></li>
+        <li><a href="#annual" data-toggle="tab">Annual</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <!-- Monthly Reports -->
+        <div class="tab-pane fade in active" id="monthly">
+          <div class="box">
+            <div class="box-header">
+              <h4>Payments</h4>
+            </div>
+            <div class="box-body">
+              <div class="table table-responsive">
+                <table class="table table-bordered table-hover text-center" id="payments">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Event</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Receiver</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>    
+                  <tbody>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" name="totalPayment" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box">  
+            <div class="box-header">
+              <h4>Expenses</h4>
+            </div>
+            <div class="box-body">
+              <div class="table table-responsive">
+                <table class="table table-bordered table-hover text-center" id="expenses">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Event</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Receiver</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>    
+                  <tbody>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" name="totalPayment" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <!-- Annual Reports -->
+        <div class="tab-pane fade" id="annual">
+          <div class="box">
+            <div class="box-header">
+              <h4>Payments</h4>
+            </div>
+            <div class="box-body">
+              <div class="table table-responsive">
+                <table class="table table-bordered table-hover text-center" id="payments">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Event</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Receiver</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>    
+                  <tbody>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" name="totalPayment" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box">  
+            <div class="box-header">
+              <h4>Expenses</h4>
+            </div>
+            <div class="box-body">
+              <div class="table table-responsive">
+                <table class="table table-bordered table-hover text-center" id="expenses">
+                  <thead>
+                    <tr>
+                      <th>Client</th>
+                      <th>Event</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Receiver</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>    
+                  <tbody>
+                    <tr>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="box-footer">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Total</label>
+                    <input type="text" name="totalPayment" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </section>
     <!-- /.content -->
   </div>
+
+<script>
+  $(function () {
+    $('#payments').DataTable()
+    $('#expenses').DataTable()
+  })
+</script> 
+
 <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url();?>/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
