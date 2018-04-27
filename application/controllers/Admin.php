@@ -543,6 +543,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_rules('decor_type', 'New Decor Type', 'required');
 
 			if ($this->form_validation->run()) {				
+				
 				$name = html_escape($this->input->post('decor_name'));
 				$color = html_escape($this->input->post('decor_color'));
 				$type = html_escape($this->input->post('decor_type'));

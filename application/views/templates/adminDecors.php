@@ -25,7 +25,7 @@
             foreach ($type_map as $img) { ?>
               <div class="col-lg-3">
                 <div class="thumbnail">
-                  <img src="<?php echo site_url('./uploads/decors/' . $currentDecType . '/' . $img); ?>" alt="" class="galleryImg">
+                  <img src="<?php echo base_url('./uploads/decors/' . $currentDecType . '/' . $img); ?>" alt="" class="galleryImg">
                 </div>
               </div>
         <?php } 

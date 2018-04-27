@@ -1260,6 +1260,13 @@ class Events extends CI_Controller
 			$this->load->view("templates/footer.php");
 		}
 
+		public function setDecorType(){
+			$decorType = $this->input->post('decor_type');
+			$this->session->set_userdata('decorType', $decorType);
+
+			redirect('events/adminDecors');
+		}
+
 		public function adminDecors(){
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
@@ -1279,7 +1286,8 @@ class Events extends CI_Controller
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
 			// get contents of the folder similarly named to the current type selected
-			$decorTypeFoldr = html_escape($this->input->post('decor_type'));
+			// $decorTypeFoldr = html_escape($this->input->post('decor_type'));
+			$decorTypeFoldr = $this->session->userdata('decorType');
 			$this->session->set_userdata('currentType', $decorTypeFoldr);
 			$data['type_map'] = directory_map('./uploads/decors/' . $decorTypeFoldr . '/', 1);
 
@@ -1305,6 +1313,13 @@ class Events extends CI_Controller
 			$this->load->view("templates/footer.php");
 		}
 
+		public function setDesignType(){
+			$designType = $this->input->post('design_type');
+			$this->session->set_userdata('designType', $designType);
+
+			redirect('events/adminDesigns');
+		}
+
 		public function adminDesigns(){
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
@@ -1324,7 +1339,8 @@ class Events extends CI_Controller
 			// get all folders inside DESIGN folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
 			// get contents of the folder similarly named to the current type selected
-			$designTypeFoldr = $this->input->post('design_type');
+			//$designTypeFoldr = $this->input->post('design_type');
+			$designTypeFoldr = $this->session->userdata('designType');
 			$this->session->set_userdata('currentType', $designTypeFoldr);
 			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
 
@@ -1423,7 +1439,7 @@ class Events extends CI_Controller
 				mkdir('./uploads/decors/' . $newEnumVal);
 			}
 			$this->events_model->addDecType($enumVals, $newEnumVal);
-			$this->adminDecorsHome();
+			redirect('events/adminDecorsHome');
 		}
 
 		public function addNewDesType(){
@@ -1435,7 +1451,7 @@ class Events extends CI_Controller
 				mkdir('./uploads/designs/' . $newEnumVal);
 			}
 			$this->events_model->addDesType($enumVals, $newEnumVal);
-			$this->adminDesignsHome();
+			redirect('events/adminDesignsHome');
 		}
 
 		public function addNewEventDecor(){
