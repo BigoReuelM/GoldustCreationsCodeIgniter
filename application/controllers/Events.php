@@ -1313,6 +1313,13 @@ class Events extends CI_Controller
 			$this->load->view("templates/footer.php");
 		}
 
+		public function setDesignType(){
+			$designType = $this->input->post('design_type');
+			$this->session->set_userdata('designType', $designType);
+
+			redirect('events/adminDesigns');
+		}
+
 		public function adminDesigns(){
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
@@ -1332,7 +1339,8 @@ class Events extends CI_Controller
 			// get all folders inside DESIGN folder in uploads folder
 			$data['map'] = directory_map('./uploads/designs/', 1);
 			// get contents of the folder similarly named to the current type selected
-			$designTypeFoldr = $this->input->post('design_type');
+			//$designTypeFoldr = $this->input->post('design_type');
+			$designTypeFoldr = $this->session->userdata('designType');
 			$this->session->set_userdata('currentType', $designTypeFoldr);
 			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
 
