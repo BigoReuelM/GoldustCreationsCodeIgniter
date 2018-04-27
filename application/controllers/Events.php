@@ -1280,7 +1280,7 @@ class Events extends CI_Controller
 			$data['map'] = directory_map('./uploads/decors/', 1);
 			// get contents of the folder similarly named to the current type selected
 			$decorTypeFoldr = html_escape($this->input->post('decor_type'));
-			//$type_map_dir = './uploads/decors/' . $decorTypeFoldr . '/';
+			$this->session->set_userdata('currentType', $decorTypeFoldr);
 			$data['type_map'] = directory_map('./uploads/decors/' . $decorTypeFoldr . '/', 1);
 
 			// get all folders inside DESIGN folder in uploads folder
@@ -1325,6 +1325,7 @@ class Events extends CI_Controller
 			$data['map'] = directory_map('./uploads/designs/', 1);
 			// get contents of the folder similarly named to the current type selected
 			$designTypeFoldr = $this->input->post('design_type');
+			$this->session->set_userdata('currentType', $designTypeFoldr);
 			$data['type_map'] = directory_map('./uploads/designs/' . $designTypeFoldr . '/', 1);
 
 			// get all folders inside DESIGN folder in uploads folder
@@ -1350,24 +1351,26 @@ class Events extends CI_Controller
 		}
 
 		// set the currently selected decor type
-		public function setCtDecType(){
+		/*public function setCtDecType(){
 			$cDecType = html_escape($this->input->post('decor_type'));
 			$this->session->set_userdata('currentType', $cDecType);
 			$this->adminDecors();
-		}
+			//redirect('events/adminDecors');
+		}*/
 
 		// set the currently selected design type
-		public function setCtDesType(){
+		/*public function setCtDesType(){
 			$cDesType = html_escape($this->input->post('design_type'));
 			$this->session->set_userdata('currentType', $cDesType);
 			$this->adminDesigns();
-		}
+		}*/
 
 		public function uploadDecImg(){
 			$cType = $this->session->userdata('currentType');
 			$themeID = $this->session->userdata('currentThemeID');
 			
 			$this->load->library('form_validation');
+			$this->load->helper('url');
 			
 			$this->form_validation->set_rules('dec_name', 'New Decor Name', 'required');
 			$this->form_validation->set_rules('dec_color', 'New Decor Color', 'required');		
@@ -1382,7 +1385,8 @@ class Events extends CI_Controller
 				$this->load->library('upload', $config);
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
-				$this->adminDecorsHome();
+				//$this->adminDecorsHome();
+				redirect('events/adminDecors');
 			}
 		}
 
@@ -1405,7 +1409,8 @@ class Events extends CI_Controller
 				$this->load->library('upload', $config);
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
-				$this->adminDesignsHome();
+				//$this->adminDesignsHome();
+				redirect('events/adminDesigns');
 			}
 		}	
 

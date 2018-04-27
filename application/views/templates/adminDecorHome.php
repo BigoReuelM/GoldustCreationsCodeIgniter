@@ -17,7 +17,7 @@
     </section>
     <!-- Main content -->
     <section class="content container-fluid">       
-        <form action="<?php echo base_url('events/setCtDecType') ?>" role="form" method="post">
+        <form action="<?php echo base_url('events/adminDecors') ?>" role="form" method="post">
           <div class="row">        
                 <?php
                   if (!empty('decorTypes')) {
