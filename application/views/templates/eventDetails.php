@@ -294,7 +294,7 @@
       </div>
       <div class="box-footer">
         <div class="row">
-          <?php if ($eventDetail->eventStatus == "on-going"): ?>
+          <?php if ($eventDetail->eventStatus == "on-going" || $eventDetail->eventStatus == "new"): ?>
             <div class="col-lg-3">
               <?php
                 if ($empRole === 'admin') {

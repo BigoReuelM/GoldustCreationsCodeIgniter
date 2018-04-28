@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="<?php echo base_url(); ?>/public/calendar.css">
 
   <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

@@ -42,7 +42,11 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/jvectormap/jquery-jvectormap.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/calendar.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
 
 
 
