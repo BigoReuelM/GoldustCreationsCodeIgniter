@@ -123,7 +123,7 @@
           </div>
         </div> 
         <!-- Monthly Reports -->
-        <div class="tab-pane fade in active" id="monthly">
+        <div class="tab-pane fade" id="monthly">
           <div class="row">
             <div class="col-lg-5">
               <div class="well">

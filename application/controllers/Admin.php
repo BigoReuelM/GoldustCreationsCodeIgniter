@@ -57,6 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/adminHome.php", $data);
+			$this->load->view("templates/calendar.php");
 			$this->load->view("templates/footer.php");
 		}
 		public function viewReports(){

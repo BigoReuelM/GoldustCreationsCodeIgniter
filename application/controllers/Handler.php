@@ -51,6 +51,7 @@ class Handler extends CI_Controller
 		$this->load->view("templates/head.php", $headdata);
 		$this->load->view("templates/header.php", $notif);
 		$this->load->view("handlerPages/home.php", $data);
+		$this->load->view("templates/calendar.php");
 		$this->load->view("templates/footer.php");
 	}
 

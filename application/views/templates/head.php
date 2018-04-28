@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/morris.js/morris.css">
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>/public/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>/public/calendar.css">
 
 
 
