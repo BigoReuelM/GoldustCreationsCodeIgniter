@@ -14,80 +14,195 @@
       </div>-->
 
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#monthly" data-toggle="tab">Monthly</a></li>
+        <li class="active"><a href="#daily" data-toggle="tab">Daily</a></li>
+        <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
         <li><a href="#annual" data-toggle="tab">Annual</a></li>
       </ul>
 
       <div class="tab-content">
-        <!-- Monthly Reports -->
-        <div class="tab-pane fade in active" id="monthly">
-          <div class="box">
-            <div class="box-header">
-              <h4>Payments</h4>
-            </div>
-            <div class="box-body">
-              <div class="table table-responsive">
-                <table class="table table-bordered table-hover text-center" id="payments">
-                  <thead>
-                    <tr>
-                      <th>Client</th>
-                      <th>Event</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Receiver</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>    
-                  <tbody>
-                    <tr>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
+        <!-- Daily Reports -->
+        <div class="tab-pane fade in active" id="daily">
+          <div class="row">
+            <div class="col-lg-5">
+              
+              <!-- Date range -->
+              <div class="form-group">
+                <label>Date range:</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservation">
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+
+              <div class="well">
+                <p>total payment</p>
+                <p>total expenses</p>
+                <p>or any relevant information for the admin to see</p>
+                <p>comparison of this month and last month etc....</p>
               </div>
             </div>
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Total</label>
-                    <input type="text" name="totalPayment" class="form-control" disabled>
+            <div class="col-lg-7">
+              <div class="box">
+                <div class="box-header">
+                  <h4>Payments</h4>
+                </div>
+                <div class="box-body">
+                  <div class="table table-responsive">
+                    <table class="table table-bordered table-hover text-center" id="payments">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Event</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Receiver</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>    
+                      <tbody>
+                        <tr>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" name="totalPayment" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box">  
+                <div class="box-header">
+                  <h4>Expenses</h4>
+                </div>
+                <div class="box-body">
+                  <div class="table table-responsive">
+                    <table class="table table-bordered table-hover text-center" id="expenses">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Event</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Receiver</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>    
+                      <tbody>
+                        <tr>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" name="totalPayment" class="form-control" disabled>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="box">  
-            <div class="box-header">
-              <h4>Expenses</h4>
-            </div>
-            <div class="box-body">
-              <div class="table table-responsive">
-                <table class="table table-bordered table-hover text-center" id="expenses">
-                  <thead>
-                    <tr>
-                      <th>Client</th>
-                      <th>Event</th>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Receiver</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>    
-                  <tbody>
-                    <tr>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
+        </div> 
+        <!-- Monthly Reports -->
+        <div class="tab-pane fade in active" id="monthly">
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="well">
+                <p>total payment</p>
+                <p>total expenses</p>
+                <p>or any relevant information for the admin to see</p>
+                <p>comparison of this month and last month etc....</p>
               </div>
             </div>
-            <div class="box-footer">
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Total</label>
-                    <input type="text" name="totalPayment" class="form-control" disabled>
+            <div class="col-lg-7">
+              <div class="box">
+                <div class="box-header">
+                  <h4>Payments</h4>
+                </div>
+                <div class="box-body">
+                  <div class="table table-responsive">
+                    <table class="table table-bordered table-hover text-center" id="payments">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Event</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Receiver</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>    
+                      <tbody>
+                        <tr>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" name="totalPayment" class="form-control" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box">  
+                <div class="box-header">
+                  <h4>Expenses</h4>
+                </div>
+                <div class="box-body">
+                  <div class="table table-responsive">
+                    <table class="table table-bordered table-hover text-center" id="expenses">
+                      <thead>
+                        <tr>
+                          <th>Client</th>
+                          <th>Event</th>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Receiver</th>
+                          <th>Amount</th>
+                        </tr>
+                      </thead>    
+                      <tbody>
+                        <tr>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" name="totalPayment" class="form-control" disabled>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -200,136 +315,79 @@
 
 <script src="<?php echo base_url(); ?>/public/chart.bundle.js"></script>
 <script src="<?php echo base_url(); ?>/public/utils.js"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
 <script>
-    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    var config = {
-      type: 'line',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [{
-          label: 'My First dataset',
-          backgroundColor: window.chartColors.red,
-          borderColor: window.chartColors.red,
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor()
-          ],
-          fill: false,
-        }, {
-          label: 'My Second dataset',
-          fill: false,
-          backgroundColor: window.chartColors.blue,
-          borderColor: window.chartColors.blue,
-          data: [
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor(),
-            randomScalingFactor()
-          ],
-        }]
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
       },
-      options: {
-        responsive: true,
-        title: {
-          display: true,
-          text: 'Chart.js Line Chart'
-        },
-        tooltips: {
-          mode: 'index',
-          intersect: false,
-        },
-        hover: {
-          mode: 'nearest',
-          intersect: true
-        },
-        scales: {
-          xAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Month'
-            }
-          }],
-          yAxes: [{
-            display: true,
-            scaleLabel: {
-              display: true,
-              labelString: 'Value'
-            }
-          }]
-        }
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
       }
-    };
+    )
 
-    window.onload = function() {
-      var ctx = document.getElementById('canvas').getContext('2d');
-      window.myLine = new Chart(ctx, config);
-    };
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
 
-    document.getElementById('randomizeData').addEventListener('click', function() {
-      config.data.datasets.forEach(function(dataset) {
-        dataset.data = dataset.data.map(function() {
-          return randomScalingFactor();
-        });
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
 
-      });
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
 
-      window.myLine.update();
-    });
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
 
-    var colorNames = Object.keys(window.chartColors);
-    document.getElementById('addDataset').addEventListener('click', function() {
-      var colorName = colorNames[config.data.datasets.length % colorNames.length];
-      var newColor = window.chartColors[colorName];
-      var newDataset = {
-        label: 'Dataset ' + config.data.datasets.length,
-        backgroundColor: newColor,
-        borderColor: newColor,
-        data: [],
-        fill: false
-      };
-
-      for (var index = 0; index < config.data.labels.length; ++index) {
-        newDataset.data.push(randomScalingFactor());
-      }
-
-      config.data.datasets.push(newDataset);
-      window.myLine.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function() {
-      if (config.data.datasets.length > 0) {
-        var month = MONTHS[config.data.labels.length % MONTHS.length];
-        config.data.labels.push(month);
-
-        config.data.datasets.forEach(function(dataset) {
-          dataset.data.push(randomScalingFactor());
-        });
-
-        window.myLine.update();
-      }
-    });
-
-    document.getElementById('removeDataset').addEventListener('click', function() {
-      config.data.datasets.splice(0, 1);
-      window.myLine.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function() {
-      config.data.labels.splice(-1, 1); // remove the label first
-
-      config.data.datasets.forEach(function(dataset) {
-        dataset.data.pop();
-      });
-
-      window.myLine.update();
-    });
-  </script>
+</script>
