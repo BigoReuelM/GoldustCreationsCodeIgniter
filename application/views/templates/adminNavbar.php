@@ -17,43 +17,6 @@
             <span>Event</span>
             </span>
           </a>
-
-        </li>
-        <li>
-          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
-            <i class="glyphicon glyphicon-briefcase"></i> 
-            <span>Ongoing Rentals</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('admin/services') ?>"><i class="glyphicon glyphicon-shopping-cart"></i> <span>Services</span></a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('clients/clients') ?>">
-            <i class="glyphicon glyphicon-sunglasses"></i>
-            <span>Clients</span>
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo base_url('admin/adminEmployees') ?>">
-            <i class="glyphicon glyphicon-user"></i>
-            <span>Employees</span>
-          </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="glyphicon glyphicon-folder-close"></i> 
-            <span>Decors And Design</span>
-            
-          </a>
-          <ul class="treeview-menu">
-            <li>
-              <a href="<?php echo base_url('events/adminDecorsHome') ?>">Decors</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('events/adminDesignsHome') ?>">Designs</a>
-            </li>
-          </ul>
         </li>
         <li>
           <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">
@@ -62,16 +25,47 @@
           </a>
         </li>
         <li>
+          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
+            <i class="glyphicon glyphicon-hourglass"></i> 
+            <span>Ongoing Rentals</span>
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo base_url('clients/clients') ?>">
+            <i class="fa fa-users"></i>
+            <span>Clients</span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url('admin/expenses') ?>">
-            <i class="glyphicon glyphicon-transfer"></i>
+            <i class="fa fa-money"></i>
             <span>Expenses</span>
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('admin/adminTheme') ?>">
-            <i class="fa fa-leaf"></i>
-            <span>Themes</span>
+          <a href="<?php echo base_url('admin/viewReports') ?>">
+            <i class="fa fa-line-chart"></i>
+            <span>Reports</span>
           </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="glyphicon glyphicon-cog"></i>
+            <span>Manage</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-right pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url('admin/adminEmployees') ?>">Employees</a></li>
+            <li><a href="<?php echo base_url('admin/services') ?>">Services</a></li>
+            <li><a href="<?php echo base_url('events/adminDecorsHome') ?>">Decors</a></li>
+            <li><a href="<?php echo base_url('events/adminDesignsHome') ?>">Designs</a></li>
+            <li><a href="<?php echo base_url('admin/adminTheme') ?>">Themes</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href=""></a>
         </li>
       </ul>
       <!-- /.sidebar-menu -->

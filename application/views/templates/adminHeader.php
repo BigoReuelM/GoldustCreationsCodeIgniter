@@ -35,11 +35,6 @@
       
         <ul class="nav navbar-nav">
           <!-- Notifications Menu -->
-          <li>
-           <a href = "<?php echo base_url('admin/viewReports') ?>">
-            <i class="fa fa-line-chart" style="font-size:18px"></i>
-          </a>
-          </li>
           <li class="dropdown notifications-menu">
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
