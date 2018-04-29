@@ -58,12 +58,13 @@
                           </form>  
                         <?php endif ?>
                     		<?php if ($this->session->userdata('role') === "handler"): ?>
-                          <form role="form" method="post" action="<?php echo base_url('events/addEvent') ?>">
+                          <!-- <form role="form" method="post" action="<?php echo base_url('events/addEvent') ?>">
                             <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
                             <button type="submit" class="btn btn-block btn-default">
                               Add Event
                             </button>
-                          </form>
+                          </form> -->
+                          <button class="btn btn-block btn-default" data-toggle="modal" data-target="#addNewEvent">Add Event</button>
                         <?php endif ?>	                    	
 	                    </td>
                 	</tr>
@@ -85,6 +86,48 @@
 
 </div>
 
+</div>
+<div id="addNewEvent" class="modal fade" role="diallog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add New Event for "Client Name"</h4>
+      </div>
+      <div class="modal-body form-horizontal">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Event Name</label>
+          <div class="col-lg-9">
+            <input type="text" name="eventName" placeholder="Enter Event Name" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Celebrant</label>
+          <div class="col-lg-9">
+            <input type="text" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Avail Date</label>
+          <div class="col-lg-9">
+            <input type="date" name="availDate" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Event Date</label>
+          <div class="col-lg-9">
+            <input type="date" name="eventDate" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Confirm</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- modal -->
