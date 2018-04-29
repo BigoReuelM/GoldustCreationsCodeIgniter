@@ -19,27 +19,32 @@
       <div class="tab-content">
         <!-- Daily Reports -->
         <div class="tab-pane fade in active" id="daily">
-          <!-- Date -->
-          <div class="form-group">
-            <label>Date:</label>
-
-            <div class="input-group date">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </div>
-              <input type="text" class="form-control pull-right" id="datepicker">
-            </div>
-            <!-- /.input group -->
-          </div>
-          <!-- /.form group -->
-
           <div class="row">
-
+            
             <div class="col-lg-5">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="well">
+                    <!-- Date -->
+                    <div class="form-group">
+                      <label>Date:</label>
 
+                      <div class="input-group date">
+                        <div class="input-group-addon">
+                          <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="datepicker">
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                  </div>
+                </div>
+              </div>    
               <div class="well">
                 <p>total payment</p>
                 <p>total expenses</p>
+                <p>total refunds</p>
                 <p>or any relevant information for the admin to see</p>
                 <p>comparison of this month and last month etc....</p>
               </div>

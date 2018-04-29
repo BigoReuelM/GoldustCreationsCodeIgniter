@@ -60,7 +60,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/calendar.php");
 			$this->load->view("templates/footer.php");
 		}
-		public function viewReports(){
+
+		public function viewIncomeReports(){
+			$page['pageName'] = "income";
 			$headdata['pagename'] = 'Admin | Reports';
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -71,7 +73,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
-			$this->load->view("adminPages/statistics.php");
+			$this->load->view("adminPages/reportNav.php", $page);
+			$this->load->view("adminPages/income.php");
+			$this->load->view("templates/footer.php");
+		}
+
+		public function viewPaymentsReports(){
+			$page['pageName'] = "payments";
+			$headdata['pagename'] = 'Admin | Reports';
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/reportNav.php", $page);
+			$this->load->view("adminPages/allPayments.php");
+			$this->load->view("templates/footer.php");
+		}
+
+		public function viewDepositReports(){
+			$page['pageName'] = "deposits";
+			$headdata['pagename'] = 'Admin | Reports';
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/reportNav.php", $page);
+			$this->load->view("adminPages/allDeposits.php");
+			$this->load->view("templates/footer.php");
+		}
+
+		public function viewRefundReports(){
+			$page['pageName'] = "refunds";
+			$headdata['pagename'] = 'Admin | Reports';
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$this->load->view("templates/head.php", $headdata);
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+			$this->load->view("adminPages/reportNav.php", $page);
+			$this->load->view("adminPages/allRefunds.php");
 			$this->load->view("templates/footer.php");
 		}
 
