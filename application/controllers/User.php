@@ -22,9 +22,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//WILL LOAD THE REGISTRATION VIEW
 		public function index()
 		{
-			$headdata['pagename'] = 'Welcome | Login';	
+			if (empty($this->session->userdata('employeeID'))) {
+				$headdata['pagename'] = 'Welcome | Login';	
 			
-			$this->load->view("login.php", $headdata);
+				$this->load->view("login.php", $headdata);
+			}elseif($this->session->userdata('role') === "admin"){
+				redirect('admin');
+			}elseif($this->session->userdata('role') === "admin"){
+				redirect('handler');
+			}
 		}
 		
 		//method for user to login to his/her account
