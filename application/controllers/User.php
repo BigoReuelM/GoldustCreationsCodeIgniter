@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('file');
 
 		}
-		//WILL LOAD THE REGISTRATION VIEW
+		//WILL LOAD THE Login VIEW
 		public function index()
 		{
 			if (empty($this->session->userdata('employeeID'))) {
@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->load->view("login.php", $headdata);
 			}elseif($this->session->userdata('role') === "admin"){
 				redirect('admin');
-			}elseif($this->session->userdata('role') === "admin"){
+			}elseif($this->session->userdata('role') === "handler"){
 				redirect('handler');
 			}
 		}

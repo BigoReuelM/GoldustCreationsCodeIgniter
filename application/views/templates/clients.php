@@ -112,13 +112,30 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Avail Date</label>
           <div class="col-lg-9">
-            <input type="date" name="availDate" class="form-control">
+            <input type="text" name="availDate" id="availDate" class="form-control">
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Event Date</label>
           <div class="col-lg-9">
-            <input type="date" name="eventDate" class="form-control">
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" name="eventDate" id="eventDate" class="form-control pull-right">
+              </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Event Time</label>
+          <div class="col-lg-9">
+            <input type="time" name="eventTime" id="eventTime" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">Duration(days)</label>
+          <div class="col-lg-9">
+            <input type="number" name="eventDuration" class="form-control">
           </div>
         </div>
       </div>
@@ -209,10 +226,24 @@
 <!-- FastClick -->
 <script src="<?php echo base_url();?>/public/bower_components/fastclick/lib/fastclick.js"></script>
 
+<!-- date-picker -->
+
+<script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
 <script>
 	$(function () {
 		$('#allClientsTable').DataTable({})
-	})
+	});
+
+  $(function(){
+    $('#availDate').datepicker({
+      autoclose: true;
+    });
+    $('#eventDate').datepicker({
+      autoclose: true;
+    });
+  });
 </script>
 <script>
       $('#addNewClient').submit(function(e){
