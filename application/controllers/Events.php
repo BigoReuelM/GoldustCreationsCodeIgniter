@@ -326,22 +326,24 @@ class Events extends CI_Controller
 
 		// display the designs accdg to the selected theme...
 		$themeDet = $this->events_model->getEventTheme($id);
-		// ...as well as pass to view, along with other info...
-		$data['eventThemeDet'] = $this->events_model->getEventTheme($id);
-		// store event theme ID to variable...
-		$eventTheme = $themeDet->themeID;		
-		// display event theme designs
-		$data['themeDesigns'] = $this->events_model->displayEventThemeDesigns($eventTheme);
-		// insert each [theme] designs to the eventdesigns table
-		$thdes = $this->events_model->displayEventThemeDesigns($eventTheme);
-		if (!empty($thdes)) {
-			foreach ($thdes as $des) {
-				//$chkExist = $this->events_model->chkEvtDesExist($id, $des['designID']);
-				//if (empty($chkExist)) {
-				$this->events_model->insertEventDesignTheme($id, $des['designID']);
-				//}
+		if (!empty($themeDet)) {
+			// ...as well as pass to view, along with other info...
+			$data['eventThemeDet'] = $this->events_model->getEventTheme($id);
+			// store event theme ID to variable...
+			$eventTheme = $themeDet->themeID;	
+			// display event theme designs
+			$data['themeDesigns'] = $this->events_model->displayEventThemeDesigns($eventTheme);
+			// insert each [theme] designs to the eventdesigns table
+			$thdes = $this->events_model->displayEventThemeDesigns($eventTheme);
+			if (!empty($thdes)) {
+				foreach ($thdes as $des) {
+					//$chkExist = $this->events_model->chkEvtDesExist($id, $des['designID']);
+					//if (empty($chkExist)) {
+					$this->events_model->insertEventDesignTheme($id, $des['designID']);
+					//}
+				}
 			}
-		}
+		} 
 
 		$data['entourageRole'] = $this->events_model->getEntourageRole();
 		if ($this->session->userdata('role') === "admin") {
@@ -394,19 +396,21 @@ class Events extends CI_Controller
 		
 		// display the decors accdg to the selected theme...
 		$themeDet = $this->events_model->getEventTheme($eventid);
-		// ...as well as pass to view, along with other info...
-		$data['eventThemeDet'] = $this->events_model->getEventTheme($eventid);
-		// store event theme ID to variable...
-		$eventTheme = $themeDet->themeID;		
-		// display event theme decors
-		$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
-		// insert each [theme] decors to the eventdecors table
-		$thdec = $this->events_model->displayEventThemeDecors($eventTheme);
-		if (!empty($thdec)) {
-			foreach ($thdec as $dec) {
-				$chkExist = $this->events_model->chkEvtDecExist($eventid, $dec['decorsID']);
-				if (empty($chkExist)) {
-					$this->events_model->insertEventDecorTheme($eventid, $dec['decorsID']);
+		if (!empty($themeDet)) {
+			// ...as well as pass to view, along with other info...
+			$data['eventThemeDet'] = $this->events_model->getEventTheme($eventid);
+			// store event theme ID to variable...
+			$eventTheme = $themeDet->themeID;		
+			// display event theme decors
+			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
+			// insert each [theme] decors to the eventdecors table
+			$thdec = $this->events_model->displayEventThemeDecors($eventTheme);
+			if (!empty($thdec)) {
+				foreach ($thdec as $dec) {
+					$chkExist = $this->events_model->chkEvtDecExist($eventid, $dec['decorsID']);
+					if (empty($chkExist)) {
+						$this->events_model->insertEventDecorTheme($eventid, $dec['decorsID']);
+					}
 				}
 			}
 		}
