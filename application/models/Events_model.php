@@ -1070,6 +1070,4 @@
 			$this->db->update('eventdesigns', $data);
 		}
 	}
-
-
  ?>
