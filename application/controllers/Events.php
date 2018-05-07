@@ -684,15 +684,45 @@ class Events extends CI_Controller
 		}*/
 
 		public function addEvent(){
-			$employeeID = $this->session->userdata('employeeID');
-			$clientID = html_escape($this->input->post('clientID'));
 
-			$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID);
+			$data = array('success' => false, 'messages' => array());
 
-			$this->session->set_userdata('currentEventID', $newEventID);
-			$this->session->set_userdata('clientID', $clientID);
+			$this->form_validation->set_rules('eventName', 'Event Name', 'trim|required');
+			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|required');
+			$this->form_validation->set_rules('availDate', 'Avail Date', 'trim|required');
+			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
+			$this->form_validation->set_rules('eventDuration', 'Event Duration', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('events/eventDetails');
+			if ($this->form_validation->run()) {
+				$employeeID = $this->session->userdata('employeeID');
+				$clientID = html_escape($this->input->post('clientID'));
+
+				$eventName = ucwords(html_escape($this->input->post('eventName')));
+				$celebrantName = ucwords(html_escape($this->input->post('celebrantName')));
+				$availDate = html_escape($this->input->post('availDate'));
+				$eventDate = html_escape($this->input->post('eventDate'));
+				$eventTime = html_escape($this->input->post('eventTime'));
+				$eventDuration = html_escape($this->input->post('eventDuration'));
+
+				$newEventID = $this->events_model->insertNewEvent($clientID, $employeeID, $eventName, $celebrantName, $availDate, $eventDate, $eventTime, $eventDuration);
+
+				$this->session->set_userdata('currentEventID', $newEventID);
+				$this->session->set_userdata('clientID', $clientID);
+
+				$data['success'] = true;
+
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+
+			echo json_encode($data);
+				
+
+			
 
 		}
 
