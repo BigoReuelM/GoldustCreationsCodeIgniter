@@ -1,0 +1,16 @@
+.eventDecorsImg{
+	width: 150px;
+	height: auto;
+}
+
+.galleryImg{
+	width: auto;
+	max-height: 150px;
+	margin: auto;
+	display: block;
+}
+
+.thumbnail:hover{
+	opacity: 0.8;
+	cursor: pointer;
+}
