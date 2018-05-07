@@ -24,32 +24,7 @@
         <div class="tab-pane fade in active" id="daily">
           <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>">
           <div class="row">           
-            <div class="col-lg-5">
-              <div class="well">
-                <!-- Date -->
-                <div class="form-group">
-                  <label>Date:</label>
-                  <div class="input-group date">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" class="form-control pull-right" id="datepickerallpayments" name="datepickerallpayments" placeholder="<?php echo $selectedDate; ?>">
-                    <div class="input-group-addon">
-                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
-                  </div>
-                  <!-- /.input group -->
-                </div>
-              
-              <!-- /.form group -->
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>total refunds</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+            <div class="col-md-9">
               <div class="box">
                 <div class="box-header">
                   <h4>Payments</h4>
@@ -69,10 +44,13 @@
                       </thead>    
                       <tbody>
                           <?php
+                            $totaldailypayments = 0;
                             if (!empty($payments)) {
                               // get DAILY payments...
-                              foreach ($payments as $p) {
-                                if ($p['date'] == $selectedDate) { ?>
+                              foreach ($payments as $p) { 
+                                if ($p['date'] == $selectedDate) {
+                                  $totaldailypayments += $p['amount'];
+                                ?>
                                 <tr>
                                   <td><?php echo $p['clientName']; ?></td>
                                   <td><?php echo $p['eventName']; ?></td>
@@ -93,6 +71,30 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-3">
+              <div class="well">
+                <!-- Date -->
+                <div class="form-group">
+                  <label>Date</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="datepickerallpayments" name="datepickerallpayments" placeholder="<?php echo $selectedDate; ?>">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- total payments -->
+                <div class="input-group">
+                  <label>Total</label>
+                  <input type="text" name="totaldailypayments" placeholder="<?php echo $totaldailypayments ?>" class="form-control" disabled>
+                </div>
+              </div>
+            </div>
           </div>
           </form>
         </div> 
@@ -100,35 +102,8 @@
         <!-- Monthly Reports -->
         <div class="tab-pane fade" id="monthly">
         <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>">
-          <!-- Date range -->
-          <div class="well">
-            <div class="form-group">
-              <label>Month and Year:</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="monthallpayments" name="monthallpayments" placeholder="<?php echo $selectedMnthYr ?>">
-                  <div class="input-group-addon">
-                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
-                  </div>
-              </div>
-              <!-- /.input group -->
-            </div>
-          </div>
-          <!-- /.form group -->
-
           <div class="row">
-            <div class="col-lg-5">
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-                <p><?php echo $selectedMnthYr ?></p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+            <div class="col-lg-9">
               <div class="box">
                 <div class="box-header">
                   <h4>Payments</h4>
@@ -148,13 +123,14 @@
                       </thead>    
                       <tbody>
                         <?php
+                          $totalmonthlypayments = 0;
                           if (!empty($payments)) {
                             foreach ($payments as $p) {
                               $substr = explode('-', $selectedMnthYr);
                               // $substr[0] month
                               // $substr[1] year
                               if ($p['year'] === $substr[1] && $p['month'] === $substr[0]) { 
-                                
+                                $totalmonthlypayments += $p['amount'];
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
@@ -174,39 +150,36 @@
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+              <div class="col-lg-3">
+                <div class="well">
+                  <div class="form-group">
+                    <label>Month and Year:</label>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control pull-right" id="monthallpayments" name="monthallpayments" placeholder="<?php echo $selectedMnthYr ?>">
+                        <div class="input-group-addon">
+                          <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <div class="input-group">
+                    <label>Total</label>
+                    <input type="text" name="totalmonthlypayments" placeholder="<?php echo $totalmonthlypayments ?>" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </form>
         </div>  
 
         <!-- Annual Reports -->
         <div class="tab-pane fade" id="annual">
           <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>">
-          <!-- Date range -->
-          <div class="well">
-            <div class="form-group">
-              <label>Year:</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" class="form-control pull-right" id="yrallpayments" name="yrallpayments" placeholder="<?php echo $selectedYr ?>">
-                  <div class="input-group-addon">
-                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
-                  </div>
-              <!-- /.input group -->
-              </div>
-            </div>
-          <!-- /.form group -->
           <div class="row">
-            <div class="col-lg-5">
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+            <div class="col-lg-9">
               <div class="box">
                 <div class="box-header">
                   <h4>Payments</h4>
@@ -226,9 +199,11 @@
                       </thead>    
                       <tbody>
                         <?php
+                          $totalannualpayments = 0;
                           if (!empty($payments)) {
                             foreach ($payments as $p) {
-                              if ($p['year'] === $selectedYr) {   
+                              if ($p['year'] === $selectedYr) { 
+                                $totalannualpayments += $p['amount'];   
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
@@ -245,6 +220,28 @@
                       </tbody>
                     </table>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="well">
+                <div class="form-group">
+                  <label>Year:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="yrallpayments" name="yrallpayments" placeholder="<?php echo $selectedYr ?>">
+                      <div class="input-group-addon">
+                        <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                      </div>
+                  <!-- /.input group -->
+                  </div>
+                </div>
+                <!-- total payments -->
+                <div class="input-group">
+                  <label>Total</label>
+                  <input type="text" name="totalannualpayments" placeholder="<?php echo $totalannualpayments ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
