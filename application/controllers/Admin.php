@@ -61,6 +61,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/footer.php");
 		}
 
+		public function reportsSelectDate(){
+			$date = $this->input->post('datepickerallpayments');
+			$this->session->set_userdata('selectedDate', $date);
+			redirect('admin/viewPaymentsReports');
+		}
+
+		public function reportsSelectMnthYr(){
+			$date = $this->input->post('monthallpayments');
+			$this->session->set_userdata('selectedMnthYr', $date);
+			redirect('admin/viewPaymentsReports');
+		}
+
+		public function reportsSelectYr(){
+			$date = $this->input->post('yrallpayments');
+			$this->session->set_userdata('selectedYr', $date);
+			redirect('admin/viewPaymentsReports');
+		}
+
 		public function viewIncomeReports(){
 			$page['pageName'] = "income";
 			$headdata['pagename'] = 'Admin | Reports';
@@ -87,11 +105,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
+			$data['payments'] = $this->admin_model->getPayments();
+
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/reportNav.php", $page);
-			$this->load->view("adminPages/allPayments.php");
+			$this->load->view("adminPages/allPayments.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
