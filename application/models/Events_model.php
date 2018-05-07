@@ -392,10 +392,16 @@
 		}
 
 
-		public function insertNewEvent($clientID, $employeeID){
+		public function insertNewEvent($clientID, $employeeID, $eventName, $celebrantName, $availDate, $eventDate, $eventTime, $eventDuration){
 			$data = array(
 				'clientID' => $clientID,
-				'employeeID' => $employeeID
+				'employeeID' => $employeeID,
+				'eventName' => $eventName,
+				'celebrantName' => $celebrantName,
+				'dateAssisted' => $availDate,
+				'eventDate' => $eventDate,
+				'eventTime' => $eventTime,
+				'eventDuration' => $eventDuration
 			);
 
 			$this->db->insert('events', $data);

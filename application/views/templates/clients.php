@@ -64,7 +64,8 @@
                               Add Event
                             </button>
                           </form> -->
-                          <button class="btn btn-block btn-default" data-toggle="modal" data-target="#addNewEvent">Add Event</button>
+                          <!--  -->
+                          <button class="btn btn-block btn-default addEventButton" data-toggle="modal" data-target="#addNewEvent" value="<?php echo($cID) ?>">Add Event</button>
                         <?php endif ?>	                    	
 	                    </td>
                 	</tr>
@@ -97,50 +98,48 @@
         <h4 class="modal-title">Add New Event for "Client Name"</h4>
       </div>
       <div class="modal-body form-horizontal">
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Event Name</label>
-          <div class="col-lg-9">
-            <input type="text" name="eventName" placeholder="Enter Event Name" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Celebrant</label>
-          <div class="col-lg-9">
-            <input type="text" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Avail Date</label>
-          <div class="col-lg-9">
-            <input type="text" name="availDate" id="availDate" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Event Date</label>
-          <div class="col-lg-9">
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </div>
-                <input type="text" name="eventDate" id="eventDate" class="form-control pull-right">
+          <form id="addEvent" action="<?php echo base_url('events/addEvent') ?>">
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Event Name</label>
+              <div class="col-lg-9">
+                <input type="text" name="eventName" placeholder="Enter Event Name" class="form-control">
               </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Event Time</label>
-          <div class="col-lg-9">
-            <input type="time" name="eventTime" id="eventTime" class="form-control">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-lg-3 control-label">Duration(days)</label>
-          <div class="col-lg-9">
-            <input type="number" name="eventDuration" class="form-control">
-          </div>
-        </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Celebrant</label>
+              <div class="col-lg-9">
+                <input type="text" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Avail Date</label>
+              <div class="col-lg-9">
+                <input type="date" name="availDate" id="availDate" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Event Date</label>
+              <div class="col-lg-9">
+                <input type="date" name="eventDate" id="eventDate" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Event Time</label>
+              <div class="col-lg-9">
+                <input type="time" name="eventTime" id="eventTime" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-lg-3 control-label">Duration(days)</label>
+              <div class="col-lg-9">
+                <input type="number" name="eventDuration" class="form-control">
+              </div>
+            </div>
+            <input type="text" id="clientID" name="clientID" hidden>
+          </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary">Confirm</button>
+        <button type="submit" form="addEvent" class="btn btn-primary">Confirm</button>
         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -275,6 +274,43 @@
                 $(this).remove();
               });
             })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+
+    $('.addEventButton').click(function(){
+      var clientID = $(this).val();
+      //alert(clientID);
+      $('#clientID').val(clientID);
+
+    });
+
+    $('#addEvent').submit(function(e){
+      e.preventDefault();
+
+      var eventDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: eventDetails.attr('action'),
+        data: eventDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            window.location.href = "<?php echo base_url('events/eventDetails'); ?>";
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);
