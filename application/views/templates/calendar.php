@@ -394,13 +394,13 @@ data = {
               
               if (!$eventData[$i]['eventTime'] == null) {
                 $meridiem = date("A", strtotime($eventData[$i]['eventTime']));
-                echo "endTime: '" . $meridiem . "',";
+                echo "meridiem: '" . $meridiem . "',";
               }else{
                 
               }if (!$eventData[$i]['packageType'] == null){
-                echo "mTime: '" . $eventData[$i]['packageType'] . "',";
+                echo "pType: '" . $eventData[$i]['packageType'] . "',";
               }else{
-                echo "mTime: --,";  
+                echo "pType: '--',";  
               }
               if (!empty($eventData[$i]['eventName'])) {
                 echo "text: '" . $eventData[$i]['eventName'] . "'";
