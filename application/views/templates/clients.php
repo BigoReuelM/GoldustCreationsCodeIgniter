@@ -58,14 +58,7 @@
                           </form>  
                         <?php endif ?>
                     		<?php if ($this->session->userdata('role') === "handler"): ?>
-                          <!-- <form role="form" method="post" action="<?php echo base_url('events/addEvent') ?>">
-                            <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
-                            <button type="submit" class="btn btn-block btn-default">
-                              Add Event
-                            </button>
-                          </form> -->
-                          <!--  -->
-                          <button class="btn btn-block btn-default addEventButton" data-toggle="modal" data-target="#addNewEvent" value="<?php echo($cID) ?>">Add Event</button>
+                          <button class="btn btn-block btn-default addEventButton" data-toggle="modal" data-target="#addNewEvent" value="<?php echo($cID . ',' . $client['clientName'])?>">Add Event</button>
                         <?php endif ?>	                    	
 	                    </td>
                 	</tr>
@@ -95,10 +88,10 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">Add New Event for "Client Name"</h4>
+        <h4 id="clientNameModal" class="modal-title text-center"></h4>
       </div>
       <div class="modal-body form-horizontal">
-          <form id="addEvent" action="<?php echo base_url('events/addEvent') ?>">
+          <form id="addEvent" action="<?php echo base_url('events/addEvent') ?>" autocomplete="off">
             <div class="form-group">
               <label class="col-lg-3 control-label">Event Name</label>
               <div class="col-lg-9">
@@ -232,9 +225,10 @@
 
 <script>
 	$(function () {
-		$('#allClientsTable').DataTable({})
+		$('#allClientsTable').DataTable()
 	});
-
+</script>
+<script>
   $(function(){
     $('#availDate').datepicker({
       autoclose: true;
@@ -245,7 +239,7 @@
   });
 </script>
 <script>
-      $('#addNewClient').submit(function(e){
+    $('#addNewClient').submit(function(e){
       e.preventDefault();
 
       var clientDetails = $(this);
@@ -290,14 +284,16 @@
         }
       });
     });
-
+</script>
+<script>
     $('.addEventButton').click(function(){
-      var clientID = $(this).val();
-      //alert(clientID);
-      $('#clientID').val(clientID);
+      var clientinfo = $(this).val().split(',');
+      $('#clientID').val(clientinfo[0]);
+      $('#clientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
     });
-
+</script>    
+<script>
     $('#addEvent').submit(function(e){
       e.preventDefault();
 
