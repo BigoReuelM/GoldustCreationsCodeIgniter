@@ -95,13 +95,13 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Event Name</label>
               <div class="col-lg-9">
-                <input type="text" name="eventName" placeholder="Enter Event Name" class="form-control">
+                <input type="text" id="eventName" name="eventName" placeholder="Enter Event Name" class="form-control">
               </div>
             </div>
             <div class="form-group">
               <label class="col-lg-3 control-label">Celebrant</label>
               <div class="col-lg-9">
-                <input type="text" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
+                <input type="text" id="celebrantName" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
               </div>
             </div>
             <div class="form-group">
@@ -125,7 +125,7 @@
             <div class="form-group">
               <label class="col-lg-3 control-label">Duration(days)</label>
               <div class="col-lg-9">
-                <input type="number" name="eventDuration" class="form-control">
+                <input type="number" id="eventDuration" name="eventDuration" class="form-control">
               </div>
             </div>
             <input type="text" id="clientID" name="clientID" hidden>
