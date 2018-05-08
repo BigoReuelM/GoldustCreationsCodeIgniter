@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->session->set_userdata('username',$data['username']);
 				$this->session->set_userdata('contactNumber',$data['contactNumber']);
 				$this->session->set_userdata('role',$data['role']);
-				$this->session->set_userdata('allowed_idle_time', 10);
+				$this->session->set_userdata('allowed_idle_time', 1800);
 				$this->session->set_userdata('last_acted_on', time());
 
 				if ($data['role'] === "admin") {
