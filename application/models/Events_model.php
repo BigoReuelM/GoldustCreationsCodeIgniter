@@ -778,10 +778,9 @@
 
 		public function addEventTheme($currentEventID, $currentThemeID){
 			$data = array(
-				'eventID' => $currentEventID,
 				'themeID' => $currentThemeID
 			);
-
+			$this->db->where('eventID', $currentEventID);
 			$this->db->insert('eventthemes', $data);
 
 			return $this->db->insert_id();
@@ -789,7 +788,7 @@
 		}
 
 		public function getEventTheme($eventID){
-			$query = $this->db->query("SELECT * FROM eventthemes WHERE eventID = $eventID");
+			$query = $this->db->query("SELECT * FROM events WHERE eventID = $eventID");
 			return $query->row();
 		}
 
@@ -960,7 +959,7 @@
 
 		public function getThemeName($currentEventID){
 			//$evID = $this->session->userdata('$currentEventID');
-			$query = $this->db->query(" SELECT themeName FROM eventthemes JOIN theme on eventthemes.themeID = theme.themeID WHERE eventID = $currentEventID");
+			$query = $this->db->query("SELECT themeName FROM events JOIN theme on events.themeID = theme.themeID WHERE eventID = $currentEventID");
 
 			//return $query->result_array();
 			return $query->row();
