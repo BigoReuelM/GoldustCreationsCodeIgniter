@@ -16,12 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('notifications_model');
 			$this->load->model('transactions_model');
 			$this->load->model('clients_model');
+			$this->load->model('session_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
 		}
 
 		public function index(){
+			$this->session_model->sessionCheck();
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$newStatus = "new";
@@ -157,6 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function employeeDetails(){
+			$this->session_model->sessionCheck();
 			$employeeID = $this->session->userdata('personnelId');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -183,6 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function adminEmployees(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "admin";
 			$data['admin'] = $this->admin_model->getAdminEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -206,6 +210,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function handlerEmployees(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "handler";
 			$data['handler'] = $this->admin_model->getHandlerEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -230,6 +235,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function staffEmployees(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "staff";
 			$data['staff'] = $this->admin_model->getStaffEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -254,6 +260,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function oncallstaffEmployees(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "oncall";
 			$data['oncallStaff'] = $this->admin_model->getOncallStaffEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -277,6 +284,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function inactiveEmployees(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "inactive";
 			$data['inactiveEmp'] = $this->admin_model->getInactiveEmployees();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -337,6 +345,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function uploadProfilePhoto(){
+			$this->session_model->sessionCheck();
 			$userID = $this->input->post('userID');
 			$userFilePath = './uploads/profileImage/' . $userID . ".*";
 			$path = glob($userFilePath);
@@ -354,6 +363,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function services(){
+			$this->session_model->sessionCheck();
 			$data['active'] = $this->admin_model->getActiveServices();
 			$data['inactive'] = $this->admin_model->getInactiveServices();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -377,6 +387,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function activateServiceStatus(){
+			$this->session_model->sessionCheck();
 			$serviceID = html_escape($this->input->post('inactive'));
 
 			$this->admin_model->activateService($serviceID);
@@ -387,6 +398,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function deactivateServiceStatus(){
+			$this->session_model->sessionCheck();
 			$serviceID = $this->input->post('active');
 
 			$this->admin_model->deactivateService($serviceID);
@@ -396,7 +408,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function expenses(){
-
+			$this->session_model->sessionCheck();
 			$data['expenses']=$this->admin_model->getExpenses();
 			$data['totalExpenses']=$this->admin_model->totalExpenses();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -537,6 +549,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 		public function adminTheme(){
+			$this->session_model->sessionCheck();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -564,6 +577,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function adminThemeDetails(){
+			$this->session_model->sessionCheck();
 			$currentDesType = $this->session->userdata('currentType');
 			$this->load->helper('directory');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();

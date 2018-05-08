@@ -16,12 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('transactions_model');
 			$this->load->model('events_model');
 			$this->load->model('notifications_model');
+			$this->load->model('session_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
 		}
 
 		public function ongoingTransactions(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "ongoing";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -58,6 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function finishedTransactions(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "finished";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -94,6 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function cancelledTransactions(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "cancelled";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -129,6 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionDetails(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "tdetails";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -172,6 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionServices(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "tservices";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -211,6 +217,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionAppointments(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "tappointments";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -247,6 +254,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function transactionPayments(){
+			$this->session_model->sessionCheck();
 			$page['pageName'] = "tpayments";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -288,6 +296,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addsvc(){
+			$this->session_model->sessionCheck();
 
 			$tID = $this->session->userdata('currentTransactionID');
 
@@ -352,6 +361,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		*/
 
 		public function updateServiceDetails(){
+
+			$this->session_model->sessionCheck();
 
 			$tid = $this->session->userdata('currentTransactionID');
 			$action = $this->input->post('action');
@@ -446,6 +457,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		
 		public function ongoing_rentals(){
+			$this->session_model->sessionCheck();
 			$empRole = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -473,6 +485,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function setTransactionID(){
+			$this->session_model->sessionCheck();
 			$currentTransactionID = $this->input->post('transInfo');
 			$clientID = $this->input->post('clientID');
 			$this->session->set_userdata('currentTransactionID', $currentTransactionID);
@@ -580,6 +593,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		// }		
 
 		public function addTransaction(){
+			$this->session_model->sessionCheck();
 			$clientID = $this->input->post('clientID');
 
 			$newTranID = $this->transactions_model->insertTransaction($clientID);
@@ -690,6 +704,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addPayment(){
+	
 			$transactionID = $this->session->userdata('currentTransactionID');
 			$empID = $this->session->userdata('employeeID');
 			$clientID = $this->session->userdata('clientID');

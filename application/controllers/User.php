@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->session->set_userdata('username',$data['username']);
 				$this->session->set_userdata('contactNumber',$data['contactNumber']);
 				$this->session->set_userdata('role',$data['role']);
-				$this->session->set_userdata('allowed_idle_time', 6000);
+				$this->session->set_userdata('allowed_idle_time', 10);
 				$this->session->set_userdata('last_acted_on', time());
 
 				if ($data['role'] === "admin") {
@@ -82,6 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		//user-profile loader
 
 		public function changePassword(){
+
 			$username = html_escape($this->input->post('username'));
 			$pin = html_escape($this->input->post('pin'));
 
@@ -96,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 		
 		public function user_profile(){
-
+			$this->session_model->sessionCheck();
 			$userID = $this->session->userdata("employeeID");
 			$empRole = $this->session->userdata('role');
 			$data['employee'] = $this->user_model->getProfile($userID);
@@ -257,6 +258,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function uploadProfilePhoto(){
+			$this->session_model->sessionCheck();
 			$userID = $this->input->post('userID');
 			$userFilePath = './uploads/profileImage/' . $userID . ".*";
 			$path = glob($userFilePath);

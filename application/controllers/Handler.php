@@ -12,12 +12,14 @@ class Handler extends CI_Controller
 		$this->load->helper('url');
 		$this->load->model('handler_model');
 		$this->load->model('notifications_model');
+		$this->load->model('session_model');
 		$this->load->model('events_model');
 		$this->load->model('transactions_model');
 		$this->load->library('session');
 	}
 
 	public function index(){
+		$this->session_model->sessionCheck();
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$newStatus = "new";

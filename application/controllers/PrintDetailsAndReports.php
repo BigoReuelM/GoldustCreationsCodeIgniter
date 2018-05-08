@@ -6,10 +6,12 @@ class PrintDetailsAndReports extends CI_Controller {
         parent::__construct();
         $this->load->helper('form', 'url');
         $this->load->model('events_model');
+        $this->load->model('session_model');
         $this->load->library("Pdf");
     }
   
     public function create_pdf() {
+        $this->session_model->sessionCheck();
         $eventID =html_escape($this->input->post('eventID'));
         $clientID = null;
         $data['eventDetails'] = $this->events_model->getEventDetails($eventID, $clientID);

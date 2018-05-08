@@ -13,12 +13,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->helper('url');
 			$this->load->model('clients_model');
 			$this->load->model('notifications_model');
+			$this->load->model('session_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');
 		}
 
 		public function clients(){
+			$this->session_model->sessionCheck();
 			$empRole = $this->session->userdata('role');
 
 			$data['clients'] = $this->clients_model->clients();

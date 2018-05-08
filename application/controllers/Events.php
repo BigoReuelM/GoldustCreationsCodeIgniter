@@ -15,12 +15,14 @@ class Events extends CI_Controller
 		$this->load->helper('url');
 		$this->load->model('events_model');
 		$this->load->model('notifications_model');
+		$this->load->model('session_model');
 		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 	}
 
 	public function newEvents(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "new";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
@@ -59,6 +61,7 @@ class Events extends CI_Controller
 
 
 	public function ongoingEvents(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "ongoing";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
@@ -96,6 +99,7 @@ class Events extends CI_Controller
 	}
 
 	public function finishedEvents(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "finished";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
@@ -129,6 +133,7 @@ class Events extends CI_Controller
 	}
 
 	public function canceledEvents(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "canceled";
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
@@ -162,6 +167,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventDetails(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "details";
 		$id = $this->session->userdata('currentEventID');
 		$clientID = $this->session->userdata('clientID');
@@ -231,6 +237,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventStaff(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "staff";
 		$empRole = $this->session->userdata('role');
 		$id = $this->session->userdata('currentEventID');
@@ -265,6 +272,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventServices(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "services";
 		$id = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
@@ -301,6 +309,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventEntourage(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "entourage";
 		$this->load->helper('directory');
 		$id = $this->session->userdata('currentEventID');
@@ -369,6 +378,7 @@ class Events extends CI_Controller
 	}
 
 	public function eventDecors(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "decors";
 		$this->load->helper('directory');
 		$clientID = $this->session->userdata('clientID');
@@ -440,6 +450,7 @@ class Events extends CI_Controller
 	}
 
 	public function payment(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "payments";
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
@@ -483,6 +494,7 @@ class Events extends CI_Controller
 	}
 
 	public function appointments(){
+		$this->session_model->sessionCheck();
 		$page['pageName'] = "appointments";
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
@@ -537,6 +549,7 @@ class Events extends CI_Controller
 		*/
 
 		public function setEventID(){
+			$this->session_model->sessionCheck();
 				$currentEventID = html_escape($this->input->post('eventInfo'));
 				$currentClientID = html_escape($this->input->post('clientID'));
 				$currentEventStatus = html_escape($this->input->post('eventStatus'));
@@ -613,6 +626,7 @@ class Events extends CI_Controller
 
 			// set and delete selected decor...
 			public function setCurrentDecorID(){
+				$this->session_model->sessionCheck();
 				$currentDecorID = html_escape($this->input->post('decorID'));
 				$this->session->set_userdata('currentDecorID', $currentDecorID);
 				
@@ -625,6 +639,7 @@ class Events extends CI_Controller
 
 			// set and delete selected design...
 			public function setCurrentDesignID(){
+				$this->session_model->sessionCheck();
 				$currentDesignID = html_escape($this->input->post('designID'));
 				$this->session->set_userdata('currentDesignID', $currentDesignID);
 				
@@ -784,6 +799,7 @@ class Events extends CI_Controller
 		}
 
 		public function selectEventHandler(){
+			$this->session_model->sessionCheck();
 			$eId = $this->session->userdata('currentEventID');
 			$handlerID = html_escape($this->input->post('handler'));
 			$this->events_model->updateEventHandler($eId, $handlerID);
@@ -791,6 +807,7 @@ class Events extends CI_Controller
 		}
 
 		public function addsvc(){
+			$this->session_model->sessionCheck();
 			$addSvc = html_escape(array($this->input->post('add_servc_chkbox')));
 			$eID = $this->session->userdata('currentEventID');		
 			
@@ -804,6 +821,7 @@ class Events extends CI_Controller
 
 		// add staff
 		public function addstaff(){
+			$this->session_model->sessionCheck();
 			$addStaff = html_escape(array($this->input->post('add_staff_chkbox')));
 			$eID = $this->session->userdata('currentEventID');
 			if (!empty($this->input->post('add_staff_chkbox[]'))) {
@@ -816,6 +834,7 @@ class Events extends CI_Controller
 
 		// update staff table (event details)
 		public function upEvtStaff(){
+			$this->session_model->sessionCheck();
 			$svcstaffID = html_escape($this->input->post('svcstaffid'));
 			$this->session->set_userdata('currentSvcStaffID', $svcstaffID);
 			$role = html_escape($this->input->post('staffRole'));
@@ -838,6 +857,7 @@ class Events extends CI_Controller
 
 		// update service quantity and amount
 		public function upSvcQtyAmt(){
+			$this->session_model->sessionCheck();
 			$svcID = ($this->input->post('svcid'));
 			$this->session->set_userdata('currentSvcID', $svcID);
 
@@ -1086,6 +1106,7 @@ class Events extends CI_Controller
 
 		// this method will resume a cancelled event 
 		public function contEvent(){
+			$this->session_model->sessionCheck();
 			//$this->load->model('events_model');
 			//$this->events_model->changeEvtStatus();
 			//$this->ongoingEvents();
@@ -1095,6 +1116,7 @@ class Events extends CI_Controller
 		}
 
 		public function updateAttireQty(){
+			$this->session_model->sessionCheck();
 			$eventID = $this->session->userdata('currentEventID');
 			$entID = $this->session->userdata('currentEntourageID');
 			$desID = $this->session->userdata('currentDesignID');
@@ -1111,6 +1133,7 @@ class Events extends CI_Controller
 		}
 
 		public function updateEntDesign(){
+			$this->session_model->sessionCheck();
 			//$eventID = $this->session->userdata('currentEventID');
 			//$entourageID = $this->session->userdata('currentEntourageID');
 			//$desID = $this->session->userdata('currentDesignID');
@@ -1130,7 +1153,7 @@ class Events extends CI_Controller
 		}
 
 		public function addEventTheme(){
-			
+			$this->session_model->sessionCheck();
 			$evID = $this->session->userdata('currentEventID');
 			$themeID = html_escape($this->input->post('themes'));
 
@@ -1144,6 +1167,7 @@ class Events extends CI_Controller
 		}
 
 		public function getEntourageTheme(){
+			$this->session_model->sessionCheck();
 			/*$themeID = $this->session->userdata('currentTheme');
 			$data['themeDesign'] = $this->events_model->getThemeDesigns($themeID);
 			$data['themeDecor'] = $this->events_model->getThemeDecors($themeID);*/
@@ -1171,6 +1195,7 @@ class Events extends CI_Controller
 		}*/
 
 		public function adminDecorsHome(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -1234,6 +1259,7 @@ class Events extends CI_Controller
 		}
 
 		public function adminDesignsHome(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -1295,6 +1321,7 @@ class Events extends CI_Controller
 		}
 
 		public function setDecorType(){
+			$this->session_model->sessionCheck();
 			$decorType = $this->input->post('decor_type');
 			$this->session->set_userdata('decorType', $decorType);
 
@@ -1302,6 +1329,7 @@ class Events extends CI_Controller
 		}
 
 		public function adminDecors(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -1348,6 +1376,7 @@ class Events extends CI_Controller
 		}
 
 		public function setDesignType(){
+			$this->session_model->sessionCheck();
 			$designType = $this->input->post('design_type');
 			$this->session->set_userdata('designType', $designType);
 
@@ -1355,6 +1384,7 @@ class Events extends CI_Controller
 		}
 
 		public function adminDesigns(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -1416,6 +1446,7 @@ class Events extends CI_Controller
 		}*/
 
 		public function uploadDecImg(){
+			$this->session_model->sessionCheck();
 			$cType = $this->session->userdata('currentType');
 			$themeID = $this->session->userdata('currentThemeID');
 			
@@ -1441,6 +1472,7 @@ class Events extends CI_Controller
 		}
 
 		public function uploadDesImg(){
+			$this->session_model->sessionCheck();
 			$cType = $this->session->userdata('currentType');
 			$themeID = $this->session->userdata('currentThemeID');
 					
@@ -1465,6 +1497,7 @@ class Events extends CI_Controller
 		}	
 
 		public function addNewDecType(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
 			$newEnumVal = $this->input->post('type_name');
@@ -1477,6 +1510,7 @@ class Events extends CI_Controller
 		}
 
 		public function addNewDesType(){
+			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDesignEnum();
 			$newEnumVal = $this->input->post('type_name');
@@ -1489,6 +1523,7 @@ class Events extends CI_Controller
 		}
 
 		public function addNewEventDecor(){
+			$this->session_model->sessionCheck();
 			$themeID = $this->session->userdata('currentTheme');
 			$eventID = $this->session->userdata('currentEventID');
 						
@@ -1519,6 +1554,7 @@ class Events extends CI_Controller
 		}
 
 		public function addExstEventDec(){
+			$this->session_model->sessionCheck();
 			// add an existing decor to the eventdecors table
 			$decID = html_escape($this->input->post('addExstDecor'));
 			$eventID = $this->session->userdata('currentEventID');
@@ -1527,6 +1563,7 @@ class Events extends CI_Controller
 		}
 
 		public function addExstEventDes(){
+			$this->session_model->sessionCheck();
 			// add an existing design to the eventdecors table
 			$desID = html_escape($this->input->post('addExstDesign'));
 			$eventID = $this->session->userdata('currentEventID');
@@ -1535,6 +1572,7 @@ class Events extends CI_Controller
 		}
 
 		public function updateEvtDec(){
+			$this->session_model->sessionCheck();
 			// update event decor quantity
 			$eventID = $this->session->userdata('currentEventID');
 			$decorID = $this->input->post('decorID');
@@ -1544,6 +1582,7 @@ class Events extends CI_Controller
 		}
 
 		public function updateEvtDes(){
+			$this->session_model->sessionCheck();
 			// update event design quantity
 			$eventID = $this->session->userdata('currentEventID');
 			$designID = $this->input->post('designID');

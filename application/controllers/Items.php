@@ -12,10 +12,12 @@ class Items extends CI_Controller
 		$this->load->helper('url');
 		$this->load->model('handler_model');
 		$this->load->model('notifications_model');
+		$this->load->model('session_model');
 		$this->load->library('session');
 	}
 
 	public function gowns(){
+		$this->session_model->sessionCheck();
 		$this->load->model('items_model');
 		$data['allGowns'] = $this->items_model->getAllGowns();
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -46,6 +48,7 @@ class Items extends CI_Controller
 	}
 
 	public function decors(){
+		$this->session_model->sessionCheck();
 		$this->load->model('items_model');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -76,6 +79,7 @@ class Items extends CI_Controller
 	}
 
 	public function eventDecors(){
+		$this->session_model->sessionCheck();
 		$eventid = $this->session->userdata('currentEventID');
 		$decorid = $this->session->userdata('currentDecorID');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -115,6 +119,7 @@ class Items extends CI_Controller
 	}
 
 	public function costumes(){
+		$this->session_model->sessionCheck();
 		$this->load->model('items_model');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -145,6 +150,7 @@ class Items extends CI_Controller
 	}
 
 	public function suits(){
+		$this->session_model->sessionCheck();
 		$this->load->model('items_model');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -175,6 +181,7 @@ class Items extends CI_Controller
 	}
 
 	public function getEntourageAttire($currentEntId){
+		$this->session_model->sessionCheck();
 		$this->load->model('events_model');
 		$data['attirePhoto'] = $this->events_model->getEntAttirePhoto($currentEntId);
 		$this->load->view("templates/eventEntourage.php", $data);
