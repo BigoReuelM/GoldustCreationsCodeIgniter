@@ -781,7 +781,7 @@
 				'themeID' => $currentThemeID
 			);
 			$this->db->where('eventID', $currentEventID);
-			$this->db->insert('eventthemes', $data);
+			$this->db->insert('events', $data);
 
 			return $this->db->insert_id();
 
