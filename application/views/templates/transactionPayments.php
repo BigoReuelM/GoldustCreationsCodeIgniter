@@ -69,7 +69,13 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Payment</h4>
           <div id="the-message">
-          <?php if ($balance <= 0): ?>
+          <?php if ($totalAmount->totalAmount == 0 && $balance <= 0): ?>
+            <div class="alert alert-info text-center">
+              <span class="icon fa fa-hand-stop-o"></span>
+              <span>0 amount due!</span>
+            </div>
+          <?php endif ?>
+          <?php if ($totalAmount->totalAmount > 0 && $balance <= 0): ?>
             <div class="alert alert-danger text-center">
               <span class="icon fa fa-hand-stop-o"></span>
               <span>This transaction is fully paid!</span>
@@ -114,7 +120,12 @@
           </div>
         </div>      
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default">Add</button>
+          <?php if (($totalAmount->totalAmount == 0 && $balance <= 0) || ($totalAmount->totalAmount > 0 && $balance <= 0)): ?>
+            <button type="submit" class="btn btn-default" disabled>Add</button>
+          <?php endif ?>
+          <?php if ($balance > 0): ?>
+            <button type="submit" class="btn btn-default">Add</button>
+          <?php endif ?>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       <?php echo form_close(); ?>
@@ -236,6 +247,8 @@
 
           $('.alert-danger').remove();
 
+          $('.alert-info').remove();
+          
           $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
           $('.text-danger').remove();
