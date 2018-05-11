@@ -4,8 +4,6 @@
  <style type="text/css">
    #butt5 {
     width: 100px;
-   }
-
  </style>
 
 <section class="content container-fluid">

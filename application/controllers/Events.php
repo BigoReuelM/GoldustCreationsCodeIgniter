@@ -323,7 +323,6 @@ class Events extends CI_Controller
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
 		$data['entourage'] = $this->events_model->getEntourage($id);
 		$empRole = $this->session->userdata('role');
-		//$currentEvent = $this->session->userdata('currentEventID');
 		$this->load->model('items_model');
 		$data['allDesigns'] = $this->items_model->getAllDesigns();
 		$data['designs']= $this->events_model->getDesigns($id);
@@ -335,11 +334,12 @@ class Events extends CI_Controller
 
 		// display the designs accdg to the selected theme...
 		$themeDet = $this->events_model->getEventTheme($id);
-		if (!empty($themeDet)) {
+		$eventTheme = $themeDet->themeID;
+		if (!empty($eventTheme)) {
 			// ...as well as pass to view, along with other info...
 			$data['eventThemeDet'] = $this->events_model->getEventTheme($id);
 			// store event theme ID to variable...
-			$eventTheme = $themeDet->themeID;	
+				
 			// display event theme designs
 			$data['themeDesigns'] = $this->events_model->displayEventThemeDesigns($eventTheme);
 			// insert each [theme] designs to the eventdesigns table
@@ -406,11 +406,12 @@ class Events extends CI_Controller
 		
 		// display the decors accdg to the selected theme...
 		$themeDet = $this->events_model->getEventTheme($eventid);
-		if (!empty($themeDet)) {
+		// store event theme ID to variable...
+		$eventTheme = $themeDet->themeID;
+		if (!empty($eventTheme)) {
 			// ...as well as pass to view, along with other info...
 			$data['eventThemeDet'] = $this->events_model->getEventTheme($eventid);
-			// store event theme ID to variable...
-			$eventTheme = $themeDet->themeID;		
+					
 			// display event theme decors
 			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
 			// insert each [theme] decors to the eventdecors table

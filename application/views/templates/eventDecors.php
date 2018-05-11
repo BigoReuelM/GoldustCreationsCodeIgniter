@@ -191,7 +191,7 @@ input[type=submit] {
                           <!-- remove decor button -->
                           <div class="col-md-12 col-sm-12">
                             <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo($decorID) ?>"><i class="fa fa-remove"></i> Remove</button> 
+                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-remove"></i> Remove</button> 
                             </form>   
                           </div>
                         </td>
