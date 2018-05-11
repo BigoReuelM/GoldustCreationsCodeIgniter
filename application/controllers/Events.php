@@ -1158,9 +1158,7 @@ class Events extends CI_Controller
 			$themeID = html_escape($this->input->post('themes'));
 
 			if (!empty($themeID)) {
-				foreach ($this->input->post('themes[]') as $th) {
-					$this->events_model->addEventTheme($evID, $th);
-				}
+				$this->events_model->addEventTheme($evID, $themeID);		
 			}
 
 			redirect('events/eventDetails');

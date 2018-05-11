@@ -349,7 +349,7 @@
                 <td>
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox" id="themes" name="themes[]" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?>
+                      <input type="checkbox" id="themes" name="themes" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?>
                     </label>
                   </div>
                 </td>

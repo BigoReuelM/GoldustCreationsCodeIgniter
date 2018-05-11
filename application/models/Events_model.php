@@ -761,8 +761,7 @@
 
 		public function getThemeDesigns($currentThemeID){
 			$currentThemeID = $this->session->userdata('currentTheme');
-			$query = $this->db->query("
-				SELECT * FROM designs WHERE themeID = $currentThemeID"
+			$query = $this->db->query("SELECT * FROM designs WHERE themeID = $currentThemeID"
 			);
 			return $query->result_array();
 		}
@@ -781,7 +780,7 @@
 				'themeID' => $currentThemeID
 			);
 			$this->db->where('eventID', $currentEventID);
-			$this->db->insert('events', $data);
+			$this->db->update('events', $data);
 
 			return $this->db->insert_id();
 
