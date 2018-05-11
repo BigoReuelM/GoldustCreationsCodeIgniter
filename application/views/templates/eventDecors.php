@@ -360,7 +360,9 @@ input[type=submit] {
       $('#exstDecors').DataTable({
       })
     })
+  </script>
 
+  <script>
     $('#modal-dialog').on('show', function() {
       var link = $(this).data('link'),
       confirmBtn = $(this).find('.confirm');

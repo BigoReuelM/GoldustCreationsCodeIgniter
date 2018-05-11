@@ -429,6 +429,8 @@
     })
     $('#entourageTableEdit').DataTable({
     })
+    $('#exstDesigns').DataTable({
+    })
   })
 </script>
 <style>
