@@ -214,8 +214,8 @@
 		    <div class="modal-body">
 		    	<div class="box-body">
             <div class="form-group">
-              <label class="control-label col-sm-3">First Name</label>
-              <div class="col-sm-9">
+              <label class="control-label col-lg-3">First Name</label>
+              <div class="col-lg-9">
                 <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Enter first name ..">
               </div>
             </div>
@@ -286,10 +286,10 @@
 <script>
   $(function(){
     $('#availDate').datepicker({
-      autoclose: true;
+      autoclose: true
     });
     $('#eventDate').datepicker({
-      autoclose: true;
+      autoclose: true
     });
   });
 </script>
@@ -312,6 +312,17 @@
             '<span class="glyphicon glyphicon-ok"></span>' +
             ' New client has been saved.' +
             '</div>');
+
+            $('td.dataTables_empty').remove();
+
+            $('#allClientsTable').prepend(
+              '<tr>'+
+              '<td>' + response.clientName + '</td>' +
+              '<td>' + response.regDate + '</td>' +
+              '<td>' + response.contactNumber + '</td>' +
+              '<td>' + response.button + '</td>' +
+              '</tr>'
+            );
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();

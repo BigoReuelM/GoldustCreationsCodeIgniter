@@ -24,6 +24,7 @@
 			);
 
 			$this->db->insert('clients', $data);
+			return $this->db->insert_id();
 		}
 
 		public function countNewClient(){
