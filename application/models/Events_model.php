@@ -1030,7 +1030,7 @@
 			$query = $this->db->query("
 				SELECT *
 				FROM events
-				WHERE eventID = $id and dateAssisted <= $date
+				WHERE eventID = $id and dateAssisted <= '$date'
 			");
 
 			if (!empty($query->row())) {
