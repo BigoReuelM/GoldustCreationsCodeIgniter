@@ -1,7 +1,15 @@
 
-
+    <section class="content-header">
+      <h1>
+        <?php
+          $name = $eventName->eventName; 
+          echo '<p>' . $name . '</p>';    
+        ?>
+      </h1>
+    </section>
     <!-- Main content -->
     <section class="content container-fluid">
+      
       <div class="box">
         <div class="box-header">
           <div class="row">

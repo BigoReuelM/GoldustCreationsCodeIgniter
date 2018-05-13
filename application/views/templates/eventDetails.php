@@ -6,21 +6,21 @@
     width: 100px;
  </style>
 
+<section class="content-header">
+  <h1>
+    <?php
+      $name = $eventName->eventName; 
+      echo '<p>' . $name . '</p>';    
+    ?>
+  </h1>
+</section>
+
 <section class="content container-fluid">
-<div class="content">
-  <div class="row">
+
     <div class="box box-primary">
       <div class="box-header">
         <div class="row">
-          <div class="col-lg-6">
-            <h1>
-              <?php
-                $name = $eventName->eventName; 
-                echo '<p>' . $name . '</p>';    
-              ?>
-            </h1>
-          </div>
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="navbar-custom-menu pull-right">
               <ul class="nav navbar-nav">
                 <li class="dropdown tasks-menu">
@@ -309,8 +309,6 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
 
   <div class="control-sidebar-bg"></div> 
 </section>

@@ -3,11 +3,17 @@
   $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
 ?>
 
-
+<section class="content-header">
+  <h1>
+    <?php
+      $name = $eventName->eventName; 
+      echo '<p>' . $name . '</p>';    
+    ?>
+  </h1>
+</section>
     <!-- Main content -->
     <section class="content container-fluid">
-
-      <div class="content">
+      
           <div class="box">
             <div class="box-header with-border">
               <div class="row">
@@ -96,7 +102,6 @@
           </div>
           </div>
 
-      </div>
     </section>
     <!-- /.content -->
   </div>

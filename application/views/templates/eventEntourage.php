@@ -22,7 +22,10 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Entourage
+        <?php
+          $name = $eventName->eventName; 
+          echo '<p>' . $name . '</p>';    
+        ?>
       </h1>
     </section>
 
