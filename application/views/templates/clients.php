@@ -85,48 +85,53 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h4 id="clientNameModal" class="modal-title text-center"></h4>
+        <h4 class="modal-title">Add Event</h4>
       </div>
       <div class="modal-body form-horizontal">
-          <form id="addEvent" action="<?php echo base_url('events/addEvent') ?>" autocomplete="off">
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Event Name</label>
-              <div class="col-lg-9">
-                <input type="text" id="eventName" name="eventName" placeholder="Enter Event Name" class="form-control">
+        <div class="well">
+          <h4 id="clientNameModal" class="text-center"></h4>  
+        </div>
+          <div class="well">
+            <form id="addEvent" action="<?php echo base_url('events/addEvent') ?>" autocomplete="off">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Event Name</label>
+                <div class="col-lg-9">
+                  <input type="text" id="eventName" name="eventName" placeholder="Enter Event Name" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Celebrant</label>
-              <div class="col-lg-9">
-                <input type="text" id="celebrantName" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Celebrant</label>
+                <div class="col-lg-9">
+                  <input type="text" id="celebrantName" name="celebrantName" placeholder="Enter Celebrant Name" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Avail Date</label>
-              <div class="col-lg-9">
-                <input type="date" name="availDate" id="availDate" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Avail Date</label>
+                <div class="col-lg-9">
+                  <input type="date" name="availDate" id="availDate" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Event Date</label>
-              <div class="col-lg-9">
-                <input type="date" name="eventDate" id="eventDate" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Event Date</label>
+                <div class="col-lg-9">
+                  <input type="date" name="eventDate" id="eventDate" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Event Time</label>
-              <div class="col-lg-9">
-                <input type="time" name="eventTime" id="eventTime" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Event Time</label>
+                <div class="col-lg-9">
+                  <input type="time" name="eventTime" id="eventTime" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-lg-3 control-label">Duration(days)</label>
-              <div class="col-lg-9">
-                <input type="number" id="eventDuration" name="eventDuration" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Duration(days)</label>
+                <div class="col-lg-9">
+                  <input type="number" id="eventDuration" name="eventDuration" class="form-control">
+                </div>
               </div>
-            </div>
-            <input type="text" id="clientID" name="clientID" hidden>
-          </form>
+              <input type="text" id="clientID" name="clientID" hidden>
+            </form>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="submit" form="addEvent" class="btn btn-primary">Confirm</button>
@@ -148,7 +153,7 @@
       </div>
       <div class="modal-body">
           <div class="well">
-            <h4 id="transactionClientNameModal" class="modal-title text-center"></h4>    
+            <h4 id="transactionClientNameModal" class="text-center"></h4>    
           </div>
           <div class="well form-horizontal">
             <form id="addTransaction" action="<?php echo base_url('transactions/addTransaction') ?>" autocomplete="off">
