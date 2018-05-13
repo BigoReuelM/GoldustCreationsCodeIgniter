@@ -249,5 +249,10 @@
 			$query = $this->db->query("SELECT concat(clients.firstName, ' ', clients.middleName, ' ', clients.lastName) as clientName, concat(employees.firstName, ' ', employees.midName, ' ', employees.lastName) as receiverName, events.eventName, payments.amount, payments.date, payments.time, YEAR(date) AS year, MONTH(date) AS month, DAY(date) AS day FROM payments JOIN clients on payments.clientID = clients.clientID join events on payments.eventID = events.eventID join employees on payments.employeeID = employees.employeeID");
 			return $query->result_array();
 		}
+
+		public function getDeposits(){
+			$query = $this->db->query("SELECT CONCAT(firstName, ' ', middleName, ' ', lastName) AS fullname, dateAvail, finishDate, IDType, CONCAT(school, ',', yearAndSection) AS schoolyrsec, depositAmt, homeAddress FROM transactions JOIN clients ON transactions.clientID = clients.clientID WHERE depositAmt IS NOT NULL");
+			return $query->result_array();
+		}
 	}
  ?>

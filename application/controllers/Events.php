@@ -346,10 +346,10 @@ class Events extends CI_Controller
 			$thdes = $this->events_model->displayEventThemeDesigns($eventTheme);
 			if (!empty($thdes)) {
 				foreach ($thdes as $des) {
-					//$chkExist = $this->events_model->chkEvtDesExist($id, $des['designID']);
-					//if (empty($chkExist)) {
+					$chkExist = $this->events_model->chkEvtDesExist($id, $des['designID']);
+					if (empty($chkExist)) {
 					$this->events_model->insertEventDesignTheme($id, $des['designID']);
-					//}
+					}
 				}
 			}
 		} 
@@ -1557,7 +1557,11 @@ class Events extends CI_Controller
 			// add an existing decor to the eventdecors table
 			$decID = html_escape($this->input->post('addExstDecor'));
 			$eventID = $this->session->userdata('currentEventID');
-			$this->events_model->addNewEventDecor($eventID, $decID);
+			// check if data exists first...
+			$chkEvtDecExist = $this->events_model->chkEvtDecExist($eventID, $decID);
+			if ($chkEvtDecExist === true) {
+				$this->events_model->addNewEventDecor($eventID, $decID);
+			}
 			$this->eventDecors();
 		}
 
@@ -1566,7 +1570,13 @@ class Events extends CI_Controller
 			// add an existing design to the eventdecors table
 			$desID = html_escape($this->input->post('addExstDesign'));
 			$eventID = $this->session->userdata('currentEventID');
-			$this->events_model->addNewEventDesign($eventID, $desID);
+			// check if data exists first...
+			$chkEvtDesExist = $this->events_model->chkEvtDesExist($eventID, $desID);
+			if ($chkEvtDesExist === true) {
+				$this->events_model->addNewEventDesign($eventID, $desID);
+			} else {
+				echo "<script type='text/javascript'>alert('Data already exists').onload</script>";
+			}
 			$this->eventEntourage();
 		}
 

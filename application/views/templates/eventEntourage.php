@@ -169,7 +169,7 @@
                     <td>
                       <div class="col-md-12 col-sm-12">
                         <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                          <button class="btn btn-link" id="rmvdesignbtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-remove"></i> Remove</button>
+                          <button class="btn btn-link" id="rmvdesignbtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-remove"></i> Remove</button>
                         </form>
                       </div>
                     </td>
@@ -334,6 +334,7 @@
               <!-- End of modal -->
 
       <!-- add existing design to the event -->
+      <form role="form" method="post" action="<?php echo base_url('events/addExstEventDes') ?>">
         <div class="modal fade" id="addExstDesignModal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -354,7 +355,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <form role="form" method="post" action="<?php echo base_url('events/addExstEventDes') ?>">
+                      
                       <?php
                         foreach ($allDesigns as $des) { ?>
                         <tr>
@@ -384,7 +385,7 @@
                           <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
                         </tr>
                       <?php  } ?>
-                      </form>
+                      
                     </tbody> 
                   </table>
                 </div>
@@ -392,6 +393,7 @@
             </div>
           </div>
         </div>
+      </form>
         </section>
     <!-- /.content -->
   </div>

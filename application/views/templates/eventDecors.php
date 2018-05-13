@@ -256,6 +256,7 @@ input[type=submit] {
         </div>
 
         <!-- add existing an decor to the event -->
+        <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
         <div class="modal fade" id="addExstDecorModal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -276,7 +277,7 @@ input[type=submit] {
                       </tr>
                     </thead>
                     <tbody>
-                      <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
+                      
                       <?php
                         foreach ($allDecors as $dec) { ?>
                         <tr>
@@ -306,7 +307,7 @@ input[type=submit] {
                           <td><button type="submit" name="addExstDecor" class="btn btn-sm btn-primary" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
                         </tr>
                       <?php  } ?>
-                      </form>
+                      
                     </tbody> 
                   </table>
                 </div>
@@ -320,6 +321,7 @@ input[type=submit] {
             </div>
           </div>
         </div> 
+      </form>
       </section>  
       <!-- /.content-wrapper -->
 
