@@ -241,6 +241,7 @@ class Events extends CI_Controller
 		$page['pageName'] = "staff";
 		$empRole = $this->session->userdata('role');
 		$id = $this->session->userdata('currentEventID');
+		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
@@ -275,6 +276,7 @@ class Events extends CI_Controller
 		$this->session_model->sessionCheck();
 		$page['pageName'] = "services";
 		$id = $this->session->userdata('currentEventID');
+		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['eventStatus'] = $this->events_model->getEventStatus($id)->eventStatus;
 		$empRole = $this->session->userdata('role');
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();

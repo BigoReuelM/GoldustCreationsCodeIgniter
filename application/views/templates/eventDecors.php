@@ -105,13 +105,16 @@ input[type=submit] {
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Decors
-  </h1>
+              <?php
+                $name = $eventName->eventName; 
+                echo '<p>' . $name . '</p>';    
+              ?>
+            </h1>
 </section>
 
 <!-- Main content -->
 <section class="content container-fluid">
-  <div class="content">
+
   <div class="box">
     <div class="box-header">
       <div class="row">
@@ -320,7 +323,7 @@ input[type=submit] {
               </div>
             </div>
           </div>
-        </div> 
+ 
       </form>
       </section>  
       <!-- /.content-wrapper -->

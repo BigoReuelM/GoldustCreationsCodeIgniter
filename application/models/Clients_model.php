@@ -24,6 +24,7 @@
 			);
 
 			$this->db->insert('clients', $data);
+			return $this->db->insert_id();
 		}
 
 		public function countNewClient(){
@@ -33,6 +34,17 @@
 			");
 
 			return count($query->result_array());
+		}
+
+		public function getAvailableHandler(){
+			$this->db->select('*, concat(firstname, " ", midName, " ", lastName) as handlerName');
+			$this->db->from('employees');
+			$this->db->where('role', "handler");
+			$this->db->where('status', "active");
+
+			$query = $this->db->get();
+
+			return $query->result_array();
 		}
 	}
 

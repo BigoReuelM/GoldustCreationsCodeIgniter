@@ -30,6 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['handlers'] = $this->clients_model->getAvailableHandler();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Clients | Admin';	
 			}else{
@@ -68,9 +69,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$contactNo =  html_escape($this->input->post('contact'));
 				$date = html_escape($this->input->post('adddate'));
 
-				$this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
+				$newClientID = $this->clients_model->insertClient($firstname, $middlename, $lastname, $contactNo, $date);
 
 				$data['success'] = true;
+				$data['clientName'] = $firstname . " " . $middlename . " " . $lastname;
+				$data['regDate'] = $date;
+				$data['contactNumber'] = $contactNo;
+
+				if ($this->session->userdata('role') === "admin") {
+					$data['button'] = '<button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewTransaction" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Transaction</button>';
+				}else{
+					$data['button'] = '<button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewEvent" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Event</button>';
+				}
 
 			}else{
 				foreach ($_POST as $key => $value) {
