@@ -72,11 +72,11 @@
           <form method="post" action="<?php echo base_url('admin/addNewTheme') ?>" role="form" enctype="multipart/form-data">
             <div class="form-group">
               <label>Theme Name</label>
-              <input type="text" class="form-control" name="themeName">
+              <input type="text" class="form-control" name="themeName" required>
             </div>
             <div class="form-group">
               <label>Theme Description</label>
-              <textarea class="form-control" rows="3" name="themeDesc"></textarea>
+              <textarea class="form-control" rows="3" name="themeDesc" required></textarea>
             </div>
             <div class="modal-footer">
               <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>

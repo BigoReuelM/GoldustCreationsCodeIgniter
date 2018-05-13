@@ -551,56 +551,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data['success'] = true;
 			echo json_encode($data);
-		}
-
-		// public function refundDeposit(){
-		// 	$data = array('success' => false,'lower' => false, 'higher' => false,'remainingDeposit' => 0, 'messages' => array());
-
-		// 	$this->form_validation->set_rules('refundAmount', 'Amount', 'trim|required|greater_than[0]');
-		// 	$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-
-		// 	if ($this->form_validation->run()) {
-		// 		$id = $this->input->post('refund');
-
-		// 		$depositAmount = $this->transactions_model->getDepositAmount($id)->depositAmt;
-				
-		// 		$amount = $this->input->post('refundAmount');
-
-		// 		if ($depositAmount > $amount) {
-		// 			$data['lower'] = true;
-		// 			$data['success'] = true;
-		// 		}
-
-		// 		if($depositAmount == $amount){
-		// 			$this->transactions_model->refundDeposit($id, $amount);
-
-		// 			$data['success'] = true;	
-		// 		}
-
-		// 		if($depositAmount < $amount){
-		// 			$data['higher'] = true;
-		// 			$data['success'] = true;
-		// 		}
-
-		// 	}else{
-		// 		foreach ($_POST as $key => $value) {
-		// 			$data['messages'][$key] = form_error($key);
-		// 		}
-		// 	}
-
-		// 	echo json_encode($data);
-			
-		// }		
+		}	
 
 		public function addTransaction(){
 			$this->session_model->sessionCheck();
-			$clientID = $this->input->post('clientID');
 
-			$newTranID = $this->transactions_model->insertTransaction($clientID);
+			$data = array('success' => false, 'messages' => array());
 
-			$this->session->set_userdata('currentTransactionID', $newTranID);
+			$this->form_validation->set_rules('transactionAvailDate', 'Avail Date', 'trim|required');
+			$this->form_validation->set_rules('transactionAvailTime', 'Avail Time', 'trim|required');
+			$this->form_validation->set_rules('handler', 'Handler', 'trim');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('transactions/transactionDetails');
+			if ($this->form_validation->run()) {
+				$clientID = $this->input->post('transactionClientID');
+				$availDate = htmlspecialchars($this->input->post('transactionAvailDate'));
+				$availTime = htmlspecialchars($this->input->post('transactionAvailTime'));
+				$handler = htmlspecialchars($this->input->post('handler'));
+
+				$newTranID = $this->transactions_model->insertTransaction($clientID, $availDate, $availTime, $handler);
+
+				$this->session->set_userdata('currentTransactionID', $newTranID);
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+				if (!isset($_POST['handler'])) {
+					$data['messages']['handler'] = '<p class="text-danger">The Handler field is required!</p>';
+				}
+			}
+
+			echo json_encode($data);		
+
 		}
 
 		public function updateTransactionDetails(){

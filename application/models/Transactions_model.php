@@ -385,10 +385,13 @@
 			
 		}
 
-		public function insertTransaction($clientID){
+		public function insertTransaction($clientID, $date, $time, $handler){
 			$defaultStatus = "on-going";
 			$data = array(
 				'clientID' => $clientID,
+				'dateAvail' => $date,
+				'time' => $time,
+				'employeeID' => $handler,
 				'transactionstatus' => $defaultStatus,
 			);
 

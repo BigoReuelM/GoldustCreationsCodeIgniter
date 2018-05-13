@@ -30,6 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$data['handlers'] = $this->clients_model->getAvailableHandler();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Clients | Admin';	
 			}else{

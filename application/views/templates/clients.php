@@ -50,12 +50,9 @@
 	                    <td><?php echo $client['contactNumber'] ?></td>
 	                    <td>
                         <?php if ($this->session->userdata('role') === "admin"): ?>
-                          <form role="form" method="post" action="<?php echo base_url('transactions/addTransaction') ?>">
-                            <input type="text" name="clientID" value="<?php echo($cID) ?>" hidden>
-                            <button type="submit" class="btn btn-block btn-default">
+                          <button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewTransaction" value="<?php echo($cID . ',' . $client['clientName'])?>" >
                               Add Transaction
-                            </button>
-                          </form>  
+                          </button> 
                         <?php endif ?>
                     		<?php if ($this->session->userdata('role') === "handler"): ?>
                           <button class="btn btn-block btn-default addEventButton" data-toggle="modal" data-target="#addNewEvent" value="<?php echo($cID . ',' . $client['clientName'])?>">Add Event</button>
@@ -139,6 +136,59 @@
   </div>
 </div>
 
+
+<div id="addNewTransaction" class="modal fade" role="diallog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Add Transaction</h4>
+      </div>
+      <div class="modal-body">
+          <div class="well">
+            <h4 id="transactionClientNameModal" class="modal-title text-center"></h4>    
+          </div>
+          <div class="well form-horizontal">
+            <form id="addTransaction" action="<?php echo base_url('transactions/addTransaction') ?>" autocomplete="off">
+              
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Avail Date:</label>
+                <div class="col-lg-9">
+                  <input type="date" name="transactionAvailDate" id="transactionAvailDate" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Avail Time:</label>
+                <div class="col-lg-9">
+                  <input type="time" name="transactionAvailTime" id="transactionAvailTime" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-3 control-label">Handler:</label>
+                <div class="col-lg-9">
+                  <select name="handler" id="handler" class="form-control">
+                    <option hidden selected disabled>Choose Handler..</option>
+                    <?php foreach ($handlers as $handler): ?>
+                      <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['handlerName'] ?></option>
+                    <?php endforeach ?>
+                  </select>
+                </div>
+              </div>
+              <input type="text" id="transactionClientID" name="transactionClientID" hidden>
+            </form>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="addTransaction" class="btn btn-primary">Confirm</button>
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
 <!-- modal -->
 <div id="addClient" class="modal fade" role="dialog">
 	<div class="modal-dialog">
@@ -286,13 +336,21 @@
     });
 </script>
 <script>
+    $('.addTransactionButton').click(function(){
+      var clientinfo = $(this).val().split(',');
+      $('#transactionClientID').val(clientinfo[0]);
+      $('#transactionClientNameModal').text(" Add Event For " + clientinfo[1] + "?");
+
+    });
+</script>
+<script>
     $('.addEventButton').click(function(){
       var clientinfo = $(this).val().split(',');
       $('#clientID').val(clientinfo[0]);
       $('#clientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
     });
-</script>    
+</script> 
 <script>
     $('#addEvent').submit(function(e){
       e.preventDefault();
@@ -307,6 +365,37 @@
         success: function(response){
           if (response.success == true) {
             window.location.href = "<?php echo base_url('events/eventDetails'); ?>";
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+</script>
+<script>
+    $('#addTransaction').submit(function(e){
+      e.preventDefault();
+
+      var transactionDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: transactionDetails.attr('action'),
+        data: transactionDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            window.location.href = "<?php echo base_url('transactions/transactionDetails'); ?>";
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);
