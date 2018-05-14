@@ -956,13 +956,14 @@
 			$this->db->query("ALTER TABLE designs MODIFY COLUMN designType enum($enumString, $newEnumString)");
  		}
 
-		public function getThemeName($currentEventID){
-			//$evID = $this->session->userdata('$currentEventID');
-			$query = $this->db->query("SELECT themeName FROM events JOIN theme on events.themeID = theme.themeID WHERE eventID = $currentEventID");
+		public function getThemeName($themeID){
+			$this->db->select('*');
+			$this->db->from('theme');
+			$this->db->where('themeID', $themeID);
 
-			//return $query->result_array();
-			return $query->row();
-			//SELECT themeName FROM eventthemes JOIN theme ON eventthemes.themeID = theme.themeID WHERE eventID = 0000001;
+			$query = $this->db->get();
+			
+			return $query->row_array();
 		}
 	
 

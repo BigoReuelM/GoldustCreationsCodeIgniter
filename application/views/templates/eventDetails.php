@@ -8,9 +8,10 @@
 
 <section class="content-header">
   <h1>
+    Event Name: 
     <?php
       $name = $eventName->eventName; 
-      echo '<p>' . $name . '</p>';    
+      echo '<b>' . $name . '</b>';    
     ?>
   </h1>
 </section>
@@ -76,6 +77,13 @@
       </div>
       <div class="box-body">
         <div class="col-lg-3">
+          <div class="form-group well">   
+            <label>Total Amount Due</label>
+            <?php 
+              $formatedTotal = number_format($totalAmount->totalAmount, 2);
+            ?>
+            <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
+          </div>
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header text-center">
               <h3>Event Handler</h3>
@@ -131,14 +139,14 @@
         <div class="col-lg-9 well">
           
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
+            <div class="row">
+              <span><p><i class="fa fa-question"></i> Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
+              <hr>
+            </div>
             <div id="update-message">
               
             </div>
             <div class="col-lg-6">
-              <div class="form-group">
-                <label>Event Name</label>
-                <input type="text" id="eventName" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
-              </div>
               <div class="form-group">
                 <label>Client Name</label>
                 <input type="text" name="clientName" class="form-control" placeholder="<?php echo $eventDetail->clientName ?>" value="" disabled>
@@ -152,44 +160,9 @@
                 <input type="text" name="celebrantName" id="celebrantName" class="form-control" placeholder="<?php echo $eventDetail->celebrantName ?>" value="">
               </div>
               <div class="form-group">
-                <div class="col-lg-6 col-sm-6">
-                  <label>Date Availed</label>
-                  <?php
-                    if (!$eventDetail->dateAssisted == null) {
-                      $date = date_create($eventDetail->dateAssisted);
-                      $dateAvailed = date_format($date, "M-d-Y");
-                    }else{
-                      $dateAvailed = "not set";
-                    }
-                  ?>
-                  <input type="text" class="form-control" id="dateAvl" placeholder="<?php echo $dateAvailed ?>" hidden>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                  <label>Change Avail Date</label>
-                  <input type="date" name="dateAvailed" id="dateAvailed" class="form-control">
-                </div>
+                <label>Event Name</label>
+                <input type="text" id="eventName" name="eventName" class="form-control" placeholder="<?php echo $eventDetail->eventName ?>" value="">
               </div>
-              <!-- <div class="form-group"> -->
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Package Availed</label>
-                    <input type="text" class="form-control" id="package" placeholder="<?php echo $eventDetail->packageType ?>">  
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <label>Change Package Type</label>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <span class="radio"><label><input type="radio" name="package" value="full-Package">Full Package</label></span>
-                    </div>
-                    <div class="col-lg-6">
-                      <span class="radio"><label><input type="radio" name="package" value="semi-Package">Semi Package</label></span>
-                    </div>
-                  </div>
-                </div> 
-              <!-- </div> -->
-            </div>
-            <div class="col-lg-6">
               <div class="form-group">
                 <label>Event Location</label>
                 <input type="text" name="location" id="location" class="form-control" placeholder="<?php echo $eventDetail->eventLocation ?>" value="">
@@ -199,53 +172,55 @@
                 <label>Event Type</label>
                 <input type="text" name="type" id="type" class="form-control" placeholder="<?php echo $eventDetail->eventType ?>" value="">
               </div>
+              
+            </div>
+            <div class="col-lg-6">
+              
               <div class="form-group">
                 <label>Motif</label>
                 <input type="text" name="motif" id="motif" class="form-control" placeholder="<?php echo $eventDetail->motif ?>" value="">
               </div>
-              <!--<div class="form-group">
+
+              <div class="form-group">
                 <label>Theme</label>
-                <input type="text" name="theme" class="form-control" placeholder="<?php //echo $eventDetail->theme ?>" value="">
-              </div>-->
-              <form role="form" method="post" id="themeID" action="<?php echo base_url('events/showThemeName')?>">
-              <label>Theme/s</label>
-              <div class="input-group"> 
-              <?php
-                  if(!empty($nagan)){
-                    
-                      $themeName = $nagan->themeName;
-              ?>           
-                <input type="text" class="form-control" id="themeName" placeholder="<?php echo($themeName) ?>" disabled>
-                <?php if ($eventDetail->eventStatus === "on-going"): ?>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                  </span>
-                <?php endif ?>
-                <?php 
-                    } else {
-                      //echo "wala";
-                ?>
-                <input type="text" class="form-control" id="themeName" placeholder="Theme" disabled>
-                <?php if ($eventDetail->eventStatus === "on-going"): ?>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtheme">Choose</button>
-                  </span>
-                <?php endif ?>
+                <select name="theme" id="theme" class="form-control">
+                  <option hidden selected disabled><?php echo $themeName['themeName'] ?></option>
+                  <?php foreach ($themes as $theme): ?>
+                    <option value="themeID"><?php echo $theme['themeName'] ?></option>
+                  <?php endforeach ?>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Package Availed</label>
+              <select name="package" id="package" class="form-control">
+                <option selected hidden disabled><?php echo $eventDetail->packageType ?></option>
+                <option value="full-Pachage">full-Package</option>
+                <option value="semi-Package">semi-Package</option>
+              </select>  
+            </div>
+              <div class="form-group">
+                <label>Date Availed</label>
                 <?php
+                  if (!$eventDetail->dateAssisted == null) {
+                    $date = date_create($eventDetail->dateAssisted);
+                    $dateAvailed = date_format($date, "M-d-Y");
+                  }else{
+                    $dateAvailed = "not set";
                   }
                 ?>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="dateAvl" placeholder="<?php echo $dateAvailed ?>" hidden>
+                  <div class="input-group-addon">
+                    <button type="button" id="newAvaileDateButton"><i class="fa fa-pencil"></i></button>
+                  </div>
+                </div>
               </div>
-              </form>
-              <div class="form-group">   
-                <label>Total Amount Due</label>
-                <?php 
-                  $formatedTotal = number_format($totalAmount->totalAmount, 2);
-                ?>
-                <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
-              </div>
+              <div class="form-group alert-warning" id="dateAvailedInputField">
+                
+              </div>           
               <div class="form-group">
                 
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6"> -->
                   <label>Event Date</label>
                   <?php
 
@@ -257,16 +232,20 @@
                     }
                                         
                   ?>
-                  <input type="text" class="form-control" id="date" placeholder="<?php echo $newDate ?>" disabled>  
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="date" placeholder="<?php echo $newDate ?>">
+                    <div class="input-group-addon">
+                      <button type="button" id="newEventDateButton"><i class="fa fa-pencil"></i></button>
+                    </div>
+                  </div>  
                 </div>
-                <div class="col-lg-6">
-                  <label>Change Date</label>
-                  <input type="date" class="form-control" name="eventDate" id="eventDate">
+                <div class="form-group alert-warning" id="eventDateInputField">
+
                 </div>
-              </div>
+              
 
               <div class="form-group">
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6"> -->
                   <label>Event Time</label>
                   <?php
 
@@ -277,14 +256,17 @@
                     }     
                                         
                   ?>
-                  <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>" disabled>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>">
+                    <div class="input-group-addon">
+                      <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-lg-6">
-                  <label>Change Time</label>
-                  <input type="time" class="form-control" name="eventTime" id="eventTime">
+                <div class="form-group alert-warning" id="eventTimeInputField">
+                  
                 </div>
-                
-              </div>
+
             </div>
           </form>
 
@@ -379,35 +361,37 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Cancel Event</h4>
         </div>
-        <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal" autocomplete="off">
+        <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal" autocomplete="off" id="cancelEventForm">
+          
           <div class="modal-body">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Refund Amount</label>
-              <div class="col-sm-10">
-                <input type="text" name="refundAmount" class="form-control" placeholder="Enter Amount to Refund...">
-              </div>
+            <div class="well text-center">
+              <p>Cancell this event: <b><?php echo $eventName->eventName ?></b></p>
             </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Date Refunded</label>
-              <div class="col-sm-10">
-                <input type="date" name="dateRefunded" class="form-control">
+            <div class="well">
+              <div class="form-group">
+                <label class="col-lg-5 col-md-5 col-sm-5 control-label">Refund Amount</label>
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                  <input type="text" name="refundAmount" id="refundAmount" class="form-control" placeholder="Enter Amount to Refund...">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Date Cancelled</label>
-              <div class="col-sm-10">
-                <input type="date" name="dateCancelled" class="form-control">
+              <div class="form-group">
+                <label class="col-lg-5 col-md-5 col-sm-5 control-label">Date Refunded</label>
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                  <input type="date" name="dateRefunded" value="<?php echo $currentDate ?>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-5 col-md-5 col-sm-5 control-label">Date Cancelled</label>
+                <div class="col-lg-7 col-md-7 col-sm-7">
+                  <input type="date" name="dateCancelled" value="<?php echo $currentDate ?>" class="form-control">
+                </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Cancel Event</button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-default btn-lg" data-dismiss="modal">Close</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Cancel Event</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>   
@@ -456,12 +440,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <div class="col-lg-6">
-              <button type="submit" class="btn btn-block btn-primary btn-lg">Add</button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-block btn-default btn-lg" data-dismiss="modal">Close</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         <?php echo form_close(); ?>
       </div>   
@@ -482,14 +462,21 @@
         </div>
       </div>
       <div class="modal-body text-center">
-        <p>Are you sure you want to proceed?</p>
-        <form id="finishEvent" role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>">       
-            <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <div class="form-group">
-              <label>Select Finish Date</label>
-              <input type="date" name="finishDate" >
-            </div>
-        </form>
+        <div class="well">
+          <p>Finish this event: <b><?php echo $eventName->eventName ?></b></p>
+        </div>
+        <div class="well">
+          <form id="finishEvent" role="form" method="post" action="<?php echo base_url('events/finishEvent') ?>" 
+           class="form-horizontal" >       
+              <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
+              <div class="form-group">
+                <label class="col-lg-5 col-sm-5 col-md-5 control-label">Select Finish Date</label>
+                <div class="col-lg-7 col-sm-7 col-md-7">
+                  <input type="date" name="finishDate" id="finishDate" value="<?php echo $currentDate ?>" class="form-control">
+                </div>
+              </div>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
         <button form="finishEvent" type="submit" class="btn btn-primary">Proceed</button>
@@ -548,27 +535,6 @@
     </div>
   </div>
 </div>
-<!-- End of Selecting handler modal -->
-<!-- Update Details Modal -->
-<!-- <div class="modal fade" id="update-details">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Update Details</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to update?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button form="updateDetails" type="submit" class="btn btn-primary">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
- -->
 <div class="modal fade" id="printDetails">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -674,7 +640,7 @@
           if (response.success == true) {
             $('#the-message').append('<div class="alert alert-success text-center">' +
             '<span class="icon fa fa-ckeck"></span>' +
-            ' Details Successfully Updated.' +
+            ' Additional charges applied.' +
             '</div>');
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
@@ -801,34 +767,9 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
-            $('#finish-message').append('<div class="alert alert-success text-center">' +
-            '<span class="icon fa fa-ckeck"></span>' +
-            ' Event Successfully Finished.' +
-            '</div>');
-            $('.form-group').removeClass('has-error')
-                  .removeClass('has-success');
-            $('.text-danger').remove();
-            // reset the form
-            finishDetails[0].reset();
-            // close the message after seconds
-            $('.alert-success').delay(500).show(10, function() {
-              $(this).delay(3000).hide(10, function() {
-                $(this).remove();
-              });
-            })
+            window.location.href = "<?php echo base_url('events/finishedEvents'); ?>";    
           }else{
-            $.each(response.messages, function(key, value) {
-              var element = $('#' + key);
-              
-              element.closest('div.form-group')
-              .removeClass('has-error')
-              .addClass(value.length > 0 ? 'has-error' : 'has-success')
-              .find('.text-danger')
-              .remove();
-              
-              element.after(value);
-            });
-
+      
             if (response.notPaid == true && response.eventDatePassed == false){
               $('#finish-message').append('<div class="alert alert-danger text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
@@ -874,5 +815,75 @@
           }
         }
       });
+    });
+
+    $('#cancelEventForm').submit(function(e){
+      e.preventDefault();
+
+      var cancelDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: cancelDetails.attr('action'),
+        data: cancelDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";    
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+
+    });
+  </script>
+  <script>
+    $('#newAvaileDateButton').click(function() {
+
+      $('#dateAvailedInputFieldContainer').remove();
+      $('#dateAvailedInputField').append(
+        '<div id="dateAvailedInputFieldContainer">' +
+          '<label>Select New Avail Date</label>' +
+          '<input type="date" name="dateAvailed" id="dateAvailed" class="form-control">' +
+        '</div>'
+          
+      );
+    });
+  </script>
+  <script>
+    $('#newEventDateButton').click(function() {
+      $('#eventDateInputFieldContainer').remove();
+      $('#eventDateInputField').append(
+        '<div id="eventDateInputFieldContainer">' +
+          '<label>Select New Event Date</label>' +
+          '<input type="date" class="form-control" name="eventDate" id="eventDate">' +
+        '</div>'
+      );
+    });
+
+    
+  </script>
+
+  <script>
+    $('#newEventTimeButton').click(function() {
+
+      $('#eventTimeInputFieldContainer').remove();
+      $('#eventTimeInputField').append(
+        '<div id="eventTimeInputFieldContainer">' +
+          '<label>Select New Event Time</label>' +
+          '<input type="time" class="form-control" name="eventTime" id="eventTime">' +
+        '</div>'
+      );
     });
   </script>

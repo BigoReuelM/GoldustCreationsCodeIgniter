@@ -184,10 +184,18 @@ class Events extends CI_Controller
 		$data['currentHandler'] = $this->events_model->getCurrentHandler($id);
 		$handlerID = $data['currentHandler']->employeeID;
 		$data['totalAmount'] = $this->events_model->totalAmount($id);
-		$data['nagan'] = $this->events_model->getThemeName($id);
+
+		if (empty($data['eventDetail']->themeID) || $data['eventDetail'] == null) {
+			
+			$data['themeName']['themeName'] = "Choose theme..";
+		}else{
+			$data['themeName'] = $this->events_model->getThemeName($data['eventDetail']->themeID);
+		}	
+		
 		$data['currentEventNum'] = $this->events_model->currentEventNum($handlerID);
 		$data['doneEvent'] = $this->events_model->doneEventNum($handlerID);
 		$data['allTransac'] = $this->events_model->allTransacNum($handlerID);
+		$data['currentDate'] = date('Y-m-d');
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Details | Admin';	
 		}else{
@@ -1043,7 +1051,7 @@ class Events extends CI_Controller
 		public function finishEvent(){
 			$data = array('success' => false, 'notPaid' => false, 'eventDatePassed' => false);
 
-			$this->form_validation->set_rules('finishDate', 'Finish Date', 'trim|required');
+			$this->form_validation->set_rules('finishDate', 'Finish Date', 'trim');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
@@ -1061,24 +1069,34 @@ class Events extends CI_Controller
 					$data['eventDatePassed'] = $datePassed;
 				}
 					
-			}else{
-				foreach ($_POST as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
 			}
 
 			echo json_encode($data);
 		}
 
 		public function cancelEvent(){
-			$eventID = html_escape($this->input->post('eventID'));
-			$refundAmount = html_escape($this->input->post('refundAmount'));
-			$refundDate = html_escape($this->input->post('dateRefunded'));
-			$cancelDate = html_escape($this->input->post('dateCancelled'));
+			$data = array('success' => false, 'message' => array());
 
-			$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+			$this->form_validation->set_rules('refundAmount', 'Refund Amount', 'trim|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if ($this->form_validation->run()) {
+				$eventID = trim(htmlspecialchars($this->input->post('eventID')));
+				$refundAmount = trim(htmlspecialchars($this->input->post('refundAmount')));
+				$refundDate = trim(htmlspecialchars($this->input->post('dateRefunded')));
+				$cancelDate = trim(htmlspecialchars($this->input->post('dateCancelled')));
 
-			redirect('events/canceledEvents');
+				$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+
+				$data['success'] = true;
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+
+			}
+
+			echo json_encode($data);
+
 		}
 
 		/*public function getRole(){
