@@ -64,21 +64,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function reportsSelectDate(){
+			$this->load->library('user_agent');
 			$date = $this->input->post('datepickerallpayments');
 			$this->session->set_userdata('selectedDate', $date);
-			redirect('admin/viewPaymentsReports');
+			//redirect to referer page
+			redirect($this->agent->referrer());
 		}
 
 		public function reportsSelectMnthYr(){
+			$this->load->library('user_agent');
 			$date = $this->input->post('monthallpayments');
 			$this->session->set_userdata('selectedMnthYr', $date);
-			redirect('admin/viewPaymentsReports');
+			//redirect to referer page
+			redirect($this->agent->referrer());
 		}
 
 		public function reportsSelectYr(){
+			$this->load->library('user_agent');
 			$date = $this->input->post('yrallpayments');
 			$this->session->set_userdata('selectedYr', $date);
-			redirect('admin/viewPaymentsReports');
+			//redirect to referer page
+			redirect($this->agent->referrer());
 		}
 
 		public function viewIncomeReports(){
@@ -127,11 +133,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
+			$data['deposits'] = $this->admin_model->getDeposits();
+
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/reportNav.php", $page);
-			$this->load->view("adminPages/allDeposits.php");
+			$this->load->view("adminPages/allDeposits.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
