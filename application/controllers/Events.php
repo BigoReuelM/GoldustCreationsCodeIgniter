@@ -939,7 +939,7 @@ class Events extends CI_Controller
 				$clientContactNo = html_escape($this->input->post('contactNumber'));
 				$celebrant = ucwords(html_escape($this->input->post('celebrantName')));
 				$dateAvailed = html_escape($this->input->post('dateAvailed'));
-				$packageType = ucwords(html_escape($this->input->post('package')));
+				$packageType = html_escape($this->input->post('package'));
 				$eventDate = html_escape($this->input->post('eventDate'));
 				$eventTime = html_escape($this->input->post('eventTime'));
 				$location = ucwords(html_escape($this->input->post('location')));

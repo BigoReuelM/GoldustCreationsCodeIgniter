@@ -193,9 +193,9 @@
             <div class="form-group">
               <label>Package Availed</label>
               <select name="package" id="package" class="form-control">
-                <option selected hidden disabled><?php echo $eventDetail->packageType ?></option>
-                <option value="full-Pachage">full-Package</option>
-                <option value="semi-Package">semi-Package</option>
+                <option selected hidden disabled id="packageNameHolder"><?php echo $eventDetail->packageType ?></option>
+                <option value="full-package">Full-Package</option>
+                <option value="semi-package">Semi-Package</option>
               </select>  
             </div>
               <div class="form-group">
@@ -716,7 +716,7 @@
             }
 
             if (response.packageType == true) {
-              $('#package').attr('placeholder', response.newPackageType);
+              $('#packageNameHolder').text(response.newPackageType);
             }
 
             if (response.eventDate == true) {
