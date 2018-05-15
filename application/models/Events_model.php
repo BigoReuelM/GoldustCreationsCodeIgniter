@@ -416,6 +416,15 @@
 			$this->db->delete('entourage');
 		}
 
+		public function entourageDone($entID, $eID){
+			$data = array(
+				'status' => 'done'
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->where('eventID', $eID);
+			$this->db->update('entourage', $data);
+		}
+
 		public function deleteAttireEntourage($eID, $desID){
 			$this->db->where('eventID', $eID);
 			$this->db->where('designID', $desID);
