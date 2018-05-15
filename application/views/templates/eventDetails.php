@@ -184,9 +184,9 @@
               <div class="form-group">
                 <label>Theme</label>
                 <select name="theme" id="theme" class="form-control">
-                  <option hidden selected disabled><?php echo $themeName['themeName'] ?></option>
+                  <option hidden selected disabled id="themeNameHolder"><?php echo $themeName['themeName'] ?></option>
                   <?php foreach ($themes as $theme): ?>
-                    <option value="themeID"><?php echo $theme['themeName'] ?></option>
+                    <option value="<?php echo $theme['themeID'] ?>"><?php echo $theme['themeName'] ?></option>
                   <?php endforeach ?>
                 </select>
             </div>
@@ -246,6 +246,7 @@
 
               <div class="form-group">
                 <!-- <div class="col-lg-6"> -->
+                <div class="col-lg-6">
                   <label>Event Time</label>
                   <?php
 
@@ -262,10 +263,15 @@
                       <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
                     </div>
                   </div>
-                </div>
-                <div class="form-group alert-warning" id="eventTimeInputField">
+                  <div class="form-group alert-warning" id="eventTimeInputField">
                   
+                  </div>
                 </div>
+                <div class="col-lg-6">
+                  <label for="">Duration</label>
+                  <input type="number" name="duration" id="duration" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
+                </div>
+              </div>
 
             </div>
           </form>
@@ -690,6 +696,10 @@
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();
+
+            $('#dateAvailedInputFieldContainer').remove();
+            $('#eventDateInputFieldContainer').remove();
+            $('#eventTimeInputFieldContainer').remove();
             // reset the form
             eventDetails[0].reset();
 
@@ -731,6 +741,14 @@
 
             if (response.dateAvailed == true) {
               $('#dateAvl').attr('placeholder', response.newDateAvailed);
+            }
+
+            if (response.duration == true) {
+              $('#duration').attr('placeholder', response.newDuration);
+            }
+
+            if (response.newTheme == true) {
+              $('#themeNameHolder').text(response.themeName);
             }
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {

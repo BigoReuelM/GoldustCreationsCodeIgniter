@@ -902,47 +902,37 @@ class Events extends CI_Controller
 
 			$eventDetails = $this->events_model->getEventDetails($eventID, $clientID);
 
-			if (empty($eventDetails->eventName) || $eventDetails->eventName == null) {
-				$this->form_validation->set_rules('eventName', 'Event Name', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
-			}
+			
+			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
 
 			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numeric');
 			
-			if (empty($eventDetails->celebrantName) || $eventDetails->celebrantName == null) {
-				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
-			}
-			
-			if ($eventDetails->dateAssisted == null) {
-				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
-			}
+			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|alpha');
 
-			if ($eventDetails->eventDate == null) {
-				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
-			}else{
-				if (!empty($_POST['eventDate']) && !empty($_POST['dateAvailed'])){
-					$enteredDateEvent = $this->input->post('eventDate');
-					$enteredDateAvailed = $this->input->post('dateAvailed');
-					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_compareDates[' . $enteredDateAvailed . ']');
-				}elseif(isset($_POST['eventDate']) && $eventDetails->dateAssisted != null){
-					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_eventDateValidation[' . $eventID . ']');
-				}
-			}
 
-			if ($eventDetails->eventTime == null) {
-				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
-			}
-			
+			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+
+			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+
+			// if ($eventDetails->eventDate == null) {
+			// 	$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			// }else{
+			// 	if (!empty($_POST['eventDate']) && !empty($_POST['dateAvailed'])){
+			// 		$enteredDateEvent = $this->input->post('eventDate');
+			// 		$enteredDateAvailed = $this->input->post('dateAvailed');
+			// 		$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_compareDates[' . $enteredDateAvailed . ']');
+			// 	}elseif(isset($_POST['eventDate']) && $eventDetails->dateAssisted != null){
+			// 		$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_eventDateValidation[' . $eventID . ']');
+			// 	}
+			// }
+
+			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			$this->form_validation->set_rules('package', 'Package Type', 'trim');
 			$this->form_validation->set_rules('location', 'Location', 'trim');
 			$this->form_validation->set_rules('type', 'Type', 'trim');
 			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');
+			$this->form_validation->set_rules('duration', 'Event Duration', 'trim|greater_than_equal_to[1]');
+			$this->form_validation->set_rules('theme', 'Event Theme', 'trim');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$eventName = ucwords(html_escape($this->input->post('eventName')));
@@ -956,6 +946,14 @@ class Events extends CI_Controller
 				$type = ucwords(html_escape($this->input->post('type')));
 				$motif = ucwords(html_escape($this->input->post('motif')));
 				$theme = html_escape($this->input->post('theme'));
+				$duration = htmlspecialchars($this->input->post('duration'));
+
+				if (!empty($theme)) {
+					$this->events_model->addEventTheme($eventID, $theme);
+					$data['newTheme'] = true;
+					$newThemeName = $this->events_model->getThemeName('$theme');
+					$data['themeName'] = $newThemeName['themeName'];
+				}
 
 				if (!empty($eventName)) {
 					$this->events_model->upEventName($eventName, $eventID);
@@ -1010,16 +1008,16 @@ class Events extends CI_Controller
 					$data['newDateAvailed'] = date_format($dateAvl, "M-d-Y");
 				}
 
+				if (!empty($duration)) {
+					$this->events_model->updateEventDuration($duration, $eventID);
+					$data['duration'] = true;
+					$data['newDuration'] = $duration;
+				}
+
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
-				}
-
-				if (!isset($_POST['package']) && (empty($eventDetails->packageType) || $eventDetails->packageType == null)) {
-					$data['messages']['package'] = '<p class="text-danger">The Package Type is required!</p>';
-				}else{
-					$data['messages']['package'] = "";
 				}
 
 			}

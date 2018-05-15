@@ -545,6 +545,15 @@
 			$this->db->update('events', $data);
 		}
 
+		public function updateEventDuration($duration, $eventID){
+			$data = array(
+				'eventDuration' => $duration
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
 		/*
 
 		Above are the queries for updating each event detail attribute...
