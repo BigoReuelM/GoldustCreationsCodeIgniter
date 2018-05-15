@@ -55,9 +55,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|alpha_numeric_spaces');
-			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|alpha_numeric_spaces');
-			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|alpha_numeric_spaces');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|alpha');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|alpha');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|alpha');
 			$this->form_validation->set_rules('contact', 'Contact Number', 'trim|required|numeric');
 			$this->form_validation->set_rules('adddate', 'Date', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');

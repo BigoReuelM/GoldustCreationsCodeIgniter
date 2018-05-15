@@ -321,23 +321,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required');
-			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim');
-			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required');
-			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required');
+			$this->form_validation->set_rules('firstname', 'First Name', 'trim|required|alpha');
+			$this->form_validation->set_rules('middlename', 'Middle Name', 'trim|alpha');
+			$this->form_validation->set_rules('lastname', 'Last Name', 'trim|required|alpha');
+			$this->form_validation->set_rules('cNumber', 'Contact Number', 'trim|required|numeric');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
-			$this->form_validation->set_rules('role', 'Role', 'trim|required');
+			$this->form_validation->set_rules('role', 'Role', 'trim');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 
-				$fname = ucwords(html_escape($this->input->post('firstname')));	
-				$mname = ucwords(html_escape($this->input->post('middlename')));
-				$lname = ucwords(html_escape($this->input->post('lastname')));
-				$cNumber = html_escape($this->input->post('cNumber'));
-				$email = html_escape($this->input->post('email'));
-				$address = ucwords(html_escape($this->input->post('address')));
-				$role = html_escape($this->input->post('role'));
+				$fname = ucwords(htmlspecialchars($this->input->post('firstname')));	
+				$mname = ucwords(htmlspecialchars($this->input->post('middlename')));
+				$lname = ucwords(htmlspecialchars($this->input->post('lastname')));
+				$cNumber = htmlspecialchars($this->input->post('cNumber'));
+				$email = htmlspecialchars($this->input->post('email'));
+				$address = ucwords(htmlspecialchars($this->input->post('address')));
+				$role = htmlspecialchars($this->input->post('role'));
 
 				$newEmpID = $this->admin_model->insertNewEmployee($fname, $mname, $lname, $cNumber, $email, $address, $role);
 				$id = sprintf('%04d', $newEmpID);
@@ -347,6 +347,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
+				}
+				if (!isset($_POST['role'])) {
+					$data['messages']['role'] = '<p class="text-danger">The Role field is required!</p>';
 				}
 			}
 

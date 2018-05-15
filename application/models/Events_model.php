@@ -554,6 +554,15 @@
 			$this->db->update('events', $data);
 		}
 
+		public function updateEventDuration($duration, $eventID){
+			$data = array(
+				'eventDuration' => $duration
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
 		/*
 
 		Above are the queries for updating each event detail attribute...
@@ -965,9 +974,15 @@
 			$this->db->query("ALTER TABLE designs MODIFY COLUMN designType enum($enumString, $newEnumString)");
  		}
 
-		public function getThemeName($currentEventID){
-			$query = $this->db->query("SELECT themeName FROM events JOIN theme on events.themeID = theme.themeID WHERE eventID = $currentEventID");
-			return $query->row();
+		public function getThemeName($themeID){
+			$this->db->select('*');
+			$this->db->from('theme');
+			$this->db->where('themeID', $themeID);
+
+			$query = $this->db->get();
+			
+			return $query->row_array();
+
 		}
 	
 
