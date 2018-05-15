@@ -678,7 +678,20 @@ class Events extends CI_Controller
 			$evID = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEntourage($entID, $evID);
 
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
+		}
+
+		public function entourageDone(){
+			$currentEntID = html_escape($this->input->post('entdone'));
+			$this->session->set_userdata('currentEntID', $currentEntID);
+
+			$entID = $this->session->userdata('currentEntID');
+			$evID = $this->session->userdata('currentEventID');
+			$this->events_model->entourageDone($entID, $evID);
+
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		public function removeAttireEntourage(){
@@ -736,16 +749,10 @@ class Events extends CI_Controller
 					$data['messages'][$key] = form_error($key);
 				}
 			}
-
 			echo json_encode($data);
-				
-
-			
-
 		}
 
 		public function addNewEventAppointment(){
-
 			$empID = $this->session->userdata('employeeID');
 			$ceID = $this->session->userdata('currentEventID');
 
@@ -774,31 +781,54 @@ class Events extends CI_Controller
 					$data['messages'][$key] = form_error($key);
 				}
 			}
-
 			echo json_encode($data);
-			
 		}
 
 		public function addEntourage() {
+			//$this->load->helper(array('form', 'url'));
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = html_escape($this->input->post('new_ent_name'));
-			$eRole = html_escape($this->input->post('new_ent_role'));
-			$eShoulder = html_escape($this->input->post('shoulder'));
-			$eChest = html_escape($this->input->post('chest'));
-			$eStomach = html_escape($this->input->post('stomach'));
-			$eWaist = html_escape($this->input->post('waist'));
-			$eArmL = html_escape($this->input->post('armLength'));
-			$eArmH = html_escape($this->input->post('armHole'));
-			$eMuscle = html_escape($this->input->post('muscle'));
-			$ePantsL = html_escape($this->input->post('pantsLength'));
-			$eBaston = html_escape($this->input->post('baston'));
+			$data = array('success' => false, 'messages' => array());
 
-			$newEntId = $this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
-			$this->events_model->insertEntDet($newEntId);
+			$this->form_validation->set_rules('new_ent_name', 'Entourage Name', 'trim|required');
+			$this->form_validation->set_rules('new_ent_role', 'Entourage Role', 'trim|required');
+			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required');
+			$this->form_validation->set_rules('chest', 'Chest', 'trim|required');
+			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required');
+			$this->form_validation->set_rules('waist', 'Waist', 'trim|required');
+			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required');
+			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required');
+			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required');
+			//$this->form_validation->set_rules('pantsLength', 'Pants Length', 'required');
+			//$this->form_validation->set_rules('baston', 'Baston', 'required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
-			redirect('events/eventEntourage');
+			if ($this->form_validation->run()) {
+				$entName = html_escape($this->input->post('new_ent_name'));
+				$eRole = html_escape($this->input->post('new_ent_role'));
+				$eShoulder = html_escape($this->input->post('shoulder'));
+				$eChest = html_escape($this->input->post('chest'));
+				$eStomach = html_escape($this->input->post('stomach'));
+				$eWaist = html_escape($this->input->post('waist'));
+				$eArmL = html_escape($this->input->post('armLength'));
+				$eArmH = html_escape($this->input->post('armHole'));
+				$eMuscle = html_escape($this->input->post('muscle'));
+				$ePantsL = html_escape($this->input->post('pantsLength'));
+				$eBaston = html_escape($this->input->post('baston'));
+
+				$newEntId = $this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+				$this->events_model->insertEntDet($newEntId);
+				$data['entName'] = $entName;
+				$data['eRole'] = $eRole;
+				$data['success'] = true;
+				//redirect('events/eventEntourage');
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+			echo json_encode($data);			
 		}
 
 		public function selectEventHandler(){
