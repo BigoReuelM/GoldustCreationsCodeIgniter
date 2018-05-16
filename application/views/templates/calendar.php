@@ -300,7 +300,7 @@ Organizer.prototype.list = function (data) {
 
   content = ""; 
   for (var i = 0; i < data.length; i++) {
-    content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].endTime + '</span><span class="' + this.id + ' m" id="' + this.id + '-list-item-' + i + '-m">' + data[i].mTime + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
+    content += '<li id="' + this.id + '-list-item-' + i + '"><div><span class="' + this.id + ' time" id="' + this.id + '-list-item-' + i + '-time">' + data[i].startTime + ' - ' + data[i].meridiem + '</span><span class="' + this.id + ' m" id="' + this.id + '-list-item-' + i + '-m">' + data[i].pType + '</span></div><p id="' + this.id + '-list-item-' + i + '-text">' + data[i].text + '</p></li>';
   }
 
   document.getElementById(this.id + "-list").innerHTML = content;
@@ -396,6 +396,7 @@ data = {
                 $meridiem = date("A", strtotime($eventData[$i]['eventTime']));
                 echo "meridiem: '" . $meridiem . "',";
               }else{
+                echo "meridiem: '--',"; 
                 
               }if (!$eventData[$i]['packageType'] == null){
                 echo "pType: '" . $eventData[$i]['packageType'] . "',";
