@@ -232,7 +232,7 @@ class Events extends CI_Controller
 			$totalAmount = $this->events_model->totalAmount($eID);
 			$newTotalAmount = $totalAmount->totalAmount + $amount;
 			$this->events_model->updateTotalAmount($newTotalAmount, $eID);
-
+			$data['newTotalAmount'] = number_format($newTotalAmount, 2);
 			$data['success'] = true;
 		}else{
 			foreach ($_POST as $key => $value) {
@@ -840,11 +840,26 @@ class Events extends CI_Controller
 		}
 
 		public function selectEventHandler(){
-			$this->session_model->sessionCheck();
-			$eId = $this->session->userdata('currentEventID');
-			$handlerID = html_escape($this->input->post('handler'));
-			$this->events_model->updateEventHandler($eId, $handlerID);
-			redirect('events/eventDetails');
+			$data['success'] = false;
+
+
+			if (isset($_POST['handler'])) {
+				$eId = $this->session->userdata('currentEventID');
+				$handlerID = html_escape($this->input->post('handler'));
+				$this->events_model->updateEventHandler($eId, $handlerID);
+				$data['newHandler'] = $this->events_model->getCurrentHandler($eId);
+				$newHandlerID = $data['newHandler']->employeeID;
+				$data['eventNum'] = $this->events_model->currentEventNum($newHandlerID);
+				$data['doneEventNum'] = $this->events_model->doneEventNum($newHandlerID);
+				$data['allTransactionNum'] = $this->events_model->allTransacNum($newHandlerID);
+				$data['imageURL'] = base_url() . '/uploads/profileImage/' . $handlerID;
+				$data['success'] = true;
+			}else{
+				$data['message'] = "<p class='text-danger' id='handlerSelectionError'>A difrent handler must be selected.</p>";
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function addsvc(){

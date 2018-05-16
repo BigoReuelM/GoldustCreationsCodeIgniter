@@ -82,14 +82,14 @@
             <?php 
               $formatedTotal = number_format($totalAmount->totalAmount, 2);
             ?>
-            <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
+            <input type="text" name="totalAmount" id="totalAmount" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
           </div>
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header text-center">
               <h3>Event Handler</h3>
               <?php  
                 if ($empRole === 'admin') {
-                  echo "<select class='form-control' name='handler'>";
+                  echo "<select class='form-control' name='handler' id='handler'>";
                   echo "<option selected disabled hidden>Choose Handler</option>";
 
                   foreach ($handlers as $handler) {
@@ -113,19 +113,19 @@
 
                 ?>
                 
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url('/uploads/profileImage/' . $currentHandler->employeeID . ''); ?>" alt="User profile picture" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
+                <img id="handlerImage" class="profile-user-img img-responsive img-circle" src="<?php echo base_url('/uploads/profileImage/' . $currentHandler->employeeID . ''); ?>" alt="User profile picture" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
 
-                <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
+                <h3 class="profile-username text-center" id="handlerName"><?php echo $currentHandler->employeeName ?></h3>
 
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item" id="list6">
-                    <b>Events Currently Handling</b> <a class="pull-right"><?php echo $currentEventNum->count ?></a>
+                    <b>Events Currently Handling</b> <a class="pull-right" id="eventCount"><?php echo $currentEventNum->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Handled Events</b> <a class="pull-right"><?php echo $doneEvent->count ?></a>
+                    <b>Handled Events</b> <a class="pull-right" id="doneEventCount"><?php echo $doneEvent->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Transactions</b> <a class="pull-right"><?php echo $allTransac->count ?></a>
+                    <b>Transactions</b> <a class="pull-right" id="transactionCount"><?php echo $allTransac->count ?></a>
                   </li>
                 </ul>
 
@@ -288,14 +288,14 @@
             <div class="col-lg-3">
               <?php
                 if ($empRole === 'admin') {
-                   echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
+                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button>';
                 }else{
-                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
+                  echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block" disabled>Select Handler</button>';
                 } 
               ?>
             </div>
             <div class="col-lg-9">
-              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary">Update Details</button>
             </div>
           <?php endif ?>
         </div>
@@ -527,24 +527,6 @@
 </div>
 <!--end of fisnish event modal-->
 
-<div class="modal fade" id="select-handler">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Select handler</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to update?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" id="printDetails">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -657,6 +639,10 @@
             $('.text-danger').remove();
             // reset the form
             chargeDetails[0].reset();
+
+            $('#totalAmount').attr('placeholder', response.newTotalAmount);
+            $('#newTotalAmount').attr('placeholder', response.newTotalAmount);
+            
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {
@@ -864,6 +850,38 @@
               
               element.after(value);
             });
+          }
+        }
+      });
+
+    });
+
+    $('#updateEventHandler').submit(function(e){
+      e.preventDefault();
+
+      var handlerDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: handlerDetails.attr('action'),
+        data: handlerDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#handlerSelectionError').remove();
+            $("#handler")[0].selectedIndex = 0;
+            $('#handlerImage').attr("src", response.imageURL);
+            $('#handlerName').text(response.newHandler['employeeName']);
+            $('#eventCount').text(response.eventNum['count']);
+            $('#doneEventCount').text(response.doneEventNum['count']);
+            $('#transactionCount').text(response.allTransactionNum['count']); 
+          }else{
+              var element = $('#handler');
+              element.removeClass('has-error')
+              .addClass('has-error');
+              $('#handlerSelectionError').remove();
+              
+              element.after(response.message);
           }
         }
       });

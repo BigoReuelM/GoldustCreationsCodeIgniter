@@ -1093,5 +1093,6 @@
 			$this->db->where('designID', $designID);
 			$this->db->update('eventdesigns', $data);
 		}
+
 	}
  ?>
