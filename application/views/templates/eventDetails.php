@@ -244,32 +244,36 @@
                 </div>
               
 
-              <div class="form-group">
+              <div class="row">
                 <!-- <div class="col-lg-6"> -->
                 <div class="col-lg-6">
-                  <label>Event Time</label>
-                  <?php
+                  <div class="form-group">
+                    <label>Event Time</label>
+                    <?php
 
-                    if (!$eventDetail->eventTime == null) {
-                      $newTime = date("g:i a", strtotime($eventDetail->eventTime));
-                    }else{
-                      $newTime = "not set";
-                    }     
-                                        
-                  ?>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>">
-                    <div class="input-group-addon">
-                      <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
+                      if (!$eventDetail->eventTime == null) {
+                        $newTime = date("g:i a", strtotime($eventDetail->eventTime));
+                      }else{
+                        $newTime = "not set";
+                      }     
+                                          
+                    ?>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>">
+                      <div class="input-group-addon">
+                        <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group alert-warning" id="eventTimeInputField">
-                  
+                    <div class="form-group alert-warning" id="eventTimeInputField">
+                    
+                    </div>
                   </div>
                 </div>
                 <div class="col-lg-6">
-                  <label for="">Duration</label>
-                  <input type="number" name="duration" id="duration" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
+                  <div class="form-group">
+                    <label for="">Duration</label>
+                    <input type="number" name="duration" id="duration" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
+                  </div>
                 </div>
               </div>
 
@@ -873,24 +877,47 @@
       $('#dateAvailedInputField').append(
         '<div id="dateAvailedInputFieldContainer">' +
           '<label>Select New Avail Date</label>' +
-          '<input type="date" name="dateAvailed" id="dateAvailed" class="form-control">' +
+          '<div class="input-group">' +
+            '<input type="date" name="dateAvailed" id="dateAvailed" class="form-control">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeDateAvailedInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
           
       );
     });
   </script>
+
+  <script>
+    $(document).on("click", "#removeDateAvailedInputFieldContainer", function(){
+      $('#dateAvailedInputFieldContainer').remove();
+    });
+  </script>
+
   <script>
     $('#newEventDateButton').click(function() {
       $('#eventDateInputFieldContainer').remove();
       $('#eventDateInputField').append(
         '<div id="eventDateInputFieldContainer">' +
           '<label>Select New Event Date</label>' +
-          '<input type="date" class="form-control" name="eventDate" id="eventDate">' +
+          '<div class="input-group">' +
+            '<input type="date" class="form-control" name="eventDate" id="eventDate">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeEventDateInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
       );
     });
 
     
+  </script>
+
+  <script>
+    $(document).on("click", "#removeEventDateInputFieldContainer", function(){
+      $('#eventDateInputFieldContainer').remove();
+    });
   </script>
 
   <script>
@@ -900,8 +927,19 @@
       $('#eventTimeInputField').append(
         '<div id="eventTimeInputFieldContainer">' +
           '<label>Select New Event Time</label>' +
-          '<input type="time" class="form-control" name="eventTime" id="eventTime">' +
+          '<div class="input-group">' +
+            '<input type="time" class="form-control" name="eventTime" id="eventTime">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeEventTimeInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
       );
+    });
+  </script>
+
+  <script>
+    $(document).on("click", "#removeEventTimeInputFieldContainer", function(){
+      $('#eventTimeInputFieldContainer').remove();
     });
   </script>
