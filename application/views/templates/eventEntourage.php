@@ -151,7 +151,7 @@
                     <td><?php echo $details['role'] ?></td>
                     <td><?php echo $details['status'] ?></td>
                     <td>
-                      <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/ ') ?>">
+                      <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntDesign') ?>">
                         <div class="col-md-6">
                           <select name="designID">
                             <option selected disabled>Choose</option>
@@ -530,12 +530,12 @@
 
             $('td.dataTables_empty').remove();
 
-            $('#entTableBody').prepend(
+            /*$('#entourageTable').prepend(
               '<tr>'+
               '<td>' + response.entName + '</td>' +
               '<td>' + response.eRole + '</td>' +
               '</tr>'
-            );
+            );*/
             
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
@@ -548,6 +548,7 @@
               $(this).remove();
             });
             })
+            location.reload();
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

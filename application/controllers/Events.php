@@ -1622,7 +1622,9 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			// check if data exists first...
 			$chkEvtDecExist = $this->events_model->chkEvtDecExist($eventID, $decID);
-			if ($chkEvtDecExist === true) {
+			if (!empty($chkEvtDecExist)) {
+				echo "<script type='text/javascript'>alert('Data already exists').onload</script>";
+			} else {
 				$this->events_model->addNewEventDecor($eventID, $decID);
 			}
 			$this->eventDecors();
@@ -1635,10 +1637,10 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			// check if data exists first...
 			$chkEvtDesExist = $this->events_model->chkEvtDesExist($eventID, $desID);
-			if ($chkEvtDesExist === true) {
-				$this->events_model->addNewEventDesign($eventID, $desID);
-			} else {
+			if (!empty($chkEvtDesExist)) {
 				echo "<script type='text/javascript'>alert('Data already exists').onload</script>";
+			} else {
+				$this->events_model->addNewEventDesign($eventID, $desID);
 			}
 			$this->eventEntourage();
 		}
