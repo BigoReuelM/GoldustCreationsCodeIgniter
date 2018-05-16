@@ -1611,7 +1611,8 @@ class Events extends CI_Controller
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data()); 
 
-				$this->eventDecors();
+				//$this->eventDecors();
+				redirect('events/eventDecors');
 			}
 		}
 
@@ -1627,7 +1628,8 @@ class Events extends CI_Controller
 			} else {
 				$this->events_model->addNewEventDecor($eventID, $decID);
 			}
-			$this->eventDecors();
+			//$this->eventDecors();
+			redirect('events/eventDecors');
 		}
 
 		public function addExstEventDes(){
@@ -1642,7 +1644,8 @@ class Events extends CI_Controller
 			} else {
 				$this->events_model->addNewEventDesign($eventID, $desID);
 			}
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		public function updateEvtDec(){
@@ -1652,7 +1655,8 @@ class Events extends CI_Controller
 			$decorID = $this->input->post('decorID');
 			$qty = $this->input->post('decor_qty');
 			$this->events_model->updtDecorQty($eventID, $decorID, $qty);
-			$this->eventDecors();
+			//$this->eventDecors();
+			redirect('events/eventDecors');
 		}
 
 		public function updateEvtDes(){
@@ -1662,7 +1666,8 @@ class Events extends CI_Controller
 			$designID = $this->input->post('designID');
 			$qty = $this->input->post('design_qty');
 			$this->events_model->updtDesignQty($eventID, $designID, $qty);
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 	}
 

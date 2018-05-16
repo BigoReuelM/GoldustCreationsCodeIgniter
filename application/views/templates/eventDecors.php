@@ -314,12 +314,6 @@ input[type=submit] {
                     </tbody> 
                   </table>
                 </div>
-                <!--<form action="<?php //echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
-                  
-                  <div class="modal-footer">
-                    <button type="submit" name="addExstDecor" class="btn btn-sm btn-primary">Add</button>
-                  </div>
-                </form>-->
               </div>
             </div>
           </div>
