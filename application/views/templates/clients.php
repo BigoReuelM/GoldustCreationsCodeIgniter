@@ -283,7 +283,7 @@
 		$('#allClientsTable').DataTable()
 	});
 </script>
-<script>
+<!-- <script>
   $(function(){
     $('#availDate').datepicker({
       autoclose: true
@@ -292,7 +292,7 @@
       autoclose: true
     });
   });
-</script>
+</script> -->
 <script>
     $('#addNewClient').submit(function(e){
       e.preventDefault();
