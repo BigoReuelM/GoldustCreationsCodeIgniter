@@ -35,13 +35,13 @@
                             <li class="text-center">
                               <a href="#finish" type="button" class="btn btn-default" data-toggle="modal" data-target="#finish">
                                 <i class="fa fa-check pull-left"></i>
-                                <span>Finish Event</span>
+                                <span>Finish Transaction</span>
                               </a>
                             </li>
                             <li class="text-center">
                               <a href="#cancel" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancel">
                                 <i class="fa fa-close pull-left"></i>
-                                <span>Cancel Event</span>
+                                <span>Cancel Transaction</span>
                               </a>
                             </li>
                           </ul>
@@ -243,7 +243,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Finish Date</label>
             <div class="col-lg-9">
-              <input type="date" name="finishDate" id="finishDate" class="form-control">
+              <input type="date" name="finishDate" id="finishDate" class="form-control" value="<?php echo $currentDate ?>">
             </div>
           </div>
         </div>
@@ -275,7 +275,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Cancell Date</label>
             <div class="col-lg-9">
-              <input type="date" name="cancellDate" id="cancellDate" class="form-control">
+              <input type="date" name="cancellDate" id="cancellDate" class="form-control" value="<?php echo $currentDate ?>">
             </div>
           </div>
         </div>

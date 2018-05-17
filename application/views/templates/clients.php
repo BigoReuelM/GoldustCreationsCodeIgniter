@@ -108,7 +108,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Date</label>
                 <div class="col-lg-9">
-                  <input type="date" name="availDate" id="availDate" class="form-control">
+                  <input type="date" name="availDate" id="availDate" class="form-control" value="<?php echo $currentDate ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -161,13 +161,13 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Date:</label>
                 <div class="col-lg-9">
-                  <input type="date" name="transactionAvailDate" id="transactionAvailDate" class="form-control">
+                  <input type="date" name="transactionAvailDate" id="transactionAvailDate" class="form-control" value="<?php echo $currentDate ?>">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Time:</label>
                 <div class="col-lg-9">
-                  <input type="time" name="transactionAvailTime" id="transactionAvailTime" class="form-control">
+                  <input type="time" name="transactionAvailTime" id="transactionAvailTime" class="form-control" value="<?php echo $currentTime ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -240,7 +240,7 @@
             <div class="form-group">
               <label class="control-label col-lg-3">Date Registerd:</label>
               <div class="col-lg-9">
-                <input type="date" class="form-control" id="adddate" name="adddate">
+                <input type="date" class="form-control" id="adddate" name="adddate" value="<?php echo $currentDate ?>">
               </div>
             </div>
 		    	</div>
