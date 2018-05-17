@@ -63,9 +63,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
-				$firstname = html_escape($this->input->post('firstname'));
-				$middlename =  html_escape($this->input->post('middlename'));
-				$lastname =  html_escape($this->input->post('lastname'));
+				$firstname = ucwords(html_escape($this->input->post('firstname')));
+				$middlename =  ucwords(html_escape($this->input->post('middlename')));
+				$lastname =  ucwords(html_escape($this->input->post('lastname')));
 				$contactNo =  html_escape($this->input->post('contact'));
 				$date = html_escape($this->input->post('adddate'));
 
@@ -73,13 +73,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 				$data['success'] = true;
 				$data['clientName'] = $firstname . " " . $middlename . " " . $lastname;
-				$data['regDate'] = $date;
+				$newDate = date_create($date);
+				$formatedNewDate = date_format($newDate, "M-d-Y");
+				$data['regDate'] = $formatedNewDate;
 				$data['contactNumber'] = $contactNo;
 
 				if ($this->session->userdata('role') === "admin") {
-					$data['button'] = '<button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewTransaction" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Transaction</button>';
+					$data['button'] = '<button class="btn btn-block btn-default newClientAddTransactionButton" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Transaction</button>';
 				}else{
-					$data['button'] = '<button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewEvent" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Event</button>';
+					$data['button'] = '<button class="btn btn-block btn-default newClientAddEventButton" value="' . $newClientID . ',' . $data['clientName'] . '" >Add Event</button>';
 				}
 
 			}else{

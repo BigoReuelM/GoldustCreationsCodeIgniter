@@ -43,7 +43,7 @@
 	                    <td>
                         <?php
                           $date = date_create($client['registrationDate']); 
-                          $formatedDateAndTime = date_format($date, "M-d-Y g:i a");
+                          $formatedDateAndTime = date_format($date, "M-d-Y");
                           echo $formatedDateAndTime ;
                         ?>
                       </td>
@@ -358,6 +358,13 @@
       $('#transactionClientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
     });
+
+    $(document).on('click', '.newClientAddTransactionButton', function(){
+      $('#addNewTransaction').modal('show');
+      var newClientInfo = $(this).val().split(',');
+      $('#transactionClientID').val(newClientInfo[0]);
+      $('#transactionClientNameModal').text(" Add Event For " + newClientInfo[1] + "?");
+    });
 </script>
 <script>
     $('.addEventButton').click(function(){
@@ -365,6 +372,13 @@
       $('#clientID').val(clientinfo[0]);
       $('#clientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
+    });
+
+    $(document).on('click', '.newClientAddEventButton', function(){
+      $('#addNewEvent').modal('show');
+      var eventclientinfo = $(this).val().split(',');
+      $('#clientID').val(eventclientinfo[0]);
+      $('#clientNameModal').text(" Add Event For " + eventclientinfo[1] + "?");
     });
 </script> 
 <script>

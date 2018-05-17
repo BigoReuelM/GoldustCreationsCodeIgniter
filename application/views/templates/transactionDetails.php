@@ -119,7 +119,7 @@
                   <div class="form-group">
                     <label>Handler Incharge</label>
                     <select class="form-control" name="handler">
-                      <option selected disabled hidden><?php echo $handlerName ?></option>
+                      <option selected disabled hidden id="currentHandler"><?php echo $handlerName ?></option>
                       <?php foreach ($handlers as $handler): ?>
                         <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['employeeName'] ?></option>
                       <?php endforeach ?>
@@ -386,6 +386,9 @@
             '</div>'
           );
 
+          $('#timeAvailedInputFieldContent').remove();
+          $('#availDateInputFieldContent').remove();
+
           $('.form-group').removeClass('has-error')
                 .removeClass('has-success');
           $('.text-danger').remove();
@@ -421,7 +424,7 @@
             $('#date').attr('placeholder', response.newDateValue);
           }
           if (response.handler == true) {
-            $('#currentHandler').attr('placeholder', response.handlerName);
+            $('#currentHandler').text(response.handlerName);
           }
 
           $('.alert-success').delay(500).show(10, function() {
