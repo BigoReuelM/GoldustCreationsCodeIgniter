@@ -47,8 +47,8 @@
 				LEFT JOIN eventservices using (eventID) 
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
-				WHERE serviceName LIKE '%rental%'
-						AND DATE_ADD(event.eventDate, INTERVAL 5 day) > CURDATE();
+				WHERE description LIKE '%rental%'
+						AND DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE();
 				");
 			}else{
 				$query = $this->db->query("
@@ -58,8 +58,8 @@
 				LEFT JOIN eventservices using (eventID) 
 				JOIN services 
 				ON eventservices.serviceID=services.serviceID 
-				WHERE serviceName LIKE '%rental%'
-					AND DATE_ADD(event.eventDate, INTERVAL 5 day) > CURDATE();
+				WHERE description LIKE '%rental%'
+					AND DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE();
 				");
 			}
 			return $query->result_array();

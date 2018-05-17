@@ -513,7 +513,7 @@
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
             <div class="form-group">
               <label>Select Resume Date:</label>
-              <input type="date" name="resumeDate">
+              <input type="date" name="resumeDate" value="<?php echo $currentDate ?>">
             </div>
         </form>
       </div>

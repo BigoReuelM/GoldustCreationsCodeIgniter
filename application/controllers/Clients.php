@@ -22,7 +22,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function clients(){
 			$this->session_model->sessionCheck();
 			$empRole = $this->session->userdata('role');
-
+			$data['currentDate'] = date('Y-m-d');
+			date_default_timezone_set('Asia/Manila');
+			$data['currentTime'] = date('H:i');
 			$data['clients'] = $this->clients_model->clients();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
