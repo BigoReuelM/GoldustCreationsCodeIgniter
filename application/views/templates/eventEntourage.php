@@ -152,8 +152,8 @@
                     <td><?php echo $details['role'] ?></td>
                     <td><?php echo $details['status'] ?></td>
                     <td>
-                      <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntDesign') ?>">
-                        <div class="col-md-6">
+                      <form id="entourageidform" name="entourageidform" role="form" method="post" action="<?php echo base_url('events/updateEntDesign') ?>">
+                        <div class="col-md-12">
                           <select name="designID">
                             <option selected disabled>Choose</option>
                             <?php if(!empty($designs)){ 
@@ -165,18 +165,18 @@
                               } ?>
                           </select>
                         </div>
-                        <div class="col-md-6">
-                          <button class="btn btn-link btn-block" id="updtDecorBtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
-                        </div>
-                      </form>
                     </td>
                     <td>
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4 col-sm-4">
+                        <button class="btn btn-link btn-block" id="updtDecorBtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-fw fa-edit" form="entourageidform"></i> Update</button>
+                      </div>
+                    </form>
+                      <div class="col-md-4 col-sm-4">
                         <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
                           <button class="btn btn-link" id="rmvdesignbtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-remove"></i> Remove</button>
                         </form>
                       </div>
-                      <div class="col-md-6 col-sm-6">
+                      <div class="col-md-4 col-sm-4">
                         <form id="" role="form" method="post" action="<?php echo base_url('events/entourageDone') ?>">
                           <button class="btn btn-link" id="entdone" name="entdone" type="submit" value="<?php echo $entID ?>"><i class="fa fa-check-circle-o"></i> Mark as Done</button>
                         </form>
@@ -275,7 +275,7 @@
                     <div class="modal-content">
                       <!--<form role="form" method="post" action="<?php //echo base_url('events/addEntourage') ?>">-->
                       <?php 
-                        $attributes = array("name" => "addNewEntourage", "id" => "addNewEntourage", "class" => "form-horizontal", "autocomplete" => "off");
+                        $attributes = array("name" => "addNewEntourage", "id" => "addNewEntourage", "autocomplete" => "off");
                         echo form_open("events/addEntourage", $attributes);
                       ?>
                       <div class="modal-header">
@@ -284,8 +284,7 @@
                           <h4 class="modal-title">Add Entourage</h4>
                         </div>
                       </div>
-                      <div id="the-message">
-                      </div>
+                      <div id="the-message"></div>
                       <div class="modal-body">
                         <div class="box">
                           <div class="box-body">
@@ -296,7 +295,7 @@
                                   <input type="text" name="new_ent_name" id="new_ent_name" class="form-control">
                                 </div>
                               </div>
-                              <div class="col-md-offset-1 col-md-4">
+                              <div class="col-md-offset-2 col-md-4">
                                 <div class="form-group">
                                   <label>Role</label>
                                   <input type="text" name="new_ent_role" id="new_ent_role" class="form-control">
@@ -307,84 +306,60 @@
                         </div>
                         <div class="box">
                           <div class="box-body">
-                            <!--<table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
-                              <thead>
-                                <tr>
-                                  <th>Shoulder</th>
-                                  <th>Chest</th>
-                                  <th>Stomach</th>
-                                  <th>Waist</th>
-                                  <th>Arm Length</th>
-                                  <th>Arm Hole</th>
-                                  <th>Muscle</th>
-                                  <th>Pants Length</th>
-                                  <th>Baston</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td><div class="form-group"><input class="form-control" type="text" id="shoulder" name="shoulder"></div></td>
-                                  <td><input class="form-control" type="text" id="chest" name="chest"></td>
-                                  <td><input class="form-control" type="text" id="stomach" name="stomach"></td>
-                                  <td><input class="form-control" type="text" id="waist" name="waist"></td>
-                                  <td><input class="form-control" type="text" id="armLength" name="armLength"></td>
-                                  <td><input class="form-control" type="text" id="armHole" name="armHole"></td>
-                                  <td><input class="form-control" type="text" id="muscle" name="muscle"></td>
-                                  <td><input class="form-control" type="text" id="pantsLength" name="pantsLength"></td>
-                                  <td><input class="form-control" type="text" id="baston" name="baston"></td>
-                                </tr>
-                              </tbody>
-                            </table>-->
                             <div class="row">
-                              <div class="col-md-1">
+                              <div class="col-md-4">
                                 <div class="form-group">
                                   <label>Shoulder</label>
                                   <input class="form-control" type="text" id="shoulder" name="shoulder">
                                 </div>
                               </div>  
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Chest</label>
                                     <input class="form-control" type="text" id="chest" name="chest">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Stomach</label>
                                     <input class="form-control" type="text" id="stomach" name="stomach">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                            </div> 
+                            <div class="row"> 
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Waist</label>
                                     <input class="form-control" type="text" id="waist" name="waist">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Arm Length</label>
                                     <input class="form-control" type="text" id="armLength" name="armLength">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Arm Hole</label>
                                     <input class="form-control" type="text" id="armHole" name="armHole">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Muscle</label>
                                     <input class="form-control" type="text" id="muscle" name="muscle">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Pants Length</label>
                                     <input class="form-control" type="text" id="pantsLength" name="pantsLength">
                                   </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-4">
                                   <div class="form-group">
                                     <label>Baston</label>
                                     <input class="form-control" type="text" id="baston" name="baston">
@@ -529,14 +504,7 @@
             ' New entourage has been saved.' +
             '</div>');
 
-            $('td.dataTables_empty').remove();
-
-            /*$('#entourageTable').prepend(
-              '<tr>'+
-              '<td>' + response.entName + '</td>' +
-              '<td>' + response.eRole + '</td>' +
-              '</tr>'
-            );*/
+            //$('td.dataTables_empty').remove();
             
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
@@ -554,7 +522,8 @@
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);
               
-              element.removeClass('has-error')
+              element.closest('div.form-group')
+              .removeClass('has-error')
               .addClass(value.length > 0 ? 'has-error' : 'has-success')
               .find('.text-danger')
               .remove();

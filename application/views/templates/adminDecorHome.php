@@ -69,7 +69,7 @@
             echo form_open("events/addNewDecType", $attributes);
           ?>
             <div class="form-group">
-              <label class="control-label">Name</label>
+              <label">Name</label>
               <input class="form-control" type="text" name="type_name" id="type_name">
             </div>
         </div>

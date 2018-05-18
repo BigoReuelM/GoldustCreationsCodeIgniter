@@ -802,16 +802,17 @@ class Events extends CI_Controller
 
 			$this->form_validation->set_rules('new_ent_name', 'Entourage Name', 'trim|required');
 			$this->form_validation->set_rules('new_ent_role', 'Entourage Role', 'trim|required');
-			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required');
-			$this->form_validation->set_rules('chest', 'Chest', 'trim|required');
-			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required');
-			$this->form_validation->set_rules('waist', 'Waist', 'trim|required');
-			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required');
-			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required');
-			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required');
-			//$this->form_validation->set_rules('pantsLength', 'Pants Length', 'required');
-			//$this->form_validation->set_rules('baston', 'Baston', 'required');
+			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required|numeric');
+			$this->form_validation->set_rules('chest', 'Chest', 'trim|required|numeric');
+			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required|numeric');
+			$this->form_validation->set_rules('waist', 'Waist', 'trim|required|numeric');
+			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required|numeric');
+			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required|numeric');
+			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required|numeric');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			$this->form_validation->set_rules('pantsLength', 'Pants Length', 'numeric');
+			$this->form_validation->set_rules('baston', 'Baston', 'numeric');
+
 
 			if ($this->form_validation->run()) {
 				$entName = html_escape($this->input->post('new_ent_name'));
@@ -1566,6 +1567,7 @@ class Events extends CI_Controller
 
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('type_name', 'New Decor Type Name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$newEnumVal = html_escape($this->input->post('type_name'));
 				if (!is_dir('./uploads/decors/' . $newEnumVal)) {
@@ -1590,6 +1592,7 @@ class Events extends CI_Controller
 
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('type_name', 'New Design Type Name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$newEnumVal = $this->input->post('type_name');
 				if (!is_dir('./uploads/designs/' . $newEnumVal)) {
