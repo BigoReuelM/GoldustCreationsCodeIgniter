@@ -997,7 +997,7 @@ class Events extends CI_Controller
 				if (!empty($theme)) {
 					$this->events_model->addEventTheme($eventID, $theme);
 					$data['newTheme'] = true;
-					$newThemeName = $this->events_model->getThemeName('$theme');
+					$newThemeName = $this->events_model->getThemeName($theme);
 					$data['themeName'] = $newThemeName['themeName'];
 				}
 
