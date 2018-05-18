@@ -1562,26 +1562,47 @@ class Events extends CI_Controller
 			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
-			$newEnumVal = $this->input->post('type_name');
 
-			if (!is_dir('./uploads/decors/' . $newEnumVal)) {
-				mkdir('./uploads/decors/' . $newEnumVal);
+			$data = array('success' => false, 'messages' => array());
+			$this->form_validation->set_rules('type_name', 'New Decor Type Name', 'trim|required');
+			if ($this->form_validation->run()) {
+				$newEnumVal = html_escape($this->input->post('type_name'));
+				if (!is_dir('./uploads/decors/' . $newEnumVal)) {
+					mkdir('./uploads/decors/' . $newEnumVal);
+				}
+				$this->events_model->addDecType($enumVals, $newEnumVal);
+				
+				$data['success'] = true;
+			} else {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
-			$this->events_model->addDecType($enumVals, $newEnumVal);
-			redirect('events/adminDecorsHome');
+			echo json_encode($data);
+			//redirect('events/adminDecorsHome');
 		}
 
 		public function addNewDesType(){
 			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDesignEnum();
-			$newEnumVal = $this->input->post('type_name');
 
-			if (!is_dir('./uploads/designs/' . $newEnumVal)) {
-				mkdir('./uploads/designs/' . $newEnumVal);
+			$data = array('success' => false, 'messages' => array());
+			$this->form_validation->set_rules('type_name', 'New Design Type Name', 'trim|required');
+			if ($this->form_validation->run()) {
+				$newEnumVal = $this->input->post('type_name');
+				if (!is_dir('./uploads/designs/' . $newEnumVal)) {
+					mkdir('./uploads/designs/' . $newEnumVal);
+				}
+				$this->events_model->addDesType($enumVals, $newEnumVal);
+				$data['success'] = true;
+			} else {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
-			$this->events_model->addDesType($enumVals, $newEnumVal);
-			redirect('events/adminDesignsHome');
+			echo json_encode($data);
+			//redirect('events/adminDesignsHome');
 		}
 
 		public function addNewEventDecor(){
