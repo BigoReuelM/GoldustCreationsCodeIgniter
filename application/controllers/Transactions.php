@@ -135,6 +135,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function transactionDetails(){
 			$this->session_model->sessionCheck();
 			$page['pageName'] = "tdetails";
+			$data['currentDate'] = date('Y-m-d');
+			date_default_timezone_set('Asia/Manila');
+			$data['currentTime'] = date('H:i');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -256,6 +259,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function transactionPayments(){
 			$this->session_model->sessionCheck();
 			$page['pageName'] = "tpayments";
+			$data['currentDate'] = date('Y-m-d');
+			date_default_timezone_set('Asia/Manila');
+			$data['currentTime'] = date('H:i');
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
 			$tranID = $this->session->userdata('currentTransactionID');
@@ -693,7 +699,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$clientID = $this->session->userdata('clientID');
 
 			$data = array('success' => false, 'messages' => array(), 'paymentID' => null, 'balance' => true, 'balanceAmount' => 0);
-
 
 			$totalAmount = $this->transactions_model->totalAmount($transactionID);
 			$totalAmountPaid = $this->transactions_model->totalAmountPaid($transactionID);

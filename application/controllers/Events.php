@@ -463,6 +463,7 @@ class Events extends CI_Controller
 	public function payment(){
 		$this->session_model->sessionCheck();
 		$page['pageName'] = "payments";
+		$data['currentDate'] = date('Y-m-d');
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -765,7 +766,7 @@ class Events extends CI_Controller
 			$ceID = $this->session->userdata('currentEventID');
 
 			$data = array('success' => false, 'messages' => array(), 'appointmentID' => null);
-
+			
 			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
 			$this->form_validation->set_rules('appointmentDate', 'Appointment Date', 'required');
 			$this->form_validation->set_rules('appointmentTime', 'Appointment Time', 'required');
@@ -996,7 +997,7 @@ class Events extends CI_Controller
 				if (!empty($theme)) {
 					$this->events_model->addEventTheme($eventID, $theme);
 					$data['newTheme'] = true;
-					$newThemeName = $this->events_model->getThemeName('$theme');
+					$newThemeName = $this->events_model->getThemeName($theme);
 					$data['themeName'] = $newThemeName['themeName'];
 				}
 

@@ -1,7 +1,7 @@
 
   <section class="content container-fluid">
       <div class="box box-info">
-        <div class="box-header">
+    
           <div class="row">
             <div class="col-lg-12">
               <nav class="navbar">
@@ -35,13 +35,13 @@
                             <li class="text-center">
                               <a href="#finish" type="button" class="btn btn-default" data-toggle="modal" data-target="#finish">
                                 <i class="fa fa-check pull-left"></i>
-                                <span>Finish Event</span>
+                                <span>Finish Transaction</span>
                               </a>
                             </li>
                             <li class="text-center">
                               <a href="#cancel" type="button" class="btn btn-default" data-toggle="modal" data-target="#cancel">
                                 <i class="fa fa-close pull-left"></i>
-                                <span>Cancel Event</span>
+                                <span>Cancel Transaction</span>
                               </a>
                             </li>
                           </ul>
@@ -56,147 +56,115 @@
           <div id="updateConfirmation">
             
           </div>
-        </div>
+
           <div class="box-body">
             <?php 
-              $attributes = array("name" => "updateTransactionDetails", "id" => "updateTransactionDetails", "class" => "form-horizontal", "autocomplete" => "off");
+              $attributes = array("name" => "updateTransactionDetails", "id" => "updateTransactionDetails",  "autocomplete" => "off");
               echo form_open("transactions/updateTransactionDetails", $attributes);
             ?>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Client Name</label>
-                  <div class="col-sm-10">
+            <div class="well">
+              <div class="row">
+                <span><p><i class="fa fa-question"></i> Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
+                <hr>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Client Name</label>
                     <input type="text" name="clientName" class="form-control" placeholder="<?php echo $details->clientName ?>" value="" disabled>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Contact Number</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>Contact Number</label>
                     <input type="text" id="contactNumber" name="contactNumber" class="form-control" placeholder="<?php echo $details->contactNumber ?>">
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Address</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>Address</label>
                     <input type="text" id="address" name="address" class="form-control" placeholder="<?php echo $details->homeAddress ?>" value="">
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Year & Section</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>Year & Section</label>
                     <input type="text" id="yNs" name="yNs" class="form-control" placeholder="<?php echo $details->yearAndSection ?>" value="">
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">School</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>School</label>
                     <input type="text" id="school" name="school" class="form-control" placeholder="<?php echo $details->school ?>" value="">
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">ID Type</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>ID Type</label>
                     <input type="text" id="idType" name="idType" class="form-control" placeholder="<?php echo $details->IDType ?>" value="">
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6">             
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Required Deposit</label>
-                  <div class="col-sm-10">
+                <div class="col-lg-6">             
+                  <div class="form-group">
+                    <label>Required Deposit</label>
                     <?php  
                       $formatedDepositedAmount = number_format($details->depositAmt, 2);
                     ?>
                     <input type="text" id="depositAmt" name="depositAmt" class="form-control" placeholder="<?php echo $formatedDepositedAmount ?>" value="">
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Total Amount</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>Total Amount</label>
                     <?php  
                       $formatedTotal = number_format($details->totalAmount, 2);
                     ?>
                     <input type="text" id="totalAmount" name="totalAmount" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Balance</label>
-                  <div class="col-sm-10">
+                  <div class="form-group">
+                    <label>Balance</label>
                     <?php  
                       $formatedBalance = number_format($balance, 2);
                     ?>
                     <input type="text" id="balance" name="balance" class="form-control" placeholder="<?php echo $formatedBalance ?>" value="" disabled>
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <label class="col-sm-2 control-label">Handler</label>
-                      <div class="col-sm-10">
-                        <input type="text" id="currentHandler" placeholder="<?php echo $handlerName ?>" class="form-control" disabled>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <label class="col-sm-2 control-label">Handler Incharge</label>
-                      <div class="col-sm-10">
-                        <select class="form-control" name="handler">
-                          <option selected disabled hidden>Choose Handler</option>
-                          <?php foreach ($handlers as $handler): ?>
-                            <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['employeeName'] ?></option>
-                          <?php endforeach ?>
-                        </select>
+                  <div class="form-group">
+                    <label>Handler Incharge</label>
+                    <select class="form-control" name="handler">
+                      <option selected disabled hidden id="currentHandler"><?php echo $handlerName ?></option>
+                      <?php foreach ($handlers as $handler): ?>
+                        <option value="<?php echo $handler['employeeID'] ?>"><?php echo $handler['employeeName'] ?></option>
+                      <?php endforeach ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Date Availed</label>
+                    <?php
+                    if (!$details->dateAvail == null) {
+                      $date = date_create($details->dateAvail);
+                      $newDate = date_format($date, "M-d-Y");
+                    }else{
+                      $newDate = "not set";
+                    }
+                       
+                    ?>
+                    <div class="input-group">
+                      <input type="text" id="date" class="form-control" placeholder="<?php echo $newDate ?>">
+                      <div class="input-group-addon">
+                        <button type="button" id="newAvailDateButton"><i class="fa fa-pencil"></i></button>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <label class="col-sm-5 control-label">Date Availed</label>
-                      <div class="col-sm-7">
-                        <?php
-                        if (!$details->dateAvail == null) {
-                          $date = date_create($details->dateAvail);
-                          $newDate = date_format($date, "M-d-Y");
-                        }else{
-                          $newDate = "not set";
-                        }
-                           
-                        ?>
-                        <input type="text" id="date" class="form-control" placeholder="<?php echo $newDate ?>" disabled>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <label class="col-sm-5 control-label">Change Date Availed</label>
-                      <div class="col-sm-7">
-                        <input type="date" id="newDate" name="newDate" class="form-control" value="">
+                  <div class="form-group alert-warning" id="availDateInputField">
+                    
+                  </div>
+                  <div class="form-group">
+                    <label>Time Availed</label>
+                    <?php
+                      if (!$details->time == null) {
+                        $newTime = date("g:i a", strtotime($details->time)); 
+                      }else{
+                        $newTime = "not set";
+                      } 
+                      
+                    ?>
+                    <div class="input-group">
+                      <input type="text" id="time" class="form-control" placeholder="<?php echo $newTime ?>">
+                      <div class="input-group-addon">
+                        <button type="button" id="newAvailTimeButton"><i class="fa fa-pencil"></i></button>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <label class="col-sm-5 control-label">Time Availed</label>
-                      <div class="col-sm-7">
-                        <?php
-                          if (!$details->time == null) {
-                            $newTime = date("g:i a", strtotime($details->time)); 
-                          }else{
-                            $newTime = "not set";
-                          } 
-                          
-                        ?>
-                        <input type="text" id="time" class="form-control" placeholder="<?php echo $newTime ?>" disabled>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <label class="col-sm-5 control-label">Change Time Availed</label>
-                      <div class="col-sm-7">
-                        <input type="time" id="newTime" name="newTime" class="form-control" value="">
-                      </div>
-                    </div>
+                  <div class="form-group alert-warning" id="timeAvailedInputField">
+                    
                   </div>
                 </div>
               </div>
@@ -205,7 +173,7 @@
           </div>
           <div class="box-footer">
             <?php if ($details->transactionstatus == "on-going"): ?>
-              <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+              <button form="updateTransactionDetails" type="submit" class="btn btn-block btn-primary">Update Details</button>
             <?php endif ?>  
           </div>
       </div>
@@ -275,7 +243,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Finish Date</label>
             <div class="col-lg-9">
-              <input type="date" name="finishDate" id="finishDate" class="form-control">
+              <input type="date" name="finishDate" id="finishDate" class="form-control" value="<?php echo $currentDate ?>">
             </div>
           </div>
         </div>
@@ -307,7 +275,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Cancell Date</label>
             <div class="col-lg-9">
-              <input type="date" name="cancellDate" id="cancellDate" class="form-control">
+              <input type="date" name="cancellDate" id="cancellDate" class="form-control" value="<?php echo $currentDate ?>">
             </div>
           </div>
         </div>
@@ -418,6 +386,9 @@
             '</div>'
           );
 
+          $('#timeAvailedInputFieldContent').remove();
+          $('#availDateInputFieldContent').remove();
+
           $('.form-group').removeClass('has-error')
                 .removeClass('has-success');
           $('.text-danger').remove();
@@ -453,7 +424,7 @@
             $('#date').attr('placeholder', response.newDateValue);
           }
           if (response.handler == true) {
-            $('#currentHandler').attr('placeholder', response.handlerName);
+            $('#currentHandler').text(response.handlerName);
           }
 
           $('.alert-success').delay(500).show(10, function() {
@@ -634,5 +605,48 @@
       });
     });
 
+</script>
+
+<script>
+  $("#newAvailDateButton").click(function(){
+
+    $('#availDateInputFieldContent').remove();
+    $('#availDateInputField').append(
+      '<div id="availDateInputFieldContent">' +
+        '<label">Change Date Availed</label>' +
+        '<div class="input-group">' +
+          '<input type="date" id="newDate" name="newDate" class="form-control">' +
+          '<div class="input-group-addon">' +
+            '<button type="button" id="removeNewAvailDateButton"><i class="fa fa-remove"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  });
+
+  $(document).on("click", "#removeNewAvailDateButton", function(){
+    $('#availDateInputFieldContent').remove();
+  });
+</script>
+
+<script>
+  $('#newAvailTimeButton').click(function(){
+    $('#timeAvailedInputFieldContent').remove();
+    $('#timeAvailedInputField').append(
+      '<div id="timeAvailedInputFieldContent">' +
+        '<label>Change Time Availed</label>' +
+        '<div class="input-group">' +
+          '<input type="time" id="newTime" name="newTime" class="form-control">' +
+          '<div class="input-group-addon">' +
+            '<button type="button" id="removeNewAvailTimeButton"><i class="fa fa-remove"></i></button>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  });
+
+  $(document).on("click", "#removeNewAvailTimeButton", function(){
+    $('#timeAvailedInputFieldContent').remove();
+  });
 </script>
 

@@ -105,11 +105,12 @@ input[type=submit] {
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-              <?php
-                $name = $eventName->eventName; 
-                echo '<p>' . $name . '</p>';    
-              ?>
-            </h1>
+    Event Name:
+    <?php
+      $name = $eventName->eventName; 
+      echo '<b>' . $name . '</b>';    
+    ?>
+  </h1>
 </section>
 
 <!-- Main content -->

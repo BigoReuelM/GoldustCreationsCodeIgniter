@@ -43,7 +43,7 @@
 	                    <td>
                         <?php
                           $date = date_create($client['registrationDate']); 
-                          $formatedDateAndTime = date_format($date, "M-d-Y g:i a");
+                          $formatedDateAndTime = date_format($date, "M-d-Y");
                           echo $formatedDateAndTime ;
                         ?>
                       </td>
@@ -108,7 +108,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Date</label>
                 <div class="col-lg-9">
-                  <input type="date" name="availDate" id="availDate" class="form-control">
+                  <input type="date" name="availDate" id="availDate" class="form-control" value="<?php echo $currentDate ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -161,13 +161,13 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Date:</label>
                 <div class="col-lg-9">
-                  <input type="date" name="transactionAvailDate" id="transactionAvailDate" class="form-control">
+                  <input type="date" name="transactionAvailDate" id="transactionAvailDate" class="form-control" value="<?php echo $currentDate ?>">
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-lg-3 control-label">Avail Time:</label>
                 <div class="col-lg-9">
-                  <input type="time" name="transactionAvailTime" id="transactionAvailTime" class="form-control">
+                  <input type="time" name="transactionAvailTime" id="transactionAvailTime" class="form-control" value="<?php echo $currentTime ?>">
                 </div>
               </div>
               <div class="form-group">
@@ -240,7 +240,7 @@
             <div class="form-group">
               <label class="control-label col-lg-3">Date Registerd:</label>
               <div class="col-lg-9">
-                <input type="date" class="form-control" id="adddate" name="adddate">
+                <input type="date" class="form-control" id="adddate" name="adddate" value="<?php echo $currentDate ?>">
               </div>
             </div>
 		    	</div>
@@ -358,6 +358,13 @@
       $('#transactionClientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
     });
+
+    $(document).on('click', '.newClientAddTransactionButton', function(){
+      $('#addNewTransaction').modal('show');
+      var newClientInfo = $(this).val().split(',');
+      $('#transactionClientID').val(newClientInfo[0]);
+      $('#transactionClientNameModal').text(" Add Event For " + newClientInfo[1] + "?");
+    });
 </script>
 <script>
     $('.addEventButton').click(function(){
@@ -365,6 +372,13 @@
       $('#clientID').val(clientinfo[0]);
       $('#clientNameModal').text(" Add Event For " + clientinfo[1] + "?");
 
+    });
+
+    $(document).on('click', '.newClientAddEventButton', function(){
+      $('#addNewEvent').modal('show');
+      var eventclientinfo = $(this).val().split(',');
+      $('#clientID').val(eventclientinfo[0]);
+      $('#clientNameModal').text(" Add Event For " + eventclientinfo[1] + "?");
     });
 </script> 
 <script>
