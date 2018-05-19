@@ -13,7 +13,7 @@
 
         <div class="content">
           <div class="row">
-          <div class="col-md-6"> 
+          <div class="col-md-12"> 
             <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Rentals</h3>
@@ -25,7 +25,7 @@
                       <tr>
                         <th>Client Name</th>
                         <th>Contact Number</th>
-                        <th>Service Name</th>
+                        <th>Image Design</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -40,7 +40,8 @@
                           <tr>
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
-                          <td><?php echo $d['serviceName']; ?></td>
+                          <!--td><?php echo $d['serviceName']; ?></td-->
+                          <td></td>
                           <td>
                             <form role="form" method="post" action="<?php echo base_url('transactions/setTransactionID'); ?>">
                                 <button class="btn btn-block" id="transactionID" name="transInfo" type="submit" value="<?php echo($transInfo) ?>"> View Info <i class="fa fa-fw fa-info"> </i>
@@ -62,7 +63,7 @@
           </div>
         </div>
 
-         <div class="col-md-6">
+         <!--<div class="col-md-6">
               <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Event Rentals</h3>
@@ -113,7 +114,7 @@
                 </div>
             </div>
           </div>
-      </section>
+      </section-->
 
 
   <!-- Add the sidebar's background. This div must be placed
