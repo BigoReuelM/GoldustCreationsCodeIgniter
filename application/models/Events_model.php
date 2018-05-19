@@ -416,6 +416,15 @@
 			$this->db->delete('entourage');
 		}
 
+		public function entourageDone($entID, $eID){
+			$data = array(
+				'status' => 'done'
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->where('eventID', $eID);
+			$this->db->update('entourage', $data);
+		}
+
 		public function deleteAttireEntourage($eID, $desID){
 			$this->db->where('eventID', $eID);
 			$this->db->where('designID', $desID);
@@ -539,6 +548,15 @@
 		public function updateAvailDate($date, $eventID){
 			$data = array(
 				'dateAssisted' => $date
+			);
+
+			$this->db->where('eventID', $eventID);
+			$this->db->update('events', $data);
+		}
+
+		public function updateEventDuration($duration, $eventID){
+			$data = array(
+				'eventDuration' => $duration
 			);
 
 			$this->db->where('eventID', $eventID);
@@ -843,11 +861,17 @@
 
 		public function getEventDetailsForCalendar(){
 
-			$query = $this->db->query("
-				SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType 
-				FROM `events`
-				WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
-			");
+			$this->db->select('YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType');
+			$this->db->from('events');
+			$this->db->where('eventStatus', 'new');
+			$this->db->or_where('eventStatus', 'on-going');
+
+			$query = $this->db->get();
+			// $query = $this->db->query("
+			// 	SELECT YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType 
+			// 	FROM `events`
+			// 	WHERE eventDate is not null and (eventStatus like 'new' or eventStatus like 'on%going') and eventName is not null and eventTime is not null;
+			// ");
 
 			return $query->result_array();
 		}
@@ -1075,5 +1099,6 @@
 			$this->db->where('designID', $designID);
 			$this->db->update('eventdesigns', $data);
 		}
+
 	}
  ?>

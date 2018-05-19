@@ -421,6 +421,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function expenses(){
 			$this->session_model->sessionCheck();
+			$data['currentDate'] = date('Y-m-d');
 			$data['expenses']=$this->admin_model->getExpenses();
 			$data['totalExpenses']=$this->admin_model->totalExpenses();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();

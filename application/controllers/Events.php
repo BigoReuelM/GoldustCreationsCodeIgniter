@@ -232,7 +232,7 @@ class Events extends CI_Controller
 			$totalAmount = $this->events_model->totalAmount($eID);
 			$newTotalAmount = $totalAmount->totalAmount + $amount;
 			$this->events_model->updateTotalAmount($newTotalAmount, $eID);
-
+			$data['newTotalAmount'] = number_format($newTotalAmount, 2);
 			$data['success'] = true;
 		}else{
 			foreach ($_POST as $key => $value) {
@@ -463,6 +463,7 @@ class Events extends CI_Controller
 	public function payment(){
 		$this->session_model->sessionCheck();
 		$page['pageName'] = "payments";
+		$data['currentDate'] = date('Y-m-d');
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
@@ -686,7 +687,20 @@ class Events extends CI_Controller
 			$evID = $this->session->userdata('currentEventID');
 			$this->events_model->deleteEntourage($entID, $evID);
 
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
+		}
+
+		public function entourageDone(){
+			$currentEntID = html_escape($this->input->post('entdone'));
+			$this->session->set_userdata('currentEntID', $currentEntID);
+
+			$entID = $this->session->userdata('currentEntID');
+			$evID = $this->session->userdata('currentEventID');
+			$this->events_model->entourageDone($entID, $evID);
+
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		public function removeAttireEntourage(){
@@ -744,21 +758,15 @@ class Events extends CI_Controller
 					$data['messages'][$key] = form_error($key);
 				}
 			}
-
 			echo json_encode($data);
-				
-
-			
-
 		}
 
 		public function addNewEventAppointment(){
-
 			$empID = $this->session->userdata('employeeID');
 			$ceID = $this->session->userdata('currentEventID');
 
 			$data = array('success' => false, 'messages' => array(), 'appointmentID' => null);
-
+			
 			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
 			$this->form_validation->set_rules('appointmentDate', 'Appointment Date', 'required');
 			$this->form_validation->set_rules('appointmentTime', 'Appointment Time', 'required');
@@ -782,39 +790,78 @@ class Events extends CI_Controller
 					$data['messages'][$key] = form_error($key);
 				}
 			}
-
 			echo json_encode($data);
-			
 		}
 
 		public function addEntourage() {
+			//$this->load->helper(array('form', 'url'));
 			$enId = $this->session->userdata('currentEntourageID');
 			$eId = $this->session->userdata('currentEventID');
 
-			$entName = html_escape($this->input->post('new_ent_name'));
-			$eRole = html_escape($this->input->post('new_ent_role'));
-			$eShoulder = html_escape($this->input->post('shoulder'));
-			$eChest = html_escape($this->input->post('chest'));
-			$eStomach = html_escape($this->input->post('stomach'));
-			$eWaist = html_escape($this->input->post('waist'));
-			$eArmL = html_escape($this->input->post('armLength'));
-			$eArmH = html_escape($this->input->post('armHole'));
-			$eMuscle = html_escape($this->input->post('muscle'));
-			$ePantsL = html_escape($this->input->post('pantsLength'));
-			$eBaston = html_escape($this->input->post('baston'));
+			$data = array('success' => false, 'messages' => array());
 
-			$newEntId = $this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
-			$this->events_model->insertEntDet($newEntId);
+			$this->form_validation->set_rules('new_ent_name', 'Entourage Name', 'trim|required');
+			$this->form_validation->set_rules('new_ent_role', 'Entourage Role', 'trim|required');
+			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required|numeric');
+			$this->form_validation->set_rules('chest', 'Chest', 'trim|required|numeric');
+			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required|numeric');
+			$this->form_validation->set_rules('waist', 'Waist', 'trim|required|numeric');
+			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required|numeric');
+			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required|numeric');
+			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			$this->form_validation->set_rules('pantsLength', 'Pants Length', 'numeric');
+			$this->form_validation->set_rules('baston', 'Baston', 'numeric');
 
-			redirect('events/eventEntourage');
+
+			if ($this->form_validation->run()) {
+				$entName = html_escape($this->input->post('new_ent_name'));
+				$eRole = html_escape($this->input->post('new_ent_role'));
+				$eShoulder = html_escape($this->input->post('shoulder'));
+				$eChest = html_escape($this->input->post('chest'));
+				$eStomach = html_escape($this->input->post('stomach'));
+				$eWaist = html_escape($this->input->post('waist'));
+				$eArmL = html_escape($this->input->post('armLength'));
+				$eArmH = html_escape($this->input->post('armHole'));
+				$eMuscle = html_escape($this->input->post('muscle'));
+				$ePantsL = html_escape($this->input->post('pantsLength'));
+				$eBaston = html_escape($this->input->post('baston'));
+
+				$newEntId = $this->events_model->addEventEntourage($eId, $entName, $eRole, $eShoulder, $eChest, $eStomach, $eWaist, $eArmL, $eArmH, $eMuscle, $ePantsL, $eBaston);
+				$this->events_model->insertEntDet($newEntId);
+				$data['entName'] = $entName;
+				$data['eRole'] = $eRole;
+				$data['success'] = true;
+				//redirect('events/eventEntourage');
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}
+			echo json_encode($data);			
 		}
 
 		public function selectEventHandler(){
-			$this->session_model->sessionCheck();
-			$eId = $this->session->userdata('currentEventID');
-			$handlerID = html_escape($this->input->post('handler'));
-			$this->events_model->updateEventHandler($eId, $handlerID);
-			redirect('events/eventDetails');
+			$data['success'] = false;
+
+
+			if (isset($_POST['handler'])) {
+				$eId = $this->session->userdata('currentEventID');
+				$handlerID = html_escape($this->input->post('handler'));
+				$this->events_model->updateEventHandler($eId, $handlerID);
+				$data['newHandler'] = $this->events_model->getCurrentHandler($eId);
+				$newHandlerID = $data['newHandler']->employeeID;
+				$data['eventNum'] = $this->events_model->currentEventNum($newHandlerID);
+				$data['doneEventNum'] = $this->events_model->doneEventNum($newHandlerID);
+				$data['allTransactionNum'] = $this->events_model->allTransacNum($newHandlerID);
+				$data['imageURL'] = base_url() . '/uploads/profileImage/' . $handlerID;
+				$data['success'] = true;
+			}else{
+				$data['message'] = "<p class='text-danger' id='handlerSelectionError'>A difrent handler must be selected.</p>";
+			}
+
+			echo json_encode($data);
+			
 		}
 
 		public function addsvc(){
@@ -902,60 +949,58 @@ class Events extends CI_Controller
 
 			$eventDetails = $this->events_model->getEventDetails($eventID, $clientID);
 
-			if (empty($eventDetails->eventName) || $eventDetails->eventName == null) {
-				$this->form_validation->set_rules('eventName', 'Event Name', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
-			}
+			
+			$this->form_validation->set_rules('eventName', 'Event Name', 'trim');
 
 			$this->form_validation->set_rules('contactNumber', 'Contact Number', 'trim|numeric');
 			
-			if (empty($eventDetails->celebrantName) || $eventDetails->celebrantName == null) {
-				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim');
-			}
-			
-			if ($eventDetails->dateAssisted == null) {
-				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
-			}
+			$this->form_validation->set_rules('celebrantName', 'Celebrant Name', 'trim|alpha');
 
-			if ($eventDetails->eventDate == null) {
-				$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
-			}else{
-				if (!empty($_POST['eventDate']) && !empty($_POST['dateAvailed'])){
-					$enteredDateEvent = $this->input->post('eventDate');
-					$enteredDateAvailed = $this->input->post('dateAvailed');
-					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_compareDates[' . $enteredDateAvailed . ']');
-				}elseif(isset($_POST['eventDate']) && $eventDetails->dateAssisted != null){
-					$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_eventDateValidation[' . $eventID . ']');
-				}
-			}
 
-			if ($eventDetails->eventTime == null) {
-				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim|required');
-			}else{
-				$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
-			}
-			
+			$this->form_validation->set_rules('dateAvailed', 'Date Availed', 'trim');
+
+			$this->form_validation->set_rules('eventDate', 'Event Date', 'trim');
+
+			// if ($eventDetails->eventDate == null) {
+			// 	$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|required');
+			// }else{
+			// 	if (!empty($_POST['eventDate']) && !empty($_POST['dateAvailed'])){
+			// 		$enteredDateEvent = $this->input->post('eventDate');
+			// 		$enteredDateAvailed = $this->input->post('dateAvailed');
+			// 		$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_compareDates[' . $enteredDateAvailed . ']');
+			// 	}elseif(isset($_POST['eventDate']) && $eventDetails->dateAssisted != null){
+			// 		$this->form_validation->set_rules('eventDate', 'Event Date', 'trim|callback_eventDateValidation[' . $eventID . ']');
+			// 	}
+			// }
+
+			$this->form_validation->set_rules('eventTime', 'Event Time', 'trim');
+			$this->form_validation->set_rules('package', 'Package Type', 'trim');
 			$this->form_validation->set_rules('location', 'Location', 'trim');
 			$this->form_validation->set_rules('type', 'Type', 'trim');
 			$this->form_validation->set_rules('motif', 'Event Motif', 'trim');
+			$this->form_validation->set_rules('duration', 'Event Duration', 'trim|greater_than_equal_to[1]');
+			$this->form_validation->set_rules('theme', 'Event Theme', 'trim');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$eventName = ucwords(html_escape($this->input->post('eventName')));
 				$clientContactNo = html_escape($this->input->post('contactNumber'));
 				$celebrant = ucwords(html_escape($this->input->post('celebrantName')));
 				$dateAvailed = html_escape($this->input->post('dateAvailed'));
-				$packageType = ucwords(html_escape($this->input->post('package')));
+				$packageType = html_escape($this->input->post('package'));
 				$eventDate = html_escape($this->input->post('eventDate'));
 				$eventTime = html_escape($this->input->post('eventTime'));
 				$location = ucwords(html_escape($this->input->post('location')));
 				$type = ucwords(html_escape($this->input->post('type')));
 				$motif = ucwords(html_escape($this->input->post('motif')));
 				$theme = html_escape($this->input->post('theme'));
+				$duration = htmlspecialchars($this->input->post('duration'));
+
+				if (!empty($theme)) {
+					$this->events_model->addEventTheme($eventID, $theme);
+					$data['newTheme'] = true;
+					$newThemeName = $this->events_model->getThemeName($theme);
+					$data['themeName'] = $newThemeName['themeName'];
+				}
 
 				if (!empty($eventName)) {
 					$this->events_model->upEventName($eventName, $eventID);
@@ -1010,16 +1055,16 @@ class Events extends CI_Controller
 					$data['newDateAvailed'] = date_format($dateAvl, "M-d-Y");
 				}
 
+				if (!empty($duration)) {
+					$this->events_model->updateEventDuration($duration, $eventID);
+					$data['duration'] = true;
+					$data['newDuration'] = $duration;
+				}
+
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
 					$data['messages'][$key] = form_error($key);
-				}
-
-				if (!isset($_POST['package']) && (empty($eventDetails->packageType) || $eventDetails->packageType == null)) {
-					$data['messages']['package'] = '<p class="text-danger">The Package Type is required!</p>';
-				}else{
-					$data['messages']['package'] = "";
 				}
 
 			}
@@ -1519,26 +1564,49 @@ class Events extends CI_Controller
 			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDecorEnum();
-			$newEnumVal = $this->input->post('type_name');
 
-			if (!is_dir('./uploads/decors/' . $newEnumVal)) {
-				mkdir('./uploads/decors/' . $newEnumVal);
+			$data = array('success' => false, 'messages' => array());
+			$this->form_validation->set_rules('type_name', 'New Decor Type Name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if ($this->form_validation->run()) {
+				$newEnumVal = html_escape($this->input->post('type_name'));
+				if (!is_dir('./uploads/decors/' . $newEnumVal)) {
+					mkdir('./uploads/decors/' . $newEnumVal);
+				}
+				$this->events_model->addDecType($enumVals, $newEnumVal);
+				
+				$data['success'] = true;
+			} else {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
-			$this->events_model->addDecType($enumVals, $newEnumVal);
-			redirect('events/adminDecorsHome');
+			echo json_encode($data);
+			//redirect('events/adminDecorsHome');
 		}
 
 		public function addNewDesType(){
 			$this->session_model->sessionCheck();
 			$this->load->helper('directory');
 			$enumVals = $this->events_model->getDesignEnum();
-			$newEnumVal = $this->input->post('type_name');
 
-			if (!is_dir('./uploads/designs/' . $newEnumVal)) {
-				mkdir('./uploads/designs/' . $newEnumVal);
+			$data = array('success' => false, 'messages' => array());
+			$this->form_validation->set_rules('type_name', 'New Design Type Name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+			if ($this->form_validation->run()) {
+				$newEnumVal = $this->input->post('type_name');
+				if (!is_dir('./uploads/designs/' . $newEnumVal)) {
+					mkdir('./uploads/designs/' . $newEnumVal);
+				}
+				$this->events_model->addDesType($enumVals, $newEnumVal);
+				$data['success'] = true;
+			} else {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
-			$this->events_model->addDesType($enumVals, $newEnumVal);
-			redirect('events/adminDesignsHome');
+			echo json_encode($data);
+			//redirect('events/adminDesignsHome');
 		}
 
 		public function addNewEventDecor(){
@@ -1568,7 +1636,8 @@ class Events extends CI_Controller
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data()); 
 
-				$this->eventDecors();
+				//$this->eventDecors();
+				redirect('events/eventDecors');
 			}
 		}
 
@@ -1579,10 +1648,13 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			// check if data exists first...
 			$chkEvtDecExist = $this->events_model->chkEvtDecExist($eventID, $decID);
-			if ($chkEvtDecExist === true) {
+			if (!empty($chkEvtDecExist)) {
+				echo "<script type='text/javascript'>alert('Data already exists').onload</script>";
+			} else {
 				$this->events_model->addNewEventDecor($eventID, $decID);
 			}
-			$this->eventDecors();
+			//$this->eventDecors();
+			redirect('events/eventDecors');
 		}
 
 		public function addExstEventDes(){
@@ -1592,12 +1664,13 @@ class Events extends CI_Controller
 			$eventID = $this->session->userdata('currentEventID');
 			// check if data exists first...
 			$chkEvtDesExist = $this->events_model->chkEvtDesExist($eventID, $desID);
-			if ($chkEvtDesExist === true) {
-				$this->events_model->addNewEventDesign($eventID, $desID);
-			} else {
+			if (!empty($chkEvtDesExist)) {
 				echo "<script type='text/javascript'>alert('Data already exists').onload</script>";
+			} else {
+				$this->events_model->addNewEventDesign($eventID, $desID);
 			}
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 
 		public function updateEvtDec(){
@@ -1607,7 +1680,8 @@ class Events extends CI_Controller
 			$decorID = $this->input->post('decorID');
 			$qty = $this->input->post('decor_qty');
 			$this->events_model->updtDecorQty($eventID, $decorID, $qty);
-			$this->eventDecors();
+			//$this->eventDecors();
+			redirect('events/eventDecors');
 		}
 
 		public function updateEvtDes(){
@@ -1617,7 +1691,8 @@ class Events extends CI_Controller
 			$designID = $this->input->post('designID');
 			$qty = $this->input->post('design_qty');
 			$this->events_model->updtDesignQty($eventID, $designID, $qty);
-			$this->eventEntourage();
+			//$this->eventEntourage();
+			redirect('events/eventEntourage');
 		}
 	}
 

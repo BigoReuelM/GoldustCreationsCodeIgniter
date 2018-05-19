@@ -61,16 +61,23 @@
           <h4 class="modal-title">Add New Decor Type</h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url('events/addNewDecType') ?>">
+          <div id="the-message">
+          </div>
+          <!--<form role="form" method="post" action="<?php //echo base_url('events/addNewDecType') ?>">-->
+          <?php
+            $attributes = array("name" => "addNewDecTypeForm", "id" => "addNewDecTypeForm", "autocomplete" => "off");
+            echo form_open("events/addNewDecType", $attributes);
+          ?>
             <div class="form-group">
-              <label>Name</label>
-              <input class="form-control" type="text" name="type_name">
+              <label">Name</label>
+              <input class="form-control" type="text" name="type_name" id="type_name">
             </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        </form>
+        <?php echo form_close(); ?>
+        <!--</form>-->
       </div>
     </div>
   </div>
@@ -90,8 +97,55 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/public/dist/js/adminlte.min.js"></script>
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+<script type="text/javascript">
+  $('#addNewDecTypeForm').submit(function(e){
+      e.preventDefault();
+
+      var newDecType = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: newDecType.attr('action'),
+        data: newDecType.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('.alert-success').remove();
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New decor type has been saved.' +
+            '</div>');
+            
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            newDecType[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(500).hide(2, function() {
+              $(this).remove();
+            location.reload();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+</script>
 </body>
 </html>

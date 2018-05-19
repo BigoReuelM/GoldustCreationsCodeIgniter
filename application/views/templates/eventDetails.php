@@ -82,14 +82,14 @@
             <?php 
               $formatedTotal = number_format($totalAmount->totalAmount, 2);
             ?>
-            <input type="text" name="theme" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
+            <input type="text" name="totalAmount" id="totalAmount" class="form-control" placeholder="<?php echo $formatedTotal ?>" disabled>        
           </div>
           <form id="updateEventHandler" role="form" method="post" action="<?php echo base_url('events/selectEventHandler') ?>">
             <div class="box-header text-center">
               <h3>Event Handler</h3>
               <?php  
                 if ($empRole === 'admin') {
-                  echo "<select class='form-control' name='handler'>";
+                  echo "<select class='form-control' name='handler' id='handler'>";
                   echo "<option selected disabled hidden>Choose Handler</option>";
 
                   foreach ($handlers as $handler) {
@@ -113,19 +113,19 @@
 
                 ?>
                 
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url('/uploads/profileImage/' . $currentHandler->employeeID . ''); ?>" alt="User profile picture" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
+                <img id="handlerImage" class="profile-user-img img-responsive img-circle" src="<?php echo base_url('/uploads/profileImage/' . $currentHandler->employeeID . ''); ?>" alt="User profile picture" onerror="this.onerror=null;this.src='<?php echo base_url('/uploads/profileImage/default'); ?>';">
 
-                <h3 class="profile-username text-center"><?php echo $currentHandler->employeeName ?></h3>
+                <h3 class="profile-username text-center" id="handlerName"><?php echo $currentHandler->employeeName ?></h3>
 
                 <ul class="list-group list-group-unbordered">
                   <li class="list-group-item" id="list6">
-                    <b>Events Currently Handling</b> <a class="pull-right"><?php echo $currentEventNum->count ?></a>
+                    <b>Events Currently Handling</b> <a class="pull-right" id="eventCount"><?php echo $currentEventNum->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Handled Events</b> <a class="pull-right"><?php echo $doneEvent->count ?></a>
+                    <b>Handled Events</b> <a class="pull-right" id="doneEventCount"><?php echo $doneEvent->count ?></a>
                   </li>
                   <li class="list-group-item" id="list6">
-                    <b>Transactions</b> <a class="pull-right"><?php echo $allTransac->count ?></a>
+                    <b>Transactions</b> <a class="pull-right" id="transactionCount"><?php echo $allTransac->count ?></a>
                   </li>
                 </ul>
 
@@ -184,18 +184,18 @@
               <div class="form-group">
                 <label>Theme</label>
                 <select name="theme" id="theme" class="form-control">
-                  <option hidden selected disabled><?php echo $themeName['themeName'] ?></option>
+                  <option hidden selected disabled id="themeNameHolder"><?php echo $themeName['themeName'] ?></option>
                   <?php foreach ($themes as $theme): ?>
-                    <option value="themeID"><?php echo $theme['themeName'] ?></option>
+                    <option value="<?php echo $theme['themeID'] ?>"><?php echo $theme['themeName'] ?></option>
                   <?php endforeach ?>
                 </select>
             </div>
             <div class="form-group">
               <label>Package Availed</label>
               <select name="package" id="package" class="form-control">
-                <option selected hidden disabled><?php echo $eventDetail->packageType ?></option>
-                <option value="full-Pachage">full-Package</option>
-                <option value="semi-Package">semi-Package</option>
+                <option selected hidden disabled id="packageNameHolder"><?php echo $eventDetail->packageType ?></option>
+                <option value="full-package">Full-Package</option>
+                <option value="semi-package">Semi-Package</option>
               </select>  
             </div>
               <div class="form-group">
@@ -244,28 +244,38 @@
                 </div>
               
 
-              <div class="form-group">
+              <div class="row">
                 <!-- <div class="col-lg-6"> -->
-                  <label>Event Time</label>
-                  <?php
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Event Time</label>
+                    <?php
 
-                    if (!$eventDetail->eventTime == null) {
-                      $newTime = date("g:i a", strtotime($eventDetail->eventTime));
-                    }else{
-                      $newTime = "not set";
-                    }     
-                                        
-                  ?>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>">
-                    <div class="input-group-addon">
-                      <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
+                      if (!$eventDetail->eventTime == null) {
+                        $newTime = date("g:i a", strtotime($eventDetail->eventTime));
+                      }else{
+                        $newTime = "not set";
+                      }     
+                                          
+                    ?>
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="time" placeholder="<?php echo $newTime?>">
+                      <div class="input-group-addon">
+                        <button type="button" id="newEventTimeButton"><i class="fa fa-pencil"></i></button>
+                      </div>
+                    </div>
+                    <div class="form-group alert-warning" id="eventTimeInputField">
+                    
                     </div>
                   </div>
                 </div>
-                <div class="form-group alert-warning" id="eventTimeInputField">
-                  
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="">Duration</label>
+                    <input type="number" name="duration" id="duration" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
+                  </div>
                 </div>
+              </div>
 
             </div>
           </form>
@@ -278,14 +288,14 @@
             <div class="col-lg-3">
               <?php
                 if ($empRole === 'admin') {
-                   echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler">Select Handler</button>';
+                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button>';
                 }else{
-                  echo '<button class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#select-handler" disabled>Select Handler</button>';
+                  echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block" disabled>Select Handler</button>';
                 } 
               ?>
             </div>
             <div class="col-lg-9">
-              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary btn-lg">Update Details</button>
+              <button form="updateEventDetails" type="submit" class="btn btn-block btn-primary">Update Details</button>
             </div>
           <?php endif ?>
         </div>
@@ -503,7 +513,7 @@
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
             <div class="form-group">
               <label>Select Resume Date:</label>
-              <input type="date" name="resumeDate">
+              <input type="date" name="resumeDate" value="<?php echo $currentDate ?>">
             </div>
         </form>
       </div>
@@ -517,24 +527,6 @@
 </div>
 <!--end of fisnish event modal-->
 
-<div class="modal fade" id="select-handler">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Select handler</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you sure you want to update?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button form="updateEventHandler" type="submit" class="btn btn-primary">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="modal fade" id="printDetails">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -647,6 +639,10 @@
             $('.text-danger').remove();
             // reset the form
             chargeDetails[0].reset();
+
+            $('#totalAmount').attr('placeholder', response.newTotalAmount);
+            $('#newTotalAmount').attr('placeholder', response.newTotalAmount);
+            
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(3000).hide(10, function() {
@@ -690,6 +686,10 @@
             $('.form-group').removeClass('has-error')
                   .removeClass('has-success');
             $('.text-danger').remove();
+
+            $('#dateAvailedInputFieldContainer').remove();
+            $('#eventDateInputFieldContainer').remove();
+            $('#eventTimeInputFieldContainer').remove();
             // reset the form
             eventDetails[0].reset();
 
@@ -706,7 +706,7 @@
             }
 
             if (response.packageType == true) {
-              $('#package').attr('placeholder', response.newPackageType);
+              $('#packageNameHolder').text(response.newPackageType);
             }
 
             if (response.eventDate == true) {
@@ -731,6 +731,14 @@
 
             if (response.dateAvailed == true) {
               $('#dateAvl').attr('placeholder', response.newDateAvailed);
+            }
+
+            if (response.duration == true) {
+              $('#duration').attr('placeholder', response.newDuration);
+            }
+
+            if (response.newTheme == true) {
+              $('#themeNameHolder').text(response.themeName);
             }
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
@@ -847,6 +855,38 @@
       });
 
     });
+
+    $('#updateEventHandler').submit(function(e){
+      e.preventDefault();
+
+      var handlerDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: handlerDetails.attr('action'),
+        data: handlerDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('#handlerSelectionError').remove();
+            $("#handler")[0].selectedIndex = 0;
+            $('#handlerImage').attr("src", response.imageURL);
+            $('#handlerName').text(response.newHandler['employeeName']);
+            $('#eventCount').text(response.eventNum['count']);
+            $('#doneEventCount').text(response.doneEventNum['count']);
+            $('#transactionCount').text(response.allTransactionNum['count']); 
+          }else{
+              var element = $('#handler');
+              element.removeClass('has-error')
+              .addClass('has-error');
+              $('#handlerSelectionError').remove();
+              
+              element.after(response.message);
+          }
+        }
+      });
+
+    });
   </script>
   <script>
     $('#newAvaileDateButton').click(function() {
@@ -855,24 +895,47 @@
       $('#dateAvailedInputField').append(
         '<div id="dateAvailedInputFieldContainer">' +
           '<label>Select New Avail Date</label>' +
-          '<input type="date" name="dateAvailed" id="dateAvailed" class="form-control">' +
+          '<div class="input-group">' +
+            '<input type="date" name="dateAvailed" id="dateAvailed" class="form-control">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeDateAvailedInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
           
       );
     });
   </script>
+
+  <script>
+    $(document).on("click", "#removeDateAvailedInputFieldContainer", function(){
+      $('#dateAvailedInputFieldContainer').remove();
+    });
+  </script>
+
   <script>
     $('#newEventDateButton').click(function() {
       $('#eventDateInputFieldContainer').remove();
       $('#eventDateInputField').append(
         '<div id="eventDateInputFieldContainer">' +
           '<label>Select New Event Date</label>' +
-          '<input type="date" class="form-control" name="eventDate" id="eventDate">' +
+          '<div class="input-group">' +
+            '<input type="date" class="form-control" name="eventDate" id="eventDate">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeEventDateInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
       );
     });
 
     
+  </script>
+
+  <script>
+    $(document).on("click", "#removeEventDateInputFieldContainer", function(){
+      $('#eventDateInputFieldContainer').remove();
+    });
   </script>
 
   <script>
@@ -882,8 +945,19 @@
       $('#eventTimeInputField').append(
         '<div id="eventTimeInputFieldContainer">' +
           '<label>Select New Event Time</label>' +
-          '<input type="time" class="form-control" name="eventTime" id="eventTime">' +
+          '<div class="input-group">' +
+            '<input type="time" class="form-control" name="eventTime" id="eventTime">' +
+            '<div class="input-group-addon">' +
+              '<button type="button" id="removeEventTimeInputFieldContainer"><i class="fa fa-remove"></i></button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
       );
+    });
+  </script>
+
+  <script>
+    $(document).on("click", "#removeEventTimeInputFieldContainer", function(){
+      $('#eventTimeInputFieldContainer').remove();
     });
   </script>

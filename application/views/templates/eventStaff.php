@@ -7,9 +7,10 @@
 
 <section class="content-header">
     <h1>
+      Event Name:
       <?php
         $name = $eventName->eventName; 
-        echo '<p>' . $name . '</p>';    
+        echo '<b>' . $name . '</b>';    
       ?>
     </h1>
 </section>

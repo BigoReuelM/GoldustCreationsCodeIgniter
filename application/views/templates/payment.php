@@ -5,9 +5,10 @@
 
 <section class="content-header">
   <h1>
+    Event Name:
     <?php
       $name = $eventName->eventName; 
-      echo '<p>' . $name . '</p>';    
+      echo '<b>' . $name . '</b>';    
     ?>
   </h1>
 </section>
@@ -170,7 +171,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Date Payed</label>
             <div class="col-lg-9">
-              <input type="date" class="form-control" name="date" id="date">
+              <input type="date" class="form-control" name="date" id="date" value="<?php echo $currentDate ?>">
             </div>            
           </div>
           <div class="form-group">

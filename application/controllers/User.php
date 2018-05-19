@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->model('user_model');
 			$this->load->model('notifications_model');
 			$this->load->model('events_model');
+			$this->load->model('session_model');
 			$this->load->library('session');
 			$this->load->helper('form');
 			$this->load->library('form_validation');

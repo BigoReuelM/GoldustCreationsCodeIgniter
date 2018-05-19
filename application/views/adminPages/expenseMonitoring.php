@@ -90,7 +90,7 @@
             <div class="form-group">
               <label for="expenseDate" class="control-label col-lg-3">Date</label>
               <div class="col-lg-9">
-                <input type="date" name="expenseDate" id="expenseDate" class="form-control">
+                <input type="date" name="expenseDate" id="expenseDate" class="form-control" value="<?php echo $currentDate ?>">
               </div>
             </div>
             <div class="form-group">
