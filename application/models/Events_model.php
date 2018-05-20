@@ -861,7 +861,7 @@
 
 		public function getEventDetailsForCalendar(){
 
-			$this->db->select('YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType');
+			$this->db->select('YEAR(eventDate) as year, MONTH(eventDate) as month, DAY(eventDate) as day, eventID, eventName, eventTime, packageType, eventDuration');
 			$this->db->from('events');
 			$this->db->where('eventStatus', 'new');
 			$this->db->or_where('eventStatus', 'on-going');

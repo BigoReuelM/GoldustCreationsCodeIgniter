@@ -399,7 +399,12 @@ data = {
                 echo "meridiem: '--',"; 
                 
               }if (!$eventData[$i]['packageType'] == null){
-                echo "pType: '" . $eventData[$i]['packageType'] . "',";
+                if ($eventData[$i]['packageType'] === "semi-package") {
+                  $package = "semi (" . $eventData[$i]['eventDuration'] . ' day/s)';
+                }else{
+                  $package = "full (" . $eventData[$i]['eventDuration'] . ' day/s)';
+                }
+                echo "pType: '" . $package . "',";
               }else{
                 echo "pType: '--',";  
               }
