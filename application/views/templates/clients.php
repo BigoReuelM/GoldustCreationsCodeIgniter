@@ -238,7 +238,7 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-lg-3">Date Registerd:</label>
+              <label class="control-label col-lg-3">Date Registered:</label>
               <div class="col-lg-9">
                 <input type="date" class="form-control" id="adddate" name="adddate" value="<?php echo $currentDate ?>">
               </div>
