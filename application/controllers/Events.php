@@ -1173,12 +1173,24 @@ class Events extends CI_Controller
 		// this method will resume a cancelled event 
 		public function contEvent(){
 			$this->session_model->sessionCheck();
-			//$this->load->model('events_model');
-			//$this->events_model->changeEvtStatus();
-			//$this->ongoingEvents();
-			$contDate = $this->input->post('resumeDate');
-			$this->events_model->changeEvtStatus($contDate);
-			redirect('events/ongoingEvents');
+
+			$data = array('success' => false, 'messages' => array());
+
+			$this->form_validation->set_rules('resumeDate', 'Resume Date', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$contDate = $this->input->post('resumeDate');
+				$this->events_model->changeEvtStatus($contDate);
+				$data['success'] = true;	
+			}else{
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+
+			}
+
+			echo json_encode($data);
 		}
 
 		public function updateAttireQty(){
