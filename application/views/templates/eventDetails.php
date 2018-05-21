@@ -307,59 +307,6 @@
     
 </div>
 
-
-<!-- Themes modal -->
-<div class="modal fade" id="addtheme" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Themes</h4>
-        </div>
-        <form role="form" method="post" action="<?php echo base_url('events/addEventTheme') ?>" class="form-horizontal">
-          <div class="modal-body">
-            <div class="table table-responsive">
-            <table id="themes" class="table table-bordered table-condensed table-hover text-center">
-            <thead>
-              <tr>
-                <th>Theme Name</th>
-                <th>Descriptions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php 
-                if (!empty($themes)) {
-                  foreach ($themes as $th) {
-                    $themeID = $th['themeID'];
-              ?>
-              <tr>
-                <td>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" id="themes" name="themes" value="<?php echo $th['themeID'] ?>" multiple><?php echo $th['themeName']; ?>
-                    </label>
-                  </div>
-                </td>
-                <td><?php echo $th['themeDesc']; ?></td>
-              </tr>
-              <?php 
-                  }
-                }
-              ?>   
-            </tbody>
-            </table>
-          </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-            <button type="submit" class="btn btn-default" type="submit">Add</button>
-          </div>
-        </form>
-      </div>   
-  </div>
-</div>
-
   <!-- Cancel event Modal -->
 <div class="modal fade" id="cancellEvent" role="dialog">
   <div class="modal-dialog">
@@ -400,8 +347,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <button type="submit" class="btn btn-primary">Cancel Event</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Ok</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         </form>
       </div>   
@@ -450,8 +397,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <button type="submit" class="btn btn-primary">Add</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Ok</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         <?php echo form_close(); ?>
       </div>   
@@ -489,8 +436,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button form="finishEvent" type="submit" class="btn btn-primary">Proceed</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button form="finishEvent" type="submit" class="btn btn-primary">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
 
@@ -508,18 +455,24 @@
         <h4 class="modal-title">Continue Event</h4>
       </div>
       <div class="modal-body text-center">
-        <p>Are you sure you want to continue?</p>
-        <form id="continueEvent" method="post" action="<?php echo base_url('events/contEvent') ?>">       
+        <div class="well">
+          <p>Continue this event: <b><?php echo $eventName->eventName ?></b></p>
+        </div>
+        <form id="continueEvent" method="post" class="form-horizontal" action="<?php echo base_url('events/contEvent') ?>">       
             <input type="text" name="eventID" value="<?php echo $eventDetail->eventID ?>" hidden>
-            <div class="form-group">
-              <label>Select Resume Date:</label>
-              <input type="date" name="resumeDate" value="<?php echo $currentDate ?>">
+            <div class="well">
+              <div class="form-group">
+                <label class="col-lg-5 control-label">Select Resume Date:</label>
+                <div class="col-lg-7">
+                  <input type="date" class="form-control" name="resumeDate" id="resumeDate" value="<?php echo $currentDate ?>">
+                </div>
+              </div>
             </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button form="continueEvent" type="submit" class="btn btn-primary">Continue</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button form="continueEvent" type="submit" class="btn btn-primary">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
 
@@ -580,8 +533,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-        <button form="printEventDetails" type="submit" class="btn btn-primary">Confirm</button>
+        <button form="printEventDetails" type="submit" class="btn btn-primary">Ok</button>
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>    
       </div>
     </div>
     <!-- /.modal-content -->
@@ -838,6 +791,37 @@
         success: function(response){
           if (response.success == true) {
             window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";    
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+
+    });
+
+    $('#continueEvent').submit(function(e){
+      e.preventDefault();
+
+      var continueDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: continueDetails.attr('action'),
+        data: continueDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            window.location.href = "<?php echo base_url('events/ongoingEvents'); ?>";    
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

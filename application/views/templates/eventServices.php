@@ -94,29 +94,38 @@
             </thead>
             
             <tbody>
-              
-              <?php
-                if (!empty($avlServcs)) {
-                  foreach ($avlServcs as $avlSvc) { 
+              <div class="the-message"></div>
+                <?php
+                  if (!empty($avlServcs)) {
+                    foreach ($avlServcs as $avlSvc) { 
                       $svcID = $avlSvc['serviceID'];
-                    ?>
-
+                ?>
                     <tr>
-                      <form id="svcform" role="form" method="post" action="<?php echo base_url('events/upSvcQtyAmt') ?>" autocomplete="off">
+                      <!--<form id="svcform" role="form" method="post" action="<?php //echo base_url('events/upSvcQtyAmt') ?>" autocomplete="off">-->
+                      <?php
+                        $attributes = array("name"=>"svcform", "id"=>"svcform", "autocomplete"=>"off");
+                        echo form_open('events/upSvcQtyAmt');
+                      ?>  
                         <!-- service name -->
                         <td>
                           <?php echo $avlSvc['serviceName'] ?>
                         </td>
                         <!-- quantity -->                
                         <td>
-                          <input class="form-control" type="number" name="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
+                          <div class="form-group">
+                            <input class="form-control" type="number" min="0" name="svcqty" id="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
+                            <?php echo validation_errors('<div class="alert alert-danger">', '</div>') ?>
+                          </div>
                         </td>
                         <!-- amount -->
                         <td>
                           <?php 
                             $serviceTotal = number_format($avlSvc['amount'], 2);
                           ?>
-                          <input class="form-control" type="text" name="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
+                          <div class="form-group">
+                            <input class="form-control" type="number" min="0" name="svcamt" id="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
+                            <?php echo validation_errors('<div class="alert alert-danger">', '</div>') ?>
+                          </div>
                         </td>
                         <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
                           <td>  
@@ -130,8 +139,11 @@
                               </div>
                             </div>                      
                           </td>
-                        <?php endif ?> 
-                      </form>
+                        <?php endif ?>
+                      <?php 
+                        echo form_close();
+                      ?> 
+                      <!--</form>-->
                     </tr>
                   <?php }
                     }
@@ -185,3 +197,54 @@
       $('input:checkbox').prop('checked', false);
     }
   </script>
+  <!--<script type="text/javascript">
+    $('#svcform').submit(function(e){
+      e.preventDefault();
+
+      var svc = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: svc.attr('action'),
+        data: svc.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<tr class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New entourage has been saved.' +
+            '</tr>');
+
+            //$('td.dataTables_empty').remove();
+            
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            svc[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(3000).hide(10, function() {
+              $(this).remove();
+            });
+            })
+            location.reload();
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('tr')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });  
+  </script>-->
