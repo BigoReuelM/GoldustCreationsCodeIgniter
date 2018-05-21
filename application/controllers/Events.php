@@ -323,12 +323,14 @@ class Events extends CI_Controller
 		$page['pageName'] = "entourage";
 		$this->load->helper('directory');
 		$id = $this->session->userdata('currentEventID');
+
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventStatus'] = $this->events_model->getEventStatus($id);
 		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
 		$data['entourage'] = $this->events_model->getEntourage($id);
