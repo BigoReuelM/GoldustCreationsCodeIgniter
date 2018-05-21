@@ -8,18 +8,48 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="well">
-            <div class="form-group">
-              <label for="">Select Day: </label>
-              <input type="date" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="">Select month: </label>
-              <input type="date" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="">Select Year: </label>
-              <input type="date" class="form-control">
-            </div>
+            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
+              <div class="form-group">
+                <label for="">Select Day: </label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control" name="expenseDate" id="dailyExpense">
+                  <div class="input-group-addon">
+                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
+              <div class="form-group">
+                <label>Select month: </label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control" name="expenseMonth" id="monthlyExpense">
+                  <div class="input-group-addon">
+                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
+              <div class="form-group">
+                <label>Select Year: </label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>                  
+                  </div>
+                  <input type="text" class="form-control pull-right" name="expenseYear" id="yearlyExpense">
+                  <div class="input-group-addon">
+                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
         <div class="col-lg-9">
@@ -164,10 +194,91 @@
 <script src="<?php echo base_url();?>/public/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<!-- InputMask -->
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
   <script>
     $(function () {
       $('#expenseTable').DataTable()
-    })
+    });
+
+    $(function () {
+      //Datemask dd/mm/yyyy
+      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+      //Datemask2 mm/dd/yyyy
+      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+
+      //Date picker
+      $('#datepicker').datepicker({
+        autoclose: true
+      })
+      //Date picker all payments
+      $('#dailyExpense').datepicker({
+        autoclose: true,
+        orientation: 'bottom auto',
+        todayHighlight: true,
+        format: 'yyyy-mm-dd'
+      })
+
+      // Month and year only
+      $('#monthlyExpense').datepicker({
+         format: 'mm-yyyy',
+         startView: 'months',
+         minViewMode: 'months',
+         orientation: 'bottom auto'
+      });
+
+      // Year only
+      $('#yearlyExpense').datepicker({
+         format: 'yyyy',
+         startView: 'years',
+         minViewMode: 'years',
+         orientation: 'bottom auto'
+      });
+
+      //Year picker
+      $('#date-year').datepicker({
+         minViewMode: 2,
+         format: 'yyyy'
+      });
+
+      //Year picker all payments
+      $('#date-yearallpayments').datepicker({
+         minViewMode: 2,
+         format: 'yyyy',
+         orientation: 'bottom auto'
+       });
+
+
+      //Date range picker
+      $('#reservation').daterangepicker()
+      //Date range as a button
+      $('#daterange-btn').daterangepicker(
+        {
+          ranges   : {
+            'Today'       : [moment(), moment()],
+            'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+            'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate  : moment()
+        },
+        function (start, end) {
+          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+        }
+      )
+      
+    });
+
   </script>
 
   <script>

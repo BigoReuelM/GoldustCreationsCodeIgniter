@@ -104,6 +104,36 @@
 			return $query->result_array();
 		}
 
+		public function getExpensesPerDate($date){
+			$query = $this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM expenses
+				NATURAL JOIN employees
+				WHERE expenseDate = '$date'
+			");
+			return $query->result_array();
+		}
+
+		public function getExpensesPerMonthYear($date){
+			$query = $this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM expenses
+				NATURAL JOIN employees
+				WHERE date_format(expenseDate, '%m-%Y') = '$date'
+			");
+			return $query->result_array();
+		}
+
+		public function getExpensesPerYear($date){
+			$query = $this->db->query("
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				FROM expenses
+				NATURAL JOIN employees
+				WHERE date_format(expenseDate, '%Y') = '$date'
+			");
+			return $query->result_array();
+		}
+
 		public function getActiveServices(){
 			$query = $this->db->query("
 				SELECT *
