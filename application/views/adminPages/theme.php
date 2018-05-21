@@ -41,7 +41,7 @@
                   <form role="form" method="post" action="<?php echo base_url('admin/setCurrentThemeID') ?>">
                     <input type="hidden" name="themeID" value="<?php echo $th['themeID'] ?>">
                     <button type="submit" class="btn btn-link" name="editThemeBtn">Edit</button> 
-                  </form>                  
+                  </form>             
                 </td>
               </tr>
               <?php 
@@ -69,22 +69,27 @@
             
         </div>
         <div class="modal-body">
-          <form method="post" action="<?php echo base_url('admin/addNewTheme') ?>" role="form" enctype="multipart/form-data">
+          <div class="the-message"></div>
+          <!--<form method="post" action="<?php //echo base_url('admin/addNewTheme') ?>" role="form" enctype="multipart/form-data">-->
+          <?php
+            $attributes = array("name"=>"newTheme", "id"=>"newTheme", "autocomplete"=>"off");
+            echo form_open('admin/addNewTheme', $attributes);
+          ?>
             <div class="form-group">
               <label>Theme Name</label>
-              <input type="text" class="form-control" name="themeName" required>
+              <input type="text" class="form-control" name="themeName" id="themeName">
             </div>
             <div class="form-group">
               <label>Theme Description</label>
-              <textarea class="form-control" rows="3" name="themeDesc" required></textarea>
+              <textarea class="form-control" rows="3" name="themeDesc" id="themeDesc"></textarea>
             </div>
             <div class="modal-footer">
               <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
               <button name="addbtn" class="btn btn-default" type="submit">Add</button>  
             </div>
-          </form>
+          <!--</form>-->
+          <?php  echo form_close(); ?>
         </div> 
-      <?php  echo form_close(); ?>
       </div>
     </div>
   </div>
@@ -118,4 +123,53 @@
   function reset_chkbx() {
     $('input:checkbox').prop('checked', false);
   }
+
+  $('#newTheme').submit(function(e){
+      e.preventDefault();
+
+      var newTheme = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: newTheme.attr('action'),
+        data: newTheme.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            $('.alert-success').remove();
+            // if success we would show message
+            // and also remove the error class
+            $('#the-message').append('<div class="alert alert-success text-center">' +
+            '<span class="glyphicon glyphicon-ok"></span>' +
+            ' New theme has been saved.' +
+            '</div>');
+            
+            $('.form-group').removeClass('has-error')
+                  .removeClass('has-success');
+            $('.text-danger').remove();
+            // reset the form
+            newTheme[0].reset();
+            // close the message after seconds
+            $('.alert-success').delay(500).show(10, function() {
+            $(this).delay(500).hide(2, function() {
+              $(this).remove();
+            location.reload();
+            });
+            })
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
 </script>
