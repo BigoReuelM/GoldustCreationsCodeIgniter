@@ -56,10 +56,10 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
                           <!--td><?php echo $d['serviceName']; ?></td-->
                           <td><?php echo $d['dateAvail']; ?></td>
                           <td>
-                              <form id="updtTransactionIdForm" role="role" method="post" action="">
+                              <form id="updtTransactionIdForm" role="role" method="post" action="<?php echo base_url('events/updateRentDes') ?>">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control" disabled>
+                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control">
                                   </div>
                               </form>
                           </td>

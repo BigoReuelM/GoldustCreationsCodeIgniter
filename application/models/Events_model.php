@@ -1110,7 +1110,16 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
-		// >>>>>>queries for editing the entourage<<<<<<
+
+		public function updtRentalQty($transactionID, $serviceID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('transactionID', $transactionID);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('transactionDetails', $data);
+		}
+
 		public function editEntName($entID, $name){
 			$data = array(
 				'entourageName' => $name
@@ -1188,6 +1197,5 @@
 			$this->db->where('entourageID', $entID);
 			$this->db->update('entourage', $data);
 		}
-		// >>>>>> end <<<<<<
 	}
  ?>

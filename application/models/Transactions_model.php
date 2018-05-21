@@ -200,6 +200,16 @@
 			return $query->row();
 		}
 
+		public function servicesCount($tid){
+			$query = $this->db->query("
+				SELECT count(serviceID) as serviceCount
+				FROM transactiondetails
+				WHERE transactionID = $tid;
+			");
+
+			return $query->row();
+		}
+
 		public function getBalance($id){
 			$totalAmount = $this->totalAmount($id)->totalAmount;
 			$totalAmountPaid = $this->totalAmountPaid($id)->total;

@@ -68,6 +68,16 @@
         </div>    
       <?php endif ?>  
       <div class="<?php if($transactionStatus !== 'on-going'){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
+        <div class="well">
+          <div class="row">
+            <div class="col-lg-6">
+              <h2>Number of Service: <?php echo $serviceCount->serviceCount ?></h2>
+            </div>
+            <div class="col-lg-6">
+              <h2>Total Amount: <?php echo $serviceTotal->total ?></h2>
+            </div>
+          </div>
+        </div>
         <div class="box box-info">
           <!--list of services col-->
             <div class="box-header">
@@ -102,12 +112,12 @@
                           echo form_open("transactions/updateServiceDetails", $attributes);
                         ?>
                           <td><?php echo $service['serviceName'] ?></td>
-                          <td><input class="form-control" id="serviceQuantity" name="serviceQuantity" type="number" placeholder="<?php echo $service['quantity'] ?>"></td>
+                          <td><input class="form-control" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>"></td>
                           <td>
                             <?php  
                               $formatedServiceAmount = number_format($service['amount'], 2);
                             ?>
-                            <input class="form-control" id="serviceAmount" name="serviceAmount" type="text" placeholder="<?php echo $formatedServiceAmount ?>">
+                            <input class="form-control" id="serviceAmount" name="serviceAmount" type="number" min="0" placeholder="<?php echo $formatedServiceAmount ?>">
                           </td>
                           <?php if ($transactionStatus === "on-going"): ?>
                             <td>
