@@ -61,15 +61,15 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
                                   <div class="col-md-6">
                                     <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control">
                                   </div>
-                              </form>
                           </td>
-                          <td></td>
-                          <!--td>
-                            <form role="form" method="post" action="<?php echo base_url('transactions/setTransactionID'); ?>">
-                                <button class="btn btn-block" id="transactionID" name="transInfo" type="submit" value="<?php echo($transInfo) ?>"> View Info <i class="fa fa-fw fa-info"> </i>
-                                </button>
+                          <td>
+                            <div class="col-md-6">
+                                  <button class="btn btn-link btn-block" id="updtDecorBtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                            </div>
                             </form>
-                          </td-->
+
+                          </td>
+                          
                           </tr>
                           <?php
                           }
@@ -87,7 +87,9 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 
         <div class="col-md-3">
           <div class="otherInformation">
-            <h4>Number of Rentals</h4>
+            <h4>Number of Rentals : </h4>
+            <h5><!--?php echo $ ?--></h5>
+
             <h4>Overdue chuchu</h4>
           </div>
               
