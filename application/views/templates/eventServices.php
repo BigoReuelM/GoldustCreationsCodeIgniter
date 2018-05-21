@@ -33,8 +33,12 @@
                     <th>Description</th>
                   </tr>
                 </thead>
-                <tbody>              
-                    <?php
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" id="selectAll"> Select All</td>
+                    <td></td>
+                  </tr>
+                  <?php
                       if (!empty($servcs)) {
                         $valid = true;
                         for($j = 0 ; $j < count($servcs) ; $j++){
@@ -47,7 +51,7 @@
                     ?>
                           <tr>                   
                               <td>
-                                <div class="checkbox"><label><input type="checkbox" name="add_servc_chkbox[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?></label></div>
+                                <div class="checkbox"><label><input class="serviceCheckBox" type="checkbox" name="add_servc_chkbox[]" value="<?php echo $servcs[$j]['serviceID'] ?>" multiple><?php echo $servcs[$j]['serviceName'] ?></label></div>
                               </td>
                               <td><?php echo $servcs[$j]['description'] ?></td>
                           </tr>
@@ -72,6 +76,16 @@
       </div>
     <?php endif ?>
     <div class="<?php if(($eventStatus === 'finished') || ($eventStatus === 'cancelled')){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
+      <div class="well">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Number of Services: <?php echo $serviceCount->serviceCount ?></h2>
+          </div>
+          <div class="col-lg-6">
+            <h2>Total Amount: <?php echo $serviceTotal->total ?></h2>
+          </div>
+        </div>
+      </div>
       <div class="box box-primary">
         <div class="box-header">
           <div class="row">
@@ -196,6 +210,11 @@
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
     }
+  </script>
+  <script>
+    $('#selectAll').click(function(){
+      $('.serviceCheckBox').prop('checked', $(this).prop("checked") );
+    });
   </script>
   <!--<script type="text/javascript">
     $('#svcform').submit(function(e){
