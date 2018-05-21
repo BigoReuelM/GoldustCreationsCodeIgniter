@@ -312,6 +312,16 @@
 			return $query->row();
 		}
 
+		public function getServiceCount($ceid){
+			$query = $this->db->query("
+				SELECT count(serviceID) as serviceCount
+				FROM eventservices
+				WHERE eventID = $ceid
+				");
+
+			return $query->row();
+		}
+
 		public function getAppointments($ceid){
 			$query = $this->db->query("
 				SELECT *
