@@ -1736,7 +1736,7 @@ class Events extends CI_Controller
 			$this->events_model->updtRentalQty($transId, $serviceID, $qty);
 			redirect('events/ongoingRentals');
 		}
-		
+
 		public function editEntourage(){
 			$this->session_model->sessionCheck();
 			$id = $this->input->post('entID');
@@ -1785,7 +1785,6 @@ class Events extends CI_Controller
 				$this->events_model->editEntBaston($id, $baston);
 			}
 			redirect('events/eventEntourage');
-		}
 		}
 	}
 
