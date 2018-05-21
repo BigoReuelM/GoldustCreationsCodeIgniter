@@ -1723,6 +1723,14 @@ class Events extends CI_Controller
 			//$this->eventEntourage();
 			redirect('events/eventEntourage');
 		}
+
+		public function updateRentDes() {
+			$transId = $this->session->userdata('currentTransactionID');
+			$serviceID = $this->session->post('servicseID');
+			$qty = $this->input->post('rental_qty');
+			$this->events_model->updtRentalQty($transId, $serviceID, $qty);
+			redirect('events/ongoingRentals');
+		}
 	}
 
 ?>

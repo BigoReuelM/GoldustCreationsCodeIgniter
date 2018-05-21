@@ -1100,5 +1100,14 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
+		public function updtRentalQty($transactionID, $serviceID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('transactionID', $transactionID);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('transactionDetails', $data);
+		}
+
 	}
  ?>

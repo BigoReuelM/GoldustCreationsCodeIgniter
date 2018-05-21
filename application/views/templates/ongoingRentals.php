@@ -59,7 +59,7 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
                               <form id="updtTransactionIdForm" role="role" method="post" action="">
                                 <div class="row">
                                   <div class="col-md-6">
-                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control" disabled>
+                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control">
                                   </div>
                               </form>
                           </td>
