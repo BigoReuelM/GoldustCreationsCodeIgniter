@@ -5,57 +5,90 @@
   </section>
   <section class="content container-fluid">
     <div classs="content">
-      <div class="box">
-        <div class="box-header with-border">
-          <div class="row">
-            <div class="col-lg-9">
-              <h3 class="box-title">Expenses Table:</h3>
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="well">
+            <div class="form-group">
+              <label for="">Select Day: </label>
+              <input type="date" class="form-control">
             </div>
-            <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+            <div class="form-group">
+              <label for="">Select month: </label>
+              <input type="date" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="">Select Year: </label>
+              <input type="date" class="form-control">
             </div>
           </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <table id="expenseTable" class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Recorder</th>
-                  <th>Amount</th>
-                  <th>Description</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                  if (!empty($expenses)) {
-                     foreach ($expenses as $expense) {
-          
-                ?>
-                <tr>
-                  <td><?php  echo $expense['employeeName']; ?></td>
-                  <td>
+        <div class="col-lg-9">
+          <div class="box">
+            <div class="box-header with-border">
+              <div class="row">
+                <div class="col-lg-9">
+                  <h3 class="box-title">Expenses Table:</h3>
+                </div>
+                <div class="col-lg-3">
+                  <button type="button" class="btn btn-block btn-primary btn-lg" data-toggle="modal" data-target="#addexpenses">Add Expenses</button>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="expenseTable" class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Recorder</th>
+                      <th>Amount</th>
+                      <th>Description</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     <?php
-                      $formatedExpenseAmount = number_format($expense['expensesAmount'], 2);  
-                      echo $formatedExpenseAmount; 
+                      if (!empty($expenses)) {
+                         foreach ($expenses as $expense) {
+              
                     ?>
-                  </td>
-                  <td><?php  echo $expense['expensesName']; ?></td>
-                  <td>
+                    <tr>
+                      <td><?php  echo $expense['employeeName']; ?></td>
+                      <td>
+                        <?php
+                          $formatedExpenseAmount = number_format($expense['expensesAmount'], 2);  
+                          echo $formatedExpenseAmount; 
+                        ?>
+                      </td>
+                      <td><?php  echo $expense['expensesName']; ?></td>
+                      <td>
+                        <?php
+                          $date = date_create($expense['expenseDate']); 
+                          $formatedExpenseDate = date_format($date, "M-d-Y"); 
+                          echo $formatedExpenseDate; 
+                        ?>
+                      </td>
+                    </tr>
                     <?php
-                      $date = date_create($expense['expenseDate']); 
-                      $formatedExpenseDate = date_format($date, "M-d-Y"); 
-                      echo $formatedExpenseDate; 
+                        }
+                      }
                     ?>
-                  </td>
-                </tr>
-                <?php
-                    }
-                  }
-                ?>
-              </tbody>
-          </table>
+                  </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="well">
+        <div class="row">
+          <div class="col-lg-4">
+            <p>Daily report comparison yesterday</p>
+          </div>
+          <div class="col-lg-4">
+            <p>monthly report comparison last month</p>
+          </div>
+          <div class="col-lg-4">
+            <p>yearly report comparison last year</p>
+          </div>
         </div>
       </div>
     </div>
