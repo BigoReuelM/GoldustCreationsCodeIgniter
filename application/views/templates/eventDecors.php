@@ -124,16 +124,20 @@ input[type=submit] {
         </div>
         <?php
           if ($empRole === "admin") { ?>
-            <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
-            </div>
-            <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
-            </div>
+            <?php if ($eventStatus->eventStatus === "on-going"): ?>
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
+              </div>
+              <div class="col-lg-3">
+                <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
+              </div>
+            <?php endif ?>
         <?php } else { ?>
-          <div class="col-lg-offset-3 col-lg-3">
-            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Decor</button>
-          </div>
+          <?php if ($eventStatus->eventStatus === "on-going"): ?>
+            <div class="col-lg-offset-3 col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Decor</button>
+            </div>
+          <?php endif ?> 
         <?php }
         ?>
 
@@ -146,7 +150,9 @@ input[type=submit] {
                   <th>Decor Name</th>
                   <th>Quantity</th>
                   <th>Photo</th>
-                  <th>Action</th>
+                  <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                    <th>Action</th>
+                  <?php endif ?>
                 </tr>
               </thead>
                 <tbody>
@@ -163,9 +169,11 @@ input[type=submit] {
                               <div class="col-md-6">
                                 <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
                               </div>
-                              <div class="col-md-6">
-                                <button class="btn btn-link btn-block" id="updtDecorBtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
-                              </div>
+                              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                                <div class="col-md-6">
+                                  <button class="btn btn-link btn-block" id="updtDecorBtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                                </div>
+                              <?php endif ?>
                             </div>
                           </form>
                         </td>
@@ -191,14 +199,16 @@ input[type=submit] {
                           }
                           ?>
                         </td>
-                        <td>                            
-                          <!-- remove decor button -->
-                          <div class="col-md-12 col-sm-12">
-                            <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                              <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-remove"></i> Remove</button> 
-                            </form>   
-                          </div>
-                        </td>
+                        <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                          <td>                            
+                            <!-- remove decor button -->
+                            <div class="col-md-12 col-sm-12">
+                              <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
+                                <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-remove"></i> Remove</button> 
+                              </form>   
+                            </div>
+                          </td>
+                        <?php endif ?>
                       </tr>
                       <?php      
                     }

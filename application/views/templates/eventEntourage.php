@@ -41,7 +41,9 @@
               <h3 class="box-title">Attire Designs</h3>    
             </div>
             <div class="col-lg-3">
-              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDesignModal" >Add Attire Designs</button>  
+              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                  <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDesignModal" >Add Attire Designs</button>
+              <?php endif ?>  
             </div>
           </div>
         </div>
@@ -53,7 +55,9 @@
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Image</th>
-                <th>Action</th>
+                <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                  <th>Action</th>  
+                <?php endif ?>
               </tr>
             </thead>
             <tbody>
@@ -70,9 +74,11 @@
                               <div class="col-md-6">
                                 <input type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" min="0">
                               </div>
-                              <div class="col-md-6">
-                                <button class="btn btn-link btn-block" id="updtDecorBtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
-                              </div>
+                              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                                <div class="col-md-6">
+                                  <button class="btn btn-link btn-block" id="updtDecorBtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                                </div>
+                              <?php endif ?>
                             </div>
                           </form>
                         </td>
@@ -101,9 +107,11 @@
                         <td>                            
                           <!-- remove design button -->
                           <div class="col-md-12 col-sm-12">
-                            <form id="designidform" role="form" method="post" action="<?php echo base_url('events/setCurrentDesignID') ?>">
-                              <button class="btn btn-link" id="rmvdesignbtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-remove"></i> Remove</button> 
-                            </form>   
+                            <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                              <form id="designidform" role="form" method="post" action="<?php echo base_url('events/setCurrentDesignID') ?>">
+                                <button class="btn btn-link" id="rmvdesignbtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-remove"></i> Remove</button> 
+                              </form>     
+                            <?php endif ?>   
                           </div>
                         </td>
                       </tr>
@@ -124,11 +132,13 @@
               <h3 class="box-title">List of Entourage</h3>
             </div>
             <div class="col-lg-3">
-              <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
+              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addEntourage" >Add Entourage</a>
 
-             </div> 
-              <div class="col-lg-3">
-              <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
+               </div> 
+                <div class="col-lg-3">
+                <a type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#editEntourage" >Edit Entourage</a>
+              <?php endif ?>
             </div>
           </div>
         </div>
@@ -141,7 +151,9 @@
               <th>Role</th>
               <th>Status</th>
               <th>Design Name</th>
-              <th>Action</th>
+              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                <th>Action</th>
+              <?php endif ?>
             </tr>
             </thead>
             <tbody id="entTableBody">
@@ -168,22 +180,24 @@
                           </select>
                         </div>
                     </td>
-                    <td>
-                      <div class="col-md-4 col-sm-4">
-                        <button class="btn btn-link btn-block" id="updtDecorBtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-fw fa-edit" form="entourageidform"></i> Update</button>
-                      </div>
-                    </form>
-                      <div class="col-md-4 col-sm-4">
-                        <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
-                          <button class="btn btn-link" id="rmvdesignbtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-remove"></i> Remove</button>
-                        </form>
-                      </div>
-                      <div class="col-md-4 col-sm-4">
-                        <form id="" role="form" method="post" action="<?php echo base_url('events/entourageDone') ?>">
-                          <button class="btn btn-link" id="entdone" name="entdone" type="submit" value="<?php echo $entID ?>"><i class="fa fa-check-circle-o"></i> Mark as Done</button>
-                        </form>
-                      </div>
-                    </td>
+                    <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                      <td>
+                        <div class="col-md-4 col-sm-4">
+                          <button class="btn btn-link btn-block" id="updtDecorBtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-fw fa-edit" form="entourageidform"></i> Update</button>
+                        </div>
+                      </form>
+                        <div class="col-md-4 col-sm-4">
+                          <form id="entourageidform" role="form" method="post" action="<?php echo base_url('events/removeEntourage') ?>">
+                            <button class="btn btn-link" id="rmvdesignbtn" name="entourageID" type="submit" value="<?php echo $entID ?>"><i class="fa fa-remove"></i> Remove</button>
+                          </form>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                          <form id="" role="form" method="post" action="<?php echo base_url('events/entourageDone') ?>">
+                            <button class="btn btn-link" id="entdone" name="entdone" type="submit" value="<?php echo $entID ?>"><i class="fa fa-check-circle-o"></i> Mark as Done</button>
+                          </form>
+                        </div>
+                      </td>
+                    <?php endif ?>
                   </tr>
               <?php  }
               ?>

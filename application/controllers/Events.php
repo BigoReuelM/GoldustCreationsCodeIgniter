@@ -295,6 +295,8 @@ class Events extends CI_Controller
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$data['avlServcs'] = $this->events_model->servcTransac($id);
 		$data['servcs'] = $this->events_model->getServices($id);
+		$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
+		$data['serviceCount'] = $this->events_model->getServiceCount($id);
 		
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Services | Admin';	
@@ -323,12 +325,14 @@ class Events extends CI_Controller
 		$page['pageName'] = "entourage";
 		$this->load->helper('directory');
 		$id = $this->session->userdata('currentEventID');
+
 		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$data['eventStatus'] = $this->events_model->getEventStatus($id);
 		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
 		$data['entourage'] = $this->events_model->getEntourage($id);
@@ -404,6 +408,9 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
+		$data['eventStatus'] = $this->events_model->getEventStatus($eventid);
+
 		$data['eventName'] =$this->events_model->getEventName($eventid);
 		// decors w/o theme that are in the eventdecors table
 		$data['eventDecors'] =$this->events_model->getDecors($eventid);
