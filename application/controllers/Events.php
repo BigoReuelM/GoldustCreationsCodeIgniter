@@ -809,16 +809,16 @@ class Events extends CI_Controller
 
 			$this->form_validation->set_rules('new_ent_name', 'Entourage Name', 'trim|required');
 			$this->form_validation->set_rules('new_ent_role', 'Entourage Role', 'trim|required');
-			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required|numeric');
-			$this->form_validation->set_rules('chest', 'Chest', 'trim|required|numeric');
-			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required|numeric');
-			$this->form_validation->set_rules('waist', 'Waist', 'trim|required|numeric');
-			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required|numeric');
-			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required|numeric');
-			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required|numeric');
+			$this->form_validation->set_rules('shoulder', 'Shoulder', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('chest', 'Chest', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('stomach', 'Stomach', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('waist', 'Waist', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('armLength', 'Arm Length', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('armHole', 'Arm Hole', 'trim|required|numeric|greater_than[0]');
+			$this->form_validation->set_rules('muscle', 'Muscle', 'trim|required|numeric|greater_than[0]');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-			$this->form_validation->set_rules('pantsLength', 'Pants Length', 'numeric');
-			$this->form_validation->set_rules('baston', 'Baston', 'numeric');
+			$this->form_validation->set_rules('pantsLength', 'Pants Length', 'numeric|greater_than[0]');
+			$this->form_validation->set_rules('baston', 'Baston', 'numeric|greater_than[0]');
 
 
 			if ($this->form_validation->run()) {
@@ -1727,6 +1727,64 @@ class Events extends CI_Controller
 			$this->events_model->updtDesignQty($eventID, $designID, $qty);
 			//$this->eventEntourage();
 			redirect('events/eventEntourage');
+		}
+
+		public function updateRentDes() {
+			$transId = $this->session->userdata('currentTransactionID');
+			$serviceID = $this->session->post('servicseID');
+			$qty = $this->input->post('rental_qty');
+			$this->events_model->updtRentalQty($transId, $serviceID, $qty);
+			redirect('events/ongoingRentals');
+
+		public function editEntourage(){
+			$this->session_model->sessionCheck();
+			$id = $this->input->post('entID');
+			$name = $this->input->post('entName');
+			$role = $this->input->post('role');
+			$shoulder = $this->input->post('shoulder');
+			$chest = $this->input->post('chest');
+			$stomach = $this->input->post('stomach');
+			$waist = $this->input->post('waist');
+			$aLength = $this->input->post('armLength');
+			$aHole = $this->input->post('armHole');
+			$muscle = $this->input->post('muscle');
+			$pLength = $this->input->post('pantsLength');
+			$baston = $this->input->post('baston');
+			if (!empty($name)) {
+				$this->events_model->editEntName($id, $name);
+			}
+			if (!empty($role)) {
+				$this->events_model->editEntRole($id, $role);
+			}
+			if (!empty($shoulder)) {
+				$this->events_model->editEntShoulder($id, $shoulder);
+			}
+			if (!empty($chest)) {
+				$this->events_model->editEntChest($id, $chest);
+			}
+			if (!empty($stomach)) {
+				$this->events_model->editEntStomach($id, $stomach);
+			}
+			if (!empty($waist)) {
+				$this->events_model->editEntWaist($id, $waist);
+			}
+			if (!empty($aLength)) {
+				$this->events_model->editEntALength($id, $aLength);
+			}
+			if (!empty($aHole)) {
+				$this->events_model->editEntAHole($id, $aHole);
+			}
+			if (!empty($muscle)) {
+				$this->events_model->editEntMuscle($id, $muscle);
+			}
+			if (!empty($pLength)) {
+				$this->events_model->editEntPLength($id, $pLength);
+			}
+			if (!empty($baston)) {
+				$this->events_model->editEntBaston($id, $baston);
+			}
+			redirect('events/eventEntourage');
+
 		}
 	}
 

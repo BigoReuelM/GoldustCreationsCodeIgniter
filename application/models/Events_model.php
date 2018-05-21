@@ -1110,5 +1110,92 @@
 			$this->db->update('eventdesigns', $data);
 		}
 
+
+		public function updtRentalQty($transactionID, $serviceID, $qty){
+			$data = array(
+				'quantity' => $qty
+			);
+			$this->db->where('transactionID', $transactionID);
+			$this->db->where('serviceID', $serviceID);
+			$this->db->update('transactionDetails', $data);
+		}
+
+		public function editEntName($entID, $name){
+			$data = array(
+				'entourageName' => $name
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntRole($entID, $role){
+			$data = array(
+				'role' => $role
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntShoulder($entID, $shoulder){
+			$data = array(
+				'shoulder' => $shoulder
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntChest($entID, $chest){
+			$data = array(
+				'chest' => $chest
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}	
+		public function editEntStomach($entID, $stomach){
+			$data = array(
+				'stomach' => $stomach
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntWaist($entID, $waist){
+			$data = array(
+				'waist' => $waist
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntALength($entID, $aLength){
+			$data = array(
+				'armLength' => $aLength
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntAHole($entID, $aHole){
+			$data = array(
+				'armHole' => $aHole
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntMuscle($entID, $muscle){
+			$data = array(
+				'muscle' => $muscle
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntPLength($entID, $pLength){
+			$data = array(
+				'pantsLength' => $pLength
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
+		public function editEntBaston($entID, $baston){
+			$data = array(
+				'baston' => $baston
+			);
+			$this->db->where('entourageID', $entID);
+			$this->db->update('entourage', $data);
+		}
 	}
  ?>

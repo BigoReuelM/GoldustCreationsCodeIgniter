@@ -1,4 +1,6 @@
 <style type="text/css">
+  
+
   input[type=submit] {
     background-color: #4CAF50;
     color: white;
@@ -9,7 +11,7 @@
     float: right;
   }
 
-  input[type=text], select, textarea {
+  input[type=text], [type=number], select, textarea {
     width:100%;
     padding: 0.5em;
     border: 1px solid #ccc;
@@ -70,7 +72,7 @@
                           <form id="updtDesignIdForm" role="form" method="post" action="<?php echo base_url('events/updateEvtDes') ?>">
                             <div class="row">
                               <div class="col-md-6">
-                                <input type="text" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                                <input type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" min="0">
                               </div>
                               <?php if ($eventStatus->eventStatus === "on-going"): ?>
                                 <div class="col-md-6">
@@ -207,7 +209,8 @@
       </div>
     </div>
         
-          <!-- edit entourage -->
+        <!-- edit entourage -->
+        <form role="form" method="post" name="editEnt" id="editEnt" autocomplete="off" action="<?php echo base_url('events/editEntourage') ?>">  
           <div class="modal modal-default fade" id="editEntourage">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -218,7 +221,7 @@
                 </div>
                 <div class="modal-body">
                   <div class="box">
-                    <div class="box-body">
+                    <div class="box-body table-responsive">
                       <table id="entourageTableEdit" class="table table-bordered table-striped table-hover text-center">
                         <thead>
                         <tr>
@@ -243,22 +246,21 @@
                                $entId = $det['entourageID'];     
                           ?>
                           <tr>
-                            <td><input class="form-control" type="text" id="entName" name="entName" placeholder="<?php echo $det['entourageName'] ?>" ></td>
+                            <td><input class="form-control" type="text" id="entName" name="entName" placeholder="<?php echo $det['entourageName'] ?>"></td>
                             <td><input class="form-control" type="text" id="entRole" name="role" placeholder="<?php echo $det['role'] ?>"></td>
-                            <td><input class="form-control" type="text" id="entShoulder" name="shoulder" placeholder="<?php echo $det['shoulder'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entChest" name="chest" placeholder="<?php echo $det['chest'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entStomach" name="stomach" placeholder="<?php echo $det['stomach'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entWaist" name="waist" placeholder="<?php echo $det['waist'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entArmLength" name="armLength" placeholder="<?php echo $det['armLength'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entArmHole" name="armHole" placeholder="<?php echo $det['armHole'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entMuscle" name="muscle" placeholder="<?php echo $det['muscle'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entPantsLength" name="pantsLength" placeholder="<?php echo $det['pantsLength'] ?>" size="3"></td>
-                            <td><input class="form-control" type="text" id="entBaston" name="baston" placeholder="<?php echo $det['baston'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entShoulder" name="shoulder" placeholder="<?php echo $det['shoulder'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entChest" name="chest" placeholder="<?php echo $det['chest'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entStomach" name="stomach" placeholder="<?php echo $det['stomach'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entWaist" name="waist" placeholder="<?php echo $det['waist'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entArmLength" name="armLength" placeholder="<?php echo $det['armLength'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entArmHole" name="armHole" placeholder="<?php echo $det['armHole'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entMuscle" name="muscle" placeholder="<?php echo $det['muscle'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entPantsLength" name="pantsLength" placeholder="<?php echo $det['pantsLength'] ?>" size="3"></td>
+                            <td><input class="form-control edit" type="number" min="0" id="entBaston" name="baston" placeholder="<?php echo $det['baston'] ?>" size="3"></td>
                             <td>
+                              <input type="hidden" name="entID" value="<?php echo $entId ?>">
                               <div class="col-md-3 col-sm-4">
-                                <form role="form" method="post" action="">
-                                  <button class="btn-link" id="entInfo" name="entInfo" type="submit"><i class="fa fa-fw fa-exchange"></i></button>
-                                </form>
+                                  <button class="btn-link" id="entInfo" name="entInfo" type="submit"><i class="fa fa-fw fa-exchange"></i> Update</button>
                               </div>
                             </td>
                           </tr>
@@ -282,6 +284,7 @@
             </div>
           <!-- /.modal-dialog -->
           </div>
+        </form>
 
           <!-- Modal for adding of entourage -->
               <div class="modal fade" id="addEntourage" role="dialog">
