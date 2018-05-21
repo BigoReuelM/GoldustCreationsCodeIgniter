@@ -584,7 +584,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function setCurrentThemeID(){
+			$this->session_model->sessionCheck();
 			$currentThemeID = html_escape($this->input->post('themeID'));
+
 			$this->session->set_userdata('currentTheme', $currentThemeID);
 			redirect('admin/adminThemeDetails');
 		}
@@ -624,16 +626,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addNewTheme(){
-			$this->load->library('form_validation');
+			//$this->load->library('form_validation');
 
+			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('themeName', 'New Theme Name', 'trim|required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if ($this->form_validation->run()) {
 				$name = ucwords(html_escape($this->input->post('themeName')));
 				$desc = ucwords(html_escape($this->input->post('themeDesc')));
 				$this->admin_model->addTheme($name, $desc);
-				$this->adminTheme();
+				//$this->adminTheme();
+				$data['success'] = true;
+			} else {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
+			echo json_encode($data);
+			//redirect('admin/adminTheme');
 		}
 
 		public function addNewThemeDecor(){
@@ -663,7 +674,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data()); 
 
-				$this->adminThemeDetails();
+				redirect('admin/adminThemeDetails');
+				//$this->adminThemeDetails();
 			}
 		}
 
@@ -692,7 +704,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$this->upload->do_upload('userfile');
 				$data = array('upload_data' => $this->upload->data());
 
-				$this->adminThemeDetails();
+				redirect('admin/adminThemeDetails');
+				//$this->adminThemeDetails();
 			}
 		}
 	}
