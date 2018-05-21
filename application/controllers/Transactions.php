@@ -148,6 +148,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+
 			$data['totalAmount'] = $this->transactions_model->totalAmount($tranID);		
 			$data['balance'] = $this->transactions_model->getBalance($tranID);
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
@@ -194,9 +195,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
 			$data['servcs'] = $this->transactions_model->getServices($tranID);
-			$data['serviceIDs'] = $this->transactions_model->getServiceIDs($tranID);
-			
+			$data['serviceIDs'] = $this->transactions_model->getServiceIDs($tranID);			
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
+			$data['serviceTotal'] = $this->transactions_model->totalAmountForServices($tranID);
+			$data['serviceCount'] = $this->transactions_model->servicesCount($tranID);
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Transactions Services | Admin';	
 			}else{
