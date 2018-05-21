@@ -1784,7 +1784,7 @@ class Events extends CI_Controller
 				$this->events_model->editEntBaston($id, $baston);
 			}
 			redirect('events/eventEntourage');
-
+		}
 		}
 	}
 
