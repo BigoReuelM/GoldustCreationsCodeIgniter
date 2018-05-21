@@ -1,3 +1,15 @@
+<style>
+.otherInformation {
+min-height: 20px;
+padding: 19px;
+margin-bottom: 20px;
+background-color: #f5f5f5;
+border: 1px solid #e3e3e3;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+}
+</style>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -13,7 +25,7 @@
 
         <div class="content">
           <div class="row">
-          <div class="col-md-12"> 
+          <div class="col-md-9"> 
             <div class="box">
                 <div class="box-header">
                   <h3 class="box-title">Rentals</h3>
@@ -25,7 +37,8 @@
                       <tr>
                         <th>Client Name</th>
                         <th>Contact Number</th>
-                        <th>Image Design</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -41,13 +54,22 @@
                           <td><?php echo $d['clientName']; ?></td>
                           <td><?php echo $d['contactNumber']; ?></td>
                           <!--td><?php echo $d['serviceName']; ?></td-->
-                          <td></td>
+                          <td><?php echo $d['dateAvail']; ?></td>
                           <td>
+                              <form id="updtTransactionIdForm" role="role" method="post" action="">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control" disabled>
+                                  </div>
+                              </form>
+                          </td>
+                          <td></td>
+                          <!--td>
                             <form role="form" method="post" action="<?php echo base_url('transactions/setTransactionID'); ?>">
                                 <button class="btn btn-block" id="transactionID" name="transInfo" type="submit" value="<?php echo($transInfo) ?>"> View Info <i class="fa fa-fw fa-info"> </i>
                                 </button>
                             </form>
-                          </td>
+                          </td-->
                           </tr>
                           <?php
                           }
@@ -63,58 +85,14 @@
           </div>
         </div>
 
-         <!--<div class="col-md-6">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Event Rentals</h3>
-                </div>
-                <div class="box-body">
-                    <div  class="table table-responsive">
-                      <table id ="Events" class="table table-bordered table-condensed">
-                        <thead>
-                          <tr>
-                            <th>Event Name</th>
-                            <th>Client Name</th>
-                            <th>Contact Number</th>
-                            <th>Service Name</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            if(!empty($evredata)){ 
-                              foreach ($evredata as $ed) { 
-                                $eID = $ed['eventID'];
-                                $clientID = $ed['clientID'];
-                                $es = $ed['eventStatus'];
-                                ?> 
-                                <tr>
-                                  <td><?php echo $ed['eventName']; ?></td>
-                                  <td><?php echo $ed['clientName']; ?></td>
-                                  <td><?php echo $ed['contactNumber']; ?></td>
-                                  <td><?php echo $ed['serviceName']; ?></td>
-                                  <td>
-                                    <form role="form" method="post" action="<?php echo base_url('events/setEventID')?>">
-                                      <input name="clientID" value="<?php echo($clientID)?>" hidden>
-                                      <input name="eventStatus" value="<?php echo($es)?>" hidden>
-                                      <button class="btn btn-default btn-block" id="eventID" name="eventInfo" type="submit" value="<?php echo($eID)?>"> View Info <i class="fa fa-fw fa-info"> </i>
-                                      </button>
-                                    </form>
-                                  </td>
-                                </tr>
-                                <?php
-                                  }
-                                  }else{
-                                   echo "0 result";
-                                  } 
-                                ?>
-                        </tbody>
-                    </table>
-                  </div>
-                </div>
-            </div>
+        <div class="col-md-3">
+          <div class="otherInformation">
+            <h4>Number of Rentals</h4>
+            <h4>Overdue chuchu</h4>
           </div>
-      </section-->
+              
+        </div>
+      </section>
 
 
   <!-- Add the sidebar's background. This div must be placed
