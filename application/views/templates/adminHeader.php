@@ -11,8 +11,9 @@
   $overECount = count($overERent);
   $incECount = count($incEvents);
   $incACount = count($incAppointment);
+  $overdueEPaymentsCount = count($overdueEPayments);
 
-  $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECount + $incACount;
+$notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECount + $incACount + $overdueEPaymentsCount;
 ?>
   <header class="main-header">
 
@@ -105,7 +106,11 @@
                   <?php
                   }
                   ?>
-                  
+                  <li><!-- start notification -->
+                      <a href="#overdueEPaymentsModal" data-toggle="modal" data-target="#overdueEPaymentsModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overdueEPaymentsCount ?> Overdue Event Payments
+                      </a>
+                    </li>
                   <!-- end notification -->
                 </ul>
               </li>
@@ -438,5 +443,58 @@
     </div>
   </div>
 </div>
+<div id="overdueEPaymentsModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Overdue Event Payments</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box">
+          <div class="box-body">
+            <div class="table table-responsive">
+              <table id="eventsTodayTable" class="table table-bordered table-condensed table-hover text-center">
+                <thead>
+                  <tr>
+                    <th>Event Name</th>
+                    <th>Event Date</th>
+                    <th>Contact Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($overdueEPayments as $ePayments): ?>
+                    <tr>
+                      <td><?php echo $ePayments['eventName'] ?></td>
+                      <td>
+                        <?php
+                          $overEPaymentsDate = date_create($ePayments['eventDate']);
+                          $overEPaymentsDateFormatted = date_format($overEPaymentsDate, "M-d-Y"); 
+                          echo $overEPaymentsDateFormatted; 
+                        ?>
+                      </td>
+                      <td>
+                        <?php echo $ePayments['contactNumber'] ?>
+                      </td>
+                    </tr>              
+                  <?php endforeach ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 

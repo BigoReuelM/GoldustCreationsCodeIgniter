@@ -39,6 +39,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
 		$data['services']=$this->events_model->getServices();
 		$this->load->view("templates/head.php", $headdata);
@@ -72,6 +73,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 		$data['services']=$this->events_model->getServices();
 		if ($this->session->userdata('role') === "admin") {
@@ -110,6 +112,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Finished Events | Admin';	
@@ -144,6 +147,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['events']=$this->events_model->getEvents($empID, $empRole, $status);
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Cancelled Events | Admin';	
@@ -177,6 +181,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['eventDetail'] = $this->events_model->getEventDetails($id, $clientID);
 		$data['themes'] = $this->events_model->getThemes();
@@ -257,6 +262,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['eventStaff'] = $this->events_model->getStaff($id);
 		$data['allStaff'] = $this->events_model->showAllStaff($id);
 		if ($this->session->userdata('role') === "admin") {
@@ -293,6 +299,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['avlServcs'] = $this->events_model->servcTransac($id);
 		$data['servcs'] = $this->events_model->getServices($id);
 		$data['serviceTotal'] = $this->events_model->getServiceTotal($id);
@@ -332,6 +339,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['eventStatus'] = $this->events_model->getEventStatus($id);
 		$data['eventName'] = $this->events_model->getEventName($id);
 		$data['entourageDet'] = $this->events_model->getEntourageDetails($id);
@@ -408,7 +416,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['eventStatus'] = $this->events_model->getEventStatus($eventid);
 
 		$data['eventName'] =$this->events_model->getEventName($eventid);
@@ -479,6 +487,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['eventName'] =$this->events_model->getEventName($currentEvent);
 		$empRole = $this->session->userdata('role');
 		$cid = $this->session->userdata('clientID');
@@ -524,6 +533,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 
 		$data['eventName'] = $this->events_model->getEventName($currentEvent);
@@ -1307,6 +1317,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['decorTypes'] = $this->events_model->getDecorEnum();
 
 			if (!is_dir('./uploads/decors')) {
@@ -1371,6 +1382,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			if (!is_dir('./uploads/designs')) {
@@ -1442,6 +1454,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			// get all folders inside DECOR folder in uploads folder
 			$data['map'] = directory_map('./uploads/decors/', 1);
@@ -1496,6 +1509,7 @@ class Events extends CI_Controller
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['designTypes'] = $this->events_model->getDesignEnum();
 
 			// get all folders inside DESIGN folder in uploads folder
