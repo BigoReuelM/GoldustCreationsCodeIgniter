@@ -47,18 +47,18 @@
           <h4 class="modal-title">Upload New Decor</h4>
         </div>
         <div class="modal-body">
-          <form action="<?php echo base_url('events/uploadDecImg') ?>" method="post" role="form" enctype="multipart/form-data">
+          <form action="<?php echo base_url('events/uploadDecImg') ?>" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Decor Name</label>
-                  <input type="text" name="dec_name" class="form-control">
+                  <input type="text" name="dec_name" class="form-control" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Color</label>
-                  <input type="text" name="dec_color" class="form-control">
+                  <input type="text" name="dec_color" class="form-control" required>
                 </div>
               </div>
             </div>

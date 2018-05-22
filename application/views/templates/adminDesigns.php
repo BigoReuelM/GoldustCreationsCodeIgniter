@@ -46,26 +46,25 @@
           <h4 class="modal-title">Upload New Design</h4>
         </div>
         <div class="modal-body">
-          <form action="<?php echo base_url('events/uploadDesImg') ?>" method="post" role="form" enctype="multipart/form-data">
+          <form action="<?php echo base_url('events/uploadDesImg') ?>" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Design Name</label>
-                  <input type="text" name="des_name" class="form-control">
+                  <input type="text" name="des_name" class="form-control" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Color</label>
-                  <input type="text" name="des_color" class="form-control">
+                  <input type="text" name="des_color" class="form-control" required>
                 </div>
               </div>
             </div>
             <div class="form-group">
               <label>Select files from your computer</label>
               <input type="file" name="userfile" >
-            </div>         
-    
+            </div>
             <div class="modal-footer">
               <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
             </div>  
