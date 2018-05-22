@@ -11,6 +11,7 @@ class Handler extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('handler_model');
+		$this->load->model('reports_model');
 		$this->load->model('notifications_model');
 		$this->load->model('session_model');
 		$this->load->model('events_model');
@@ -32,6 +33,10 @@ class Handler extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
+
+		$tOverdueRentalCount = count($this->notifications_model->overdueTransactionRentals());
+		$tOverdueEventCount = count($this->notifications_model->overdueEventRentals());
+		$data['overdueRentalCount'] = $tOverdueRentalCount + $tOverdueEventCount;
 		
 		$data['eventData'] = $this->events_model->getEventDetailsForCalendar();
 		$data['eventDates'] = $this->events_model->getEventDates();
