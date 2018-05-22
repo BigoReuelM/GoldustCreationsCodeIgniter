@@ -427,7 +427,8 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                 <thead>
                   <tr>
                     <th>Event Name</th>
-                    <th>Event Date and Time</th>
+                    <th>Event Date</th>
+                    <th>Contact Number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -440,6 +441,9 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                           $overERentDateFormated = date_format($overERentDate, "M-d-Y"); 
                           echo $overERentDateFormated; 
                         ?>
+                      </td>
+                      <td>
+                        <?php echo $eRent['contactNumber'] ?>
                       </td>
                     </tr>              
                   <?php endforeach ?>

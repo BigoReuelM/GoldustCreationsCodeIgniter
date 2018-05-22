@@ -108,6 +108,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['currentEventNum'] = $this->events_model->currentEventNum($userID);
 			$data['doneEvent'] = $this->events_model->doneEventNum($userID);
 			$data['allTransac'] = $this->events_model->allTransacNum($userID);
