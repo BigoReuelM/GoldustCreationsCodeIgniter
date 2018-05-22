@@ -186,9 +186,9 @@
             <button type="submit" class="btn btn-default" disabled>Add</button>  
           <?php endif ?>
           <?php if ($balance > 0): ?>
-            <button type="submit" class="btn btn-default">Add</button>
+            <button type="submit" class="btn btn-primary">Ok</button>
           <?php endif ?>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       <?php echo form_close(); ?>
     </div>
