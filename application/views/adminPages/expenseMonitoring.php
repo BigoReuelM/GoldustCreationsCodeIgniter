@@ -8,6 +8,12 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="well">
+            <div class="form-group">
+              <label for="">Total:</label>
+              <input type="text" placeholder=" <?php echo number_format($totalExpenses, 2) ?>" class="form-control" disabled="">
+            </div>
+          </div>
+          <div class="well">
             <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
               <div class="form-group">
                 <label for="">Select Day: </label>
@@ -105,19 +111,6 @@
                   </tbody>
               </table>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="well">
-        <div class="row">
-          <div class="col-lg-4">
-            <p>Daily report comparison yesterday</p>
-          </div>
-          <div class="col-lg-4">
-            <p>monthly report comparison last month</p>
-          </div>
-          <div class="col-lg-4">
-            <p>yearly report comparison last year</p>
           </div>
         </div>
       </div>
@@ -228,6 +221,7 @@
 
       // Month and year only
       $('#monthlyExpense').datepicker({
+        autoclose: true,
          format: 'mm-yyyy',
          startView: 'months',
          minViewMode: 'months',
@@ -236,6 +230,7 @@
 
       // Year only
       $('#yearlyExpense').datepicker({
+         autoclose: true,
          format: 'yyyy',
          startView: 'years',
          minViewMode: 'years',
