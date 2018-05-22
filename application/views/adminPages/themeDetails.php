@@ -155,14 +155,16 @@
               <h4 class="modal-title">Add Decor</h4>
             </div>
             <div class="modal-body">
-              <form action="<?php echo base_url('admin/addNewThemeDecor') ?>" method="post" role="form" enctype="multipart/form-data">
+              <div class="the-message">
+              </div>
+              <form action="<?php echo base_url('admin/addNewThemeDecor') ?>" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
               <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="decor_name" class="form-control">
+                <input type="text" name="decor_name" id="decor_name" class="form-control" required>
               </div>
               <div class="form-group">
                 <label>Color</label>
-                <input type="text" name="decor_color" class="form-control">
+                <input type="text" name="decor_color" id="decor_color" class="form-control" required>
               </div>
               <div class="form-group">
                 <label>Type</label>
@@ -200,18 +202,20 @@
               <h4 class="modal-title">Add Design</h4>
             </div>
             <div class="modal-body">
-              <form action="<?php echo base_url('admin/addNewThemeDesign') ?>" method="post" role="form" enctype="multipart/form-data">
+              <div class="the-message">
+              </div>
+              <form action="<?php echo base_url('admin/addNewThemeDesign') ?>" method="post" role="form" enctype="multipart/form-data" autocomplete="off">
               <div class="form-group">
                 <label>Name</label>
-                <input type="text" name="design_name" class="form-control">
+                <input type="text" name="design_name" id="design_name" class="form-control" required>
               </div>
               <div class="form-group">
                 <label>Color</label>
-                <input type="text" name="design_color" class="form-control">
+                <input type="text" name="design_color" id="design_color" class="form-control" required>
               </div>
               <div class="form-group">
                 <label>Type</label>
-                <select class="form-control" name="design_type" id="decor_type">
+                <select class="form-control" name="design_type" id="design_type">
                   <?php
                     if (!empty('designTypes')) {
                       foreach ($designTypes as $dt) { ?>
@@ -225,7 +229,7 @@
                 <label>Image</label>
                 <div class="form-group">
                   <label>Select files from your computer</label>
-                  <input type="file" name="userfile" >
+                  <input type="file" name="userfile">
                 </div>
               </div>
             </div>
@@ -273,63 +277,4 @@
   function reset_chkbx() {
     $('input:checkbox').prop('checked', false);
   }
-</script>
-
-<script>
-  $('#addNewService').submit(function(e){
-    e.preventDefault();
-
-    var serviceDetails = $(this);
-
-    $.ajax({
-      type: 'POST',
-      url: serviceDetails.attr('action'),
-      data: serviceDetails.serialize(),
-      dataType: 'json',
-      success: function(response){
-        if (response.success == true) {
-          $('#the-message').append('<div class="alert alert-success text-center">' +
-          '<span class="icon fa fa-check"></span>' +
-          ' New expense has been saved.' +
-          '</div>');
-          $('.form-group').removeClass('has-error')
-                .removeClass('has-success');
-          $('.text-danger').remove();
-          // reset the form
-          serviceDetails[0].reset();
-          // close the message after seconds
-          $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
-          })
-        }else{
-          $.each(response.messages, function(key, value) {
-            var element = $('#' + key);
-            
-            element.closest('div.form-group')
-            .removeClass('has-error')
-            .addClass(value.length > 0 ? 'has-error' : 'has-success')
-            .find('.text-danger')
-            .remove();
-            
-            element.after(value);
-          });
-        }
-
-        if (response.alert == true) {
-          $('#the-message').append('<div class="alert alert-warning text-center">' +
-          '<span class="icon fa-fa-warning"></span>' +
-          ' Service name already exist!' +
-          '</div>');
-
-          $('.alert-warning').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
-          })
-        }
-      }
-    });
-  });
 </script>
