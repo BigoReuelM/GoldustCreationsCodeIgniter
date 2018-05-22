@@ -419,11 +419,50 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		}
 
+		public function setExpenseDate(){
+			if (isset($_POST['expenseDate'])) {
+				$this->session->set_userdata('expenseDate', $_POST['expenseDate']);
+			}elseif (isset($_POST['expenseMonth'])) {
+				$this->session->set_userdata('expenseMonth', $_POST['expenseMonth']);
+			}elseif (isset($_POST['expenseYear'])) {
+				$this->session->set_userdata('expenseYear', $_POST['expenseYear']);
+			}
+			redirect('admin/expenses');
+		}
+
 		public function expenses(){
 			$this->session_model->sessionCheck();
 			$data['currentDate'] = date('Y-m-d');
-			$data['expenses']=$this->admin_model->getExpenses();
-			$data['totalExpenses']=$this->admin_model->totalExpenses();
+			if (isset($_SESSION['expenseDate'])) {
+				$data['expenses'] = $this->admin_model->getExpensesPerDate($_SESSION['expenseDate']);
+				$data['totalExpenses'] = 0;
+				foreach ($data['expenses'] as $expense) {
+					$data['totalExpenses'] = $data['totalExpenses'] + $expense['expensesAmount'];
+				}
+				$this->session->unset_userdata('expenseDate');
+			}elseif (isset($_SESSION['expenseMonth'])) {
+				$data['expenses'] = $this->admin_model->getExpensesPerMonthYear($_SESSION['expenseMonth']);
+				$data['totalExpenses'] = 0;
+				foreach ($data['expenses'] as $expense) {
+					$data['totalExpenses'] = $data['totalExpenses'] + $expense['expensesAmount'];
+				}
+				$this->session->unset_userdata('expenseMonth');
+			}elseif (isset($_SESSION['expenseYear'])) {
+				$data['expenses'] = $this->admin_model->getExpensesPerYear($_SESSION['expenseYear']);
+				$data['totalExpenses'] = 0;
+				foreach ($data['expenses'] as $expense) {
+					$data['totalExpenses'] = $data['totalExpenses'] + $expense['expensesAmount'];
+				}
+				$this->session->unset_userdata('expenseYear');
+			}else{
+				$data['expenses']=$this->admin_model->getExpenses();
+				$data['totalExpenses'] = 0;
+				foreach ($data['expenses'] as $expense) {
+					$data['totalExpenses'] = $data['totalExpenses'] + $expense['expensesAmount'];
+				}
+			}
+			
+			//$data['totalExpenses']=$this->admin_model->totalExpenses();
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
