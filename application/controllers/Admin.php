@@ -665,8 +665,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addNewTheme(){
-			//$this->load->library('form_validation');
-
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('themeName', 'New Theme Name', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
@@ -690,27 +688,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$themeID = $this->session->userdata('currentTheme');
 						
 			$this->load->library('form_validation');
-				$name = html_escape($this->input->post('decor_name'));
-				$color = html_escape($this->input->post('decor_color'));
-				$type = html_escape($this->input->post('decor_type'));
+			$name = html_escape($this->input->post('decor_name'));
+			$color = html_escape($this->input->post('decor_color'));
+			$type = html_escape($this->input->post('decor_type'));
 
-				if (!is_dir('./uploads/decors/')) {
-					mkdir('./uploads/decors/');
-				}
-				if (!is_dir('./uploads/decors/' . $type . '/')) {
-					mkdir('./uploads/decors/' . $type);
-				}
+			if (!is_dir('./uploads/decors/')) {
+				mkdir('./uploads/decors/');
+			}
+			if (!is_dir('./uploads/decors/' . $type . '/')) {
+				mkdir('./uploads/decors/' . $type);
+			}
 
-				$decID = $this->events_model->addNewDecor($name, $color, $type, $themeID);
+			$decID = $this->events_model->addNewDecor($name, $color, $type, $themeID);
 
-				$config['upload_path'] = './uploads/decors/' . $type . '/';
-				$config['allowed_types'] = 'jpg|png|jpeg';
-				// rename file 
-				$config['file_name'] = sprintf('%07d', $decID);
-				$this->load->library('upload', $config);
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data()); 
-				$data['success'] = true;
+			$config['upload_path'] = './uploads/decors/' . $type . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			// rename file 
+			$config['file_name'] = sprintf('%07d', $decID);
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('userfile');
+			$data = array('upload_data' => $this->upload->data()); 
 			redirect('admin/adminThemeDetails');
 		}
 
@@ -718,27 +715,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$themeID = $this->session->userdata('currentTheme');
 			
 			$this->load->library('form_validation');
-				$this->load->helper('directory');
+			$this->load->helper('directory');
 
-				$name = html_escape($this->input->post('design_name'));
-				$color = html_escape($this->input->post('design_color'));
-				$type = html_escape($this->input->post('design_type'));
+			$name = html_escape($this->input->post('design_name'));
+			$color = html_escape($this->input->post('design_color'));
+			$type = html_escape($this->input->post('design_type'));
 
-				if (!is_dir('./uploads/designs/')) {
-					mkdir('./uploads/designs/');
-				}
-				if (!is_dir('./uploads/designs/' . $type . '/')) {
-					mkdir('./uploads/designs/' . $type);
-				}
+			if (!is_dir('./uploads/designs/')) {
+				mkdir('./uploads/designs/');
+			}
+			if (!is_dir('./uploads/designs/' . $type . '/')) {
+				mkdir('./uploads/designs/' . $type);
+			}
 
-				$desID = $this->events_model->addNewDesign($name, $color, $type, $themeID);
+			$desID = $this->events_model->addNewDesign($name, $color, $type, $themeID);
 
-				$config['upload_path'] = './uploads/designs/' . $type . '/';
-				$config['allowed_types'] = 'jpg|png|jpeg';
-				$config['file_name'] = sprintf('%07d', $desID);
-				$this->load->library('upload', $config);
-				$this->upload->do_upload('userfile');
-				$data = array('upload_data' => $this->upload->data());
+			$config['upload_path'] = './uploads/designs/' . $type . '/';
+			$config['allowed_types'] = 'jpg|png|jpeg';
+			$config['file_name'] = sprintf('%07d', $desID);
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('userfile');
+			$data = array('upload_data' => $this->upload->data());
 			redirect('admin/adminThemeDetails');
 		}
 	}
