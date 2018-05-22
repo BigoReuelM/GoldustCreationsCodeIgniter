@@ -27,15 +27,25 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
-            <li>
-              <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Service Transactions</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Monitoring <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Transactions</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('user/loadAllAppointments') ?>">All Appointments</a>
+                </li>
+              </ul>
             </li>
             <li>
               <a href="<?php echo base_url('events/adminDecorsHome') ?>">Gallery</a>

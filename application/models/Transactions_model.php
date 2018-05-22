@@ -543,6 +543,16 @@
 			return $query->result_array();
 		}
 
+		public function getTransactionHandler($tranID){
+			$this->db->select('employeeID');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $tranID);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 	}
 
 ?>

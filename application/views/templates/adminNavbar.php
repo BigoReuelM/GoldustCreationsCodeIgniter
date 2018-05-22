@@ -43,6 +43,12 @@
           </a>
         </li>
         <li>
+          <a href="<?php echo base_url('user/loadAllAppointments') ?>">
+            <i class="fa fa-calendar-check-o"></i>
+            <span>All Appointments</span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url('admin/viewPaymentsReports') ?>">
             <i class="fa fa-line-chart"></i>
             <span>Reports</span>

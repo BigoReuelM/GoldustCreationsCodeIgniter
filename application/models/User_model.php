@@ -187,6 +187,21 @@
 			}
 			return true;
 		}
+
+		public function getAllAppointments($userID, $empRole){
+			$this->db->select('*, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as employeeName, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(DATE_FORMAT(appointments.date, "%M-%d-%Y"), " ", DATE_FORMAT(appointments.time, "%r")) as appointmentDateAndTime');
+			$this->db->from('appointments');
+			$this->db->join('transactions', 'appointments.transactionID = transactions.transactionID');
+			$this->db->join('clients', 'transactions.clientID = clients.clientID');
+			$this->db->join('employees', 'transactions.employeeID = employees.employeeID');
+			if ($empRole === "handler") {
+				$this->db->where('transactions.employeeID', $userID);
+			}
+
+			$query = $this->db->get();
+
+			return $query->result_array();
+		}
 		
 	}
 ?>

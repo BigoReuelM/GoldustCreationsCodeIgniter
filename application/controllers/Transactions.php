@@ -438,9 +438,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addTransactionAppointments(){
-			$empID = $this->session->userdata('employeeID');
-			$ctID = $this->session->userdata('currentTransactionID');
 			
+			$ctID = $this->session->userdata('currentTransactionID');
+			$empID = $this->transactions_model->getTransactionHandler($ctID)->employeeID;
 			$data = array('success' => false, 'messages' => array());
 
 			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
