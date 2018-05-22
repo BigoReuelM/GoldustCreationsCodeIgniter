@@ -35,7 +35,6 @@
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
                           <th>Date</th>
                           <th>Time</th>
                           <th>Receiver</th>
@@ -53,7 +52,6 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName']; ?></td>
-                                  <td><?php echo $p['eventName']; ?></td>
                                   <td><?php echo $p['date']; ?></td>
                                   <td><?php echo $p['time']; ?></td>
                                   <td><?php echo $p['receiverName']; ?></td>
@@ -114,7 +112,6 @@
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
                           <th>Date</th>
                           <th>Time</th>
                           <th>Receiver</th>
@@ -134,7 +131,6 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
-                                  <td><?php echo $p['eventName'] ?></td>
                                   <td><?php echo $p['date'] ?></td>
                                   <td><?php echo $p['time'] ?></td>
                                   <td><?php echo $p['receiverName'] ?></td>
@@ -190,7 +186,6 @@
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
                           <th>Date</th>
                           <th>Time</th>
                           <th>Receiver</th>
@@ -207,7 +202,6 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
-                                  <td><?php echo $p['eventName'] ?></td>
                                   <td><?php echo $p['date'] ?></td>
                                   <td><?php echo $p['time'] ?></td>
                                   <td><?php echo $p['receiverName'] ?></td>
