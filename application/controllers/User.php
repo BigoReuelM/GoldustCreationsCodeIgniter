@@ -280,7 +280,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		public function loadAllAppointments(){
 			$this->session_model->sessionCheck();
 			$userID = $this->session->userdata("employeeID");
-			$empRole = $this->session->userdata('role');
+			$data['empRole'] = $this->session->userdata('role');
 			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
 			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
 			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
@@ -288,14 +288,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
-			$data['appointments'] = $this->user_model->getAllAppointments($userID, $empRole);
+			$data['appointments'] = $this->user_model->getAllAppointments($userID, $data['empRole']);
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Appointments | Admin';	
 			}else{
 				$headdata['pagename'] = 'Appointments | Handler';
 			}
 			$this->load->view("templates/head.php", $headdata);
-			if ($empRole === 'admin') {
+			if ($data['empRole'] === 'admin') {
 				
 				$this->load->view("templates/adminHeader.php", $notif);
 				$this->load->view("templates/adminNavbar.php");

@@ -44,7 +44,7 @@
         </li>
         <li>
           <a href="<?php echo base_url('user/loadAllAppointments') ?>">
-            <i class="fa fa-calendar-check-o"></i>
+            <i class="fa fa-list"></i>
             <span>All Appointments</span>
           </a>
         </li>

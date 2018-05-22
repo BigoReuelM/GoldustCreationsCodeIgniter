@@ -16,11 +16,13 @@
           <!-- /.box-header -->
         <div class="box-body">
           <div  class="table table-responsive">
-            <table id ="rentalTable" class="table table-bordered table-condensed">
+            <table id ="appointmentsTable" class="table table-bordered table-condensed">
               <thead>
                 <tr>
                   <th>Agenda</th>
-                  <th>Handler</th>
+                  <?php if ($empRole === "admin"): ?>
+                    <th>Handler</th>
+                  <?php endif ?>
                   <th>Client</th>
                   <th>Date & Time</th>
                 </tr>
@@ -29,7 +31,9 @@
                 <tr>
                   <?php foreach ($appointments as $appointment): ?>
                     <td><?php echo $appointment['agenda'] ?></td>
-                    <td><?php echo $appointment['employeeName'] ?></td>
+                    <?php if ($empRole === "admin"): ?>
+                      <td><?php echo $appointment['employeeName'] ?></td>  
+                    <?php endif ?>
                     <td><?php echo $appointment['clientName'] ?></td>
                     <td><?php echo $appointment['appointmentDateAndTime'] ?></tr>
                   <?php endforeach ?>
@@ -72,12 +76,6 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#rentalTable').DataTable()
-    $('#serviceTable').DataTable()
-    $('#borrowedItms').DataTable()
-    $('#tTable').DataTable()
+    $('#appointmentsTable').DataTable()
   })
-  function reset_chkbx(){
-    $('input:checkbox').prop('checked', false);
-  }
 </script>
