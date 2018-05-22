@@ -127,14 +127,9 @@
             </div>
           </div>
           <div class="modal-footer">
-            <div class="row">
-              <div class="col-sm-6">
-                <button type="submit" class="btn btn-block btn-default">Add</button>
-              </div>
-              <div class="col-sm-6">
-                <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Cancel</button>
-              </div>
-            </div>   
+                <button type="submit" class="btn btn-primary">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+  
           </div>
         <?php  echo form_close(); ?>
       </div>

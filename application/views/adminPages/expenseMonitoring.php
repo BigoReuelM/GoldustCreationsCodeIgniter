@@ -167,7 +167,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button name="upload" type="submit" class="btn btn-default">Add</button>
+          <button name="upload" type="submit" class="btn btn-primary">Ok</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       <?php echo form_close(); ?>

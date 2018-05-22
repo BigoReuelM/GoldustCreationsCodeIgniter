@@ -219,7 +219,7 @@
           </div>
         </div>
         <div class="modal-footer">               
-          <button class="btn btn-primary" type="submit">Add</button>
+          <button class="btn btn-primary" type="submit">Ok</button>
           <button class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       <?php echo form_close(); ?>
@@ -248,9 +248,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Ok</button>
           <input type="text" value="<?php echo $details->transactionID ?>" name="finish" hidden>
-          <button type="submit" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </form>
     </div>
@@ -280,9 +280,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" >Ok</button>
           <input type="text" value="<?php echo $details->transactionID ?>" name="cancel" hidden>
-          <button type="submit" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
       </form>
     </div>

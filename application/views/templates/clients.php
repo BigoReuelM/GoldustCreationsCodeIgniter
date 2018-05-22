@@ -186,7 +186,7 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" form="addTransaction" class="btn btn-primary">Confirm</button>
+        <button type="submit" form="addTransaction" class="btn btn-primary">Ok</button>
         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -246,7 +246,7 @@
 		    	</div>
 		    </div>
 		    <div class="modal-footer">
-          <button type="submit" class="btn btn-default">Add New Client</button>
+          <button type="submit" class="btn btn-primary">Add</button>
           <button class="btn btn-default" data-dismiss="modal">Cancel</button>
 		    </div>
 			  <?php echo form_close(); ?>

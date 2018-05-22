@@ -532,10 +532,11 @@
           </div>  
         </form>
       </div>
-      <div class="modal-footer">
-        <button form="printEventDetails" type="submit" class="btn btn-primary">Ok</button>
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>    
-      </div>
+
+        <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" >Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
+          </div>    
     </div>
     <!-- /.modal-content -->
   </div>
