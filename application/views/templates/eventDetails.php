@@ -322,7 +322,7 @@
           
           <div class="modal-body">
             <div class="well text-center">
-              <p>Cancell this event: <b><?php echo $eventName->eventName ?></b></p>
+              <p>Cancel this event: <b><?php echo $eventName->eventName ?></b></p>
             </div>
             <div class="well">
               <div class="form-group">
