@@ -41,12 +41,12 @@
 			if($empRole === "handler"){
 				$query = $this->db->query("
 				SELECT eventID, eventName, clientID, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, eventStatus, eventDate
-				FROM events LEFT JOIN clients USING(clientID) JOIN (SELECT eventID, totalAmount-sum(payments.amount) AS Balance FROM events join `payments` USING(eventID) GROUP by eventID) AS bal USING(eventID) where bal.balance !=0 and DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE() and eventStatus='on-going' and events.employeeID=$emID;
+				FROM events LEFT JOIN clients USING(clientID) JOIN (SELECT eventID, totalAmount-sum(payments.amount) AS Balance FROM events join payments USING(eventID) GROUP by eventID) AS bal USING(eventID) where bal.balance !=0 and DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE() and eventStatus='on-going' and events.employeeID=$emID;
 				");
 			}else{
 				$query = $this->db->query("
 				SELECT eventID, eventName, clientID, concat(firstName, ' ', middleName, ' ', lastName) as clientName, contactNumber, eventStatus, eventDate
-				FROM events LEFT JOIN clients USING(clientID) JOIN (SELECT eventID, totalAmount-sum(payments.amount) AS Balance FROM events join `payments` USING(eventID) GROUP by eventID) AS bal USING(eventID) where bal.balance !=0 and DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE() and eventStatus='on-going';
+				FROM events LEFT JOIN clients USING(clientID) JOIN (SELECT eventID, totalAmount-sum(payments.amount) AS Balance FROM events join payments USING(eventID) GROUP by eventID) AS bal USING(eventID) where bal.balance !=0 and DATE_ADD(eventDate, INTERVAL eventDuration+5 day) < CURDATE() and eventStatus='on-going';
 				");
 			}
 			return $query->result_array();
