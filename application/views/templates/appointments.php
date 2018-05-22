@@ -109,9 +109,7 @@
           <div class="box-footer">
             <div class="form-group">
               <div class="col-sm-6">
-                <button type="submit" class="btn btn-primary" >Save</button>                
-              </div>
-              <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary" >Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
               </div>             
             </div>

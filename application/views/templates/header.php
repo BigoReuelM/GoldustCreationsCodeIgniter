@@ -129,6 +129,9 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                         <i class="fa fa-users text-aqua"></i><?php echo $overdueEPaymentsCount ?> Overdue Event Payments
                       </a>
                     </li>
+                    <?php
+                  }
+                  ?>
                 </ul>
               </li>
             </ul>
