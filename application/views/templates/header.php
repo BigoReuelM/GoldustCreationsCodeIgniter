@@ -122,6 +122,11 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                   <?php
                   }
                   ?>
+                  <li><!-- start notification -->
+                      <a href="#overdueEPaymentsModal" data-toggle="modal" data-target="#overdueEPaymentsModal">
+                        <i class="fa fa-users text-aqua"></i><?php echo $overdueEPaymentsCount ?> Overdue Event Payments
+                      </a>
+                    </li>
                 </ul>
               </li>
             </ul>
