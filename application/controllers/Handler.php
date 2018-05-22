@@ -11,7 +11,6 @@ class Handler extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->model('handler_model');
-		$this->load->model('reports_model');
 		$this->load->model('notifications_model');
 		$this->load->model('session_model');
 		$this->load->model('events_model');
