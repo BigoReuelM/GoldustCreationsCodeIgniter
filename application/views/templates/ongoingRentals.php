@@ -87,12 +87,23 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 
         <div class="col-md-3">
           <div class="otherInformation">
-            <h4>Number of Rentals : </h4>
-            <h5><!--?php echo $ ?--></h5>
+              <?php 
+                  if (!empty($rentalCount)) {
+                    $rentCount = $rentalCount;
+                  } else {
+                    $rentCount = 0;
+                  }
 
-            <h4>Overdue chuchu</h4>
-          </div>
-              
+                  if (!empty($overdueRentalCount)){
+                    $overdueRent = $overdueRentalCount;
+                  } else {
+                    $overdueRent = 0;
+                  }
+              ?>
+
+            <h4>Number of Rentals : <?php echo $rentCount ?></h4>
+            <h4>Overdue Rentals : <?php echo $overdueRent ?></h4>
+          </div> 
         </div>
       </section>
 
