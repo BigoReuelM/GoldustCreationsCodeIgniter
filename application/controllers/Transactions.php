@@ -559,46 +559,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$data['success'] = true;
 			echo json_encode($data);
-		}
-
-		// public function refundDeposit(){
-		// 	$data = array('success' => false,'lower' => false, 'higher' => false,'remainingDeposit' => 0, 'messages' => array());
-
-		// 	$this->form_validation->set_rules('refundAmount', 'Amount', 'trim|required|greater_than[0]');
-		// 	$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
-
-		// 	if ($this->form_validation->run()) {
-		// 		$id = $this->input->post('refund');
-
-		// 		$depositAmount = $this->transactions_model->getDepositAmount($id)->depositAmt;
-				
-		// 		$amount = $this->input->post('refundAmount');
-
-		// 		if ($depositAmount > $amount) {
-		// 			$data['lower'] = true;
-		// 			$data['success'] = true;
-		// 		}
-
-		// 		if($depositAmount == $amount){
-		// 			$this->transactions_model->refundDeposit($id, $amount);
-
-		// 			$data['success'] = true;	
-		// 		}
-
-		// 		if($depositAmount < $amount){
-		// 			$data['higher'] = true;
-		// 			$data['success'] = true;
-		// 		}
-
-		// 	}else{
-		// 		foreach ($_POST as $key => $value) {
-		// 			$data['messages'][$key] = form_error($key);
-		// 		}
-		// 	}
-
-		// 	echo json_encode($data);
-			
-		// }		
+		}	
 
 		public function addTransaction(){
 			$this->session_model->sessionCheck();

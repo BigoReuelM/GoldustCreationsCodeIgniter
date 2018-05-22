@@ -9,53 +9,56 @@
         <div class="col-lg-3">
           <div class="well">
             <div class="form-group">
-              <label for="">Total:</label>
+              <label for="">Total Expenses:</label>
               <input type="text" placeholder=" <?php echo number_format($totalExpenses, 2) ?>" class="form-control" disabled="">
             </div>
           </div>
           <div class="well">
-            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
-              <div class="form-group">
-                <label for="">Select Day: </label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control" name="expenseDate" id="dailyExpense">
-                  <div class="input-group-addon">
-                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
-              <div class="form-group">
-                <label>Select month: </label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control" name="expenseMonth" id="monthlyExpense">
-                  <div class="input-group-addon">
-                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+            <p>Select Desired Date/Month/Year to display on the list.</p>
+            <div class="well">
+              <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>" autocomplete="off">
+                <div class="form-group">
+                  <label for="">Select Date: </label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control" name="expenseDate" id="dailyExpense">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
-            <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>">
-              <div class="form-group">
-                <label>Select Year: </label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>                  
-                  </div>
-                  <input type="text" class="form-control pull-right" name="expenseYear" id="yearlyExpense">
-                  <div class="input-group-addon">
-                    <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+              </form>
+              <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>" autocomplete="off">
+                <div class="form-group">
+                  <label>Select Month: </label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control" name="expenseMonth" id="monthlyExpense">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+              <form method="POST" action="<?php echo base_url('admin/setExpenseDate') ?>" autocomplete="off">
+                <div class="form-group">
+                  <label>Select Year: </label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>                  
+                    </div>
+                    <input type="text" class="form-control pull-right" name="expenseYear" id="yearlyExpense">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
         <div class="col-lg-9">
@@ -188,10 +191,6 @@
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>/public/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-<!-- InputMask -->
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="<?php echo base_url(); ?>/public/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- date-range-picker -->
 <script src="<?php echo base_url(); ?>/public/bower_components/moment/min/moment.min.js"></script>
 <script src="<?php echo base_url(); ?>/public/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -202,16 +201,17 @@
     });
 
     $(function () {
-      //Datemask dd/mm/yyyy
-      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-      //Datemask2 mm/dd/yyyy
-      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+      $('#dailyExpense').attr({
+        placeholder: 'yyyy-mm-dd'
+      });
+      $('#monthlyExpense').attr({
+        placeholder: 'mm-yyyy'
+      });
+      $('#yearlyExpense').attr({
+        placeholder: 'yyyy'
+      });
 
       //Date picker
-      $('#datepicker').datepicker({
-        autoclose: true
-      })
-      //Date picker all payments
       $('#dailyExpense').datepicker({
         autoclose: true,
         orientation: 'bottom auto',
@@ -243,17 +243,6 @@
          format: 'yyyy'
       });
 
-      //Year picker all payments
-      $('#date-yearallpayments').datepicker({
-         minViewMode: 2,
-         format: 'yyyy',
-         orientation: 'bottom auto'
-       });
-
-
-      //Date range picker
-      $('#reservation').daterangepicker()
-      //Date range as a button
       $('#daterange-btn').daterangepicker(
         {
           ranges   : {
