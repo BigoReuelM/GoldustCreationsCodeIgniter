@@ -44,6 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['eventData'] = $this->events_model->getEventDetailsForCalendar();
 			$data['eventDates'] = $this->events_model->getEventDates();
 			$data['years'] = $this->events_model->getEventYear();

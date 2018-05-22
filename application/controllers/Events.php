@@ -39,6 +39,7 @@ class Events extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['events']=$this->events_model->getNewEvents($empID, $empRole, $status);
 		$data['services']=$this->events_model->getServices();
 		$this->load->view("templates/head.php", $headdata);
