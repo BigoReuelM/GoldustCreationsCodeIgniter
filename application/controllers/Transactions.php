@@ -710,7 +710,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			$transactionBalance = $totalAmount->totalAmount - $totalAmountPaid->total;
 
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']|greater_than_equal_to[0]');
+			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|less_than_equal_to[' . $transactionBalance . ']|greater_than[0]');
 			$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');
 			$this->form_validation->set_rules('time', 'Payment Time', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');

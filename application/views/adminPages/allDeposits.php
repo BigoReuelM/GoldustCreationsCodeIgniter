@@ -45,11 +45,11 @@
                       <tbody>
                           <?php
                             //$totaldailypayments = 0;
-                            if (!empty($deposits)) {
+                            if (!empty($deposits) && !empty($selectedDate)) {
                               // get DAILY deposits...
                               foreach ($deposits as $d) { 
-                                // based on the finishDate...
-                                if ($d['finishDate'] == $selectedDate) {
+                                // based on the date availed...
+                                if ($d['dateAvail'] == $selectedDate) {
                                   //$totaldailypayments += $d['amount'];
                                 ?>
                                 <tr>
@@ -134,13 +134,14 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
-                            if (!empty($deposits)) {
-                              // get DAILY deposits...
-                              foreach ($deposits as $d) { 
-                                // based on the finishDate...
-                                if ($d['finishDate'] == $selectedDate) {
-                                  //$totaldailypayments += $d['amount'];
+                          //$totalmonthlypayments = 0;
+                          if (!empty($deposits) && !empty($selectedMnthYr)) {
+                            foreach ($deposits as $d) {
+                              $substr = explode('-', $selectedMnthYr);
+                              // $substr[0] month
+                              // $substr[1] year
+                              if ($d['year'] === $substr[1] && $d['month'] === $substr[0]) { 
+                                //$totalmonthlypayments += $d['amount'];
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
@@ -160,9 +161,9 @@
                                   <td><?php echo $d['depositAmt']; ?></td>
                                 </tr>
                             <?php  }
-                              }
                             }
-                          ?>
+                          }
+                        ?>
                       </tbody>
                     </table>
                   </div>
@@ -228,8 +229,8 @@
                             if (!empty($deposits)) {
                               // get DAILY deposits...
                               foreach ($deposits as $d) { 
-                                // based on the finishDate...
-                                if ($d['finishDate'] == $selectedDate) {
+                                // based on the date availed...
+                                if ($d['year'] == $selectedYr) {
                                   //$totaldailypayments += $d['amount'];
                                 ?>
                                 <tr>
