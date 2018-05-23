@@ -78,10 +78,10 @@
     <div class="<?php if(($eventStatus === 'finished') || ($eventStatus === 'cancelled')){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
       <div class="well">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-7">
             <h2>Number of Services: <?php echo $serviceCount->serviceCount ?></h2>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-7">
             <h2>Total Amount: <?php echo $serviceTotal->total ?></h2>
           </div>
         </div>
@@ -89,7 +89,7 @@
       <div class="box box-primary">
         <div class="box-header">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-7">
               <h3 class="box-title">Services Availed</h3> 
             </div>            
           </div>  
@@ -145,11 +145,11 @@
                           <td>  
                             <input type="hidden" name="svcid" value="<?php echo $avlSvc['serviceID'] ?>">
                             <div class="row">
-                              <div class="col-lg-6">
-                                <button class="btn btn-primary" id="updtsvcbtn" name="btn" type="submit" value="updt">Update</i></button>    
+                              <div class="col-md-6">
+                                <button class="btn btn-primary" id="updtsvcbtn" name="btn" type="submit" value="updt">Update</button>    
                               </div>
-                              <div class="col-lg-6">
-                                <button class="btn btn-danger" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove</i></button>
+                              <div class="col-md-6">
+                                <button class="btn btn-danger" id="rmvsvcbtn" name="btn" type="submit" value="rmv">Remove</button>
                               </div>
                             </div>                      
                           </td>
@@ -167,8 +167,7 @@
         </div>
       </div>
     </div>
-  </div>     
-
+  </div> 
     <!--end of service col-->
 
 <div class="control-sidebar-bg"></div> 
@@ -211,59 +210,3 @@
       $('input:checkbox').prop('checked', false);
     }
   </script>
-  <script>
-    $('#selectAll').click(function(){
-      $('.serviceCheckBox').prop('checked', $(this).prop("checked") );
-    });
-  </script>
-  <!--<script type="text/javascript">
-    $('#svcform').submit(function(e){
-      e.preventDefault();
-
-      var svc = $(this);
-
-      $.ajax({
-        type: 'POST',
-        url: svc.attr('action'),
-        data: svc.serialize(),
-        dataType: 'json',
-        success: function(response){
-          if (response.success == true) {
-            // if success we would show message
-            // and also remove the error class
-            $('#the-message').append('<tr class="alert alert-success text-center">' +
-            '<span class="glyphicon glyphicon-ok"></span>' +
-            ' New entourage has been saved.' +
-            '</tr>');
-
-            //$('td.dataTables_empty').remove();
-            
-            $('.form-group').removeClass('has-error')
-                  .removeClass('has-success');
-            $('.text-danger').remove();
-            // reset the form
-            svc[0].reset();
-            // close the message after seconds
-            $('.alert-success').delay(500).show(10, function() {
-            $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-            });
-            })
-            location.reload();
-          }else{
-            $.each(response.messages, function(key, value) {
-              var element = $('#' + key);
-              
-              element.closest('tr')
-              .removeClass('has-error')
-              .addClass(value.length > 0 ? 'has-error' : 'has-success')
-              .find('.text-danger')
-              .remove();
-              
-              element.after(value);
-            });
-          }
-        }
-      });
-    });  
-  </script>-->

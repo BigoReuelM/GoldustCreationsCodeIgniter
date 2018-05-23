@@ -7,7 +7,7 @@
   <section class="content container-fluid">
     <div class="row">
       <?php if ($transactionStatus === "on-going"): ?>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
           <div id="servicesBox" class="box">
             <div class="box-header">
               <h3 class="box-title">Available Services</h3>            
@@ -67,13 +67,13 @@
           </div>
         </div>    
       <?php endif ?>  
-      <div class="<?php if($transactionStatus !== 'on-going'){ echo 'col-lg-12'; }else{ echo 'col-lg-7'; } ?>">
+      <div class="<?php if($transactionStatus !== 'on-going'){ echo 'col-lg-12'; }else{ echo 'col-lg-8'; } ?>">
         <div class="well">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <h2>Number of Service: <?php echo $serviceCount->serviceCount ?></h2>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
               <h2>Total Amount: <?php echo $serviceTotal->total ?></h2>
             </div>
           </div>
@@ -82,7 +82,7 @@
           <!--list of services col-->
             <div class="box-header">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                   <h3 class="box-title">List of Availed Services</h3>
                 </div>
               </div>    
@@ -121,13 +121,16 @@
                           </td>
                           <?php if ($transactionStatus === "on-going"): ?>
                             <td>
-                              <input type="text" id="servi" name="serviceID" value="<?php echo $serviceID ?>" hidden>
                               <div class="row">
-                                <div class="col-lg-6">
+                                <input type="text" id="serviceID" name="serviceID" value="<?php echo $serviceID ?>" hidden>
+                                <div class="col-md-4">
                                   <button class="btn btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-md-4">
                                   <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
+                                </div>
+                                <div class="col-md-4">
+                                  <button class="btn btn-danger chooseSvcType btn-block" id="chooseBtn" name="choose" type="button" data-toggle="modal" data-target="#chooseModal" value="<?php echo $service['serviceID'] . " " . $service['serviceName'] ?>">Choose</button>
                                 </div>
                               </div>
                             </td>
@@ -146,6 +149,147 @@
     <div class="control-sidebar-bg"></div>             
   </section> 
 </div>
+
+<!-- MODALS -->  
+  <div class="modal fade" id="chooseModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Choose...</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <button type="button" data-toggle="collapse" data-target="#chooseAttire" class="btn btn-default btn-block">Attire</button>
+            </div>
+            <div class="col-md-4">
+              <button type="button" data-toggle="collapse" data-target="#chooseStaff" class="btn btn-default btn-block">Items</button> 
+            </div> 
+          </div>
+
+            <form>
+            <div class="collapse" id="chooseAttire">
+              <input type="text" name="svcIDChoose" id="svcIDChoose" hidden>
+              <input type="text" name="svcTypeChoose" id="svcTypeChoose" hidden>
+              <div class="box">
+                <div class="box-header">
+                  <div class="box-title">Choose Attire</div>
+                </div>
+                <div class="box-body">
+                  <table id="attiresTable" class="table table-bordered table-responsive table-striped text-center">
+                      <thead>
+                        <tr>
+                          <th>Design Name</th>
+                          <th>Color</th>
+                          <th>Type</th>
+                          <th>Image</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php
+                          foreach ($allDesigns as $des) { ?>
+                          <tr>
+                            <td><?php echo $des['designName'] ?></td>
+                            <td><?php echo $des['color'] ?></td>
+                            <td><?php echo $des['designType'] ?></td>
+                            <td>
+                              <?php
+                              if (!empty($designtypesmap)) {
+                                foreach ($designtypesmap as $dtm) {
+                                  $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                                  foreach ($files as $f) {
+                                    $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                    if ($f_no_extension === $des['designID']) { ?>
+                                      <div class="thumbnail">
+                                        <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                      </div>
+                              <?php     
+                                    }
+                                  }
+                                }
+                              }else{
+                                echo "No image";
+                              }
+                              ?>
+                            </td>
+                            <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
+                          </tr>
+                        <?php  } ?>
+                      </tbody> 
+                  </table>
+                </div>
+              </div>
+            </div>
+            </form>
+
+            <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
+            <div class="collapse" id="chooseStaff">
+              <div class="box">
+                <div class="box-header">
+                  <div class="box-title">Choose item/s</div>
+                </div>
+                <div class="box-body">
+                  <table id="exstDesigns" class="table table-bordered text-center">
+                    <thead>
+                      <tr>
+                        <th>Design Name</th>
+                        <th>Color</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <?php
+                        foreach ($allDesigns as $des) { ?>
+                        <tr>
+                          <td><?php echo $des['designName'] ?></td>
+                          <td><?php echo $des['color'] ?></td>
+                          <td><?php echo $des['designType'] ?></td>
+                          <td>
+                            <?php
+                            if (!empty($designtypesmap)) {
+                              foreach ($designtypesmap as $dtm) {
+                                $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                                foreach ($files as $f) {
+                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                                  if ($f_no_extension === $des['designID']) { ?>
+                                    <div class="thumbnail">
+                                      <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                    </div>
+                            <?php     
+                                  }
+                                }
+                              }
+                            }else{
+                              echo "No image";
+                            }
+                            ?>
+                          </td>
+                          <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
+                        </tr>
+                      <?php  } ?>
+                    </tbody> 
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style type="text/css">
+    @media screen and (min-width: 768px){
+      #chooseModal .modal-dialog {
+        width:900px;
+      }
+    }
+  </style>
 
 <!-- jQuery 3 -->
 <script src="<?php echo base_url(); ?>/public/bower_components/jquery/dist/jquery.min.js"></script>
@@ -176,5 +320,21 @@
   function reset_chkbx() {
     $('input:checkbox').prop('checked', false);
   }
+</script>
+<script>
+  $(function () {
+    $('#attiresTable').DataTable({
+    })
+  })
+
+  $('#selectAll').click(function(){
+    $('.serviceCheckBox').prop('checked', $(this).prop("checked") );
+  });
+
+  $('.chooseSvcType').click(function(){
+    var svcInfo = $(this).val().split(' ');
+    $('#svcIDChoose').val(svcInfo[0]);
+    $('#svcTypeChoose').val(svcInfo[1]);
+  });
 </script>
 

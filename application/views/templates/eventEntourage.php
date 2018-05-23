@@ -553,9 +553,9 @@
     });  
 </script>
 <style>
-  @media screen and (min-with: 768px){
+  @media screen and (min-width: 768px){
     #editEntourage .modal-dialog {
-      with:900px;
+      width:900px;
     }
   }
 
