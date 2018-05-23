@@ -210,3 +210,5 @@
       $('input:checkbox').prop('checked', false);
     }
   </script>
+
+  

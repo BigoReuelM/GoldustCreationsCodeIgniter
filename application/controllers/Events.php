@@ -478,6 +478,8 @@ class Events extends CI_Controller
 	public function payment(){
 		$this->session_model->sessionCheck();
 		$page['pageName'] = "payments";
+		date_default_timezone_set('Asia/Manila');
+			$data['currentTime'] = date('H:i');
 		$data['currentDate'] = date('Y-m-d');
 		$currentEvent = $this->session->userdata('currentEventID');
 		$data['eventStatus'] = $this->events_model->getEventStatus($currentEvent)->eventStatus;

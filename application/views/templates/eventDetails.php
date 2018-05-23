@@ -142,7 +142,7 @@
           
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
             <div class="row">
-              <span><p><i class="fa fa-question"></i> Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
+              <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
               <hr>
             </div>
             <div id="update-message">
@@ -290,7 +290,7 @@
             <div class="col-lg-3">
               <?php
                 if ($empRole === 'admin') {
-                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button>';
+                   echo '<a href="#" data-toggle="tooltip" title="Choose Handler and Click to Change Handler"><button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button></a>';
                 }else{
                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block" disabled>Select Handler</button>';
                 } 
@@ -948,3 +948,9 @@
       $('#eventTimeInputFieldContainer').remove();
     });
   </script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
