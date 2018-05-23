@@ -186,6 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function transactionServices(){
 			$this->session_model->sessionCheck();
+			$this->load->model('items_model');
 			$page['pageName'] = "tservices";
 			$empID = $this->session->userdata('employeeID');
 			$empRole = $this->session->userdata('role');
@@ -204,6 +205,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			$data['serviceTotal'] = $this->transactions_model->totalAmountForServices($tranID);
 			$data['serviceCount'] = $this->transactions_model->servicesCount($tranID);
+			$data['allDesigns'] = $this->items_model->getAllDesigns();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Transactions Services | Admin';	
 			}else{
@@ -741,9 +743,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				
 			}
-
 			echo json_encode($data);
-			
+		}
+
+		public function chooseServiceType(){
+			$svcID = $this->input->post('svcIDChoose');
+			$svcType = $this->input->post('svcTypeChoose');
+			$designID = $this->input->post('addExstDesign');
 		}
 		
 	}

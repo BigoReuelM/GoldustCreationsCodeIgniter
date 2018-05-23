@@ -711,20 +711,7 @@
 					WHERE eventID = $eID
 					AND designID = $desID
 				");
-
-				//UPDATE eventdesign set quantity=5 where eventID=’0001’ and designID=’002’
 		}
-
-		/*public function updateAttireDesign($evID, $entID, $designName){
-			$evID = $this->session->userdata('$currentEventID');
-			$enID = $this->session->userdata('$currentEntourageID');
-			$desID = $this->session->userdata('$currentDesignID');
-
-			$query= $this->db->query("
-				SELECT designID, designName, quantity, role FROM (SELECT designID, role FROM `entouragedetails` join entourage using($enID) where eventID='$evID') AS entourage join designs using ($desID) join eventdesigns USING(currentDesignID) where eventID='$evID' group by role");
-			
-			return $query->result_array();
-		}*/
 
 		public function insertEntDet($entID){
 			// insert entourage to entouragedetails table...
@@ -743,35 +730,7 @@
 
 		}
 
-		/*public function updateAttireRole($evID, $entID, $entRole){
-				$eID = $this->session->userdata('currentEventID');
-				$entID = $this->session->userdata('currentEntourageID');
-				$desID = $this->session->userdata('currentDesignID');
-
-				$query = $this->db->query("
-					UPDATE entourage 
-					JOIN entouragedetails USING ($entID)
-					SET entouragedetails.designID = $desID
-					WHERE entourage.eventID = $eID
-					AND entourage.role = $entRole
-				");
-				//UPDATE entourage JOIN entouragedetails using(entourageID) SET entouragedetails.designID ='001' WHERE entourage.eventID='001' and entourage.role='Brides Maid'
-		}*/
-
-		/*public function getEntourageDet($currentEventID, $currentDesignID, $currentEntourageID) {
-			$evID = $this->session->userdata('$currentEventID');
-			$enID = $this->session->userdata('$currentEntourageID');
-			$desID = $this->session->userdata('$currentDesignID');
-
-			$query= $this->db->query("
-				SELECT designID, designName, quantity, role FROM (SELECT designID, role FROM `entouragedetails` join entourage using($enID) where eventID='$evID') AS entourage join designs using ($desID) join eventdesigns USING(currentDesignID) where eventID='$evID' group by role");
-			
-			return $query->result_array();
-		}*/
-
 		// all themes
-
-
 		public function getThemes(){
 			$this->db->select('*');
 			$this->db->from('theme');
@@ -866,6 +825,7 @@
 			);
 			$this->db->insert('eventdesigns', $data);
 		}
+		// end themes..
 
 		//The following queries is meant for the calendar
 
