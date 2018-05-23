@@ -120,7 +120,8 @@ input[type=submit] {
     <div class="box-header">
       <div class="row">
         <div class="col-lg-6">
-          <h3 class="box-title">List Of Decors</h3>    
+          <h3 class="box-title">List Of Decors</h3>
+          <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to<br> make changes.<b>Remove</b> button to cancel a decor.</p></span>    
         </div>
         <?php
           if ($empRole === "admin") { ?>
@@ -217,6 +218,7 @@ input[type=submit] {
                 </tbody>
               </table>
             </div>
+
             <!-- /.box-body -->
     </div>
   </div>

@@ -142,7 +142,7 @@
           
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
             <div class="row">
-              <span><p><i class="fa fa-question"></i> Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
+              <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
               <hr>
             </div>
             <div id="update-message">
@@ -290,7 +290,7 @@
             <div class="col-lg-3">
               <?php
                 if ($empRole === 'admin') {
-                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button>';
+                   echo '<a href="#" data-toggle="tooltip" title="Choose Handler and Click to Change Handler"><button form="updateEventHandler" type="submit" class="btn btn-primary btn-block">Select Handler</button></a>';
                 }else{
                   echo '<button form="updateEventHandler" type="submit" class="btn btn-primary btn-block" disabled>Select Handler</button>';
                 } 
@@ -319,6 +319,9 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Cancel Event</h4>
+        </div>
+        <div id="cancelMessage">
+          
         </div>
         <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal" autocomplete="off" id="cancelEventForm">
           
@@ -793,7 +796,26 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
-            window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";    
+
+            $('div.alert-danger').remove();
+            if ((response.refundable == true) && (response.properAmount == true)) {
+              window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";
+            }
+
+            if (response.refundable == false) {
+              $('#cancelMessage').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' This event has no recorded payments. Not elligable for refund!' +
+              '</div>');
+            }
+
+            if (response.properAmount == false) {
+              $('#cancelMessage').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Refund must not be more than the total payments!' +
+              '</div>');
+            }
+
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);
@@ -948,3 +970,9 @@
       $('#eventTimeInputFieldContainer').remove();
     });
   </script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

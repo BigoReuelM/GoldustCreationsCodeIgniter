@@ -177,7 +177,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">Time Payed</label>
             <div class="col-lg-9">
-              <input type="time" class="form-control" name="time" id="time">
+              <input type="time" class="form-control" name="time" id="time" value="<?php echo $currentTime ?>">
             </div>            
           </div>
         </div>      
