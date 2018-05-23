@@ -320,6 +320,9 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Cancel Event</h4>
         </div>
+        <div id="cancelMessage">
+          
+        </div>
         <form role="form" method="post" action="<?php echo base_url('events/cancelEvent') ?>" class="form-horizontal" autocomplete="off" id="cancelEventForm">
           
           <div class="modal-body">
@@ -793,7 +796,26 @@
         dataType: 'json',
         success: function(response){
           if (response.success == true) {
-            window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";    
+
+            $('div.alert-danger').remove();
+            if ((response.refundable == true) && (response.properAmount == true)) {
+              window.location.href = "<?php echo base_url('events/canceledEvents'); ?>";
+            }
+
+            if (response.refundable == false) {
+              $('#cancelMessage').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' This event has no recorded payments. Not elligable for refund!' +
+              '</div>');
+            }
+
+            if (response.properAmount == false) {
+              $('#cancelMessage').append('<div class="alert alert-danger text-center">' +
+              '<span class="icon fa fa-ckeck"></span>' +
+              ' Refund must not be more than the total payments!' +
+              '</div>');
+            }
+
           }else{
             $.each(response.messages, function(key, value) {
               var element = $('#' + key);

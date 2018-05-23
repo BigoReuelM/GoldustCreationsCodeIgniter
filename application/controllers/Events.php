@@ -1152,17 +1152,28 @@ class Events extends CI_Controller
 		}
 
 		public function cancelEvent(){
-			$data = array('success' => false, 'message' => array());
+			$data = array('success' => false, 'message' => array(), 'refundable' => true, 'properAmount' => true);
+
+			$totalAmountPaid = $this->events_model->totalAmountPaid($this->session->userdata('currentEventID'));
 
 			$this->form_validation->set_rules('refundAmount', 'Refund Amount', 'trim|numeric');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
-				$eventID = trim(htmlspecialchars($this->input->post('eventID')));
-				$refundAmount = trim(htmlspecialchars($this->input->post('refundAmount')));
-				$refundDate = trim(htmlspecialchars($this->input->post('dateRefunded')));
-				$cancelDate = trim(htmlspecialchars($this->input->post('dateCancelled')));
+				if ($totalAmountPaid->total <= 0) {
+					$data['refundable'] = false;					
+				}else{
+					$refundAmount = trim(htmlspecialchars($this->input->post('refundAmount')));
+					if ($refundAmount <= $totalAmountPaid->total) {
+						$eventID = trim(htmlspecialchars($this->input->post('eventID')));
+						
+						$refundDate = trim(htmlspecialchars($this->input->post('dateRefunded')));
+						$cancelDate = trim(htmlspecialchars($this->input->post('dateCancelled')));
 
-				$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+						$this->events_model->markEventCancelled($eventID, $refundAmount, $refundDate, $cancelDate);
+					}else{
+						$data['properAmount'] = false;
+					}	
+				}
 
 				$data['success'] = true;
 			}else{
@@ -1175,22 +1186,6 @@ class Events extends CI_Controller
 			echo json_encode($data);
 
 		}
-
-		/*public function getRole(){
-			$this->load->model('events_model');
-			$data['results'] = $this->events_model->getRole();
-			$this->load->view('entourage', $data);
-		}*/
-
-		/*public function showEntourageRole(){
-			$data = array();
-			$this->load->model('events_model');
-			$query = $this->events_model->getRole();
-			if ($query){
-				$data['roles'] = $query; 
-			}
-			$this->load->view('eventEntourage', $data);
-		}*/
 
 		public function showDesignName(){
 			$data = array();
