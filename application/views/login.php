@@ -77,16 +77,19 @@
         </button>
         <h5 class="modal-title text-center">Change Password</h5>
       </div>
-      <form id="changePassword" name="changePassword" method="post" action="<?php echo base_url('user/changePassword') ?>">
+      <div id="the-message">
+        
+      </div>
+      <form id="changePassword" name="changePassword" method="post" action="<?php echo base_url('user/changePassword') ?>" autocomplete="off">
       <div class="modal-body">
         <div class="box-body">
-          <div class="text-center alert">
+          <div class="text-center well">
             <p>Personaly request for a 4 digit pin to your admin.</p>
             <p>Enter username with 4 digit pin bellow.</p>
           </div>
           <div class="form-group text-center box-body">
             <label class="control-label">Username</label>
-            <input type="text" class="form-control text-center" name="username" id="username" placeholder="Enter username here...">
+            <input type="text" class="form-control text-center" name="resetusername" id="resetusername" placeholder="Enter username here...">
           </div>
           <div class="form-group text-center box-body">
             <label class="control-label">4 digit PIN</label>
@@ -113,12 +116,85 @@
 <style>
 
   #passChange .modal-dialog  {
-    top:20%;
-    width:25%;
+    top:10%;
+    width:500px;
   }
 
 </style>
 
 </body>
 </html>
+
+<script>
+  $('#changePassword').submit(function(e){
+      e.preventDefault();
+
+      var changePassDetails = $(this);
+
+      $.ajax({
+        type: 'POST',
+        url: changePassDetails.attr('action'),
+        data: changePassDetails.serialize(),
+        dataType: 'json',
+        success: function(response){
+          if (response.success == true) {
+            if (response.error == true) {
+
+              $('div.alert-danger').remove();
+              $('div.alert-danger').remove();
+              $('#the-message').append('<div class="alert alert-danger text-center">' +
+              '<span class="fa fa-hand-stop-o"></span>' +
+              ' An error was encountered, Try Again!' +
+              '</div>');
+
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+
+              $('.alert-danger').delay(500).show(10, function() {
+               $(this).delay(3000).hide(10, function() {
+                  $(this).remove();
+                });
+              })
+
+            }else{
+              // if success we would show message
+              // and also remove the error class
+
+              $('div.alert-danger').remove();
+              $('div.alert-danger').remove();
+              $('#the-message').append('<div class="alert alert-success text-center">' +
+              '<span class="glyphicon glyphicon-ok"></span>' +
+              ' Password has been reset!' +
+              '</div>');
+
+              $('.form-group').removeClass('has-error')
+                    .removeClass('has-success');
+              $('.text-danger').remove();
+              // reset the form
+              changePassDetails[0].reset();
+              // close the message after seconds
+              $('.alert-success').delay(500).show(10, function() {
+               $(this).delay(3000).hide(10, function() {
+                  $(this).remove();
+                });
+              })
+            }
+          }else{
+            $.each(response.messages, function(key, value) {
+              var element = $('#' + key);
+              
+              element.closest('div.form-group')
+              .removeClass('has-error')
+              .addClass(value.length > 0 ? 'has-error' : 'has-success')
+              .find('.text-danger')
+              .remove();
+              
+              element.after(value);
+            });
+          }
+        }
+      });
+    });
+</script>
 

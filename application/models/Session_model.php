@@ -20,6 +20,14 @@
 			}
 
 		}
+
+		public function dualLoginCheck(){
+			if (!isset($_SESSION['employeeID'])) {
+				return true; 
+			}else{
+				return false;
+			}
+		}
 	}
 
 ?>

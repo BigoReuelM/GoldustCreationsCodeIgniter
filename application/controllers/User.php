@@ -40,6 +40,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$username = trim(html_escape($this->input->post('username')));
 			$password = trim(html_escape($this->input->post('password')));
 
+			if (!$this->session_model->dualLoginCheck()) {
+				$this->session->sess_destroy();
+				redirect('user/index');
+			}
+
 			if (empty($username)) {
 				$this->session->set_flashdata('error_msg', 'Username field should not be empty!');
 				redirect('user/index');
@@ -84,16 +89,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function changePassword(){
 
-			$username = html_escape($this->input->post('username'));
-			$pin = html_escape($this->input->post('pin'));
+			$data = array('success' => false, 'messages' => array(), 'error' => false);
 
-			if ($this->user_model->resetPasstoDefault($username, $pin)) {
-				$this->session->set_flashdata('success_msg', 'Password reset to default.');
-				redirect('user/index');	
+			$this->form_validation->set_rules('resetusername', 'Username', 'trim|required');
+			$this->form_validation->set_rules('pin', '4 digit PIN', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$username = html_escape($this->input->post('resetusername'));
+				$pin = html_escape($this->input->post('pin'));
+
+				if (!$this->user_model->resetPasstoDefault($username, $pin)) {
+					$data['error'] = true;
+				}
+
+				$data['success'] = true;
+
 			}else{
-				$this->session->set_flashdata('error_msg', 'Error occured, Try again.');
-				redirect('user/index');
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
+			
+			echo json_encode($data);
 	
 		}
 		

@@ -70,9 +70,6 @@
             <li><a href="<?php echo base_url('admin/adminTheme') ?>">Themes</a></li>
           </ul>
         </li>
-        <li>
-          <a href=""></a>
-        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
