@@ -44,13 +44,13 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $totaldailydeposits = 0;
                             if (!empty($deposits) && !empty($selectedDate)) {
                               // get DAILY deposits...
                               foreach ($deposits as $d) { 
                                 // based on the date availed...
                                 if ($d['dateAvail'] == $selectedDate) {
-                                  //$totaldailypayments += $d['amount'];
+                                  $totaldailydeposits += $d['depositAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
@@ -101,7 +101,7 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Total</label>
-                  <input type="text" name="totaldailydeposits" placeholder="" class="form-control" disabled>
+                  <input type="text" name="totaldailydeposits" placeholder="<?php echo $totaldailydeposits ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -134,14 +134,14 @@
                       </thead>    
                       <tbody>
                           <?php
-                          //$totalmonthlypayments = 0;
+                          $totalmonthlydeposits = 0;
                           if (!empty($deposits) && !empty($selectedMnthYr)) {
                             foreach ($deposits as $d) {
                               $substr = explode('-', $selectedMnthYr);
                               // $substr[0] month
                               // $substr[1] year
                               if ($d['year'] === $substr[1] && $d['month'] === $substr[0]) { 
-                                //$totalmonthlypayments += $d['amount'];
+                                $totalmonthlydeposits += $d['depositAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
@@ -192,7 +192,7 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Total</label>
-                  <input type="text" name="totaldailydeposits" placeholder="" class="form-control" disabled>
+                  <input type="text" name="totaldailydeposits" placeholder="<?php echo $totalmonthlydeposits ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -225,13 +225,13 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $totalannualdeposits = 0;
                             if (!empty($deposits)) {
                               // get DAILY deposits...
                               foreach ($deposits as $d) { 
                                 // based on the date availed...
                                 if ($d['year'] == $selectedYr) {
-                                  //$totaldailypayments += $d['amount'];
+                                  $totalannualdeposits += $d['depositAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
@@ -282,7 +282,7 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Total</label>
-                  <input type="text" name="totaldailydeposits" placeholder="" class="form-control" disabled>
+                  <input type="text" name="totaldailydeposits" placeholder="<?php echo $totalannualdeposits ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
