@@ -281,7 +281,7 @@
 		}
 
 		public function getDeposits(){
-			$query = $this->db->query("SELECT CONCAT(firstName, ' ', middleName, ' ', lastName) AS fullname, dateAvail, finishDate, IDType, CONCAT(school, ',', yearAndSection) AS schoolyrsec, depositAmt, homeAddress FROM transactions JOIN clients ON transactions.clientID = clients.clientID WHERE depositAmt IS NOT NULL");
+			$query = $this->db->query("SELECT CONCAT(firstName, ' ', middleName, ' ', lastName) AS fullname, dateAvail, month(dateAvail) as month, year(dateAvail) as year, finishDate, IDType, CONCAT(school, ',', yearAndSection) AS schoolyrsec, depositAmt, homeAddress FROM transactions JOIN clients ON transactions.clientID = clients.clientID WHERE depositAmt IS NOT NULL");
 			return $query->result_array();
 		}
 	}
