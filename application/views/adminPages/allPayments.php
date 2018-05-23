@@ -44,7 +44,7 @@
                       <tbody>
                           <?php
                             $totaldailypayments = 0;
-                            if (!empty($payments)) {
+                            if (!empty($payments) && !empty($selectedDate)) {
                               // get DAILY payments...
                               foreach ($payments as $p) { 
                                 if ($p['date'] == $selectedDate) {
@@ -121,7 +121,7 @@
                       <tbody>
                         <?php
                           $totalmonthlypayments = 0;
-                          if (!empty($payments)) {
+                          if (!empty($payments) && !empty($selectedMnthYr)) {
                             foreach ($payments as $p) {
                               $substr = explode('-', $selectedMnthYr);
                               // $substr[0] month
@@ -195,7 +195,7 @@
                       <tbody>
                         <?php
                           $totalannualpayments = 0;
-                          if (!empty($payments)) {
+                          if (!empty($payments) && !empty($selectedYr)) {
                             foreach ($payments as $p) {
                               if ($p['year'] === $selectedYr) { 
                                 $totalannualpayments += $p['amount'];   
