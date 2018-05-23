@@ -609,7 +609,7 @@ class Events extends CI_Controller
 					$data['balanceAmount'] = $eventBalance;
 				}
 
-				$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric|less_than_equal_to[' . $eventBalance . ']|greater_than_equal_to[0]');
+				$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric|less_than_equal_to[' . $eventBalance . ']|greater_than_equal_to[1]');
 				$this->form_validation->set_message('greater_than_equal_to', 'The amount must be greater than 0.');
 
 				$this->form_validation->set_rules('date', 'Payment Date', 'trim|required');

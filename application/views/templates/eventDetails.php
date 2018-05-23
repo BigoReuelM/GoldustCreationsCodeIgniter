@@ -39,12 +39,14 @@
                           </a>
                         </li>
                         <?php if ($eventDetail->eventStatus == "on-going"): ?>
-                          <li class="text-center">
-                            <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
-                              <i class="fa fa-money pull-left"></i>
-                              <span>Add Additional Charges</span>
-                            </a>
-                          </li>
+                          <?php if ($empRole === "admin"): ?>
+                            <li class="text-center">
+                              <a href="#addAdditionalChargesModal" type="button" class="btn btn-default" data-toggle="modal" data-target="#addAdditionalChargesModal">
+                                <i class="fa fa-money pull-left"></i>
+                                <span>Add Additional Charges</span>
+                              </a>
+                            </li>
+                          <?php endif ?>
                           <li class="text-center">
                             <a href="#finishEvent" type="button" class="btn btn-default" data-toggle="modal" data-target="#finishEventModal">
                               <i class="fa fa-check pull-left"></i>
@@ -272,7 +274,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="">Duration</label>
-                    <input type="number" name="duration" id="duration" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
+                    <input type="number" name="duration" id="duration" min="1" class="form-control" placeholder="<?php echo $eventDetail->eventDuration ?>">
                   </div>
                 </div>
               </div>
