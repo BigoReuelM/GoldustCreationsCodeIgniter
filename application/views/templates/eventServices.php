@@ -67,8 +67,9 @@
             </div>
             <div class="box-footer">
               <div class="pull-right">
-                <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-                <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button>
+                <a href="#" data-toggle="tooltip" title="Click to uncheck all chosen services"><button class="btn btn-primary" onclick="reset_chkbx()">Reset</button></a>
+                <a href="#" data-toggle="tooltip" title="Click to add chosen services to list">
+                <button form="addsvcform" id="addevtsvc" name="addevtsvc" class="btn btn-default" type="submit">Add</button></a>
               </div> 
             </div>
           </form>
@@ -91,8 +92,10 @@
           <div class="row">
             <div class="col-lg-7">
               <h3 class="box-title">Services Availed</h3> 
-            </div>            
-          </div>  
+            </div>
+            </div>
+            <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a service.</p></span>       
+            
         </div>
         <div class="box-body">        
           <table id="serviceTable" class="table table-striped table-bordered table-responsive">
@@ -211,4 +214,8 @@
     }
   </script>
 
-  
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

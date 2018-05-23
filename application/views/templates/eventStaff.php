@@ -66,8 +66,8 @@
           </div>
           <div class="box-footer">
             <div class="pull-right">
-              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-              <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
+              <a href="#" data-toggle="tooltip" title="Click to uncheck all chosen Staff"><button class="btn btn-primary" onclick="reset_chkbx()">Reset</button></a>
+              <a href="#" data-toggle="tooltip" title="Click to add chosen Staff to list"><button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button></a>
             </div>
           </div>
         </div>  
@@ -80,8 +80,9 @@
           <div class="row">
             <div class="col-lg-6">
               <h3 class="box-title">Staff</h3>
-            </div>
-          </div>
+            </div></div>
+            <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a staff.</p></span> 
+          
         </div>
         <div class="box-body">
           <table id="staffTable" class="table table-bordered table-striped">
@@ -169,3 +170,8 @@
     }
   </script>
 
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
