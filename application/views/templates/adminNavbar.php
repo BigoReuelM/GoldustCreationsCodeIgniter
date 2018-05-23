@@ -43,6 +43,12 @@
           </a>
         </li>
         <li>
+          <a href="<?php echo base_url('user/loadAllAppointments') ?>">
+            <i class="fa fa-list"></i>
+            <span>All Appointments</span>
+          </a>
+        </li>
+        <li>
           <a href="<?php echo base_url('admin/viewPaymentsReports') ?>">
             <i class="fa fa-line-chart"></i>
             <span>Reports</span>
@@ -63,9 +69,6 @@
             <li><a href="<?php echo base_url('events/adminDesignsHome') ?>">Designs</a></li>
             <li><a href="<?php echo base_url('admin/adminTheme') ?>">Themes</a></li>
           </ul>
-        </li>
-        <li>
-          <a href=""></a>
         </li>
       </ul>
       <!-- /.sidebar-menu -->

@@ -106,15 +106,9 @@
               </div>
             </div>
           </div>
-          <div class="box-footer">
-            <div class="form-group">
-              <div class="col-sm-6">
-                <button type="submit" class="btn btn-block btn-default" >Save</button>                
-              </div>
-              <div class="col-sm-6">
-                <button type="button" class="btn btn-block btn-default" data-dismiss="modal">Close</button>  
-              </div>             
-            </div>
+          <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" >Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>  
           </div>
         <?php echo form_Close(); ?>
       </div>

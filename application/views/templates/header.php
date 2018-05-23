@@ -27,15 +27,25 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="<?php echo base_url('handler/index') ?>">Home</a></li>
-            <li>
-              <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Service Transactions</a>
-            </li>
-            <li>
-              <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Monitoring <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li>
+                  <a href="<?php echo base_url('events/newEvents') ?>">Events</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('transactions/ongoingTransactions') ?>">Transactions</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a href="<?php echo base_url('user/loadAllAppointments') ?>">All Appointments</a>
+                </li>
+              </ul>
             </li>
             <li>
               <a href="<?php echo base_url('events/adminDecorsHome') ?>">Gallery</a>
@@ -122,11 +132,16 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                   <?php
                   }
                   ?>
+                  <?php if (!empty($overdueEPayments)){
+                  ?>
                   <li><!-- start notification -->
                       <a href="#overdueEPaymentsModal" data-toggle="modal" data-target="#overdueEPaymentsModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $overdueEPaymentsCount ?> Overdue Event Payments
                       </a>
                     </li>
+                    <?php
+                  }
+                  ?>
                 </ul>
               </li>
             </ul>
@@ -427,7 +442,8 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                 <thead>
                   <tr>
                     <th>Event Name</th>
-                    <th>Event Date and Time</th>
+                    <th>Event Date</th>
+                    <th>Contact Number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -440,6 +456,9 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                           $overERentDateFormated = date_format($overERentDate, "M-d-Y"); 
                           echo $overERentDateFormated; 
                         ?>
+                      </td>
+                      <td>
+                        <?php echo $eRent['contactNumber'] ?>
                       </td>
                     </tr>              
                   <?php endforeach ?>

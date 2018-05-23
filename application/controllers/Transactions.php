@@ -33,6 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			
 			$data['ongoingTransactions']=$this->transactions_model->ongoingTransactions($empID, $empRole);
 			
@@ -70,6 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['finishedTransactions']=$this->transactions_model->finishedTransactions($empID, $empRole);
 
 			if ($this->session->userdata('role') === "admin") {
@@ -107,6 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['cancelledTransactions']=$this->transactions_model->cancelledTransactions($empID, $empRole);
 
 			if ($this->session->userdata('role') === "admin") {
@@ -148,6 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			$data['totalAmount'] = $this->transactions_model->totalAmount($tranID);		
 			$data['balance'] = $this->transactions_model->getBalance($tranID);
@@ -194,6 +198,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['transServices'] = $this->transactions_model->getTransactionServices($tranID);
 			$data['servcs'] = $this->transactions_model->getServices($tranID);
 			$data['serviceIDs'] = $this->transactions_model->getServiceIDs($tranID);			
@@ -236,6 +241,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['transAppointments'] = $this->transactions_model->getTransactionAppointments($tranID);
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			if ($this->session->userdata('role') === "admin") {
@@ -276,6 +282,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$totalPayments = $this->transactions_model->totalAmountPaid($tranID);
 			$totalAmount = $this->transactions_model->totalAmount($tranID);
 			$data['totalPayments'] = $totalPayments;
@@ -433,9 +440,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		}
 
 		public function addTransactionAppointments(){
-			$empID = $this->session->userdata('employeeID');
-			$ctID = $this->session->userdata('currentTransactionID');
 			
+			$ctID = $this->session->userdata('currentTransactionID');
+			$empID = $this->transactions_model->getTransactionHandler($ctID)->employeeID;
 			$data = array('success' => false, 'messages' => array());
 
 			$this->form_validation->set_rules('agenda', 'Agenda', 'trim|required');
@@ -475,6 +482,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
 			$data['evredata'] = $this->transactions_model->viewEventRentals();
 			if ($this->session->userdata('role') === "admin") {

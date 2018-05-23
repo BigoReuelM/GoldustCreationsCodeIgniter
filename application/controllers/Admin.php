@@ -98,6 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
@@ -116,6 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			$data['payments'] = $this->admin_model->getPayments();
 
@@ -136,6 +138,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			$data['deposits'] = $this->admin_model->getDeposits();
 
@@ -156,6 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
@@ -179,6 +183,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments(); 
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['employee'] = $this->admin_model->getEmpDetails($employeeID);
 			$data['currentEventNum'] = $this->events_model->currentEventNum($employeeID);
 			$data['doneEvent'] = $this->events_model->doneEventNum($employeeID);
@@ -207,6 +212,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Manage Employee | Admin';	
 			}else{
@@ -231,6 +237,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Manage Employee | Admin';	
 			}else{
@@ -256,6 +263,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Manage Employee | Admin';	
 			}else{
@@ -281,6 +289,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Manage Employee | Admin';	
 			}else{
@@ -305,6 +314,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Manage Employee | Admin';	
 			}else{
@@ -387,6 +397,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Services | Admin';	
 			}else{
@@ -472,6 +483,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			if ($this->session->userdata('role') === "admin") {
 				$headdata['pagename'] = 'Expenses | Admin';	
 			}else{
@@ -611,6 +623,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['themes'] = $this->events_model->getThemes();
 
 			if ($this->session->userdata('role') === "admin") {
@@ -643,6 +656,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
 			$themeID = $this->session->userdata('currentTheme');
 			$data['themeDet'] = $this->events_model->getThemeDetails($themeID);

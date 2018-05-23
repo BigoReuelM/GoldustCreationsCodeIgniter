@@ -26,6 +26,7 @@ class Items extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$empRole = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Gowns | Admin';	
@@ -56,6 +57,7 @@ class Items extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['allDecors'] = $this->items_model->getAllDecors();
 		$empRole = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {
@@ -88,6 +90,7 @@ class Items extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$empID = $this->session->userdata('employeeID');
 		$empRole = $this->session->userdata('role');
 		$data['eventName'] =$this->events_model->getEventName($eventid);
@@ -127,6 +130,7 @@ class Items extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['allCostumes'] = $this->items_model->getAllCostumes();
 		$empRole = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {
@@ -158,6 +162,7 @@ class Items extends CI_Controller
 		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['allSuits'] = $this->items_model->getAllSuits();
 		$empRole = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {

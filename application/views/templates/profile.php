@@ -154,8 +154,8 @@
         <?php echo form_close(); ?>
       </div>
       <div class="modal-footer">
-        <button form="updateProfile" type="submit" class="btn btn-primary">Save Updates</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button form="updateProfile" type="submit" class="btn btn-primary">Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -201,8 +201,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="employeeID" value="" hidden>
-            <button type="submit" class="btn btn-primary">Update Password</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Ok</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         <?php echo form_close(); ?>
       </div>   
@@ -251,12 +251,8 @@
           </div>
           <div class="modal-footer">
             <input type="text" name="employeeID" value="" hidden>
-            <div class="col-lg-6">
-              <button type="submit" class="btn btn-primary">Update Username</button>
-            </div>
-            <div class="col-lg-6">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+              <button type="submit" class="btn btn-primary">Ok</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           </div>
         <?php echo form_close(); ?>
       </div>   

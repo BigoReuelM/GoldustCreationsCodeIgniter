@@ -67,6 +67,7 @@
             </div>
             <div class="modal-footer">
               <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>  
           </form>  
         </div>    

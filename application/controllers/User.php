@@ -40,6 +40,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$username = trim(html_escape($this->input->post('username')));
 			$password = trim(html_escape($this->input->post('password')));
 
+			if (!$this->session_model->dualLoginCheck()) {
+				$this->session->sess_destroy();
+				redirect('user/index');
+			}
+
 			if (empty($username)) {
 				$this->session->set_flashdata('error_msg', 'Username field should not be empty!');
 				redirect('user/index');
@@ -84,16 +89,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function changePassword(){
 
-			$username = html_escape($this->input->post('username'));
-			$pin = html_escape($this->input->post('pin'));
+			$data = array('success' => false, 'messages' => array(), 'error' => false);
 
-			if ($this->user_model->resetPasstoDefault($username, $pin)) {
-				$this->session->set_flashdata('success_msg', 'Password reset to default.');
-				redirect('user/index');	
+			$this->form_validation->set_rules('resetusername', 'Username', 'trim|required');
+			$this->form_validation->set_rules('pin', '4 digit PIN', 'trim|required|numeric');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if ($this->form_validation->run()) {
+				$username = html_escape($this->input->post('resetusername'));
+				$pin = html_escape($this->input->post('pin'));
+
+				if (!$this->user_model->resetPasstoDefault($username, $pin)) {
+					$data['error'] = true;
+				}
+
+				$data['success'] = true;
+
 			}else{
-				$this->session->set_flashdata('error_msg', 'Error occured, Try again.');
-				redirect('user/index');
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
 			}
+			
+			echo json_encode($data);
 	
 		}
 		
@@ -108,6 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 			$data['currentEventNum'] = $this->events_model->currentEventNum($userID);
 			$data['doneEvent'] = $this->events_model->doneEventNum($userID);
 			$data['allTransac'] = $this->events_model->allTransacNum($userID);
@@ -274,6 +293,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data = array('upload_data' => $this->upload->data());
 			redirect('user/user_profile');
 			
+		}
+
+		public function loadAllAppointments(){
+			$this->session_model->sessionCheck();
+			$userID = $this->session->userdata("employeeID");
+			$data['empRole'] = $this->session->userdata('role');
+			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
+			$data['appointments'] = $this->user_model->getAllAppointments($userID, $data['empRole']);
+			if ($this->session->userdata('role') === "admin") {
+				$headdata['pagename'] = 'Appointments | Admin';	
+			}else{
+				$headdata['pagename'] = 'Appointments | Handler';
+			}
+			$this->load->view("templates/head.php", $headdata);
+			if ($data['empRole'] === 'admin') {
+				
+				$this->load->view("templates/adminHeader.php", $notif);
+				$this->load->view("templates/adminNavbar.php");
+				
+			}else{
+				$this->load->view("templates/header.php", $notif);
+				
+			}
+			$this->load->view("templates/allAppointments.php", $data);
+			$this->load->view("templates/footer.php");
+
 		}
 
 	}

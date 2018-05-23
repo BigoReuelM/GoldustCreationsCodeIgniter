@@ -106,11 +106,16 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                   <?php
                   }
                   ?>
+                  <?php if (!empty($overdueEPayments)){
+                  ?>
                   <li><!-- start notification -->
                       <a href="#overdueEPaymentsModal" data-toggle="modal" data-target="#overdueEPaymentsModal">
                         <i class="fa fa-users text-aqua"></i><?php echo $overdueEPaymentsCount ?> Overdue Event Payments
                       </a>
                     </li>
+                    <?php
+                  }
+                  ?>
                   <!-- end notification -->
                 </ul>
               </li>
@@ -415,7 +420,8 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                 <thead>
                   <tr>
                     <th>Event Name</th>
-                    <th>Event Date and Time</th>
+                    <th>Event Date</th>
+                    <th>Contact Number</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -428,6 +434,9 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                           $overERentDateFormated = date_format($overERentDate, "M-d-Y"); 
                           echo $overERentDateFormated; 
                         ?>
+                      </td>
+                      <td>
+                        <?php echo $eRent['contactNumber'] ?>
                       </td>
                     </tr>              
                   <?php endforeach ?>
@@ -492,9 +501,3 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
     </div>
   </div>
 </div>
-
-
-
-
-
-

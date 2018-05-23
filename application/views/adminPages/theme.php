@@ -84,8 +84,8 @@
               <textarea class="form-control" rows="3" name="themeDesc" id="themeDesc"></textarea>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
-              <button name="addbtn" class="btn btn-default" type="submit">Add</button>  
+              <button class="btn btn-primary" onclick="reset_chkbx()">Ok</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
           <!--</form>-->
           <?php  echo form_close(); ?>

@@ -277,7 +277,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
               <!-- /.modal-content -->
@@ -388,7 +388,8 @@
                   </div>
                       <div class="modal-footer">
                         <div class="col-lg-6" id="butt1">
-                              <button type="submit" class="btn btn-block btn-primary btn-md">Add</button>
+                              <button type="submit" class="btn btn-primary">Ok</button>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                           </div>
                       </div>
                     </div>
