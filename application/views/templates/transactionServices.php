@@ -327,10 +327,6 @@
     })
   })
 
-  $('#selectAll').click(function(){
-    $('.serviceCheckBox').prop('checked', $(this).prop("checked") );
-  });
-
   $('.chooseSvcType').click(function(){
     var svcInfo = $(this).val().split(' ');
     $('#svcIDChoose').val(svcInfo[0]);

@@ -212,6 +212,10 @@
     function reset_chkbx() {
       $('input:checkbox').prop('checked', false);
     }
+
+    $('#selectAll').click(function(){
+      $('.serviceCheckBox').prop('checked', $(this).prop("checked") );
+    });
   </script>
 
 <script>
