@@ -3,6 +3,16 @@
     height: 500px;
     overflow: scroll;
   }
+    .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+}
+.popover-content {
+    font-size: 12px;
+}
+.popover{
+    max-width: 30%;
+}
 </style>
 <section class="content-header">
     <h1>
@@ -11,6 +21,8 @@
         $name = $eventName->eventName; 
         echo '<b>' . $name . '</b>';    
       ?>
+      <div class="pull-right">
+    <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a service. Click <b>Reset</b> button to uncheck all chosen Services. Click checkbox to select and <b>Add</b> button to include chosen Services to list."><i class="fa fa-question-circle-o"></i></a></div>
     </h1>
 </section>
 <!-- Main content -->
@@ -220,6 +232,6 @@
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="popover"]').popover();   
 });
 </script>

@@ -3,6 +3,16 @@
     height: 500px;
     overflow: scroll;
   }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+}
+.popover-content {
+    font-size: 12px;
+}
+.popover{
+    max-width: 30%;
+}
 </style>
 
 <section class="content-header">
@@ -12,8 +22,11 @@
         $name = $eventName->eventName; 
         echo '<b>' . $name . '</b>';    
       ?>
+    <div class="pull-right">
+    <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a staff. Click <b>Reset</b> button to uncheck all chosen Staff. Click checkbox to select and <b>Add</b> button to include chosen Staff to list."><i class="fa fa-question-circle-o"></i></a></div>
     </h1>
 </section>
+
 <section class="content container-fluid">
   
   <div class="row">
@@ -66,8 +79,8 @@
           </div>
           <div class="box-footer">
             <div class="pull-right">
-              <a href="#" data-toggle="tooltip" title="Click to uncheck all chosen Staff"><button class="btn btn-primary" onclick="reset_chkbx()">Reset</button></a>
-              <a href="#" data-toggle="tooltip" title="Click to add chosen Staff to list"><button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button></a>
+              <button class="btn btn-primary" onclick="reset_chkbx()">Reset</button>
+             <button form="addstaffform" id="addstaff" name="addstaff" class="btn btn-default" type="submit">Add</button>
             </div>
           </div>
         </div>  
@@ -81,8 +94,6 @@
             <div class="col-lg-6">
               <h3 class="box-title">Staff</h3>
             </div></div>
-            <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a staff.</p></span> 
-          
         </div>
         <div class="box-body">
           <table id="staffTable" class="table table-bordered table-striped">
@@ -172,6 +183,8 @@
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="popover"]').popover();   
 });
 </script>
+
+

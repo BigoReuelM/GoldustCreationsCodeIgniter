@@ -4,6 +4,17 @@
  <style type="text/css">
    #butt5 {
     width: 100px;
+  }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+}
+.popover-content {
+    font-size: 12px;
+}
+.popover{
+    max-width: 30%;
+}
  </style>
 
 <section class="content-header">
@@ -13,6 +24,8 @@
       $name = $eventName->eventName; 
       echo '<b>' . $name . '</b>';    
     ?>
+    <div class="pull-right">
+    <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply Add or Change value of input fields and click on <b>Update Details</b> button to make changes. <b>Choose Handler</b> dropdown button to choose desired handler. Click <b>Select Handler</b> button to successfully change the handler."><i class="fa fa-question-circle-o"></i></a></div>
   </h1>
 </section>
 
@@ -973,6 +986,6 @@
 
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
+    $('[data-toggle="popover"]').popover();   
 });
 </script>
