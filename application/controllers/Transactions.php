@@ -566,10 +566,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function refundDeposit(){
 			$id = $this->input->post('refund');
-			if ($this->transactions_model->refundDeposit($id)) {
-				$data['refunded'] = true;
-			}else{
-				$data['refunded'] = false;
+			$deposit = $this->transactions_model->getDepositAmount($id)->depositAmt; 
+			if ($this->transactions_model->checkForRefund($id)) {
+				if ($deposit == null || empty($deposit)) {
+					$data['depositExist'] = false;
+				}else{
+					$this->transactions_model->refundDeposit($id, $deposit);
+				}
 			}
 
 			$data['success'] = true;
@@ -581,7 +584,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('transactionAvailDate', 'Avail Date', 'trim|required');
 			$this->form_validation->set_rules('transactionAvailTime', 'Avail Time', 'trim|required');
-			$this->form_validation->set_rules('handler', 'Handler', 'trim');
+			$this->form_validation->set_rules('handler', 'Handler', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$clientID = $this->input->post('transactionClientID');

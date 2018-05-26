@@ -379,20 +379,28 @@
 			$this->db->update('transactions', $data);
 		}
 
-		public function refundDeposit($transID){
-			$depositAmount = $this->getDepositAmount($transID)->depositAmt;
-			if ($depositAmount == null) {
-				$data = array(
-					'refundAmt' => $depositAmount
-				);
+		public function refundDeposit($transID, $depositAmount){
+			$data = array(
+				'refundAmt' => $depositAmount
+			);
 
-				$this->db->where('transactionID', $transID);
-				$this->db->update('transactions', $data);
+			$this->db->where('transactionID', $transID);
+			$this->db->update('transactions', $data);
+			
+		}
+
+		public function checkForRefund($transID){
+			$this->db->select('refundAmt');
+			$this->db->from('transactions');
+			$this->db->where('transactionID', $transID);
+
+			$query = $this->db->get();
+
+			if ($query->refundAmt == null || empty($query->refundAmt)) {
 				return true;
 			}else{
 				return false;
 			}
-			
 		}
 
 		public function insertTransaction($clientID, $date, $time, $handler){
