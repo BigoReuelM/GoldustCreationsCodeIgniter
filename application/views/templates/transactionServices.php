@@ -124,13 +124,13 @@
                               <div class="row">
                                 <input type="text" id="serviceID" name="serviceID" value="<?php echo $serviceID ?>" hidden>
                                 <div class="col-md-4">
-                                  <button class="btn btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
+                                  <button class="btn btn-sm btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
                                 </div>
                                 <div class="col-md-4">
-                                  <button class="btn btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
+                                  <button class="btn btn-sm btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
                                 </div>
                                 <div class="col-md-4">
-                                  <button class="btn btn-danger chooseSvcType btn-block" id="chooseBtn" name="choose" type="button" data-toggle="modal" data-target="#chooseModal" value="<?php echo $service['serviceID'] . " " . $service['serviceName'] ?>">Choose</button>
+                                  <button class="btn btn-sm btn-default chooseSvcType btn-block" id="chooseBtn" name="choose" type="button" data-toggle="modal" data-target="#chooseModal" value="<?php echo $service['serviceID'] . " " . $service['serviceName'] ?>">Choose</button>
                                 </div>
                               </div>
                             </td>
@@ -164,11 +164,11 @@
               <button type="button" data-toggle="collapse" data-target="#chooseAttire" class="btn btn-default btn-block">Attire</button>
             </div>
             <div class="col-md-4">
-              <button type="button" data-toggle="collapse" data-target="#chooseStaff" class="btn btn-default btn-block">Items</button> 
+              <button type="button" data-toggle="collapse" data-target="#chooseItems" class="btn btn-default btn-block">Items</button> 
             </div> 
           </div>
 
-            <form>
+            <form role="form" action="<?php echo base_url('transactions/addTransacDesign') ?>" method="post">
             <div class="collapse" id="chooseAttire">
               <input type="text" name="svcIDChoose" id="svcIDChoose" hidden>
               <input type="text" name="svcTypeChoose" id="svcTypeChoose" hidden>
@@ -214,7 +214,7 @@
                               }
                               ?>
                             </td>
-                            <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
+                            <td><button type="submit" name="addTransacDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
                           </tr>
                         <?php  } ?>
                       </tbody> 
@@ -224,17 +224,17 @@
             </div>
             </form>
 
-            <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
-            <div class="collapse" id="chooseStaff">
+            <form role="form" method="post" action="<?php echo base_url('events/') ?>">
+            <div class="collapse" id="chooseItems">
               <div class="box">
                 <div class="box-header">
                   <div class="box-title">Choose item/s</div>
                 </div>
                 <div class="box-body">
-                  <table id="exstDesigns" class="table table-bordered text-center">
+                  <table id="exstItems" class="table table-bordered text-center">
                     <thead>
                       <tr>
-                        <th>Design Name</th>
+                        <th>Item Name</th>
                         <th>Color</th>
                         <th>Type</th>
                         <th>Image</th>
@@ -244,21 +244,21 @@
                     <tbody>
                       
                       <?php
-                        foreach ($allDesigns as $des) { ?>
+                        foreach ($allDecors as $dec) { ?>
                         <tr>
-                          <td><?php echo $des['designName'] ?></td>
-                          <td><?php echo $des['color'] ?></td>
-                          <td><?php echo $des['designType'] ?></td>
+                          <td><?php echo $dec['decorName'] ?></td>
+                          <td><?php echo $dec['color'] ?></td>
+                          <td><?php echo $dec['decorType'] ?></td>
                           <td>
                             <?php
-                            if (!empty($designtypesmap)) {
-                              foreach ($designtypesmap as $dtm) {
-                                $files = directory_map('./uploads/designs/' . $dtm . '/', 1);
+                            if (!empty($decortypesmap)) {
+                              foreach ($decortypesmap as $dtm) {
+                                $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
                                 foreach ($files as $f) {
                                   $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                                  if ($f_no_extension === $des['designID']) { ?>
+                                  if ($f_no_extension === $dec['decorsID']) { ?>
                                     <div class="thumbnail">
-                                      <img src="<?php echo site_url('./uploads/designs/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                                      <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
                                     </div>
                             <?php     
                                   }
@@ -269,7 +269,7 @@
                             }
                             ?>
                           </td>
-                          <td><button type="submit" name="addExstDesign" class="btn btn-sm btn-primary" value="<?php echo $des['designID'] ?>">Choose</button></td>
+                          <td><button type="submit" name="" class="btn btn-sm btn-default" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
                         </tr>
                       <?php  } ?>
                     </tbody> 
@@ -324,6 +324,8 @@
 <script>
   $(function () {
     $('#attiresTable').DataTable({
+    }) 
+    $('#exstItems').DataTable({
     })
   })
 
