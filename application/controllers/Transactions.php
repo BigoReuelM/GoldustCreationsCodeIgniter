@@ -561,10 +561,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function refundDeposit(){
 			$id = $this->input->post('refund');
-			if ($this->transactions_model->refundDeposit($id)) {
-				$data['refunded'] = true;
-			}else{
-				$data['refunded'] = false;
+			$deposit = $this->transactions_model->getDepositAmount($id)->depositAmt; 
+			if ($this->transactions_model->checkForRefund($id)) {
+				if ($deposit == null || empty($deposit)) {
+					$data['depositExist'] = false;
+				}else{
+					$this->transactions_model->refundDeposit($id, $deposit);
+				}
 			}
 
 			$data['success'] = true;
