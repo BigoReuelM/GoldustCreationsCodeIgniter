@@ -12,6 +12,7 @@ class Items extends CI_Controller
 		$this->load->helper('url');
 		$this->load->model('handler_model');
 		$this->load->model('notifications_model');
+		$this->load->model('events_model');
 		$this->load->model('session_model');
 		$this->load->library('session');
 	}
@@ -48,6 +49,37 @@ class Items extends CI_Controller
 		$this->load->view("templates/footer.php");
 	}
 
+
+	public function ongoing_rentals(){
+		$this->session_model->sessionCheck();
+		$empRole = $this->session->userdata('role');
+		$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
+		$notif['eventsToday'] = $this->notifications_model->getEventsToday();
+		$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
+		$notif['overERent'] = $this->notifications_model->overdueEventRentals();
+		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
+		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
+		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
+		$data['attireRentals'] = $this->events_model->getEventsAttireRentals();
+		$data['itemRentals'] = $this->events_model->getEventItemRentals();
+		$data['empRole'] = $this->session->userdata('role');
+		if ($this->session->userdata('role') === "admin") {
+			$headdata['pagename'] = 'Ongoing Rentals | Admin';	
+		}else{
+			$headdata['pagename'] = 'Ongoing Rentals | Handler';
+		}
+		$this->load->view("templates/head.php", $headdata);
+		if ($empRole === 'admin') {
+			$this->load->view("templates/adminHeader.php", $notif);
+			$this->load->view("templates/adminNavbar.php");
+		}else{
+			$this->load->view("templates/header.php", $notif);
+		}
+		$this->load->view('templates/ongoingRentals', $data);
+
+		$this->load->view("templates/footer.php");
+	}
+
 	public function decors(){
 		$this->session_model->sessionCheck();
 		$this->load->model('items_model');
@@ -60,6 +92,7 @@ class Items extends CI_Controller
 		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 		$data['allDecors'] = $this->items_model->getAllDecors();
 		$empRole = $this->session->userdata('role');
+
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Decorations | Admin';	
 		}else{

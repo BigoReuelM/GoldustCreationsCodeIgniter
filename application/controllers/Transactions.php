@@ -477,35 +477,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			echo json_encode($data);
 			
 		}
-		
-		public function ongoing_rentals(){
-			$this->session_model->sessionCheck();
-			$empRole = $this->session->userdata('role');
-			$notif['appToday'] = $this->notifications_model->getAppointmentsToday();
-			$notif['eventsToday'] = $this->notifications_model->getEventsToday();
-			$notif['overTRent'] = $this->notifications_model->overdueTransactionRentals();
-			$notif['overERent'] = $this->notifications_model->overdueEventRentals();
-			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
-			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
-			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
-			$data['tdata'] = $this->transactions_model->view_home_ongoing_rentals();
-			$data['evredata'] = $this->transactions_model->viewEventRentals();
-			if ($this->session->userdata('role') === "admin") {
-				$headdata['pagename'] = 'Ongoing Rentals | Admin';	
-			}else{
-				$headdata['pagename'] = 'Ongoing Rentals | Handler';
-			}
-			$this->load->view("templates/head.php", $headdata);
-			if ($empRole === 'admin') {
-				$this->load->view("templates/adminHeader.php", $notif);
-				$this->load->view("templates/adminNavbar.php");
-			}else{
-				$this->load->view("templates/header.php", $notif);
-			}
-			$this->load->view('templates/ongoingRentals', $data);
 
-			$this->load->view("templates/footer.php");
-		}
 
 		public function setTransactionID(){
 			$this->session_model->sessionCheck();

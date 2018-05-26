@@ -1157,5 +1157,51 @@
 			$this->db->where('entourageID', $entID);
 			$this->db->update('entourage', $data);
 		}
+
+		public function getEventsAttireRentals(){
+			$emprole = $this->session->userdata('employeeRole');
+			$empID = $this->session->userdata('employeeID');
+			if ($emprole === "handler") {
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
+				$this->db->from('eventdesigns');
+				$this->db->join('designs', 'designs.designID = eventdesigns.designID');
+				$this->db->join('events', 'eventdesigns.eventID = events.eventID');
+				$this->db->join('clients', 'events.clientID = clients.clientID');
+				$this->db->where('events.employeeID', $empID);
+			}else{
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
+				$this->db->from('eventdesigns');
+				$this->db->join('designs', 'designs.designID = eventdesigns.designID');
+				$this->db->join('events', 'eventdesigns.eventID = events.eventID');
+				$this->db->join('clients', 'events.clientID = clients.clientID');
+				$this->db->join('employees', 'employees.employeeID = events.employeeID');
+			}
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getEventItemRentals(){
+			$emprole = $this->session->userdata('employeeRole');
+			$empID = $this->session->userdata('employeeID');
+			if ($emprole === "handler") {
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
+				$this->db->from('eventdecors');
+				$this->db->join('decors', 'decors.decorsID = eventdecors.decorID');
+				$this->db->join('events', 'eventdecors.eventID = events.eventID');
+				$this->db->join('clients', 'events.clientID = clients.clientID');
+				$this->db->where('events.employeeID', $empID);
+			}else{
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
+				$this->db->from('eventdecors');
+				$this->db->join('decors', 'decors.decorsID = eventdecors.decorID');
+				$this->db->join('events', 'eventdecors.eventID = events.eventID');
+				$this->db->join('clients', 'events.clientID = clients.clientID');
+				$this->db->join('employees', 'employees.employeeID = events.employeeID');
+			}
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
  ?>

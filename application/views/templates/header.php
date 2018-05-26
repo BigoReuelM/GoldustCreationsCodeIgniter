@@ -39,7 +39,7 @@ $notifTotalCount = $appCount + $eventCount + $overTCount + $overECount + $incECo
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">Ongoing Rentals</a>
+                  <a href="<?php echo base_url('items/ongoing_rentals') ?>">Ongoing Rentals</a>
                 </li>
                 <li class="divider"></li>
                 <li>
