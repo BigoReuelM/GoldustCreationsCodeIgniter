@@ -576,7 +576,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('transactionAvailDate', 'Avail Date', 'trim|required');
 			$this->form_validation->set_rules('transactionAvailTime', 'Avail Time', 'trim|required');
-			$this->form_validation->set_rules('handler', 'Handler', 'trim');
+			$this->form_validation->set_rules('handler', 'Handler', 'trim|required');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 			if ($this->form_validation->run()) {
 				$clientID = $this->input->post('transactionClientID');

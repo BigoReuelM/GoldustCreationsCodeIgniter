@@ -327,9 +327,10 @@
         </div>   
         
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</butto>
+          
           <input type="text" value="<?php echo $details->transactionID ?>" name="refund" hidden>
-          <button type="submit" class="btn btn-primary">Confirm</button>
+          <button type="submit" class="btn btn-primary">Ok</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</butto>
         </div>
       </form>
     </div>
