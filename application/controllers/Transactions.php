@@ -566,7 +566,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function refundDeposit(){
 			$id = $this->input->post('refund');
-			$data = array('success' => false, 'depositExist' => true, 'refunded' => false);
+			$data = array('success' => false, 'depositExist' => true, 'refunded' => false, 'done' => false);
 			$deposit = $this->transactions_model->getDepositAmount($id)->depositAmt; 
 			if ($this->transactions_model->checkForRefund($id)) {
 				if ($deposit == null || empty($deposit)) {
@@ -575,6 +575,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->transactions_model->refundDeposit($id, $deposit);
 					$data['refunded'] = true;
 				}
+			}else{
+				$data['done'] = true;
 			}
 			$data['success'] = true;
 			echo json_encode($data);

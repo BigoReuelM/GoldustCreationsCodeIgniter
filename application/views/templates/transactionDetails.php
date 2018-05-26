@@ -322,7 +322,7 @@
             </div>
           </div>
           <div class="alert-info well">
-            <p>Click on confirm to record refund</p>
+            <p>Click OK to record refund</p>
           </div>
         </div>   
         
@@ -578,15 +578,27 @@
         success: function(response){
           if (response.success == true) {
             if (response.refunded == false) {
-              $('div.alert-danger').remove();
-              $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
-              '<span class="icon fa fa-ckeck"></span>' +
-              ' This transaction has allready been refunded!' +
-              '</div>');
-              // reset the form
-              refundDetails[0].reset();
-            }else{
+              if (response.depositExist == false) {
+                $('div.alert-danger').remove();
+                $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
+                '<span class="icon fa fa-ckeck"></span>' +
+                ' Not eligable for refund! No deposits recorded!' +
+                '</div>');
+                // reset the form
+                refundDetails[0].reset();
+              }
 
+              if (response.done == true) {
+                $('div.alert-danger').remove();
+                $('#refundConfirm').append('<div class="alert alert-danger text-center">' +
+                '<span class="icon fa fa-ckeck"></span>' +
+                ' This transaction has allready been refunded!' +
+                '</div>');
+                // reset the form
+                refundDetails[0].reset();
+              }
+            }else{
+              $('div.alert-danger').remove();
               $('#refundConfirm').append('<div class="alert alert-success text-center">' +
               '<span class="icon fa fa-ckeck"></span>' +
               ' Refund is successfully recorder' +
@@ -600,7 +612,13 @@
               $(this).delay(3000).hide(10, function() {
                 $(this).remove();
               });
-            })
+            });
+            // close the message after seconds
+            $('.alert-danger').delay(500).show(10, function() {
+              $(this).delay(3000).hide(10, function() {
+                $(this).remove();
+              });
+            });
           }
         }
       });

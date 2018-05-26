@@ -395,8 +395,9 @@
 			$this->db->where('transactionID', $transID);
 
 			$query = $this->db->get();
+			$result = $query->row();
 
-			if ($query->refundAmt == null || empty($query->refundAmt)) {
+			if ($result->refundAmt == null || empty($result->refundAmt)) {
 				return true;
 			}else{
 				return false;
