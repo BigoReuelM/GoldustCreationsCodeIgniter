@@ -75,6 +75,7 @@
                         <table class="table table-bordered table-hover text-center" id="itemRentals">
                           <thead>
                             <tr>
+                              <th>Image</th>
                               <th>Attire Name</th>
                               <th>Quantity</th>
                               <th>Client Name</th>
@@ -86,6 +87,7 @@
                           <tbody>
                             <?php foreach ($itemRentals as $itemRental): ?>
                               <tr>
+                                <td><img src="<?php echo base_url('/uploads/decors/' . $itemRental['decorType'] . '/' . $itemRental['decorID']) ?>" alt="itemImage"></td>
                                 <td><?php echo $itemRental['decorName'] ?></td>
                                 <td><?php echo $itemRental['quantity'] ?></td>
                                 <td><?php echo $itemRental['clientName'] ?></td>
