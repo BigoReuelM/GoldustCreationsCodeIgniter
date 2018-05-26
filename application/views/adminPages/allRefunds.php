@@ -22,7 +22,7 @@
       <div class="tab-content">
         <!-- Daily Reports -->
         <div class="tab-pane fade in active" id="daily">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -43,12 +43,14 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $evtTotalDailyRefunds = 0;
+                            $ovTotalDailyRefunds = 0;
                             if (!empty($eventRefunds) && !empty($selectedDate)) {
                               // get DAILY eventRefunds...
                               foreach ($eventRefunds as $er) { 
                                 if ($er['refundedDate'] === $selectedDate) {
-                                  //$totaldailypayments += $r['amount'];
+                                  $evtTotalDailyRefunds += $er['refundedAmount'];
+                                  $ovTotalDailyRefunds += $er['refundedAmount'];
                                 ?>
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
@@ -85,12 +87,13 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $trTotalDailyRefunds = 0;
                             if (!empty($transacRefunds) && !empty($selectedDate)) {
                               // get DAILY transacRefunds...
                               foreach ($transacRefunds as $tr) { 
                                 if ($tr['cancelledDate'] === $selectedDate) {
-                                  //$totaldailypayments += $tr['amount'];
+                                  $trTotalDailyRefunds += $tr['refundAmt'];
+                                  $ovTotalDailyRefunds += $tr['refundAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
@@ -130,11 +133,11 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Event Refunds Total</label>
-                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php echo $evtTotalDailyRefunds ?>" class="form-control" disabled>
                   <label>Transaction Refunds Total</label>
-                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php echo $trTotalDailyRefunds ?>" class="form-control" disabled>
                   <label>Overall Total</label>
-                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php echo $ovTotalDailyRefunds ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -144,7 +147,7 @@
 
         <!-- Monthly Reports -->
         <div class="tab-pane fade" id="monthly">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -165,7 +168,8 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $evtTotalMonthlyRefunds = 0;
+                            $ovTotalMonthlyRefunds = 0;
                             if (!empty($eventRefunds) && !empty($selectedDate)) {
                               // get MONTHLY eventRefunds...
                               foreach ($eventRefunds as $er) {
@@ -173,7 +177,8 @@
                                 // $substr[0] month
                                 // $substr[1] year 
                                 if ($er['month'] === $substr[0] && $er['year'] === $substr[1]) {
-                                  //$totaldailypayments += $r['amount'];
+                                  $evtTotalMonthlyRefunds += $er['refundedAmount'];
+                                  $ovTotalMonthlyRefunds += $er['refundedAmount'];
                                 ?>
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
@@ -210,7 +215,7 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $trTotalMonthlyRefunds = 0;
                             if (!empty($transacRefunds) && !empty($selectedDate)) {
                               // get DAILY transacRefunds...
                               foreach ($transacRefunds as $tr) {
@@ -218,7 +223,8 @@
                                 // $substr[0] month
                                 // $substr[1] year
                                 if ($tr['month'] === $substr2[0] && $tr['year'] === $substr2[1]) {
-                                  //$totaldailypayments += $tr['amount'];
+                                  $trTotalMonthlyRefunds += $tr['refundAmt'];
+                                  $ovTotalMonthlyRefunds += $tr['refundAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
@@ -257,11 +263,11 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Event Refunds Total</label>
-                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="evtTotalMonthlyRefunds" placeholder="<?php echo $evtTotalMonthlyRefunds ?>" class="form-control" disabled>
                   <label>Transaction Refunds Total</label>
-                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="trTotalMonthlyRefunds" placeholder="<?php echo $trTotalMonthlyRefunds ?>" class="form-control" disabled>
                   <label>Overall Total</label>
-                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="ovTotalMonthlyRefunds" placeholder="<?php echo $ovTotalMonthlyRefunds ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
@@ -271,7 +277,7 @@
 
         <!-- Annual Reports -->
         <div class="tab-pane fade" id="annual">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -292,12 +298,14 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $evtTotalAnnualRefunds = 0;
+                            $ovTotalAnnualRefunds = 0;
                             if (!empty($eventRefunds) && !empty($selectedYr)) {
                               // get ANNUAL eventRefunds...
                               foreach ($eventRefunds as $er) {
                                 if ($er['year'] === $selectedYr) {
-                                  //$totaldailypayments += $r['amount'];
+                                  $evtTotalAnnualRefunds += $er['refundedAmount'];
+                                  $ovTotalAnnualRefunds += $er['refundedAmount'];
                                 ?>
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
@@ -334,12 +342,13 @@
                       </thead>    
                       <tbody>
                           <?php
-                            //$totaldailypayments = 0;
+                            $trTotalAnnualRefunds = 0;
                             if (!empty($transacRefunds) && !empty($selectedYr)) {
                               // get ANNUAL transacRefunds...
                               foreach ($transacRefunds as $tr) {
                                 if ($tr['year'] === $selectedYr) {
-                                  //$totaldailypayments += $tr['amount'];
+                                  $trTotalAnnualRefunds += $tr['refundAmt'];
+                                  $ovTotalAnnualRefunds += $tr['refundAmt'];
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
@@ -366,7 +375,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="yrpicker" name="yrallrefunds" placeholder="<?php echo $selectedYr; ?>">
+                    <input type="text" class="form-control pull-right" id="yrallrefunds" name="yrpicker" placeholder="<?php echo $selectedYr; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -377,11 +386,11 @@
                 <!-- total payments -->
                 <div class="input-group">
                   <label>Event Refunds Total</label>
-                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="evtTotalAnnualRefunds" placeholder="<?php echo $evtTotalAnnualRefunds ?>" class="form-control" disabled>
                   <label>Transaction Refunds Total</label>
-                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="trTotalAnnualRefunds" placeholder="<?php echo $trTotalAnnualRefunds ?>" class="form-control" disabled>
                   <label>Overall Total</label>
-                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <input type="text" name="ovTotalAnnualRefunds" placeholder="<?php echo $ovTotalAnnualRefunds ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
