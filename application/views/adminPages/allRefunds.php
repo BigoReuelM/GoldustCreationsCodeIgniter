@@ -1,4 +1,8 @@
-
+<?php
+  $selectedDate = $this->session->userdata('selectedDate');
+  $selectedMnthYr = $this->session->userdata('selectedMnthYr');
+  $selectedYr = $this->session->userdata('selectedYr');
+?>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -18,325 +22,378 @@
       <div class="tab-content">
         <!-- Daily Reports -->
         <div class="tab-pane fade in active" id="daily">
-          <div class="row">
-            
-            <div class="col-lg-5">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="well">
-                    <!-- Date -->
-                    <div class="form-group">
-                      <label>Date:</label>
-
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker">
-                      </div>
-                      <!-- /.input group -->
-                    </div>
-                    <!-- /.form group -->
-                  </div>
-                </div>
-              </div>    
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>total refunds</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>">
+          <div class="row">           
+            <div class="col-md-9">
               <div class="box">
                 <div class="box-header">
-                  <h4>Payments</h4>
+                  <h4>Event Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="payments">
+                    <table class="table table-bordered table-hover text-center" id="allEventRefundsDaily">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Event Name</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
+                          <th>Date Refunded</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($eventRefunds) && !empty($selectedDate)) {
+                              // get DAILY eventRefunds...
+                              foreach ($eventRefunds as $er) { 
+                                if ($er['refundedDate'] === $selectedDate) {
+                                  //$totaldailypayments += $r['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $er['clientName']; ?></td>
+                                  <td><?php echo $er['eventName']; ?></td>
+                                  <td><?php echo $er['cancelledDate']; ?></td>
+                                  <td><?php echo $er['refundedAmount']; ?></td>
+                                  <td><?php echo $er['refundedDate']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div class="box">  
+
+              <div class="box">
                 <div class="box-header">
-                  <h4>Expenses</h4>
+                  <h4>Transaction Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="expenses">
+                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsDaily">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($transacRefunds) && !empty($selectedDate)) {
+                              // get DAILY transacRefunds...
+                              foreach ($transacRefunds as $tr) { 
+                                if ($tr['cancelledDate'] === $selectedDate) {
+                                  //$totaldailypayments += $tr['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $tr['clientName']; ?></td>
+                                  <td><?php echo $tr['cancelledDate']; ?></td>
+                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-3">
+              <div class="well">
+                <!-- Date -->
+                <div class="form-group">
+                  <label>Date</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="datepickerallrefunds" name="datepicker" placeholder="<?php echo $selectedDate; ?>">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                   </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- total payments -->
+                <div class="input-group">
+                  <label>Event Refunds Total</label>
+                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Transaction Refunds Total</label>
+                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Overall Total</label>
+                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
           </div>
-        </div> 
+          </form>
+        </div>
+
         <!-- Monthly Reports -->
         <div class="tab-pane fade" id="monthly">
-          <!-- Date range -->
-          <div class="form-group">
-            <label>Date range:</label>
-
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </div>
-              <input type="text" class="form-control pull-right" id="reservation">
-            </div>
-            <!-- /.input group -->
-          </div>
-          <!-- /.form group -->
-
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>">
+          <div class="row">           
+            <div class="col-md-9">
               <div class="box">
                 <div class="box-header">
-                  <h4>Payments</h4>
+                  <h4>Event Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="payments">
+                    <table class="table table-bordered table-hover text-center" id="allEventRefundsMonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Event Name</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
+                          <th>Date Refunded</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($eventRefunds) && !empty($selectedDate)) {
+                              // get MONTHLY eventRefunds...
+                              foreach ($eventRefunds as $er) {
+                                $substr = explode('-', $selectedMnthYr);
+                                // $substr[0] month
+                                // $substr[1] year 
+                                if ($er['month'] === $substr[0] && $er['year'] === $substr[1]) {
+                                  //$totaldailypayments += $r['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $er['clientName']; ?></td>
+                                  <td><?php echo $er['eventName']; ?></td>
+                                  <td><?php echo $er['cancelledDate']; ?></td>
+                                  <td><?php echo $er['refundedAmount']; ?></td>
+                                  <td><?php echo $er['refundedDate']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div class="box">  
+
+              <div class="box">
                 <div class="box-header">
-                  <h4>Expenses</h4>
+                  <h4>Transaction Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="expenses">
+                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsMonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($transacRefunds) && !empty($selectedDate)) {
+                              // get DAILY transacRefunds...
+                              foreach ($transacRefunds as $tr) {
+                              $substr2 = explode('-', $selectedMnthYr); 
+                                // $substr[0] month
+                                // $substr[1] year
+                                if ($tr['month'] === $substr2[0] && $tr['year'] === $substr2[1]) {
+                                  //$totaldailypayments += $tr['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $tr['clientName']; ?></td>
+                                  <td><?php echo $tr['cancelledDate']; ?></td>
+                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-3">
+              <div class="well">
+                <div class="form-group">
+                  <label>Month and Year</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="monthallrefunds" name="monthpicker" placeholder="<?php echo $selectedMnthYr; ?>">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                   </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- total payments -->
+                <div class="input-group">
+                  <label>Event Refunds Total</label>
+                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Transaction Refunds Total</label>
+                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Overall Total</label>
+                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
           </div>
-        </div>  
+          </form>
+        </div>
+
         <!-- Annual Reports -->
         <div class="tab-pane fade" id="annual">
-          <!-- Date range -->
-          <div class="form-group">
-            <label>Date range:</label>
-
-            <div class="input-group">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar"></i>
-              </div>
-              <input type="text" class="form-control pull-right" id="date-year">
-            </div>
-            <!-- /.input group -->
-          </div>
-          <!-- /.form group -->
-          <div class="row">
-            <div class="col-lg-5">
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>">
+          <div class="row">           
+            <div class="col-md-9">
               <div class="box">
                 <div class="box-header">
-                  <h4>Payments</h4>
+                  <h4>Event Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="payments">
+                    <table class="table table-bordered table-hover text-center" id="allEventRefundsAnnual">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Event Name</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
+                          <th>Date Refunded</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($eventRefunds) && !empty($selectedYr)) {
+                              // get ANNUAL eventRefunds...
+                              foreach ($eventRefunds as $er) {
+                                if ($er['year'] === $selectedYr) {
+                                  //$totaldailypayments += $r['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $er['clientName']; ?></td>
+                                  <td><?php echo $er['eventName']; ?></td>
+                                  <td><?php echo $er['cancelledDate']; ?></td>
+                                  <td><?php echo $er['refundedAmount']; ?></td>
+                                  <td><?php echo $er['refundedDate']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
-              <div class="box">  
+
+              <div class="box">
                 <div class="box-header">
-                  <h4>Expenses</h4>
+                  <h4>Transaction Refunds</h4>
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="expenses">
+                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsAnnual">
                       <thead>
                         <tr>
                           <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
+                          <th>Date Cancelled</th>
+                          <th>Refunded Amount</th>
                         </tr>
                       </thead>    
                       <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
+                          <?php
+                            //$totaldailypayments = 0;
+                            if (!empty($transacRefunds) && !empty($selectedYr)) {
+                              // get ANNUAL transacRefunds...
+                              foreach ($transacRefunds as $tr) {
+                                if ($tr['year'] === $selectedYr) {
+                                  //$totaldailypayments += $tr['amount'];
+                                ?>
+                                <tr>
+                                  <td><?php echo $tr['clientName']; ?></td>
+                                  <td><?php echo $tr['cancelledDate']; ?></td>
+                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                </tr>
+                            <?php  }
+                              }
+                            }
+                          ?>
                       </tbody>
                     </table>
                   </div>
                 </div>
                 <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="well">
+                <div class="form-group">
+                  <label>Year</label>
+                  <div class="input-group date">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control pull-right" id="yrpicker" name="yrallrefunds" placeholder="<?php echo $selectedYr; ?>">
+                    <div class="input-group-addon">
+                      <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                   </div>
+                  <!-- /.input group -->
+                </div>
+                <!-- /.form group -->
+                <!-- total payments -->
+                <div class="input-group">
+                  <label>Event Refunds Total</label>
+                  <input type="text" name="evtTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Transaction Refunds Total</label>
+                  <input type="text" name="trTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  <label>Overall Total</label>
+                  <input type="text" name="ovTotaldailyrefunds" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
                 </div>
               </div>
             </div>
           </div>
-        </div> 
+          </form>
+        </div>
+
       </div>
       
     </section>
     <!-- /.content -->
   </div>
-
-<script>
-  $(function () {
-    $('#payments').DataTable()
-    $('#expenses').DataTable()
-  })
-</script> 
 
 <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
@@ -367,6 +424,15 @@
 
 <script>
   $(function () {
+    $('#allEventRefundsDaily').DataTable()
+    $('#allTransacRefundsDaily').DataTable() 
+    $('#allEventRefundsMonthly').DataTable() 
+    $('#allTransacRefundsMonthly').DataTable() 
+    $('#allEventRefundsAnnual').DataTable()
+    $('#allTransacRefundsAnnual').DataTable()
+  });
+
+  $(function () {
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     //Datemask2 mm/dd/yyyy
@@ -376,6 +442,43 @@
     $('#datepicker').datepicker({
       autoclose: true
     })
+    //Date picker all refunds
+    $('#datepickerallrefunds').datepicker({
+      autoclose: true,
+      orientation: 'bottom auto',
+      todayHighlight: true,
+      format: 'yyyy-mm-dd'
+    })
+
+    // Month and year only
+    $('#monthallrefunds').datepicker({
+       format: 'm-yyyy',
+       startView: 'months',
+       minViewMode: 'months',
+       orientation: 'bottom auto'
+    });
+
+    // Year only
+    $('#yrallrefunds').datepicker({
+       format: 'yyyy',
+       startView: 'years',
+       minViewMode: 'years',
+       orientation: 'bottom auto'
+    });
+
+    //Year picker
+    $('#date-year').datepicker({
+       minViewMode: 2,
+       format: 'yyyy'
+    });
+
+    //Year picker all payments
+    $('#date-yearallpayments').datepicker({
+       minViewMode: 2,
+       format: 'yyyy',
+       orientation: 'bottom auto'
+     });
+
 
     //Date range picker
     $('#reservation').daterangepicker()
@@ -397,12 +500,6 @@
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
       }
     )
-
-    //Year picker
-    $('#date-year').datepicker({
-       minViewMode: 2,
-       format: 'yyyy'
-     });
+    
   })
-
 </script>

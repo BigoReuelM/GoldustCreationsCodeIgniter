@@ -67,7 +67,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function reportsSelectDate(){
 			$this->load->library('user_agent');
-			$date = $this->input->post('datepickerallpayments');
+			$date = $this->input->post('datepicker');
 			$this->session->set_userdata('selectedDate', $date);
 			//redirect to referer page
 			redirect($this->agent->referrer());
@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function reportsSelectMnthYr(){
 			$this->load->library('user_agent');
-			$date = $this->input->post('monthallpayments');
+			$date = $this->input->post('monthpicker');
 			$this->session->set_userdata('selectedMnthYr', $date);
 			//redirect to referer page
 			redirect($this->agent->referrer());
@@ -83,7 +83,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function reportsSelectYr(){
 			$this->load->library('user_agent');
-			$date = $this->input->post('yrallpayments');
+			$date = $this->input->post('yrpicker');
 			$this->session->set_userdata('selectedYr', $date);
 			//redirect to referer page
 			redirect($this->agent->referrer());
@@ -160,6 +160,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
+
+			$data['eventRefunds'] = $this->admin_model->getEventRefunds();
+			$data['transacRefunds'] = $this->admin_model->getTransacRefunds();
+
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");

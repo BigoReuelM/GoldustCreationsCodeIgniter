@@ -553,6 +553,13 @@
 			return $query->row();
 		}
 
+		public function addTransacDes($transacID, $desID){
+			$data = array(
+				'designID' => $desID 
+			);
+			$this->db->where('transactionID', $transacID);
+			$this->db->insert('transactiondesign', $data);
+		}
 	}
 
 ?>

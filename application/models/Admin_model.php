@@ -284,5 +284,16 @@
 			$query = $this->db->query("SELECT CONCAT(firstName, ' ', middleName, ' ', lastName) AS fullname, dateAvail, month(dateAvail) as month, year(dateAvail) as year, finishDate, IDType, CONCAT(school, ',', yearAndSection) AS schoolyrsec, depositAmt, homeAddress FROM transactions JOIN clients ON transactions.clientID = clients.clientID WHERE depositAmt IS NOT NULL");
 			return $query->result_array();
 		}
+
+		public function getEventRefunds(){
+			$query = $this->db->query("SELECT CONCAT(firstName, ' ', middleName, ' ', lastName) AS clientName, refundedAmount, refundedDate, cancelledDate, eventName, month(refundedDate) as month, year(refundedDate) as year FROM events JOIN clients ON events.clientID = clients.clientID");
+			return $query->result_array();
+		}
+
+		public function getTransacRefunds(){
+			$query = $this->db->query("SELECT CONCAT(firstName,
+            ' ', middleName, ' ', lastName) AS clientName, cancelledDate, month(cancelledDate) as month, year(cancelledDate) as year, refundAmt FROM transactions JOIN clients ON transactions.clientID = clients.clientID");
+            return $query->result_array();
+		}
 	}
  ?>

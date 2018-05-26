@@ -90,7 +90,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="datepickerallpayments" name="datepickerallpayments" placeholder="<?php echo $selectedDate; ?>">
+                    <input type="text" class="form-control pull-right" id="datepickerallpayments" name="datepicker" placeholder="<?php echo $selectedDate; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -181,7 +181,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="monthallpayments" name="monthallpayments" placeholder="<?php echo $selectedMnthYr; ?>">
+                    <input type="text" class="form-control pull-right" id="monthpicker" name="monthallpayments" placeholder="<?php echo $selectedMnthYr; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -271,7 +271,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="yrallpayments" name="yrallpayments" placeholder="<?php echo $selectedYr; ?>">
+                    <input type="text" class="form-control pull-right" id="yrpicker" name="yrallpayments" placeholder="<?php echo $selectedYr; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
