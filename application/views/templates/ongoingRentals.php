@@ -13,23 +13,43 @@
       <section class="content container-fluid">
 
         <div class="content">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#attires" data-toggle="tab">Rented Attires</a></li>
-            <li><a href="#items" data-toggle="tab">Rented Items</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade in active" id="attires">
-              <div class="row">
-                <div class="col-lg-9">
+          <div class="well">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#attires" data-toggle="tab">Rented Attires</a></li>
+              <li><a href="#items" data-toggle="tab">Rented Items</a></li>
+            </ul>
+          </div>
+          <div class="well">
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="attires">
+                <div class="row">
+                  <div class="box">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <h1>Number of items on rent</h1>                          
+                        </div>
+                        <div class="col-lg-4">
+                          <h1>Total number or items</h1>
+                        </div>
+                        <div>
+                          <h1>overdue?</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="box">
                     <div class="box-header">
-                      
+                      <h3>Event Attire Rentals</h3>
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
                         <table class="table table-bordered table-hover text-center" id="attireRentals">
                           <thead>
                             <tr>
+                              <th>Image</th>
                               <th>Attire Name</th>
                               <th>Quantity</th>
                               <th>Client Name</th>
@@ -41,6 +61,7 @@
                           <tbody>
                             <?php foreach ($attireRentals as $attireRental): ?>
                               <tr>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $attireRental['designID'] . ',' . $attireRental['designType'] ?>" class="attireModalButton">view</button></td>
                                 <td><?php echo $attireRental['designName'] ?></td>
                                 <td><?php echo $attireRental['quantity'] ?></td>
                                 <td><?php echo $attireRental['clientName'] ?></td>
@@ -54,21 +75,47 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="well">
-                    <h1>number of items on rent</h1>
-                    <h1>overdue</h1>
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Transaction Attire Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="attireRentals">
+                          <thead>
+                            <tr>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="tab-pane fade" id="items">
-              <div class="row">
-                <div class="col-lg-9">
+              <div class="tab-pane fade" id="items">
+                <div class="row">
+                  <div class="box">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <h1>Number of items on rent</h1>                          
+                        </div>
+                        <div class="col-lg-4">
+                          <h1>Total number or items</h1>
+                        </div>
+                        <div>
+                          <h1>overdue?</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="box">
                     <div class="box-header">
-                      
+                      <h3>Event Rentals</h3>
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
@@ -87,7 +134,7 @@
                           <tbody>
                             <?php foreach ($itemRentals as $itemRental): ?>
                               <tr>
-                                <td><img src="<?php echo base_url('/uploads/decors/' . $itemRental['decorType'] . '/' . $itemRental['decorID']) ?>" alt="itemImage"></td>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $itemRental['decorID'] . ',' . $itemRental['decorType'] ?>" class="itemModalButton">view</button></td>
                                 <td><?php echo $itemRental['decorName'] ?></td>
                                 <td><?php echo $itemRental['quantity'] ?></td>
                                 <td><?php echo $itemRental['clientName'] ?></td>
@@ -101,11 +148,23 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3">
-                  <div class="well">
-                    <h1>number of items on rent</h1>
-                    <h1>overdue</h1>
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Transaction Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="itemRentals">
+                          <thead>
+                            <tr>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -120,6 +179,24 @@
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
+<div class="modal" tabindex="-1" role="dialog" id="photoView">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="image" id="rentalItemPhoto">      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- REQUIRED JS SCRIPTS -->
 
@@ -144,4 +221,18 @@
     $('#attireRentals').DataTable();
     $('#itemRentals').DataTable();
   })
+</script>
+
+<script>
+  $('.itemModalButton').click(function(){
+    var itemInfo = $(this).val().split(',');
+    $('#rentalItemPhoto').attr('src', '<?php echo base_url() ?>uploads/decors/' + itemInfo[1] + '/' + itemInfo[0]);
+  });
+</script>
+
+<script>
+  $('.attireModalButton').click(function(){
+    var attireInfo = $(this).val().split(',');
+    $('#rentalItemPhoto').attr('src', '<?php echo base_url() ?>uploads/designs/' + attireInfo[1] + '/' + attireInfo[0]);
+  });
 </script>
