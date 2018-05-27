@@ -189,7 +189,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img src="" alt="image" id="rentalItemPhoto">      
+        <img src="" alt="image" id="rentalItemPhoto" class="galleryImgModal">      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
