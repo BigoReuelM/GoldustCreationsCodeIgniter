@@ -1,5 +1,5 @@
 <style type="text/css">
-  
+
 
   input[type=submit] {
     background-color: #4CAF50;
@@ -20,6 +20,20 @@
     background-color: #E6E6E6;
     text-align: center;
   }
+
+   #butt5 {
+    width: 100px;
+  }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+  }
+  .popover-content {
+    font-size: 12px;
+  }
+  .popover{
+    max-width: 30%;
+}
 </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -29,6 +43,10 @@
           $name = $eventName->eventName; 
           echo '<b>' . $name . '</b>';    
         ?>
+      <div class="pull-right">
+        <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Attire 
+        Design</b> button to choose designs. <b>Add Entourage</b> button to add entourage and Click <b>Edit entourage</b> button to edit some desired entourage"><i class="fa fa-question-circle-o"></i></a>
+      </div>
       </h1>
     </section>
 
@@ -586,3 +604,8 @@
     width: 150px;
   }
 </style>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>

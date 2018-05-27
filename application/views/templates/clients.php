@@ -1,10 +1,27 @@
-
+<style type="text/css">
+   #butt5 {
+    width: 100px;
+  }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+  }
+  .popover-content {
+    font-size: 12px;
+  }
+  .popover{
+    max-width: 30%;
+}
+</style>
 
   <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<section class="content-header">
 		<h1>
 			Clients
+      <div class="pull-right">
+        <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add New Client</b> button to add new client. Upon clicking the button, add value to the input fields and click <b> Ok</b>. Also click <b>Add Event </b> button to add an event to a specific client."><i class="fa fa-question-circle-o"></i></a>
+      </div>
 		</h1>	
 	</section>
   <section class="content container-fluid">
@@ -442,4 +459,9 @@
         }
       });
     });
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 </script>
