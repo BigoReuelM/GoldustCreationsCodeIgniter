@@ -168,7 +168,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/reportNav.php", $page);
-			$this->load->view("adminPages/allRefunds.php");
+			$this->load->view("adminPages/allRefunds.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
