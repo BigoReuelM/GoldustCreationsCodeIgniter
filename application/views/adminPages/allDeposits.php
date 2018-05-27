@@ -21,7 +21,7 @@
       <div class="tab-content">
         <!-- Daily Reports -->
         <div class="tab-pane fade in active" id="daily">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -111,7 +111,7 @@
 
         <!-- Monthly Reports -->
         <div class="tab-pane fade in" id="monthly">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -181,7 +181,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="monthpicker" name="monthallpayments" placeholder="<?php echo $selectedMnthYr; ?>">
+                    <input type="text" class="form-control pull-right" id="monthallpayments" name="monthpicker" placeholder="<?php echo $selectedMnthYr; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>
@@ -202,7 +202,7 @@
 
         <!-- Annual Reports -->
         <div class="tab-pane fade in" id="annual">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -271,7 +271,7 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="yrpicker" name="yrallpayments" placeholder="<?php echo $selectedYr; ?>">
+                    <input type="text" class="form-control pull-right" id="yrallpayments" name="yrpicker" placeholder="<?php echo $selectedYr; ?>">
                     <div class="input-group-addon">
                       <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
                     </div>

@@ -22,7 +22,7 @@
       <div class="tab-content">
         <!-- Daily Reports --> 
         <div class="tab-pane fade in active" id="daily">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>" autocomplete="off">
           <div class="row">           
             <div class="col-md-9">
               <div class="box">
@@ -99,7 +99,7 @@
         
         <!-- Monthly Reports -->
         <div class="tab-pane fade" id="monthly">
-        <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>">
+        <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectMnthYr') ?>" autocomplete="off">
           <div class="row">
             <div class="col-lg-9">
               <div class="box">
@@ -173,7 +173,7 @@
 
         <!-- Annual Reports -->
         <div class="tab-pane fade" id="annual">
-          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>">
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectYr') ?>" autocomplete="off">
           <div class="row">
             <div class="col-lg-9">
               <div class="box">
