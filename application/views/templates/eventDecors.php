@@ -101,6 +101,20 @@ input[type=submit] {
   border:1px solid #ccc;
   background-color: #E6E6E6;
 }
+
+#butt5 {
+    width: 100px;
+  }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+  }
+  .popover-content {
+    font-size: 12px;
+  }
+  .popover{
+    max-width: 30%;
+}
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -110,6 +124,9 @@ input[type=submit] {
       $name = $eventName->eventName; 
       echo '<b>' . $name . '</b>';    
     ?>
+  <div class="pull-right">
+        <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Decor </b> button to add decors you want for the event. Click <b>Choose</b> if you want that decor and <b>Remove</b> if you want to remove the decor"><i class="fa fa-question-circle-o"></i></a>
+  </div>
   </h1>
 </section>
 
@@ -120,8 +137,7 @@ input[type=submit] {
     <div class="box-header">
       <div class="row">
         <div class="col-lg-6">
-          <h3 class="box-title">List Of Decors</h3>
-          <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to<br> make changes.<b>Remove</b> button to cancel a decor.</p></span>    
+          <h3 class="box-title">List Of Decors</h3>   
         </div>
         <?php
           if ($empRole === "admin") { ?>
@@ -419,3 +435,8 @@ input[type=submit] {
   }
 }
 </style>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
