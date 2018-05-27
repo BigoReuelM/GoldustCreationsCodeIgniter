@@ -759,11 +759,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addTransacDesign(){
 			// add a design/attire to a transaction
+			$this->load->library('user_agent');
 			$transacID = $this->session->userdata('currentTransactionID');
 			$svcID = $this->input->post('svcIDChoose');
 			$svcType = $this->input->post('svcTypeChoose');
 			$designID = $this->input->post('addTransacDesign');
 			$this->transactions_model->addTransacDes($transacID, $designID);
+			redirect($this->agent->referrer());
+		}
+
+		public function addTransacItem(){
+			// add an item to a transaction
+			$this->load->library('user_agent');
+			$transacID = $this->session->userdata('currentTransactionID');
+			$svcID = $this->input->post('svcIDChoose');
+			$svcType = $this->input->post('svcTypeChoose');
+			$itemID = $this->input->post('addTransacItem');
+			$this->transactions_model->addTransacItem($transacID, $itemID);
+			redirect($this->agent->referrer());
 		}
 		
 	}

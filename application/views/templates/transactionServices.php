@@ -224,7 +224,7 @@
             </div>
             </form>
 
-            <form role="form" method="post" action="<?php echo base_url('events/') ?>">
+            <form role="form" method="post" action="<?php echo base_url('transactions/addTransacItem') ?>">
             <div class="collapse" id="chooseItems">
               <div class="box">
                 <div class="box-header">
@@ -269,7 +269,7 @@
                             }
                             ?>
                           </td>
-                          <td><button type="submit" name="" class="btn btn-sm btn-default" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
+                          <td><button type="submit" name="addTransacItem" class="btn btn-sm btn-default" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
                         </tr>
                       <?php  } ?>
                     </tbody> 

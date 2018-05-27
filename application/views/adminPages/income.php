@@ -18,112 +18,161 @@
       <div class="tab-content">
         <!-- Daily Reports -->
         <div class="tab-pane fade in active" id="daily">
-          <div class="row">
-            
-            <div class="col-lg-5">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="well">
-                    <!-- Date -->
+          <form role="form" method="post" action="<?php echo base_url('admin/reportsSelectDate') ?>" autocomplete="off">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="box">
+                  <div class="box-body">
                     <div class="form-group">
-                      <label>Date:</label>
+                      <div class="col-md-2">
+                        <label><h4><b>INCOME</b></h4></label>
+                      </div>
+                      <div class="col-md-10">
+                        <input class="form-control" type="text" name="income" placeholder="" style="border: none;" disabled>
+                        <!--
+                          * income = revenue - expenses
+                          * income = (payments + deposits) - (expenses + refunds)
+                          -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">           
+              <div class="col-md-9">
+                <div class="box">
+                  <div class="box-header">
+                    <h4>Revenue</h4>
+                  </div>
+                  <div class="box-body">
+                    <div class="table table-responsive">
+                      <table class="table table-bordered table-hover text-center" id="income">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>    
+                        <tbody>
+                            <?php
+                              //$totaldailypayments = 0;
+                              //if (!empty($payments) && !empty($selectedDate)) {
+                                // get DAILY payments...
+                                //foreach ($payments as $p) { 
+                                  //if ($p['date'] == $selectedDate) {
+                                    //$totaldailypayments += $p['amount'];
+                                  ?>
+                                  <tr>
+                                    <td><b>Payments</b></td>
+                                    <td><b>TOTAL AMOUNT HERE...</b></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Payment 1</td>
+                                    <td>Amount</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Deposits</b></td>
+                                    <td><b>TOTAL AMOUNT HERE...</b></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Deposit 1</td>
+                                    <td>Amount</td>
+                                  </tr>
+                              <?php  //}
+                                //}
+                              //}
+                            ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="box-footer">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="well">
+                  <!-- Date -->
+                  <div class="form-group">
+                    <label>Date</label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control pull-right" id="datepickerallpayments" name="datepicker" placeholder="<?php //echo $selectedDate; ?>">
+                      <div class="input-group-addon">
+                        <button class="btn-link" type="submit"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <!-- /.form group -->
+                  <!-- total payments -->
+                  <div class="input-group">
+                    <label>Total</label>
+                    <input type="text" name="totaldailypayments" placeholder="<?php //echo $totaldailypayments ?>" class="form-control" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker">
-                      </div>
-                      <!-- /.input group -->
-                    </div>
-                    <!-- /.form group -->
+            <div class="row">           
+              <div class="col-md-9">
+                <div class="box">
+                  <div class="box-header">
+                    <h4>Expenses</h4>
                   </div>
-                </div>
-              </div>    
-              <div class="well">
-                <p>total payment</p>
-                <p>total expenses</p>
-                <p>total refunds</p>
-                <p>or any relevant information for the admin to see</p>
-                <p>comparison of this month and last month etc....</p>
-              </div>
-            </div>
-            <div class="col-lg-7">
-              <div class="box">
-                <div class="box-header">
-                  <h4>Payments</h4>
-                </div>
-                <div class="box-body">
-                  <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="payments">
-                      <thead>
-                        <tr>
-                          <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>    
-                      <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
+                  <div class="box-body">
+                    <div class="table table-responsive">
+                      <table class="table table-bordered table-hover text-center" id="income">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>    
+                        <tbody>
+                            <?php
+                              //$totaldailypayments = 0;
+                              //if (!empty($payments) && !empty($selectedDate)) {
+                                // get DAILY payments...
+                                //foreach ($payments as $p) { 
+                                  //if ($p['date'] == $selectedDate) {
+                                    //$totaldailypayments += $p['amount'];
+                                  ?>
+                                  <tr>
+                                    <td><b>Expenses</b></td>
+                                    <td><b>TOTAL AMOUNT HERE...</b></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Expense 1</td>
+                                    <td>Amount</td>
+                                  </tr>
+                                  <tr>
+                                    <td><b>Refunds</b></td>
+                                    <td><b>TOTAL AMOUNT HERE...</b></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Refund 1</td>
+                                    <td>Amount</td>
+                                  </tr>
+                              <?php  //}
+                                //}
+                              //}
+                            ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="box">  
-                <div class="box-header">
-                  <h4>Expenses</h4>
-                </div>
-                <div class="box-body">
-                  <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="expenses">
-                      <thead>
-                        <tr>
-                          <th>Client</th>
-                          <th>Event</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                          <th>Receiver</th>
-                          <th>Amount</th>
-                        </tr>
-                      </thead>    
-                      <tbody>
-                        <tr>
-                          <td></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="box-footer">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label>Total</label>
-                        <input type="text" name="totalPayment" class="form-control" disabled>
-                      </div>
-                    </div>
+                  <div class="box-footer">
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div> 
+          </form>
+        </div>
+
         <!-- Monthly Reports -->
         <div class="tab-pane fade" id="monthly">
           <!-- Date range -->

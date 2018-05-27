@@ -569,6 +569,14 @@
 			$this->db->where('transactionID', $transacID);
 			$this->db->insert('transactiondesign', $data);
 		}
+
+		public function addTransacItem($transacID, $itemID){
+			$data = array(
+				'decorID' => $itemID 
+			);
+			$this->db->where('transactionID', $transacID);
+			$this->db->insert('transactiondecors', $data);
+		}
 	}
 
 ?>
