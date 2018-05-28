@@ -411,7 +411,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 			}
 			$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
-			$this->transactions_model->updateTotalAmount($tid, $totalOfServices->total);
+			$deposit = $this->transactions_model->getDepositAmount($tid);
+			$newTotal = $totalOfServices->total + $deposit->depositAmt;
+			$this->transactions_model->updateTotalAmount($tid, $newTotal);
 
 			redirect('transactions/transactionServices');
 
