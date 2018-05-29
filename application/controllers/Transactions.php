@@ -206,6 +206,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			$data['serviceTotal'] = $this->transactions_model->totalAmountForServices($tranID);
 			$data['serviceCount'] = $this->transactions_model->servicesCount($tranID);
+			$data['transacItems'] = $this->transactions_model->getTransacItems($tranID);
+			$data['transacDesigns'] = $this->transactions_model->getTransacDesigns($tranID);
 
 			$data['designtypesmap'] = directory_map('./uploads/designs/', 1);
 			$data['allDesigns'] = $this->items_model->getAllDesigns();

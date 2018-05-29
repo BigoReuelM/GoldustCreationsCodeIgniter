@@ -564,18 +564,38 @@
 
 		public function addTransacDes($transacID, $desID){
 			$data = array(
-				'designID' => $desID 
+				'designID' => $desID,
+				'transactionID' => $transacID 
 			);
-			$this->db->where('transactionID', $transacID);
 			$this->db->insert('transactiondesign', $data);
 		}
 
 		public function addTransacItem($transacID, $itemID){
 			$data = array(
-				'decorID' => $itemID 
+				'decorID' => $itemID,
+				'transactionID' => $transacID 
 			);
-			$this->db->where('transactionID', $transacID);
 			$this->db->insert('transactiondecors', $data);
+		}
+
+		public function getTransacItems($transacID){
+			$this->db->select('*');
+			$this->db->from('transactiondecors');
+			$this->db->where('transactionID', $transacID);
+			$this->db->join('decors', 'transactiondecors.decorID = decors.decorsID');
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getTransacDesigns($transacID){
+			$this->db->select('*');
+			$this->db->from('transactiondesign');
+			$this->db->where('transactionID', $transacID);
+			$this->db->join('designs', 'transactiondesign.designID = designs.designID');
+
+			$query = $this->db->get();
+			return $query->result_array();
 		}
 	}
 

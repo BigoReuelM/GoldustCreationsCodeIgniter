@@ -88,7 +88,7 @@
               </div>    
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table id="servicesTable" class="table table-bordered table-striped text-center">
                 <thead>
                   <tr>
@@ -111,7 +111,26 @@
                           $attributes = array("name" => "updateServiceDetails", "id" => "updateServiceDetails", "class" => "form-horizontal", "autocomplete" => "off");
                           echo form_open("transactions/updateServiceDetails", $attributes);
                         ?>
-                          <td><?php echo $service['serviceName'] ?></td>
+                          <td>
+                            <?php 
+                              echo $service['serviceName'];
+                              if (!empty($transacDesigns) && strcasecmp($service['serviceName'], "gowns") === 0) {
+                                echo "<ul>";
+                                foreach ($transacDesigns as $design) {
+                                  echo "<li>" . $design['designName'] . " (" . $design['color'] . ")" . "</li>";
+                                }
+                                echo "</ul>";
+                              }
+
+                              if (!empty($transacItems) && (strcasecmp($service['serviceName'], "gowns") > 0 || strcasecmp($service['serviceName'], "gowns") < 0)) {
+                                echo "<ul>";
+                                foreach ($transacItems as $item) {
+                                  echo "<li>" . $item['decorName'] . " (" . $item['color'] . ")" . "</li>";
+                                }
+                                echo "</ul>";
+                              }
+                            ?>
+                          </td>
                           <td><input class="form-control" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>"></td>
                           <td>
                             <?php  
@@ -124,13 +143,13 @@
                               <div class="row">
                                 <input type="text" id="serviceID" name="serviceID" value="<?php echo $serviceID ?>" hidden>
                                 <div class="col-md-4">
-                                  <button class="btn btn-sm btn-block btn-primary" type="submit" name="action" value="update">Update</button> 
+                                  <button class="btn btn-md btn-link" type="submit" name="action" value="update">Update</button> 
                                 </div>
                                 <div class="col-md-4">
-                                  <button class="btn btn-sm btn-block btn-danger" type="submit" name="action" value="remove">Remove</button>  
+                                  <button class="btn btn-md btn-link" type="submit" name="action" value="remove">Remove</button>  
                                 </div>
                                 <div class="col-md-4">
-                                  <button class="btn btn-sm btn-default chooseSvcType btn-block" id="chooseBtn" name="choose" type="button" data-toggle="modal" data-target="#chooseModal" value="<?php echo $service['serviceID'] . " " . $service['serviceName'] ?>">Choose</button>
+                                  <button class="btn btn-md btn-link chooseSvcType" id="chooseBtn" name="choose" type="button" data-toggle="modal" data-target="#chooseModal" value="<?php echo $service['serviceID'] . " " . $service['serviceName'] ?>">Choose</button>
                                 </div>
                               </div>
                             </td>
@@ -191,7 +210,11 @@
                         <?php
                           foreach ($allDesigns as $des) { ?>
                           <tr>
-                            <td><?php echo $des['designName'] ?></td>
+                            <td>
+                              <?php
+                              echo $des['designName'];
+                              ?>
+                            </td>
                             <td><?php echo $des['color'] ?></td>
                             <td><?php echo $des['designType'] ?></td>
                             <td>
@@ -242,11 +265,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                      
                       <?php
                         foreach ($allDecors as $dec) { ?>
                         <tr>
-                          <td><?php echo $dec['decorName'] ?></td>
+                          <td>
+                            <?php 
+                              echo $dec['decorName'];
+                            ?>
+                          </td>
                           <td><?php echo $dec['color'] ?></td>
                           <td><?php echo $dec['decorType'] ?></td>
                           <td>
