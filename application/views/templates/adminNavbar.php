@@ -25,7 +25,7 @@
           </a>
         </li>
         <li>
-          <a href="<?php echo base_url('transactions/ongoing_rentals') ?>">
+          <a href="<?php echo base_url('items/ongoing_rentals') ?>">
             <i class="glyphicon glyphicon-hourglass"></i> 
             <span>Ongoing Rentals</span>
           </a>

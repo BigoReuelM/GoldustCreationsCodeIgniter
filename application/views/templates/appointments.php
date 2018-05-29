@@ -1,4 +1,18 @@
-
+<style>
+ #butt5 {
+    width: 100px;
+  }
+  .popover-title {
+    color: #3c8dbc;
+    font-size: 15px;
+  }
+  .popover-content {
+    font-size: 12px;
+  }
+  .popover{
+    max-width: 30%;
+}
+</style>
     <section class="content-header">
       <h1>
         Event Name:
@@ -6,6 +20,9 @@
           $name = $eventName->eventName; 
           echo '<b>' . $name . '</b>';    
         ?>
+        <div class="pull-right">
+        <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Appointments</b> button to add a schedule for appointments .Upon clicking the <b>Add Appointments</b> button, add value to the input fields and click <b>Ok</b>"><i class="fa fa-question-circle-o"></i></a>
+      </div>
       </h1>
     </section>
     <!-- Main content -->
@@ -223,4 +240,9 @@
         }
       });
     });
+</script>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
 </script>

@@ -1,15 +1,4 @@
-<style>
-.otherInformation {
-min-height: 20px;
-padding: 19px;
-margin-bottom: 20px;
-background-color: #f5f5f5;
-border: 1px solid #e3e3e3;
-border-radius: 4px;
--webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-}
-</style>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -24,87 +13,163 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
       <section class="content container-fluid">
 
         <div class="content">
-          <div class="row">
-          <div class="col-md-9"> 
-            <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Rentals</h3>
+          <div class="well">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#attires" data-toggle="tab">Rented Attires</a></li>
+              <li><a href="#items" data-toggle="tab">Rented Items</a></li>
+            </ul>
+          </div>
+          <div class="well">
+            <div class="tab-content">
+              <div class="tab-pane fade in active" id="attires">
+                <div class="row">
+                  <div class="box">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <h1>Number of items on rent</h1>                          
+                        </div>
+                        <div class="col-lg-4">
+                          <h1>Total number or items</h1>
+                        </div>
+                        <div>
+                          <h1>overdue?</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              <div class="box-body">
-                <div  class="table table-responsive">
-                  <table id="Rentals" class="table table-bordered table-condensed">
-                    <thead>
-                      <tr>
-                        <th>Client Name</th>
-                        <th>Contact Number</th>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody> 
-                        
-                          <?php
-                          if (!empty($tdata)) {
-
-                          foreach($tdata as $d) {
-                            $transInfo = $d['transactionID'];
-                          ?>
-                          <tr>
-                          <td><?php echo $d['clientName']; ?></td>
-                          <td><?php echo $d['contactNumber']; ?></td>
-                          <!--td><?php echo $d['serviceName']; ?></td-->
-                          <td><?php echo $d['dateAvail']; ?></td>
-                          <td>
-                              <form id="updtTransactionIdForm" role="role" method="post" action="<?php echo base_url('events/updateRentDes') ?>">
-                                <div class="row">
-                                  <div class="col-md-6">
-                                    <input type="text" name="rental_qty" style="border: none;" placeholder="<?php echo $d['quantity']; ?>" class="form-control">
-                                  </div>
-                          </td>
-                          <td>
-                            <div class="col-md-6">
-                                  <button class="btn btn-link btn-block" id="updtDecorBtn" name="designID" type="submit" value="<?php echo $designID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
-                            </div>
-                            </form>
-
-                          </td>
-                          
-                          </tr>
-                          <?php
-                          }
-                          }else{
-                            echo "0 result";
-                          } 
-                          ?>
-                         
-                    </tbody>
-                </table>
+                <div class="row">
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Event Attire Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="attireRentals">
+                          <thead>
+                            <tr>
+                              <th>Image</th>
+                              <th>Attire Name</th>
+                              <th>Quantity</th>
+                              <th>Client Name</th>
+                              <?php if ($empRole === "admin"): ?>
+                               <th>Handler</th> 
+                              <?php endif ?>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php foreach ($attireRentals as $attireRental): ?>
+                              <tr>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $attireRental['designID'] . ',' . $attireRental['designType'] ?>" class="attireModalButton">view</button></td>
+                                <td><?php echo $attireRental['designName'] ?></td>
+                                <td><?php echo $attireRental['quantity'] ?></td>
+                                <td><?php echo $attireRental['clientName'] ?></td>
+                                <?php if ($empRole === "admin"): ?>
+                                  <td><?php echo $attireRental['handlerName'] ?></td>
+                                <?php endif ?>
+                              </tr>
+                            <?php endforeach ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Transaction Attire Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="attireRentals">
+                          <thead>
+                            <tr>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="items">
+                <div class="row">
+                  <div class="box">
+                    <div class="box-body">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <h1>Number of items on rent</h1>                          
+                        </div>
+                        <div class="col-lg-4">
+                          <h1>Total number or items</h1>
+                        </div>
+                        <div>
+                          <h1>overdue?</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Event Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="itemRentals">
+                          <thead>
+                            <tr>
+                              <th>Image</th>
+                              <th>Attire Name</th>
+                              <th>Quantity</th>
+                              <th>Client Name</th>
+                              <?php if ($empRole === "admin"): ?>
+                               <th>Handler</th> 
+                              <?php endif ?>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php foreach ($itemRentals as $itemRental): ?>
+                              <tr>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $itemRental['decorID'] . ',' . $itemRental['decorType'] ?>" class="itemModalButton">view</button></td>
+                                <td><?php echo $itemRental['decorName'] ?></td>
+                                <td><?php echo $itemRental['quantity'] ?></td>
+                                <td><?php echo $itemRental['clientName'] ?></td>
+                                <?php if ($empRole === "admin"): ?>
+                                  <td><?php echo $itemRental['handlerName'] ?></td>
+                                <?php endif ?>
+                              </tr>
+                            <?php endforeach ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="box-header">
+                      <h3>Transaction Rentals</h3>
+                    </div>
+                    <div class="box-body">
+                      <div class="table table-responsive">
+                        <table class="table table-bordered table-hover text-center" id="itemRentals">
+                          <thead>
+                            <tr>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="otherInformation">
-             <?php 
-                  if (!empty($rentalCount)) {
-                    $rentCount = $rentalCount;
-                  } else {
-                    $rentCount = 0;
-                  }
-                  if (!empty($overdueRentalCount)){
-                    $overdueRent = $overdueRentalCount;
-                  } else {
-                    $overdueRent = 0;
-                  }
-              ?>
-
-            <h4>Number of Rentals : <?php echo $rentCount ?></h4>
-            <h4>Overdue Rentals : <?php echo $overdueRent ?></h4>
-          </div> 
-          </div>
-              
         </div>
       </section>
 
@@ -114,6 +179,24 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
+
+<div class="modal" tabindex="-1" role="dialog" id="photoView">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="image" id="rentalItemPhoto" class="galleryImgModal">      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- REQUIRED JS SCRIPTS -->
 
@@ -135,7 +218,21 @@ box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
 <!-- page script -->
 <script>
   $(function () {
-    $('#Rentals').DataTable();
-    $('#Events').DataTable();
+    $('#attireRentals').DataTable();
+    $('#itemRentals').DataTable();
   })
+</script>
+
+<script>
+  $('.itemModalButton').click(function(){
+    var itemInfo = $(this).val().split(',');
+    $('#rentalItemPhoto').attr('src', '<?php echo base_url() ?>uploads/decors/' + itemInfo[1] + '/' + itemInfo[0]);
+  });
+</script>
+
+<script>
+  $('.attireModalButton').click(function(){
+    var attireInfo = $(this).val().split(',');
+    $('#rentalItemPhoto').attr('src', '<?php echo base_url() ?>uploads/designs/' + attireInfo[1] + '/' + attireInfo[0]);
+  });
 </script>
