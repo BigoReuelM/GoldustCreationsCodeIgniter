@@ -179,15 +179,15 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <button type="button" data-toggle="collapse" data-target="#chooseAttire" class="btn btn-default btn-block">Attire</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <button type="button" data-toggle="collapse" data-target="#chooseItems" class="btn btn-default btn-block">Items</button> 
             </div> 
           </div>
 
-            <form role="form" action="<?php echo base_url('transactions/addTransacDesign') ?>" method="post">
+          <form role="form" action="<?php echo base_url('transactions/addTransacDesign') ?>" method="post">
             <div class="collapse" id="chooseAttire">
               <input type="text" name="svcIDChoose" id="svcIDChoose" hidden>
               <input type="text" name="svcTypeChoose" id="svcTypeChoose" hidden>
@@ -245,9 +245,9 @@
                 </div>
               </div>
             </div>
-            </form>
+          </form>
 
-            <form role="form" method="post" action="<?php echo base_url('transactions/addTransacItem') ?>">
+          <form role="form" method="post" action="<?php echo base_url('transactions/addTransacItem') ?>">
             <div class="collapse" id="chooseItems">
               <div class="box">
                 <div class="box-header">
