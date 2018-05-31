@@ -206,8 +206,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$data['details'] = $this->transactions_model->getTransactionDetails($tranID);
 			$data['serviceTotal'] = $this->transactions_model->totalAmountForServices($tranID);
 			$data['serviceCount'] = $this->transactions_model->servicesCount($tranID);
-			$data['transacItems'] = $this->transactions_model->getTransacItems($tranID);
-			$data['transacDesigns'] = $this->transactions_model->getTransacDesigns($tranID);
 
 			$data['designtypesmap'] = directory_map('./uploads/designs/', 1);
 			$data['allDesigns'] = $this->items_model->getAllDesigns();
@@ -414,7 +412,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			}
 			$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
 			$deposit = $this->transactions_model->getDepositAmount($tid);
-			$newTotal = $totalOfServices->total + $deposit->depositAmt;
+			$newTotal = $totalOfServices->total + $deposit->depositAmount;
 			$this->transactions_model->updateTotalAmount($tid, $newTotal);
 
 			redirect('transactions/transactionServices');
@@ -735,24 +733,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		public function addTransacDesign(){
 			// add a design/attire to a transaction
-			$this->load->library('user_agent');
 			$transacID = $this->session->userdata('currentTransactionID');
 			$svcID = $this->input->post('svcIDChoose');
 			$svcType = $this->input->post('svcTypeChoose');
 			$designID = $this->input->post('addTransacDesign');
 			$this->transactions_model->addTransacDes($transacID, $designID);
-			redirect($this->agent->referrer());
-		}
-
-		public function addTransacItem(){
-			// add an item to a transaction
-			$this->load->library('user_agent');
-			$transacID = $this->session->userdata('currentTransactionID');
-			$svcID = $this->input->post('svcIDChoose');
-			$svcType = $this->input->post('svcTypeChoose');
-			$itemID = $this->input->post('addTransacItem');
-			$this->transactions_model->addTransacItem($transacID, $itemID);
-			redirect($this->agent->referrer());
 		}
 		
 	}

@@ -24,23 +24,6 @@
               <div class="tab-pane fade in active" id="attires">
                 <div class="row">
                   <div class="box">
-                    <div class="box-body">
-                      <div class="row">
-                        <div class="col-lg-4">
-                          <h1>Number of items on rent</h1>                          
-                        </div>
-                        <div class="col-lg-4">
-                          <h1>Total number or items</h1>
-                        </div>
-                        <div>
-                          <h1>overdue?</h1>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="box">
                     <div class="box-header">
                       <h3>Event Attire Rentals</h3>
                     </div>
@@ -59,14 +42,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <?php foreach ($attireRentals as $attireRental): ?>
+                            <?php foreach ($eventAttireRentals as $eventAttireRental): ?>
                               <tr>
-                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $attireRental['designID'] . ',' . $attireRental['designType'] ?>" class="attireModalButton">view</button></td>
-                                <td><?php echo $attireRental['designName'] ?></td>
-                                <td><?php echo $attireRental['quantity'] ?></td>
-                                <td><?php echo $attireRental['clientName'] ?></td>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $eventAttireRental['designID'] . ',' . $eventAttireRental['designType'] ?>" class="attireModalButton">view</button></td>
+                                <td><?php echo $eventAttireRental['designName'] ?></td>
+                                <td><?php echo $eventAttireRental['quantity'] ?></td>
+                                <td><?php echo $eventAttireRental['clientName'] ?></td>
                                 <?php if ($empRole === "admin"): ?>
-                                  <td><?php echo $attireRental['handlerName'] ?></td>
+                                  <td><?php echo $eventAttireRental['handlerName'] ?></td>
                                 <?php endif ?>
                               </tr>
                             <?php endforeach ?>
@@ -81,12 +64,30 @@
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
-                        <table class="table table-bordered table-hover text-center" id="attireRentals">
+                        <<table class="table table-bordered table-hover text-center" id="transactionAttireRentals">
                           <thead>
                             <tr>
+                              <th>Image</th>
+                              <th>Attire Name</th>
+                              <th>Quantity</th>
+                              <th>Client Name</th>
+                              <?php if ($empRole === "admin"): ?>
+                               <th>Handler</th> 
+                              <?php endif ?>
                             </tr>
                           </thead>
                           <tbody>
+                            <?php foreach ($transactionAttireRentals as $transactionAttireRental): ?>
+                              <tr>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $transactionAttireRental['designID'] . ',' . $transactionAttireRental['designType'] ?>" class="attireModalButton">view</button></td>
+                                <td><?php echo $transactionAttireRental['designName'] ?></td>
+                                <td><?php echo $transactionAttireRental['quantity'] ?></td>
+                                <td><?php echo $transactionAttireRental['clientName'] ?></td>
+                                <?php if ($empRole === "admin"): ?>
+                                  <td><?php echo $transactionAttireRental['handlerName'] ?></td>
+                                <?php endif ?>
+                              </tr>
+                            <?php endforeach ?>
                           </tbody>
                         </table>
                       </div>
@@ -132,14 +133,14 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <?php foreach ($itemRentals as $itemRental): ?>
+                            <?php foreach ($eventItemRentals as $eventItemRental): ?>
                               <tr>
-                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $itemRental['decorID'] . ',' . $itemRental['decorType'] ?>" class="itemModalButton">view</button></td>
-                                <td><?php echo $itemRental['decorName'] ?></td>
-                                <td><?php echo $itemRental['quantity'] ?></td>
-                                <td><?php echo $itemRental['clientName'] ?></td>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $eventItemRental['decorID'] . ',' . $eventItemRental['decorType'] ?>" class="itemModalButton">view</button></td>
+                                <td><?php echo $eventItemRental['decorName'] ?></td>
+                                <td><?php echo $eventItemRental['quantity'] ?></td>
+                                <td><?php echo $eventItemRental['clientName'] ?></td>
                                 <?php if ($empRole === "admin"): ?>
-                                  <td><?php echo $itemRental['handlerName'] ?></td>
+                                  <td><?php echo $eventItemRental['handlerName'] ?></td>
                                 <?php endif ?>
                               </tr>
                             <?php endforeach ?>
@@ -154,13 +155,30 @@
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
-                        <table class="table table-bordered table-hover text-center" id="itemRentals">
+                        <table class="table table-bordered table-hover text-center" id="transactionItemRentals">
                           <thead>
                             <tr>
-                              
+                              <th>Image</th>
+                              <th>Attire Name</th>
+                              <th>Quantity</th>
+                              <th>Client Name</th>
+                              <?php if ($empRole === "admin"): ?>
+                               <th>Handler</th> 
+                              <?php endif ?>
                             </tr>
                           </thead>
                           <tbody>
+                            <?php foreach ($transactionItemRentals as $transactionItemRental): ?>
+                              <tr>
+                                <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $transactionItemRental['decorID'] . ',' . $transactionItemRental['decorType'] ?>" class="itemModalButton">view</button></td>
+                                <td><?php echo $transactionItemRental['decorName'] ?></td>
+                                <td><?php echo $transactionItemRental['quantity'] ?></td>
+                                <td><?php echo $transactionItemRental['clientName'] ?></td>
+                                <?php if ($empRole === "admin"): ?>
+                                  <td><?php echo $transactionItemRental['handlerName'] ?></td>
+                                <?php endif ?>
+                              </tr>
+                            <?php endforeach ?>
                           </tbody>
                         </table>
                       </div>
@@ -220,6 +238,8 @@
   $(function () {
     $('#attireRentals').DataTable();
     $('#itemRentals').DataTable();
+    $('#transactionAttireRentals').DataTable();
+    $('#transactionItemRentals').DataTable();
   })
 </script>
 

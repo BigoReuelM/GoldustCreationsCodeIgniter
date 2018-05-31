@@ -13,6 +13,7 @@ class Items extends CI_Controller
 		$this->load->model('handler_model');
 		$this->load->model('notifications_model');
 		$this->load->model('events_model');
+		$this->load->model('transactions_model');
 		$this->load->model('session_model');
 		$this->load->library('session');
 	}
@@ -60,8 +61,10 @@ class Items extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
-		$data['attireRentals'] = $this->events_model->getEventsAttireRentals();
-		$data['itemRentals'] = $this->events_model->getEventItemRentals();
+		$data['eventAttireRentals'] = $this->events_model->getEventsAttireRentals();
+		$data['transactionAttireRentals'] = $this->transactions_model->getTransactionAttireRentals();
+		$data['eventItemRentals'] = $this->events_model->getEventItemRentals();
+		$data['transactionItemRentals'] = $this->transactions_model->getTransactionItemRentals();
 		$data['empRole'] = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Ongoing Rentals | Admin';	
