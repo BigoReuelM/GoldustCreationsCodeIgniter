@@ -97,7 +97,9 @@
 		public function getExpenses(){
 
 			$query = $this->db->query("
-				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName
+				SELECT *, concat(firstName, ' ', midName, ' ', lastName) as employeeName,
+				month(expenseDate) as month,
+    			year(expenseDate) as year
 				FROM expenses
 				NATURAL JOIN employees
 			");

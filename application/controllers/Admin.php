@@ -100,11 +100,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 			$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
 
+			$data['payments'] = $this->admin_model->getPayments();
+			$data['expenses'] = $this->admin_model->getExpenses();
+			$data['eventRefunds'] = $this->admin_model->getEventRefunds();
+			$data['transacRefunds'] = $this->admin_model->getTransacRefunds();
+
 			$this->load->view("templates/head.php", $headdata);
 			$this->load->view("templates/adminHeader.php", $notif);
 			$this->load->view("templates/adminNavbar.php");
 			$this->load->view("adminPages/reportNav.php", $page);
-			$this->load->view("adminPages/income.php");
+			$this->load->view("adminPages/income.php", $data);
 			$this->load->view("templates/footer.php");
 		}
 
