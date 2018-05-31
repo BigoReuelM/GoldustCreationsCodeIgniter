@@ -597,6 +597,52 @@
 			$query = $this->db->get();
 			return $query->result_array();
 		}
+
+		public function getTransactionAttireRentals(){
+			$emprole = $this->session->userdata('employeeRole');
+			$empID = $this->session->userdata('employeeID');
+			if ($emprole === "handler") {
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
+				$this->db->from('transactiondesign');
+				$this->db->join('designs', 'designs.designID = transactiondesign.designID');
+				$this->db->join('transactions', 'transactiondesign.transactionID = transactions.transactionID');
+				$this->db->join('clients', 'transactions.clientID = clients.clientID');
+				$this->db->where('transactions.employeeID', $empID);
+			}else{
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
+				$this->db->from('transactiondesign');
+				$this->db->join('designs', 'designs.designID = transactiondesign.designID');
+				$this->db->join('transactions', 'transactiondesign.transactionID = transactions.transactionID');
+				$this->db->join('clients', 'transactions.clientID = clients.clientID');
+				$this->db->join('employees', 'employees.employeeID = transactions.employeeID');
+			}
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function getTransactionItemRentals(){
+			$emprole = $this->session->userdata('employeeRole');
+			$empID = $this->session->userdata('employeeID');
+			if ($emprole === "handler") {
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
+				$this->db->from('transactiondecors');
+				$this->db->join('decors', 'decors.decorsID = transactiondecors.decorID');
+				$this->db->join('transactions', 'transactiondecors.transactionID = transactions.transactionID');
+				$this->db->join('clients', 'transactions.clientID = clients.clientID');
+				$this->db->where('transactions.employeeID', $empID);
+			}else{
+				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
+				$this->db->from('transactiondecors');
+				$this->db->join('decors', 'decors.decorsID = transactiondecors.decorID');
+				$this->db->join('transactions', 'transactiondecors.transactionID = transactions.transactionID');
+				$this->db->join('clients', 'transactions.clientID = clients.clientID');
+				$this->db->join('employees', 'employees.employeeID = transactions.employeeID');
+			}
+
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 	}
 
 ?>
