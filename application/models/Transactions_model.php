@@ -599,7 +599,7 @@
 		}
 
 		public function getTransactionAttireRentals(){
-			$emprole = $this->session->userdata('employeeRole');
+			$emprole = $this->session->userdata('role');
 			$empID = $this->session->userdata('employeeID');
 			if ($emprole === "handler") {
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
@@ -608,6 +608,7 @@
 				$this->db->join('transactions', 'transactiondesign.transactionID = transactions.transactionID');
 				$this->db->join('clients', 'transactions.clientID = clients.clientID');
 				$this->db->where('transactions.employeeID', $empID);
+				$this->db->where('transactions.transactionstatus', 'on-going');
 			}else{
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
 				$this->db->from('transactiondesign');
@@ -615,6 +616,7 @@
 				$this->db->join('transactions', 'transactiondesign.transactionID = transactions.transactionID');
 				$this->db->join('clients', 'transactions.clientID = clients.clientID');
 				$this->db->join('employees', 'employees.employeeID = transactions.employeeID');
+				$this->db->where('transactions.transactionstatus', 'on-going');
 			}
 
 			$query = $this->db->get();
@@ -622,7 +624,7 @@
 		}
 
 		public function getTransactionItemRentals(){
-			$emprole = $this->session->userdata('employeeRole');
+			$emprole = $this->session->userdata('role');
 			$empID = $this->session->userdata('employeeID');
 			if ($emprole === "handler") {
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
@@ -631,6 +633,7 @@
 				$this->db->join('transactions', 'transactiondecors.transactionID = transactions.transactionID');
 				$this->db->join('clients', 'transactions.clientID = clients.clientID');
 				$this->db->where('transactions.employeeID', $empID);
+				$this->db->where('transactions.transactionstatus', 'on-going');
 			}else{
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
 				$this->db->from('transactiondecors');
@@ -638,6 +641,7 @@
 				$this->db->join('transactions', 'transactiondecors.transactionID = transactions.transactionID');
 				$this->db->join('clients', 'transactions.clientID = clients.clientID');
 				$this->db->join('employees', 'employees.employeeID = transactions.employeeID');
+				$this->db->where('transactions.transactionstatus', 'on-going');
 			}
 
 			$query = $this->db->get();

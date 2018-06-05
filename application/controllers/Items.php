@@ -61,10 +61,8 @@ class Items extends CI_Controller
 		$notif['incEvents'] = $this->notifications_model->getIncommingEvents();
 		$notif['incAppointment'] = $this->notifications_model->getIncommingAppointments();
 		$notif['overdueEPayments'] = $this->notifications_model->overdueEPayments();
-		$data['eventAttireRentals'] = $this->events_model->getEventsAttireRentals();
-		$data['transactionAttireRentals'] = $this->transactions_model->getTransactionAttireRentals();
-		$data['eventItemRentals'] = $this->events_model->getEventItemRentals();
-		$data['transactionItemRentals'] = $this->transactions_model->getTransactionItemRentals();
+		$data['attireRentals'] = array_merge($this->events_model->getEventsAttireRentals(), $this->transactions_model->getTransactionAttireRentals());
+		$data['itemRentals'] = array_merge($this->events_model->getEventItemRentals(), $this->transactions_model->getTransactionItemRentals());
 		$data['empRole'] = $this->session->userdata('role');
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Ongoing Rentals | Admin';	

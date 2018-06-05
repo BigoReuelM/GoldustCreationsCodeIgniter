@@ -1159,7 +1159,7 @@
 		}
 
 		public function getEventsAttireRentals(){
-			$emprole = $this->session->userdata('employeeRole');
+			$emprole = $this->session->userdata('role');
 			$empID = $this->session->userdata('employeeID');
 			if ($emprole === "handler") {
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
@@ -1167,7 +1167,9 @@
 				$this->db->join('designs', 'designs.designID = eventdesigns.designID');
 				$this->db->join('events', 'eventdesigns.eventID = events.eventID');
 				$this->db->join('clients', 'events.clientID = clients.clientID');
-				$this->db->where('events.employeeID', $empID);
+				//$this->db->where('events.employeeID', $empID);
+				$where = "events.employeeID = '" . $empID . "' AND (events.eventStatus = 'on-going' OR events.eventStatus = 'new')";
+				$this->db->where($where);
 			}else{
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
 				$this->db->from('eventdesigns');
@@ -1175,6 +1177,8 @@
 				$this->db->join('events', 'eventdesigns.eventID = events.eventID');
 				$this->db->join('clients', 'events.clientID = clients.clientID');
 				$this->db->join('employees', 'employees.employeeID = events.employeeID');
+				$this->db->where('events.eventStatus', 'on-going');
+				$this->db->or_where('events.eventStatus', 'new');
 			}
 
 			$query = $this->db->get();
@@ -1182,7 +1186,7 @@
 		}
 
 		public function getEventItemRentals(){
-			$emprole = $this->session->userdata('employeeRole');
+			$emprole = $this->session->userdata('role');
 			$empID = $this->session->userdata('employeeID');
 			if ($emprole === "handler") {
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName');
@@ -1191,6 +1195,8 @@
 				$this->db->join('events', 'eventdecors.eventID = events.eventID');
 				$this->db->join('clients', 'events.clientID = clients.clientID');
 				$this->db->where('events.employeeID', $empID);
+				$this->db->where('events.eventStatus', 'on-going');
+				$this->db->or_where('events.eventStatus', 'new');
 			}else{
 				$this->db->select('*, concat(clients.firstName, " ", clients.middleName, " ", clients.lastName) as clientName, concat(employees.firstName, " ", employees.midName, " ", employees.lastName) as handlerName');
 				$this->db->from('eventdecors');
@@ -1198,6 +1204,8 @@
 				$this->db->join('events', 'eventdecors.eventID = events.eventID');
 				$this->db->join('clients', 'events.clientID = clients.clientID');
 				$this->db->join('employees', 'employees.employeeID = events.employeeID');
+				$this->db->where('events.eventStatus', 'on-going');
+				$this->db->or_where('events.eventStatus', 'new');
 			}
 
 			$query = $this->db->get();
