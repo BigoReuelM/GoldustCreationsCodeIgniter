@@ -81,7 +81,7 @@
             </div>
             <div class="form-group">
               <label>Theme Description</label>
-              <textarea class="form-control" rows="3" name="themeDesc" id="themeDesc"></textarea>
+              <textarea class="form-control" rows="4" name="themeDesc" id="themeDesc" style="resize: vertical;"></textarea>
             </div>
             <div class="modal-footer">
               <button class="btn btn-primary" onclick="reset_chkbx()">Ok</button>

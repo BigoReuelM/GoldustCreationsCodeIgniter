@@ -779,13 +779,13 @@
 		}
 
 		public function displayEventThemeDesigns($eventThemeID){
-			$query = $this->db->query("SELECT * FROM designs JOIN eventdesigns ON designs.designID = eventdesigns.designID WHERE themeID = $eventThemeID");
+			$query = $this->db->query("SELECT * FROM designs WHERE themeID = $eventThemeID");
 
 			return $query->result_array();
 		}
 
 		public function displayEventThemeDecors($eventThemeID){
-			$query = $this->db->query("SELECT * FROM decors JOIN eventdecors ON decors.decorsID = eventdecors.decorID WHERE themeID = $eventThemeID");
+			$query = $this->db->query("SELECT * FROM decors WHERE themeID = $eventThemeID");
 
 			return $query->result_array();
 		}

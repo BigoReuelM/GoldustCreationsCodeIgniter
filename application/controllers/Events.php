@@ -421,7 +421,6 @@ class Events extends CI_Controller
 
 		$data['eventName'] =$this->events_model->getEventName($eventid);
 		// decors w/o theme that are in the eventdecors table
-		$data['eventDecors'] =$this->events_model->getDecors($eventid);
 		$data['decorTypes'] = $this->events_model->getDecorEnum();
 		// get all folders (types) inside the design folder
 		$data['decortypesmap'] = directory_map('./uploads/decors/', 1);
@@ -433,12 +432,14 @@ class Events extends CI_Controller
 		$themeDet = $this->events_model->getEventTheme($eventid);
 		// store event theme ID to variable...
 		$eventTheme = $themeDet->themeID;
+		//$eventDecors = $this->events_model->getDecors($eventid, $eventTheme);
 		if (!empty($eventTheme)) {
+		//if (!empty($eventDecors)) {
 			// ...as well as pass to view, along with other info...
 			$data['eventThemeDet'] = $this->events_model->getEventTheme($eventid);
 					
 			// display event theme decors
-			$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
+			//$data['themeDecors'] = $this->events_model->displayEventThemeDecors($eventTheme);
 			// insert each [theme] decors to the eventdecors table
 			$thdec = $this->events_model->displayEventThemeDecors($eventTheme);
 			if (!empty($thdec)) {
@@ -450,6 +451,7 @@ class Events extends CI_Controller
 				}
 			}
 		}
+		$data['eventDecors'] = $this->events_model->getDecors($eventid);
 
 		if ($this->session->userdata('role') === "admin") {
 			$headdata['pagename'] = 'Event Decorations | Admin';	
@@ -470,7 +472,6 @@ class Events extends CI_Controller
 			$this->load->view("templates/eventNav.php", $page);
 			
 		}
-		$data['eventdecors'] = $this->events_model->getDecors($eventid);
 		$this->load->view("templates/eventDecors.php", $data);
 		$this->load->view("templates/footer.php");
 	}
