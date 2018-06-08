@@ -166,7 +166,7 @@
 			$this->db->join('entourage', 'entouragedetails.entourageID = entourage.entourageID');
 			$this->db->join('designs', 'designs.designID = entouragedetails.designID');
 			$this->db->where('entourage.eventID', $currentEventID);*/
-			$query = $this->db->query("SELECT * FROM entourage WHERE eventID = $currentEventID");
+			$query = $this->db->query("SELECT * FROM entourage JOIN entouragedetails ON entourage.entourageID = entouragedetails.entourageID JOIN designs ON entouragedetails.designID = designs.designID WHERE eventID = $currentEventID");
 			//$query = $this->db->get();
 			return $query->result_array();
 		}

@@ -103,17 +103,17 @@ input[type=submit] {
 }
 
 #butt5 {
-    width: 100px;
-  }
-  .popover-title {
-    color: #3c8dbc;
-    font-size: 15px;
-  }
-  .popover-content {
-    font-size: 12px;
-  }
-  .popover{
-    max-width: 30%;
+  width: 100px;
+}
+.popover-title {
+  color: #3c8dbc;
+  font-size: 15px;
+}
+.popover-content {
+  font-size: 12px;
+}
+.popover{
+  max-width: 30%;
 }
 </style>
 <!-- Content Header (Page header) -->
@@ -121,12 +121,12 @@ input[type=submit] {
   <h1>
     Event Name:
     <?php
-      $name = $eventName->eventName; 
-      echo '<b>' . $name . '</b>';    
+    $name = $eventName->eventName; 
+    echo '<b>' . $name . '</b>';    
     ?>
-  <div class="pull-right">
-        <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Decor </b> button to add decors you want for the event. Click <b>Choose</b> if you want that decor and <b>Remove</b> if you want to remove the decor"><i class="fa fa-question-circle-o"></i></a>
-  </div>
+    <div class="pull-right">
+      <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Decor </b> button to add decors you want for the event. Click <b>Choose</b> if you want that decor and <b>Remove</b> if you want to remove the decor"><i class="fa fa-question-circle-o"></i></a>
+    </div>
   </h1>
 </section>
 
@@ -140,15 +140,15 @@ input[type=submit] {
           <h3 class="box-title">List Of Decors</h3>   
         </div>
         <?php
-          if ($empRole === "admin") { ?>
-            <?php if ($eventStatus->eventStatus === "on-going"): ?>
-              <div class="col-lg-3">
-                <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
-              </div>
-              <div class="col-lg-3">
-                <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
-              </div>
-            <?php endif ?>
+        if ($empRole === "admin") { ?>
+          <?php if ($eventStatus->eventStatus === "on-going"): ?>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addNewDecorModal">Add New Decor From Computer</button>
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#addExstDecorModal">Add Existing Decor</button>
+            </div>
+          <?php endif ?>
         <?php } else { ?>
           <?php if ($eventStatus->eventStatus === "on-going"): ?>
             <div class="col-lg-offset-3 col-lg-3">
@@ -158,198 +158,207 @@ input[type=submit] {
         <?php }
         ?>
 
-    </div>      
-          <!-- /.box-header -->
-          <div class="box-body">
-            <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
-              <thead>
+      </div>      
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
+          <thead>
+            <tr>
+              <th>Decor Name</th>
+              <th>Quantity</th>
+              <th>Photo</th>
+              <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                <th>Action</th>
+              <?php endif ?>
+            </tr>
+          </thead>
+          <tbody>
+            <?php 
+            if (!empty($eventDecors)) { 
+              foreach ($eventDecors as $td) {
+                $decorID = $td['decorsID'];
+                ?>
                 <tr>
-                  <th>Decor Name</th>
-                  <th>Quantity</th>
-                  <th>Photo</th>
-                  <?php if ($eventStatus->eventStatus === "on-going"): ?>
-                    <th>Action</th>
-                  <?php endif ?>
-                </tr>
-              </thead>
-                <tbody>
-                  <?php 
-                    if (!empty($eventDecors)) { 
-                      foreach ($eventDecors as $td) {
-                        $decorID = $td['decorsID'];
-                    ?>
-                      <tr>
-                        <td><?php echo $td['decorName']; ?></td>
-                        <td>
-                          <form id="updtDecorIdForm" role="form" method="post" action="<?php echo base_url('events/updateEvtDec') ?>">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                  <td><?php echo $td['decorName']; ?></td>
+                  <td>
+                    <form id="updtDecorIdForm" role="form" method="post" action="<?php echo base_url('events/updateEvtDec') ?>">
+                      <div class="row">
+                        <?php
+                        if ($eventStatus->eventStatus === "finished" || $eventStatus->eventStatus === "cancelled") {
+                          ?>
+                          <div class="col-md-12">
+                            <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" disabled>
+                          </div>
+                        <?php } else { ?>
+                          <div class="col-md-6">
+                            <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                          </div>
+                        <?php }?>
+                        
+                        <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                          <div class="col-md-6">
+                            <button class="btn btn-link btn-block" id="updtDecorBtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
+                          </div>
+                        <?php endif ?>
+                      </div>
+                    </form>
+                  </td>
+                  <td>
+                    <?php
+                    if (!empty($eventThemeDet)) {
+                      if (!empty($decortypesmap)) {
+                        foreach ($decortypesmap as $dtm) {
+                          $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                          foreach ($files as $f) {
+                            $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                            if ($f_no_extension === $decorID) { ?>
+                              <div class="thumbnail">
+                                <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
                               </div>
-                              <?php if ($eventStatus->eventStatus === "on-going"): ?>
-                                <div class="col-md-6">
-                                  <button class="btn btn-link btn-block" id="updtDecorBtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-fw fa-edit"></i> Update</button>
-                                </div>
-                              <?php endif ?>
-                            </div>
-                          </form>
-                        </td>
-                        <td>
-                          <?php
-                          if (!empty($eventThemeDet)) {
-                            if (!empty($decortypesmap)) {
-                              foreach ($decortypesmap as $dtm) {
-                                $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
-                                foreach ($files as $f) {
-                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                                  if ($f_no_extension === $decorID) { ?>
-                                    <div class="thumbnail">
-                                      <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
-                                    </div>
-                          <?php     
-                                }
-                              }
+                              <?php     
                             }
                           }
-                          }else{
-                            echo "No data";
-                          }
-                          ?>
-                        </td>
-                        <?php if ($eventStatus->eventStatus === "on-going"): ?>
-                          <td>                            
-                            <!-- remove decor button -->
-                            <div class="col-md-12 col-sm-12">
-                              <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
-                                <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-remove"></i> Remove</button> 
-                              </form>   
-                            </div>
-                          </td>
-                        <?php endif ?>
-                      </tr>
-                      <?php      
+                        }
+                      }
+                    }else{
+                      echo "No data";
                     }
-                  }
-                  ?>
-                </tbody>
-              </table>
-            </div>
+                    ?>
+                  </td>
+                  <?php if ($eventStatus->eventStatus === "on-going"): ?>
+                    <td>                            
+                      <!-- remove decor button -->
+                      <div class="col-md-12 col-sm-12">
+                        <form id="decoridform" role="form" method="post" action="<?php echo base_url('events/setCurrentDecorID') ?>">
+                          <button class="btn btn-link" id="rmvdecorbtn" name="decorID" type="submit" value="<?php echo $decorID ?>"><i class="fa fa-remove"></i> Remove</button> 
+                        </form>   
+                      </div>
+                    </td>
+                  <?php endif ?>
+                </tr>
+                <?php      
+              }
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
 
-            <!-- /.box-body -->
+      <!-- /.box-body -->
     </div>
   </div>
 
-<!-- MODALS -->  
-        <!-- add new decor/event decor from computer -->      
-        <div class="modal fade" id="addNewDecorModal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add New Decor From Computer</h4>
-              </div>
-              <div class="modal-body">
-                <form action="<?php echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="decor_name" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label>Color</label>
-                    <input type="text" name="decor_color" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label>Type</label>
-                    <select class="form-control" name="decor_type" id="decor_type">
-                    <?php
-                      if (!empty('decorTypes')) {
-                        foreach ($decorTypes as $dt) { ?>
-                          <option><?php echo $dt ?></option>
-                        <?php }
-                          }
-                        ?>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Image</label>
-                      <div class="form-group">
-                        <label>Select files from your computer</label>
-                        <input type="file" name="userfile" >
-                      </div>
-                  </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
-                  </div>
-                </form>
+  <!-- MODALS -->  
+  <!-- add new decor/event decor from computer -->      
+  <div class="modal fade" id="addNewDecorModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add New Decor From Computer</h4>
+        </div>
+        <div class="modal-body">
+          <form action="<?php echo base_url('events/addNewEventDecor') ?>" method="post" role="form" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="decor_name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Color</label>
+              <input type="text" name="decor_color" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Type</label>
+              <select class="form-control" name="decor_type" id="decor_type">
+                <?php
+                if (!empty('decorTypes')) {
+                  foreach ($decorTypes as $dt) { ?>
+                    <option><?php echo $dt ?></option>
+                  <?php }
+                }
+                ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Image</label>
+              <div class="form-group">
+                <label>Select files from your computer</label>
+                <input type="file" name="userfile" >
               </div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" name="upload" class="btn btn-sm btn-primary">Upload files</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add existing an decor to the event -->
+<form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
+  <div class="modal fade" id="addExstDecorModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Existing Decor</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+            <table id="exstDecors" class="table table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>Decor Name</th>
+                  <th>Color</th>
+                  <th>Type</th>
+                  <th>Image</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <?php
+                foreach ($allDecors as $dec) { ?>
+                  <tr>
+                    <td><?php echo $dec['decorName'] ?></td>
+                    <td><?php echo $dec['color'] ?></td>
+                    <td><?php echo $dec['decorType'] ?></td>
+                    <td>
+                      <?php
+                      if (!empty($decortypesmap)) {
+                        foreach ($decortypesmap as $dtm) {
+                          $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
+                          foreach ($files as $f) {
+                            $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
+                            if ($f_no_extension === $dec['decorsID']) { ?>
+                              <div class="thumbnail">
+                                <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
+                              </div>
+                              <?php     
+                            }
+                          }
+                        }
+                      }else{
+                        echo "No image";
+                      }
+                      ?>
+                    </td>
+                    <td><button type="submit" name="addExstDecor" class="btn btn-sm btn-primary" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
+                  </tr>
+                <?php  } ?>
+
+              </tbody> 
+            </table>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- add existing an decor to the event -->
-        <form role="form" method="post" action="<?php echo base_url('events/addExstEventDec') ?>">
-        <div class="modal fade" id="addExstDecorModal" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Existing Decor</h4>
-              </div>
-              <div class="modal-body">
-                <div class="box-body">
-                  <table id="exstDecors" class="table table-bordered text-center">
-                    <thead>
-                      <tr>
-                        <th>Decor Name</th>
-                        <th>Color</th>
-                        <th>Type</th>
-                        <th>Image</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      
-                      <?php
-                        foreach ($allDecors as $dec) { ?>
-                        <tr>
-                          <td><?php echo $dec['decorName'] ?></td>
-                          <td><?php echo $dec['color'] ?></td>
-                          <td><?php echo $dec['decorType'] ?></td>
-                          <td>
-                            <?php
-                            if (!empty($decortypesmap)) {
-                              foreach ($decortypesmap as $dtm) {
-                                $files = directory_map('./uploads/decors/' . $dtm . '/', 1);
-                                foreach ($files as $f) {
-                                  $f_no_extension = pathinfo($f, PATHINFO_FILENAME);
-                                  if ($f_no_extension === $dec['decorsID']) { ?>
-                                    <div class="thumbnail">
-                                      <img src="<?php echo site_url('./uploads/decors/' . $dtm . '/' . $f); ?>" alt="" class="galleryImg">
-                                    </div>
-                            <?php     
-                                  }
-                                }
-                              }
-                            }else{
-                              echo "No image";
-                            }
-                            ?>
-                          </td>
-                          <td><button type="submit" name="addExstDecor" class="btn btn-sm btn-primary" value="<?php echo $dec['decorsID'] ?>">Choose</button></td>
-                        </tr>
-                      <?php  } ?>
-                      
-                    </tbody> 
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
- 
-      </form>
-      </section>  
-      <!-- /.content-wrapper -->
+  </form>
+</section>  
+<!-- /.content-wrapper -->
 
   <!-- Add the sidebar's background. This div must be placed
     immediately after the control sidebar -->
@@ -436,7 +445,7 @@ input[type=submit] {
 }
 </style>
 <script>
-$(document).ready(function(){
+  $(document).ready(function(){
     $('[data-toggle="popover"]').popover();   
-});
+  });
 </script>
