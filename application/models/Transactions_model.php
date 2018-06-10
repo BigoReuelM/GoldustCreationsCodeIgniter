@@ -264,7 +264,8 @@
 		public function addServcs($tID, $svcid){
 			$data = array(
 				'transactionID' => $tID,
-				'serviceID' => $svcid
+				'serviceID' => $svcid,
+				'quantity' => 1
 			);
 			$this->db->insert('transactiondetails', $data);
 		}

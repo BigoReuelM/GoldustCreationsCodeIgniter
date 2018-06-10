@@ -357,9 +357,27 @@ input[type=text], [type=number], select, textarea {
                   </div>
                 </div>
                 <div class="col-md-offset-2 col-md-4">
-                  <div class="form-group">
+                  <div class="input-group">
                     <label>Role</label>
-                    <input type="text" name="new_ent_role" id="new_ent_role" class="form-control">
+                    <input type="text" name="new_ent_role" id="new_ent_role" class="form-control"> 
+                    <select name="new_ent_role" id="new_ent_role" class="form-control">
+                      <option hidden selected disabled>Choose Role</option>
+                      <option value="Best Man">Best Man</option>
+                      <option value="Bride">Bride</option>
+                      <option value="Ring Bearer">Ring Bearer</option>
+                      <option value="Flower Girl">Flower Girl</option>
+                      <option value="Brides Maid">Brides Maide</option>
+                      <option value="Grooms Men">Grooms Men</option>
+                    </select>
+                    <!--<div class="input-group-btn">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action<span class="caret"></span></button>
+                      <ul class="dropdown-menu" role="menu">
+                        <li>1</li>
+                        <li>2</li>
+                      </ul>
+                    </div>
+                    <input type="text" name="" class="form-control">
+                    <span class="input-group-btn" type="button">Go</span>-->
                   </div>
                 </div>
               </div>

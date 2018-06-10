@@ -650,7 +650,8 @@
 		public function addServcs($eID, $svcid){
 			$data = array(
 				'eventID' => $eID,
-				'serviceID' => $svcid
+				'serviceID' => $svcid,
+				'quantity' => 1
 			);
 			if($this->db->insert('eventservices', $data)){
 				return true;
@@ -1039,7 +1040,8 @@
 		public function addNewEventDecor($eventID, $decID){
 			$data = array(
 				'eventID' => $eventID,
-				'decorID' => $decID
+				'decorID' => $decID,
+				'quantity' => 1
 			);
 			$this->db->insert('eventdecors', $data);
 		}
@@ -1047,7 +1049,8 @@
 		public function addNewEventDesign($eventID, $desID){
 			$data = array(
 				'eventID' => $eventID,
-				'designID' => $desID
+				'designID' => $desID,
+				'quantity' => 1
 			);
 			$this->db->insert('eventdesigns', $data);
 		}
