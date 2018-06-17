@@ -143,7 +143,7 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">Duration(days)</label>
                 <div class="col-lg-9">
-                  <input type="number" id="eventDuration" name="eventDuration" class="form-control">
+                  <input type="number" id="eventDuration" name="eventDuration" class="form-control" min="1" value="1">
                 </div>
               </div>
               <input type="text" id="clientID" name="clientID" hidden>

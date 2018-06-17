@@ -36,7 +36,7 @@
                 <div class="icon">
                   <i class="ion ion-bowtie"></i>
                 </div>
-                <a href="<?php echo base_url('transactions/ongoing_rentals') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url('items/ongoing_rentals') ?>" class="small-box-footer">More Info<i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
           </div>
