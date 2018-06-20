@@ -13,6 +13,12 @@
 .popover{
   max-width: 30%;
 }
+th {
+  text-align: center;
+}
+.tblnum {
+    text-align: right;
+}
 </style>
 
 <section class="content-header">
@@ -63,7 +69,7 @@
                               <td>
                                 <div class="checkbox"><label><input type="checkbox" name="add_staff_chkbox[]" value="<?php echo $allStaff[$j]['employeeID'] ?>" multiple><?php echo $allStaff[$j]['employeeName'] ?></label></div>
                               </td>
-                              <td><?php echo $allStaff[$j]['contactNumber'] ?></td>
+                              <td class="tblnum"><?php echo $allStaff[$j]['contactNumber'] ?></td>
                               <td><?php echo $allStaff[$j]['role'] ?></td>
                             </tr>
                           <?php }else{
@@ -125,12 +131,18 @@
                               <input type="text" name="staffRole" placeholder="<?php echo $staff['employeeRole']; ?>" class="form-control">
                             <?php } ?>
                           </td>
-                          <td><?php echo $staff['contactNumber']; ?></td>
+                          <td class="tblnum"><?php echo $staff['contactNumber']; ?></td>
                           <?php if ($eventStatus === 'on-going' || $eventStatus === 'new'): ?>
                             <td>
                               <input type="hidden" name="svcstaffid" value="<?php echo $svcstaff ?>">
-                              <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
-                              <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="fa fa-remove"></i></button>
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <button class="btn btn-link" id="evtstaffdlt" name="btn" type="submit" value="rmv"> Remove <i class="fa fa-remove"></i></button>
+                                </div>
+                                <div class="col-md-6">
+                                  <button class="btn btn-link" id="svcstfid" name="btn" type="submit" value="updt"> Update <i class="glyphicon glyphicon-edit"></i></button>
+                                </div>
+                              </div>
                             </td>
                           <?php endif ?>
                         </form>

@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php 
   
   $empRole = $this->session->userdata('role');
@@ -41,14 +49,14 @@
                   
                   <tr>
                     <td><?php echo $ftransac['clientName']; ?></td>
-                    <td><?php echo $ftransac['contactNumber']; ?></td>
-                    <td>
+                    <td class="tblnum"><?php echo $ftransac['contactNumber']; ?></td>
+                    <td class="tblnum">
                       <?php
                         $trasacAmountReformated = number_format($ftransac['totalAmount'], 2); 
                         echo $trasacAmountReformated; 
                       ?>
                     </td>
-                    <td><p>to be added to data base</p></td>
+                    <td class="tblnum"><p>to be added to data base</p></td>
                     <td>
 
                       <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">

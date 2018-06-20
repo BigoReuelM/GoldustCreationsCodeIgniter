@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>  
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -35,7 +43,7 @@
                       <td><?php echo $appointment['employeeName'] ?></td>  
                     <?php endif ?>
                     <td><?php echo $appointment['clientName'] ?></td>
-                    <td><?php echo $appointment['appointmentDateAndTime'] ?></tr>
+                    <td class="tblnum"><?php echo $appointment['appointmentDateAndTime'] ?></tr>
                   <?php endforeach ?>
                 </tr>
               </tbody>

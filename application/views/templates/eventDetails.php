@@ -15,6 +15,9 @@ $empRole = $this->session->userdata('role');
 .popover{
   max-width: 30%;
 }
+.tblnum {
+    text-align: right;
+}
 </style>
 
 <section class="content-header">

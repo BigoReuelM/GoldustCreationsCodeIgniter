@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php
 $selectedDate = $this->session->userdata('selectedDate');
 $selectedMnthYr = $this->session->userdata('selectedMnthYr');
@@ -31,7 +39,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="dailyrevenue">
+                  <table class="table table-bordered table-hover" id="dailyrevenue">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -52,10 +60,10 @@ $selectedYr = $this->session->userdata('selectedYr');
                             ?>
                             <tr>
                               <td><?php echo $p['clientName']; ?></td>
-                              <td><?php echo $p['date']; ?></td>
-                              <td><?php echo $p['time']; ?></td>
+                              <td class="tblnum"><?php echo $p['date']; ?></td>
+                              <td class="tblnum"><?php echo $p['time']; ?></td>
                               <td><?php echo $p['receiverName']; ?></td>
-                              <td><?php echo $p['amount']; ?></td>
+                              <td class="tblnum"><?php echo $p['amount']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -75,7 +83,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="dailyexpenses">
+                  <table class="table table-bordered table-hover" id="dailyexpenses">
                     <thead>
                       <tr>
                         <th>Employee Name</th>
@@ -97,9 +105,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $x['employeeName']; ?></td>
                               <td><?php echo $x['expensesName']; ?></td>
-                              <td><?php echo $x['expensesAmount']; ?></td>
-                              <td><?php echo $x['expenseDate']; ?></td>
-                              <td><?php echo $x['receiptNum']; ?></td>
+                              <td class="tblnum"><?php echo $x['expensesAmount']; ?></td>
+                              <td class="tblnum"><?php echo $x['expenseDate']; ?></td>
+                              <td class="tblnum"><?php echo $x['receiptNum']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -119,7 +127,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allEventRefundsDaily">
+                  <table class="table table-bordered table-hover" id="allEventRefundsDaily">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -141,9 +149,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $er['clientName']; ?></td>
                               <td><?php echo $er['eventName']; ?></td>
-                              <td><?php echo $er['cancelledDate']; ?></td>
-                              <td><?php echo $er['refundedAmount']; ?></td>
-                              <td><?php echo $er['refundedDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -161,7 +169,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allTransacRefundsDaily">
+                  <table class="table table-bordered table-hover" id="allTransacRefundsDaily">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -180,8 +188,8 @@ $selectedYr = $this->session->userdata('selectedYr');
                             ?>
                             <tr>
                               <td><?php echo $tr['clientName']; ?></td>
-                              <td><?php echo $tr['cancelledDate']; ?></td>
-                              <td><?php echo $tr['refundAmt']; ?></td>
+                              <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -252,7 +260,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="monthlyrevenue">
+                  <table class="table table-bordered table-hover" id="monthlyrevenue">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -276,10 +284,10 @@ $selectedYr = $this->session->userdata('selectedYr');
                             ?>
                             <tr>
                               <td><?php echo $p['clientName']; ?></td>
-                              <td><?php echo $p['date']; ?></td>
-                              <td><?php echo $p['time']; ?></td>
+                              <td class="tblnum"><?php echo $p['date']; ?></td>
+                              <td class="tblnum"><?php echo $p['time']; ?></td>
                               <td><?php echo $p['receiverName']; ?></td>
-                              <td><?php echo $p['amount']; ?></td>
+                              <td class="tblnum"><?php echo $p['amount']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -299,7 +307,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="monthlyexpenses">
+                  <table class="table table-bordered table-hover" id="monthlyexpenses">
                     <thead>
                       <tr>
                         <th>Employee Name</th>
@@ -322,9 +330,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $x['employeeName']; ?></td>
                               <td><?php echo $x['expensesName']; ?></td>
-                              <td><?php echo $x['expensesAmount']; ?></td>
-                              <td><?php echo $x['expenseDate']; ?></td>
-                              <td><?php echo $x['receiptNum']; ?></td>
+                              <td class="tblnum"><?php echo $x['expensesAmount']; ?></td>
+                              <td class="tblnum"><?php echo $x['expenseDate']; ?></td>
+                              <td class="tblnum"><?php echo $x['receiptNum']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -344,7 +352,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allEventRefundsMonthly">
+                  <table class="table table-bordered table-hover" id="allEventRefundsMonthly">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -369,9 +377,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $er['clientName']; ?></td>
                               <td><?php echo $er['eventName']; ?></td>
-                              <td><?php echo $er['cancelledDate']; ?></td>
-                              <td><?php echo $er['refundedAmount']; ?></td>
-                              <td><?php echo $er['refundedDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -389,7 +397,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allTransacRefundsMonthly">
+                  <table class="table table-bordered table-hover" id="allTransacRefundsMonthly">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -411,8 +419,8 @@ $selectedYr = $this->session->userdata('selectedYr');
                                 ?>
                             <tr>
                               <td><?php echo $tr['clientName']; ?></td>
-                              <td><?php echo $tr['cancelledDate']; ?></td>
-                              <td><?php echo $tr['refundAmt']; ?></td>
+                              <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -482,7 +490,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="annualrevenue">
+                  <table class="table table-bordered table-hover" id="annualrevenue">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -503,10 +511,10 @@ $selectedYr = $this->session->userdata('selectedYr');
                             ?>
                             <tr>
                               <td><?php echo $p['clientName']; ?></td>
-                              <td><?php echo $p['date']; ?></td>
-                              <td><?php echo $p['time']; ?></td>
+                              <td class="tblnum"><?php echo $p['date']; ?></td>
+                              <td class="tblnum"><?php echo $p['time']; ?></td>
                               <td><?php echo $p['receiverName']; ?></td>
-                              <td><?php echo $p['amount']; ?></td>
+                              <td class="tblnum"><?php echo $p['amount']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -526,7 +534,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="annualexpenses">
+                  <table class="table table-bordered table-hover" id="annualexpenses">
                     <thead>
                       <tr>
                         <th>Employee Name</th>
@@ -548,9 +556,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $x['employeeName']; ?></td>
                               <td><?php echo $x['expensesName']; ?></td>
-                              <td><?php echo $x['expensesAmount']; ?></td>
-                              <td><?php echo $x['expenseDate']; ?></td>
-                              <td><?php echo $x['receiptNum']; ?></td>
+                              <td class="tblnum"><?php echo $x['expensesAmount']; ?></td>
+                              <td class="tblnum"><?php echo $x['expenseDate']; ?></td>
+                              <td class="tblnum"><?php echo $x['receiptNum']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -570,7 +578,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allEventRefundsAnnual">
+                  <table class="table table-bordered table-hover" id="allEventRefundsAnnual">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -591,9 +599,9 @@ $selectedYr = $this->session->userdata('selectedYr');
                             <tr>
                               <td><?php echo $er['clientName']; ?></td>
                               <td><?php echo $er['eventName']; ?></td>
-                              <td><?php echo $er['cancelledDate']; ?></td>
-                              <td><?php echo $er['refundedAmount']; ?></td>
-                              <td><?php echo $er['refundedDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                              <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                             </tr>
                           <?php  }
                         }
@@ -611,7 +619,7 @@ $selectedYr = $this->session->userdata('selectedYr');
               </div>
               <div class="box-body">
                 <div class="table table-responsive">
-                  <table class="table table-bordered table-hover text-center" id="allTransacRefundsAnnual">
+                  <table class="table table-bordered table-hover" id="allTransacRefundsAnnual">
                     <thead>
                       <tr>
                         <th>Client</th>
@@ -629,8 +637,8 @@ $selectedYr = $this->session->userdata('selectedYr');
                                 ?>
                             <tr>
                               <td><?php echo $tr['clientName']; ?></td>
-                              <td><?php echo $tr['cancelledDate']; ?></td>
-                              <td><?php echo $tr['refundAmt']; ?></td>
+                              <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                              <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                             </tr>
                           <?php  }
                         }

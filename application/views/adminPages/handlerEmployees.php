@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <!-- Content Wrapper. Contains page content -->
   <!-- jQuery 3 -->
   <script src="<?php echo base_url();?>/public/bower_components/jquery/dist/jquery.js"></script>
@@ -25,7 +33,6 @@
             <table id="handlerTable" class="table table-bordered table-condensed table-hover">
               <thead>
                 <tr>
-                  <th>Employee ID</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Contact Number</th>
@@ -40,10 +47,9 @@
                       $handlerID = $h['employeeID'];
                 ?>
                 <tr>
-                  <td><?php echo $h['employeeID'] ?></td>
                   <td><?php echo $h['employeeName'] ?></td>
                   <td><?php echo $h['email'] ?></td>
-                  <td><?php echo $h['contactNumber'] ?></td>
+                  <td class="tblnum"><?php echo $h['contactNumber'] ?></td>
                   <td>
                     <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post">
                       <input type="text" name="employeeID" value="<?php echo $handlerID ?>" hidden>

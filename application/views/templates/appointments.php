@@ -11,7 +11,13 @@
   }
   .popover{
     max-width: 30%;
-}
+  }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
     <section class="content-header">
       <h1>
@@ -43,7 +49,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="appointmentTable" class="table table-responsive table-bordered table-striped text-center">
+          <table id="appointmentTable" class="table table-responsive table-bordered table-striped">
             <thead>
             
             <tr>
@@ -60,7 +66,7 @@
               ?>
               <tr>
                 <td><?php echo $appointment['status'] ?></td>
-                <td>
+                <td class="tblnum">
                   <?php
                     $date = date_create($appointment['date']);
                     $newDate = date_format($date, "M-d-Y");

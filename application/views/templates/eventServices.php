@@ -13,6 +13,12 @@
 .popover{
   max-width: 30%;
 }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 <section class="content-header">
   <h1>
@@ -145,9 +151,9 @@
                               <?php
                               if ($eventStatus === "finished" || $eventStatus === "cancelled") {
                                 ?>
-                                <input class="form-control" type="number" min="0" name="svcqty" id="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>" disabled>
+                                <input class="form-control tblnum" type="number" min="0" name="svcqty" id="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>" disabled>
                               <?php } else { ?>
-                                <input class="form-control" type="number" min="0" name="svcqty" id="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
+                                <input class="form-control tblnum" type="number" min="0" name="svcqty" id="svcqty" style="border: none;" placeholder="<?php echo $avlSvc['quantity'] ?>">
                               <?php } ?>
                               <?php echo validation_errors('<div class="alert alert-danger">', '</div>') ?>
                             </div>
@@ -161,9 +167,9 @@
                               <?php
                                 if ($eventStatus === "finished" || $eventStatus === "cancelled") {
                               ?>
-                                <input class="form-control" type="number" min="0" name="svcamt" id="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>" disabled>
+                                <input class="form-control tblnum" type="number" min="0" name="svcamt" id="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>" disabled>
                             <?php } else {?>
-                              <input class="form-control" type="number" min="0" name="svcamt" id="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
+                              <input class="form-control tblnum" type="number" min="0" name="svcamt" id="svcamt" style="border: none;" placeholder="<?php echo $serviceTotal ?>">
                             <?php }?>
                               <?php echo validation_errors('<div class="alert alert-danger">', '</div>') ?>
                             </div>

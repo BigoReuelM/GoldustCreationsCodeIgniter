@@ -1,4 +1,10 @@
-
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
   <!-- Content Header (Page header) -->
   <section class="content container-fluid">
@@ -32,14 +38,14 @@
                   foreach ($transAppointments as $appointment) {
               ?>
                 <tr>
-                  <td>
+                  <td class="tblnum">
                     <?php
                       $date = date_create($appointment['date']);
                       $newDate = date_format($date, "M-d-Y"); 
                       echo $newDate; 
                     ?>
                   </td>
-                  <td>
+                  <td class="tblnum">
                     <?php
                       $newTime = date("g:i a", strtotime($appointment['time']));
                       echo $newTime;  
@@ -83,7 +89,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Agenda</label>
               <div class="col-sm-10">
-                <textarea class="form-control" id="agenda" name="agenda" rows="5" placeholder="Enter Agenda..." name="agenda"></textarea>
+                <textarea class="form-control" id="agenda" name="agenda" rows="5" placeholder="Enter Agenda..." name="agenda" style="resize: vertical;"></textarea>
               </div>
             </div>
             <div class="form-group">

@@ -1,4 +1,11 @@
-
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -10,7 +17,7 @@
           <div class="well">
             <div class="form-group">
               <label for="">Total Expenses:</label>
-              <input type="text" placeholder=" <?php echo number_format($totalExpenses, 2) ?>" class="form-control" disabled="">
+              <input type="text" placeholder=" <?php echo number_format($totalExpenses, 2) ?>" class="form-control tblnum" disabled="">
             </div>
           </div>
           <div class="well">
@@ -92,14 +99,14 @@
                     ?>
                     <tr>
                       <td><?php  echo $expense['employeeName']; ?></td>
-                      <td>
+                      <td class="tblnum">
                         <?php
                           $formatedExpenseAmount = number_format($expense['expensesAmount'], 2);  
                           echo $formatedExpenseAmount; 
                         ?>
                       </td>
                       <td><?php  echo $expense['expensesName']; ?></td>
-                      <td>
+                      <td class="tblnum">
                         <?php
                           $date = date_create($expense['expenseDate']); 
                           $formatedExpenseDate = date_format($date, "M-d-Y"); 

@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <!-- Content Wrapper. Contains page content -->
   <!-- jQuery 3 -->
 
@@ -21,7 +29,6 @@
             <table id="adminTable" class="table table-bordered table-condensed table-hover">
               <thead>
                 <tr>
-                  <th>Employee ID</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Contact Number</th>
@@ -35,10 +42,9 @@
                       $adminID = $a['employeeID'];
                 ?>
                 <tr>
-                  <td><?php echo $a['employeeID'] ?></td>
                   <td><?php echo $a['employeeName'] ?></td>
                   <td><?php echo $a['email'] ?></td>
-                  <td><?php echo $a['contactNumber'] ?></td>
+                  <td class="tblnum"><?php echo $a['contactNumber'] ?></td>
                   <td>                   
                     <form role="form" action="<?php echo base_url('admin/setPersonnelID') ?>" method="post" autocomplete="off">
                       <input type="text" name="employeeID" value="<?php echo $adminID ?>" hidden>

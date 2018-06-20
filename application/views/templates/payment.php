@@ -1,3 +1,12 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
+
 <?php
   $empRole = $this->session->userdata('role');
   $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
@@ -76,13 +85,13 @@
                   <tr>
                     <td><?php echo $clientName->clientName; ?></td>
                     <td><?php echo $payment['employeeName'] ?></td>
-                    <td>
+                    <td class="tblnum">
                       <?php 
                         $amount = number_format($payment['amount'], 2);
                         echo $amount;
                       ?>
                     </td>
-                    <td>
+                    <td class="tblnum">
                       <?php
                         $date = date_create($payment['date']);
                         $newDate = date_format($date, "M-d-Y");

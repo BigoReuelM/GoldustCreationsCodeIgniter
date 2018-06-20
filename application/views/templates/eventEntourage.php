@@ -1,6 +1,10 @@
 <style type="text/css">
-
-
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 input[type=submit] {
   background-color: #4CAF50;
   color: white;
@@ -18,7 +22,6 @@ input[type=text], [type=number], select, textarea {
   border-radius: 4px;
   resize: vertical;
   background-color: #E6E6E6;
-  text-align: center;
 }
 
 #butt5 {
@@ -67,7 +70,7 @@ input[type=text], [type=number], select, textarea {
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-      <table id="designTable" class="table table-bordered table-striped text-center">
+      <table id="designTable" class="table table-bordered table-striped">
         <thead>
           <tr>
             <th>Name</th>
@@ -92,11 +95,11 @@ input[type=text], [type=number], select, textarea {
                     <?php 
                     if ($eventStatus->eventStatus === "finished" || $eventStatus->eventStatus === "cancelled"){ ?>
                       <div class="col-md-12">
-                        <input type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" min="0" disabled>
+                        <input class="form-control tblnum" type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" min="0" disabled>
                       </div>
                     <?php } else { ?>
                       <div class="col-md-6">
-                        <input type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" min="0">
+                        <input class="form-control tblnum" type="number" name="design_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" min="0">
                       </div>
                     <?php } ?>
                     <?php if ($eventStatus->eventStatus === "on-going"): ?>
@@ -171,7 +174,7 @@ input[type=text], [type=number], select, textarea {
   </div>
   <!-- /.box-header -->
   <div class="box-body">
-    <table id="entourageTable" class="table table-bordered table-striped text-center">
+    <table id="entourageTable" class="table table-bordered table-striped">
       <thead>
         <tr>
           <th>Name</th>

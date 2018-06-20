@@ -3,6 +3,12 @@
   height: 500px;
   overflow: scroll;
 }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 <section class="content container-fluid">
   <div class="row">
@@ -135,9 +141,9 @@
                       <?php 
                       if ($transactionStatus === "finished" || $transactionStatus === "cancelled") {
                         ?>
-                        <input class="form-control" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>" disabled>
+                        <input class="form-control tblnum" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>" disabled>
                       <?php } else { ?>
-                        <input class="form-control" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>">
+                        <input class="form-control tblnum" id="serviceQuantity" name="serviceQuantity" type="number" min="0" placeholder="<?php echo $service['quantity'] ?>">
                       <?php } ?>
                     </td>
                     <td>
@@ -147,9 +153,9 @@
                       <?php 
                       if ($transactionStatus === "finished" || $transactionStatus === "cancelled") {
                         ?>
-                        <input class="form-control" id="serviceAmount" name="serviceAmount" type="number" min="0" placeholder="<?php echo $formatedServiceAmount ?>" disabled>
+                        <input class="form-control tblnum" id="serviceAmount" name="serviceAmount" type="number" min="0" placeholder="<?php echo $formatedServiceAmount ?>" disabled>
                       <?php } else { ?>
-                        <input class="form-control" id="serviceAmount" name="serviceAmount" type="number" min="0" placeholder="<?php echo $formatedServiceAmount ?>">
+                        <input class="form-control tblnum" id="serviceAmount" name="serviceAmount" type="number" min="0" placeholder="<?php echo $formatedServiceAmount ?>">
                       <?php } ?>
                     </td>
                     <?php if ($transactionStatus === "on-going"): ?>

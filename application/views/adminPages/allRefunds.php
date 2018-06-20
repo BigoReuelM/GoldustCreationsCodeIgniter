@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php
   $selectedDate = $this->session->userdata('selectedDate');
   $selectedMnthYr = $this->session->userdata('selectedMnthYr');
@@ -31,7 +39,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allEventRefundsDaily">
+                    <table class="table table-bordered table-hover" id="allEventRefundsDaily">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -55,9 +63,9 @@
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
                                   <td><?php echo $er['eventName']; ?></td>
-                                  <td><?php echo $er['cancelledDate']; ?></td>
-                                  <td><?php echo $er['refundedAmount']; ?></td>
-                                  <td><?php echo $er['refundedDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -77,7 +85,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsDaily">
+                    <table class="table table-bordered table-hover" id="allTransacRefundsDaily">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -97,8 +105,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
-                                  <td><?php echo $tr['cancelledDate']; ?></td>
-                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -156,7 +164,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allEventRefundsMonthly">
+                    <table class="table table-bordered table-hover" id="allEventRefundsMonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -183,9 +191,9 @@
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
                                   <td><?php echo $er['eventName']; ?></td>
-                                  <td><?php echo $er['cancelledDate']; ?></td>
-                                  <td><?php echo $er['refundedAmount']; ?></td>
-                                  <td><?php echo $er['refundedDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -205,7 +213,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsMonthly">
+                    <table class="table table-bordered table-hover" id="allTransacRefundsMonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -228,8 +236,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
-                                  <td><?php echo $tr['cancelledDate']; ?></td>
-                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -286,7 +294,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allEventRefundsAnnual">
+                    <table class="table table-bordered table-hover" id="allEventRefundsAnnual">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -310,9 +318,9 @@
                                 <tr>
                                   <td><?php echo $er['clientName']; ?></td>
                                   <td><?php echo $er['eventName']; ?></td>
-                                  <td><?php echo $er['cancelledDate']; ?></td>
-                                  <td><?php echo $er['refundedAmount']; ?></td>
-                                  <td><?php echo $er['refundedDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedAmount']; ?></td>
+                                  <td class="tblnum"><?php echo $er['refundedDate']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -332,7 +340,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allTransacRefundsAnnual">
+                    <table class="table table-bordered table-hover" id="allTransacRefundsAnnual">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -352,8 +360,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $tr['clientName']; ?></td>
-                                  <td><?php echo $tr['cancelledDate']; ?></td>
-                                  <td><?php echo $tr['refundAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['cancelledDate']; ?></td>
+                                  <td class="tblnum"><?php echo $tr['refundAmt']; ?></td>
                                 </tr>
                             <?php  }
                               }

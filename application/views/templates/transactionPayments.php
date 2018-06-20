@@ -1,4 +1,11 @@
-
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
   <section class="content container-fluid">
     <div class="box">
       <div class="box-header with-border">
@@ -29,7 +36,7 @@
             ?>
               <tr>
                 <td><?php echo $payment['employeeName'] ?></td>
-                <td>
+                <td class="tblnum">
                   <?php
                     $date = date_create($payment['date']);
                     $newDate = date_format($date, "M-d-Y");
@@ -37,7 +44,7 @@
                     echo $newDate . " at " . $newTime; 
                   ?>
                 </td>
-                <td>
+                <td class="tblnum">
                   <?php 
                     $formatedPaymentAmount = number_format($payment['amount'], 2);
                     echo $formatedPaymentAmount; 
@@ -106,13 +113,13 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Date Payed</label>
+              <label class="col-lg-3 control-label">Date Paid</label>
               <div class="col-lg-9">
                 <input type="date" class="form-control" name="date" id="date"value="<?php echo $currentDate ?>">
               </div>            
             </div>
             <div class="form-group">
-              <label class="col-lg-3 control-label">Time Payed</label>
+              <label class="col-lg-3 control-label">Time Paid</label>
               <div class="col-lg-9">
                 <input type="time" class="form-control" name="time" id="time" value="<?php echo $currentTime ?>">
               </div>            

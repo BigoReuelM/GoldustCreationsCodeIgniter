@@ -11,6 +11,12 @@
   #butt5 {
     border-width: 2px;
   }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 
     <section class="content-header">
@@ -27,7 +33,7 @@
     <div class="box">
         <div class="box-body">
             <div  class="table table-responsive">
-              <table id ="eventTable" class="table table-bordered table-condensed table-hover text-center">
+              <table id ="eventTable" class="table table-bordered table-condensed table-hover">
                 <thead>
                   <tr>
                     <th>Event Name</th>
@@ -54,7 +60,7 @@
                       <td><?php echo $event['clientName']; ?></td>
                       <td><?php echo $event['eventType']; ?></td>
                       <td><?php echo $event['packageType']; ?></td>
-                      <td>
+                      <td class="tblnum">
                         <?php
                           if (!$event['eventDate'] == null || !$event['eventTime'] == null) {
                             $date = date_create($event['eventDate']);

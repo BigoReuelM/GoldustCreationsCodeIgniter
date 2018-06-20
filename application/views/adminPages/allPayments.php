@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php
   $selectedDate = $this->session->userdata('selectedDate');
   $selectedMnthYr = $this->session->userdata('selectedMnthYr');
@@ -31,7 +39,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allPayments">
+                    <table class="table table-bordered table-hover" id="allPayments">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -52,10 +60,10 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName']; ?></td>
-                                  <td><?php echo $p['date']; ?></td>
-                                  <td><?php echo $p['time']; ?></td>
+                                  <td class="tblnum"><?php echo $p['date']; ?></td>
+                                  <td class="tblnum"><?php echo $p['time']; ?></td>
                                   <td><?php echo $p['receiverName']; ?></td>
-                                  <td><?php echo $p['amount']; ?></td>
+                                  <td class="tblnum"><?php echo $p['amount']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -108,7 +116,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allpaymentsmonthly">
+                    <table class="table table-bordered table-hover" id="allpaymentsmonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -131,10 +139,10 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
-                                  <td><?php echo $p['date'] ?></td>
-                                  <td><?php echo $p['time'] ?></td>
+                                  <td class="tblnum"><?php echo $p['date'] ?></td>
+                                  <td class="tblnum"><?php echo $p['time'] ?></td>
                                   <td><?php echo $p['receiverName'] ?></td>
-                                  <td><?php echo $p['amount'] ?></td>
+                                  <td class="tblnum"><?php echo $p['amount'] ?></td>
                                 </tr>
                             <?php  }
                             }
@@ -182,7 +190,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allpaymentsannual">
+                    <table class="table table-bordered table-hover" id="allpaymentsannual">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -202,10 +210,10 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $p['clientName'] ?></td>
-                                  <td><?php echo $p['date'] ?></td>
-                                  <td><?php echo $p['time'] ?></td>
+                                  <td class="tblnum"><?php echo $p['date'] ?></td>
+                                  <td class="tblnum"><?php echo $p['time'] ?></td>
                                   <td><?php echo $p['receiverName'] ?></td>
-                                  <td><?php echo $p['amount'] ?></td>
+                                  <td class="tblnum"><?php echo $p['amount'] ?></td>
                                 </tr>
                             <?php  }
                             }

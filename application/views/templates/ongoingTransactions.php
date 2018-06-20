@@ -1,9 +1,16 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
+
 <?php 
   
   $empRole = $this->session->userdata('role');
  ?>
-
-
     <!-- Content Header (Page header) -->
     <section class="content-header">
      <h1>
@@ -39,14 +46,14 @@
                     
                     <tr>
                       <td><?php echo $transac['clientName']; ?></td>
-                      <td><?php echo $transac['contactNumber']; ?></td>
-                      <td>
+                      <td class="tblnum"><?php echo $transac['contactNumber']; ?></td>
+                      <td class="tblnum">
                         <?php
                           $transacAmountReformated = number_format($transac['totalAmount'], 2);
                           echo $transacAmountReformated; 
                         ?>
                       </td>
-                      <td>
+                      <td class="tblnum">
                         <?php
                           $date = date_create($transac['dateAvail']);
                           $newDate = date_format($date, "M-d-Y");

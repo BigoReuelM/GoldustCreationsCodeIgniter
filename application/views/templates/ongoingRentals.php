@@ -1,4 +1,11 @@
-
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -29,7 +36,7 @@
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
-                        <table class="table table-bordered table-hover text-center" id="attireRentals">
+                        <table class="table table-bordered table-hover" id="attireRentals">
                           <thead>
                             <tr>
                               <th>Image</th>
@@ -46,7 +53,7 @@
                               <tr>
                                 <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $attireRental['designID'] . ',' . $attireRental['designType'] ?>" class="attireModalButton">view</button></td>
                                 <td><?php echo $attireRental['designName'] ?></td>
-                                <td><?php echo $attireRental['quantity'] ?></td>
+                                <td class="tblnum"><?php echo $attireRental['quantity'] ?></td>
                                 <td><?php echo $attireRental['clientName'] ?></td>
                                 <?php if ($empRole === "admin"): ?>
                                   <td><?php echo $attireRental['handlerName'] ?></td>
@@ -68,7 +75,7 @@
                     </div>
                     <div class="box-body">
                       <div class="table table-responsive">
-                        <table class="table table-bordered table-hover text-center" id="itemRentals">
+                        <table class="table table-bordered table-hover" id="itemRentals">
                           <thead>
                             <tr>
                               <th>Image</th>
@@ -85,7 +92,7 @@
                               <tr>
                                 <td><button type="button" data-toggle="modal" data-target="#photoView" value="<?php echo $itemRental['decorID'] . ',' . $itemRental['decorType'] ?>" class="itemModalButton">view</button></td>
                                 <td><?php echo $itemRental['decorName'] ?></td>
-                                <td><?php echo $itemRental['quantity'] ?></td>
+                                <td class="tblnum"><?php echo $itemRental['quantity'] ?></td>
                                 <td><?php echo $itemRental['clientName'] ?></td>
                                 <?php if ($empRole === "admin"): ?>
                                   <td><?php echo $itemRental['handlerName'] ?></td>

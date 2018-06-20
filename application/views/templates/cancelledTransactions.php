@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php 
   
   $empRole = $this->session->userdata('role');
@@ -41,14 +49,14 @@
                       
                       <tr>
                         <td><?php echo $ctransac['clientName']; ?></td>
-                        <td><?php echo $ctransac['contactNumber']; ?></td>
-                        <td>
+                        <td class="tblnum"><?php echo $ctransac['contactNumber']; ?></td>
+                        <td class="tblnum">
                           <?php
                             $trasacAmountReformated = number_format($ctransac['totalAmount'], 2); 
                             echo $trasacAmountReformated; 
                           ?>
                         </td>
-                        <td>
+                        <td class="tblnum">
                           <!-- <?php
                             $date = date_create($ctransac['cancelledDate']);
                             $newDate = date_format($date, "M-d-Y");

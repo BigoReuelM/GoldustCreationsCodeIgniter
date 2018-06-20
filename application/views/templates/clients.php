@@ -11,7 +11,13 @@
   }
   .popover{
     max-width: 30%;
-}
+  }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 
   <!-- Content Wrapper. Contains page content -->
@@ -57,14 +63,14 @@
                 	?>
                 	<tr>
 	                    <td><?php echo $client['clientName'] ?></td>
-	                    <td>
+	                    <td class="tblnum">
                         <?php
                           $date = date_create($client['registrationDate']); 
                           $formatedDateAndTime = date_format($date, "M-d-Y");
                           echo $formatedDateAndTime ;
                         ?>
                       </td>
-	                    <td><?php echo $client['contactNumber'] ?></td>
+	                    <td class="tblnum"><?php echo $client['contactNumber'] ?></td>
 	                    <td>
                         <?php if ($this->session->userdata('role') === "admin"): ?>
                           <button class="btn btn-block btn-default addTransactionButton" data-toggle="modal" data-target="#addNewTransaction" value="<?php echo($cID . ',' . $client['clientName'])?>" >

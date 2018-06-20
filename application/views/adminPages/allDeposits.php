@@ -1,3 +1,11 @@
+<style type="text/css">
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
+</style>
 <?php
   $selectedDate = $this->session->userdata('selectedDate');
   $selectedMnthYr = $this->session->userdata('selectedMnthYr');
@@ -30,7 +38,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allDeposits">
+                    <table class="table table-bordered table-hover" id="allDeposits">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -54,8 +62,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
-                                  <td><?php echo $d['dateAvail']; ?></td>
-                                  <td>
+                                  <td class="tblnum"><?php echo $d['dateAvail']; ?></td>
+                                  <td class="tblnum">
                                     <?php 
                                     if (!empty($d['finishDate'])) {
                                       echo $d['finishDate']; 
@@ -67,7 +75,7 @@
                                   <td><?php echo $d['IDType']; ?></td>
                                   <td><?php echo $d['homeAddress']; ?></td>
                                   <td><?php echo $d['schoolyrsec']; ?></td>
-                                  <td><?php echo $d['depositAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $d['depositAmt']; ?></td>
                                 </tr>
                             <?php  }
                               }
@@ -120,7 +128,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allDepositsMonthly">
+                    <table class="table table-bordered table-hover" id="allDepositsMonthly">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -145,8 +153,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
-                                  <td><?php echo $d['dateAvail']; ?></td>
-                                  <td>
+                                  <td class="tblnum"><?php echo $d['dateAvail']; ?></td>
+                                  <td class="tblnum">
                                     <?php 
                                     if (!empty($d['finishDate'])) {
                                       echo $d['finishDate']; 
@@ -158,7 +166,7 @@
                                   <td><?php echo $d['IDType']; ?></td>
                                   <td><?php echo $d['homeAddress']; ?></td>
                                   <td><?php echo $d['schoolyrsec']; ?></td>
-                                  <td><?php echo $d['depositAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $d['depositAmt']; ?></td>
                                 </tr>
                             <?php  }
                             }
@@ -211,7 +219,7 @@
                 </div>
                 <div class="box-body">
                   <div class="table table-responsive">
-                    <table class="table table-bordered table-hover text-center" id="allDepositsAnnual">
+                    <table class="table table-bordered table-hover" id="allDepositsAnnual">
                       <thead>
                         <tr>
                           <th>Client</th>
@@ -235,8 +243,8 @@
                                 ?>
                                 <tr>
                                   <td><?php echo $d['fullname']; ?></td>
-                                  <td><?php echo $d['dateAvail']; ?></td>
-                                  <td>
+                                  <td class="tblnum"><?php echo $d['dateAvail']; ?></td>
+                                  <td class="tblnum">
                                     <?php 
                                     if (!empty($d['finishDate'])) {
                                       echo $d['finishDate']; 
@@ -248,7 +256,7 @@
                                   <td><?php echo $d['IDType']; ?></td>
                                   <td><?php echo $d['homeAddress']; ?></td>
                                   <td><?php echo $d['schoolyrsec']; ?></td>
-                                  <td><?php echo $d['depositAmt']; ?></td>
+                                  <td class="tblnum"><?php echo $d['depositAmt']; ?></td>
                                 </tr>
                             <?php  }
                               }

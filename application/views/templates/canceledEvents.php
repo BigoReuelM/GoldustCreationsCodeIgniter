@@ -8,6 +8,12 @@
   #butt5 {
     width:100px;
   }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 
     <section class="content-header">
@@ -21,7 +27,7 @@
           <div class="box">
             <div class="box-body">
                 <div  class="table table-responsive">
-                  <table id ="example1" class="table table-bordered table-condensed table-hover text-center">
+                  <table id ="example1" class="table table-bordered table-condensed table-hover">
                     <thead>
                       <tr>
                         <th>Event Name</th>
@@ -45,21 +51,21 @@
                           <td><?php echo $event['eventName']; ?></td>
                           <td><?php echo $event['clientName']; ?></td>
                           <td><?php echo $event['eventType']; ?></td>
-                          <td>
+                          <td class="tblnum">
                             <?php
                               $date = date_create($event['eventDate']);
                               $newDate = date_format($date, "M-d-Y"); 
                               echo $newDate; 
                             ?>
                           </td>
-                          <td>
+                          <td class="tblnum">
                             <?php
                               $date = date_create($event['cancelledDate']);
                               $newDate = date_format($date, "M-d-Y"); 
                               echo $newDate; 
                             ?>
                           </td>
-                          <td>
+                          <td class="tblnum">
                             <?php
                               $refundedAmountFormated = number_format($event['refundedAmount'], 2); 
                               echo $refundedAmountFormated; 

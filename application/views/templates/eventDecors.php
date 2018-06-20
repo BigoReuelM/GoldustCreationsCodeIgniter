@@ -33,14 +33,13 @@ $eventId = $this->session->userdata('currentEventID');
   resize: vertical;
   background-color: #E6E6E6;
 }
-#updtDecorIdForm input[type=text], select, textarea {
+#updtDecorIdForm input[type=number], select, textarea {
   width:100%;
   padding: 0.5em;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: vertical;
-  background-color: #E6E6E6;
-  text-align: center;
+  background-color: #E6E6E6;  
 }
 
 label {
@@ -115,6 +114,12 @@ input[type=submit] {
 .popover{
   max-width: 30%;
 }
+  th {
+    text-align: center;
+  }
+  .tblnum {
+    text-align: right;
+  }
 </style>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -161,7 +166,7 @@ input[type=submit] {
       </div>      
       <!-- /.box-header -->
       <div class="box-body">
-        <table id="decorsTable" class="table table-bordered table-responsive table-striped text-center">
+        <table id="decorsTable" class="table table-bordered table-responsive table-striped">
           <thead>
             <tr>
               <th>Decor Name</th>
@@ -187,11 +192,11 @@ input[type=submit] {
                         if ($eventStatus->eventStatus === "finished" || $eventStatus->eventStatus === "cancelled") {
                           ?>
                           <div class="col-md-12">
-                            <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control" disabled>
+                            <input type="number" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control tblnum" disabled>
                           </div>
                         <?php } else { ?>
                           <div class="col-md-6">
-                            <input type="text" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control">
+                            <input type="number" name="decor_qty" style="border: none;" placeholder="<?php echo $td['quantity']; ?>" class="form-control tblnum">
                           </div>
                         <?php }?>
                         
