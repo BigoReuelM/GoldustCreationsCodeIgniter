@@ -1,13 +1,9 @@
-
 <section class="content container-fluid">
   <div class="box box-info">
-
     <div class="row">
       <div class="col-lg-12">
         <nav class="navbar">
-          <div class="navbar-header">
-            <h3 class="box-title">Transaction Details</h3>
-          </div>
+  
           <div class="navbar-custom-menu pull-right">
             <ul class="nav navbar-nav">
               <li class="dropdown tasks-menu">
@@ -63,10 +59,6 @@
       echo form_open("transactions/updateTransactionDetails", $attributes);
       ?>
       <div class="well">
-        <div class="row">
-          <span><p><i class="fa fa-question"></i> Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
-          <hr>
-        </div>
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
