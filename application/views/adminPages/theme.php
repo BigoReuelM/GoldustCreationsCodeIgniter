@@ -1,3 +1,13 @@
+<style> .popover-title {
+  color: #3c8dbc;
+  font-size: 15px;
+}
+.popover-content {
+  font-size: 12px;
+}
+.popover{
+  max-width: 30%;
+} </style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -7,6 +17,11 @@
           <div class="col-md-9">
             <h3>Themes</h3>
           </div>
+          <section class="content-header">
+  <h1>
+    <div class="pull-right">
+      <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add New Theme</b> button to add themes. <b>Edit</b> button to alter specific theme."><i class="fa fa-question-circle-o"></i></a></div>
+    </h1></section>
         </div> 
         <div class="col-md-2 col-md-offset-10">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addthememodal">Add New Theme</button>
@@ -173,3 +188,8 @@
       });
     });
 </script>
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();   
+    });
+  </script>

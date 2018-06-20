@@ -1,7 +1,22 @@
 
+<style>
+.popover-title {
+  color: #3c8dbc;
+  font-size: 15px;
+}
+.popover-content {
+  font-size: 12px;
+}
+.popover{
+  max-width: 30%;
+}</style>
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
+    <div class="pull-right">
+          <h3><a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Expenses</b> button to add a record of expense."><i class="fa fa-question-circle-o"></i></a></h3>
+        </div>
   </section>
   <section class="content container-fluid">
     <div classs="content">
@@ -322,5 +337,10 @@
           }
         }
       });
+    });
+  </script>
+    <script>
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();   
     });
   </script>

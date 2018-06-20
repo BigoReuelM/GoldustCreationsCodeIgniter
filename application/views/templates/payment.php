@@ -2,6 +2,18 @@
   $empRole = $this->session->userdata('role');
   $empname = $this->session->userdata('firstName') . " " . $this->session->userdata('midName') . " " . $this->session->userdata('lastName');
 ?>
+<style>
+.popover-title {
+  color: #3c8dbc;
+  font-size: 15px;
+}
+.popover-content {
+  font-size: 12px;
+}
+.popover{
+  max-width: 30%;
+}
+</style>
 
 <section class="content-header">
   <h1>
@@ -10,7 +22,9 @@
       $name = $eventName->eventName; 
       echo '<b>' . $name . '</b>';    
     ?>
-  </h1>
+  <div class="pull-right">
+      <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply click on <b>Add Payments</b> button to add a record of payment."><i class="fa fa-question-circle-o"></i></a></div>
+    </h1>
 </section>
     <!-- Main content -->
     <section class="content container-fluid">
@@ -324,3 +338,9 @@
       });
     });
 </script>
+ 
+  <script>
+    $(document).ready(function(){
+      $('[data-toggle="popover"]').popover();   
+    });
+  </script>
