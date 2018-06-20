@@ -105,10 +105,6 @@
                 <div class="col-lg-7">
                   <h3 class="box-title">Services Availed</h3> 
                 </div>
-              </div>
-              <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply Add or Change value of input fields and click on <b>Update</b> button to make changes. <b>Remove</b> button to cancel a service.</p></span>       
-
-            </div>
             <div class="box-body">        
               <table id="serviceTable" class="table table-striped table-bordered table-responsive">
                 <thead>

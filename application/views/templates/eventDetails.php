@@ -25,7 +25,7 @@ $empRole = $this->session->userdata('role');
     echo '<b>' . $name . '</b>';    
     ?>
     <div class="pull-right">
-      <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply Add or Change value of input fields and click on <b>Update Details</b> button to make changes. <b>Choose Handler</b> dropdown button to choose desired handler. Click <b>Select Handler</b> button to successfully change the handler."><i class="fa fa-question-circle-o"></i></a></div>
+      <a href="#" data-toggle="popover" data-placement="left" data-trigger="focus" data-html="true" title="Tips:" data-content="Simply Add or Change value of input fields and click on <b>Update Details</b> button to make changes. <b>Choose Handler</b> dropdown button to choose desired handler. Click <b>Select Handler</b> button to successfully change the handler. Click <b>Action</b> Button for more Options."><i class="fa fa-question-circle-o"></i></a></div>
     </h1>
   </section>
 
@@ -154,10 +154,7 @@ $empRole = $this->session->userdata('role');
         <div class="col-lg-9 well">
 
           <form id="updateEventDetails" role="form" method="post" action="<?php echo base_url('events/updateEventDetails') ?>" autocomplete="off">
-            <div class="row">
-              <span><p class="text-info" style="font-size:12px;"><b class="fa fa-question-circle-o"></b>Simply change value of input fields and click on <b>Update Details</b> button to make changes.</p></span>
-              <hr>
-            </div>
+
             <div id="update-message">
 
             </div>
