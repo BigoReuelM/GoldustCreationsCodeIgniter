@@ -944,7 +944,7 @@ class Events extends CI_Controller
 			$btnval = html_escape($this->input->post('btn'));
 			$qty = html_escape($this->input->post('svcqty'));
 			$amt = html_escape($this->input->post('svcamt'));
-			$total = $this->events_model->getServiceTotal($eID);
+			//$total = $this->events_model->getServiceTotal($eID);
 
 			$data = array('success' => false, 'messages' => array());
 			$this->form_validation->set_rules('svcqty', 'Service Quantity', 'greater_than[0]');
@@ -957,10 +957,15 @@ class Events extends CI_Controller
 						$this->events_model->updateSvcQty($eID, $qty, $srvcID);
 					}
 					if (!empty($amt)) {
-						$this->events_model->updateSvcAmt($eID, $amt, $srvcID);			
+						$postAmount = $this->events_model->getServiceAmount($eID, $srvcID)->amount;
+						$postTotal = $this->events_model->totalAmount($eID)->totalAmount;
+						$preTotal = $postTotal - $postAmount;
+						$finalTotal = $preTotal + $amt;
+						$this->events_model->updateSvcAmt($eID, $amt, $srvcID);
+						$this->events_model->updateTotalAmount($finalTotal, $eID);		
 					}
 				}
-				$this->events_model->updateTotalAmount($total->total, $eID);
+				//$this->events_model->updateTotalAmount($total->total, $eID);
 				$data['success'] = true;
 				//echo "Success";
 			}else{
@@ -970,11 +975,14 @@ class Events extends CI_Controller
 			}
 
 			if ($btnval === "rmv") {
+				$postAmount = $this->events_model->getServiceAmount($eID, $srvcID)->amount;
+				$postTotal = $this->events_model->totalAmount($eID)->totalAmount;
+				$finalTotal = $postTotal - $postAmount;
+				$this->events_model->updateTotalAmount($finalTotal, $eID);
 				$this->events_model->deleteEvntSvc($srvcID, $eID);
 			}
 				
 			redirect('events/eventServices');
-			//echo json_encode($data);
 		}
 
 		public function updateEventDetails(){

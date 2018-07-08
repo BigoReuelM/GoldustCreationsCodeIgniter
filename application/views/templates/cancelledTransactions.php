@@ -56,14 +56,7 @@
                             echo $trasacAmountReformated; 
                           ?>
                         </td>
-                        <td class="tblnum">
-                          <!-- <?php
-                            $date = date_create($ctransac['cancelledDate']);
-                            $newDate = date_format($date, "M-d-Y");
-                            echo $newDate; 
-                          ?> -->
-                          <p>To be added</p>
-                        </td>
+                        <td class="tblnum"><?php echo $ctransac['cancelledDate'] ?></td>
                         <td>
 
                           <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">

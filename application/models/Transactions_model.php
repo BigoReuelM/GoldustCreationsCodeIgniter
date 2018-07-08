@@ -112,6 +112,17 @@
 			return $query->result_array();
 		}
 
+		public function getServiceAmount($tid, $sid){
+			$this->db->select('*');
+			$this->db->from('transactiondetails');
+			$this->db->where('transactionID', $tid);
+			$this->db->where('serviceID', $sid);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 		/**
 			Below is the code for updating transaction services
 

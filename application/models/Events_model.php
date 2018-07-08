@@ -180,6 +180,17 @@
 			return $query->result_array();
 		}
 
+		public function getServiceAmount($eid, $sid){
+			$this->db->select('*');
+			$this->db->from('eventservices');
+			$this->db->where('eventID', $eid);
+			$this->db->where('serviceID', $sid);
+
+			$query = $this->db->get();
+
+			return $query->row();
+		}
+
 		public function totalAmount($eID){
 			$query = $this->db->query("SELECT totalAmount 
 				from events

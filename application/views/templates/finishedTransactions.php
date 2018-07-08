@@ -56,7 +56,7 @@
                         echo $trasacAmountReformated; 
                       ?>
                     </td>
-                    <td class="tblnum"><p>to be added to data base</p></td>
+                    <td class="tblnum"><?php echo $ftransac['finishDate'] ?></td>
                     <td>
 
                       <form role="form" action="<?php echo base_url('transactions/setTransactionID') ?>" method="post">

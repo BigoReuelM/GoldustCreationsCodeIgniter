@@ -398,6 +398,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			
 			if ($action === "remove") {
+				
+				$postTotal = $this->transactions_model->totalAmount($tid)->totalAmount;
+				$postAmount = $this->transactions_model->getServiceAmount($tid, $serviceID)->amount;
+				$finalTotal = $postTotal - $postAmount;
+				$this->transactions_model->updateTotalAmount($tid, $finalTotal);
 				$this->transactions_model->removeService($tid, $serviceID);
 				$data['action'] = "remove";
 			}
@@ -408,14 +413,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					$this->transactions_model->updateQuantity($tid, $serviceID, $quantity);		
 				}
 				if (!empty($amount)) {
+					$postTotal = $this->transactions_model->totalAmount($tid)->totalAmount;
+					$postAmount = $this->transactions_model->getServiceAmount($tid, $serviceID)->amount;
+					$preTotal = $postTotal - $postAmount;
+					$finalTotal = $preTotal + $amount;
+					$this->transactions_model->updateTotalAmount($tid, $finalTotal);
 					$this->transactions_model->updateAmount($tid, $serviceID, $amount);
-
 				}
 			}
-			$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
-			$deposit = $this->transactions_model->getDepositAmount($tid);
-			$newTotal = $totalOfServices->total + $deposit->depositAmount;
-			$this->transactions_model->updateTotalAmount($tid, $newTotal);
+			//$totalOfServices = $this->transactions_model->totalAmountForServices($tid);
+			//$deposit = $this->transactions_model->getDepositAmount($tid);
+			//$newTotal = $totalOfServices->total + $deposit->depositAmount;
+			//$this->transactions_model->updateTotalAmount($tid, $newTotal);
 
 			redirect('transactions/transactionServices');
 
@@ -572,6 +581,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				$handler = htmlspecialchars($this->input->post('handler'));
 				$newTranID = $this->transactions_model->insertTransaction($clientID, $availDate, $availTime, $handler);
 				$this->session->set_userdata('currentTransactionID', $newTranID);
+				$this->session->set_userdata('clientID', $clientID);
 				$data['success'] = true;
 			}else{
 				foreach ($_POST as $key => $value) {
